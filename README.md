@@ -3,7 +3,7 @@ TP Clinica
 
 Integrantes:
 
-  -Hernán Maschwitz
-  -Jonathan Corallo
-  -Darío Cappe
-  -Julián Selser
+-Hernán Maschwitz
+-Jonathan Corallo
+-Darío Cappe
+-Julián Selser
