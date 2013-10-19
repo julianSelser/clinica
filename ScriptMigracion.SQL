@@ -209,12 +209,6 @@ CREATE TABLE CUATRO_QUESOS.Bonos_Farmacia (
 )
 ;
 
-CREATE TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados ( 
-	Cod_Plan numeric(18) NOT NULL,
-	Bono_Numero numeric(18) NOT NULL
-)
-;
-
 CREATE TABLE CUATRO_QUESOS.Cambios_Plan ( 
 	Nro_Afiliado numeric(18) NOT NULL,
 	Fecha datetime NOT NULL,
@@ -339,7 +333,8 @@ CREATE TABLE CUATRO_QUESOS.Turnos (
 CREATE TABLE CUATRO_QUESOS.Usuarios ( 
 	Username nvarchar(20) NOT NULL,
 	Password nvarchar(255) NOT NULL,
-	Intentos_Fallidos tinyint
+	Intentos_Fallidos tinyint,
+	Habilitado bit
 )
 ;
 
@@ -365,10 +360,6 @@ ALTER TABLE CUATRO_QUESOS.Bonos_Consulta ADD CONSTRAINT PK_Bonos_Consulta
 
 ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia ADD CONSTRAINT PK_Bonos_Farmacia 
 	PRIMARY KEY CLUSTERED (Bono_Numero)
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados ADD CONSTRAINT PK_Bonos_Planes_Habilitados 
-	PRIMARY KEY CLUSTERED (Cod_Plan, Bono_Numero)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan ADD CONSTRAINT PK_Cambios_Plan 
@@ -470,11 +461,6 @@ ALTER TABLE CUATRO_QUESOS.Bonos_Consulta ADD CONSTRAINT FK_Bonos_Consulta_Bonos
 ;
 
 ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia ADD CONSTRAINT FK_Bonos_Farmacia_Bonos 
-	FOREIGN KEY (Bono_Numero) REFERENCES CUATRO_QUESOS.Bonos (Numero)
-	ON UPDATE CASCADE
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados ADD CONSTRAINT FK_Bonos_Planes_Habilitados_Bonos 
 	FOREIGN KEY (Bono_Numero) REFERENCES CUATRO_QUESOS.Bonos (Numero)
 	ON UPDATE CASCADE
 ;
