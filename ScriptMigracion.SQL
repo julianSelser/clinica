@@ -273,7 +273,7 @@ CREATE TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta (
 	Id_Consulta numeric(18) NOT NULL,
 	Id_Medicamento numeric(18) NOT NULL,
 	Nro_Bono_Farmacia numeric(18) NOT NULL,
-	Cantidad bigint NOT NULL
+	Cantidad smallint NOT NULL
 )
 ;
 
@@ -439,6 +439,10 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Conyuge
 
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Titular 
 	FOREIGN KEY (Nro_Titular) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
+;
+
+ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Afiliado_Plan
+	FOREIGN KEY (Afiliado_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados 
