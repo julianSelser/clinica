@@ -56,6 +56,8 @@ ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Afiliados
 
 ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Bonos_Consulta
 
+ALTER TABLE CUATRO_QUESOS.Cancelaciones DROP CONSTRAINT FK_Cancelaciones_Turnos
+
 ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Medicos
 
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_Roles
@@ -68,6 +70,10 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_U
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Afiliados') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Afiliados
+;
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Cancelaciones') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE CUATRO_QUESOS.Cancelaciones
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
