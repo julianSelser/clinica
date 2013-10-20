@@ -24,10 +24,6 @@ ALTER TABLE CUATRO_QUESOS.Bonos_Consulta DROP CONSTRAINT FK_Bonos_Consulta_Bonos
 
 ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia DROP CONSTRAINT FK_Bonos_Farmacia_Bonos
 
-ALTER TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados DROP CONSTRAINT FK_Bonos_Planes_Habilitados_Bonos
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados DROP CONSTRAINT FK_Bonos_Planes_Habilitados_Planes_Medicos
-
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Afiliado
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Plan_Destino
@@ -86,9 +82,6 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bono
 DROP TABLE CUATRO_QUESOS.Bonos_Farmacia
 ;
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos_Planes_Habilitados') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados
-;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Cambios_Plan') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Cambios_Plan
@@ -442,7 +435,7 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Titular
 ;
 
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Afiliado_Plan
-	FOREIGN KEY (Afiliado_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
+	FOREIGN KEY (Cod_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados 
@@ -466,11 +459,6 @@ ALTER TABLE CUATRO_QUESOS.Bonos_Consulta ADD CONSTRAINT FK_Bonos_Consulta_Bonos
 
 ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia ADD CONSTRAINT FK_Bonos_Farmacia_Bonos 
 	FOREIGN KEY (Bono_Numero) REFERENCES CUATRO_QUESOS.Bonos (Numero)
-	ON UPDATE CASCADE
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Planes_Habilitados ADD CONSTRAINT FK_Bonos_Planes_Habilitados_Planes_Medicos 
-	FOREIGN KEY (Cod_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
 	ON UPDATE CASCADE
 ;
 
