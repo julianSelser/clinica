@@ -316,10 +316,18 @@ CREATE TABLE CUATRO_QUESOS.Tipos_Especialidades (
 
 CREATE TABLE CUATRO_QUESOS.Turnos ( 
 	Numero numeric(18) NOT NULL,
-	Fecha datetime NOT NULL,
+	Fecha_Llegada datetime,
+	Fecha_Atencion datetime,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Id_Medico numeric(18) NOT NULL,
 	Nro_Bono_Consulta numeric(18) NOT NULL
+)
+;
+
+CREATE TABLE CUATRO_QUESOS.Cancelaciones(
+	Nro_Turno numeric(18) NOT NULL,
+	Tipo varchar(20) NOT NULL,
+	Motivo varchar(250)
 )
 ;
 
@@ -415,6 +423,10 @@ ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT PK_Turnos
 	PRIMARY KEY CLUSTERED (Numero)
 ;
 
+ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT PK_Cancelaciones
+	PRIMARY KEY CLUSTERED (Nro_Turno)
+;
+
 ALTER TABLE CUATRO_QUESOS.Usuarios ADD CONSTRAINT PK_Usuarios 
 	PRIMARY KEY CLUSTERED (Username)
 ;
@@ -481,8 +493,14 @@ ALTER TABLE CUATRO_QUESOS.Compra ADD CONSTRAINT FK_Compra_Afiliados
 
 ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT FK_Consultas_Turnos 
 	FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
-	ON UPDATE CASCADE
+	ON UPDATE CASCADE  --es necesario?
 ;
+
+ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT FK_Cancelaciones_Turnos
+	FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
+	ON UPDATE CASCADE  --es necesario?
+;
+
 
 ALTER TABLE CUATRO_QUESOS.Dias_Atencion ADD CONSTRAINT FK_Dias_Atencion_Medicos 
 	FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
