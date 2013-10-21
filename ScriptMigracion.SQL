@@ -7,160 +7,6 @@
 USE [GD2C2013]
 GO
 
-/*
---  Drop Foreign Key Constraints 
-
-ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Nro_Conyuge
-
-ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Nro_Titular
-
-ALTER TABLE CUATRO_QUESOS.Bonos DROP CONSTRAINT FK_Bonos_Afiliados
-
-ALTER TABLE CUATRO_QUESOS.Bonos DROP CONSTRAINT FK_Bonos_Compra
-
-ALTER TABLE CUATRO_QUESOS.Bonos DROP CONSTRAINT FK_Bonos_Planes_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Consulta DROP CONSTRAINT FK_Bonos_Consulta_Bonos
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia DROP CONSTRAINT FK_Bonos_Farmacia_Bonos
-
-ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Afiliado
-
-ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Plan_Destino
-
-ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Plan_Origen
-
-ALTER TABLE CUATRO_QUESOS.Compra DROP CONSTRAINT FK_Compra_Afiliados
-
-ALTER TABLE CUATRO_QUESOS.Consultas DROP CONSTRAINT FK_Consultas_Turnos
-
-ALTER TABLE CUATRO_QUESOS.Dias_Atencion DROP CONSTRAINT FK_Dias_Atencion_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Especialidades DROP CONSTRAINT FK_Especialidades_Tipos_Especialidades
-
-ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos DROP CONSTRAINT FK_Especialidades_Medicos_Especialidades
-
-ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos DROP CONSTRAINT FK_Especialidades_Medicos_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Bonos_Farmacia
-
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Consultas
-
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Medicamentos
-
-ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades DROP CONSTRAINT FK_Roles_Por_Funcionalidades_Funcionalidades
-
-ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades DROP CONSTRAINT FK_Roles_Por_Funcionalidades_Roles
-
-ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Afiliados
-
-ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Bonos_Consulta
-
-ALTER TABLE CUATRO_QUESOS.Cancelaciones DROP CONSTRAINT FK_Cancelaciones_Turnos
-
-ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_Roles
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_Usuarios
-
-
-
---  Drop Tables, Stored Procedures and Views 
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Afiliados') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Afiliados
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Cancelaciones') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Cancelaciones
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Bonos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos_Consulta') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Bonos_Consulta
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos_Farmacia') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Bonos_Farmacia
-;
-
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Cambios_Plan') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Cambios_Plan
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Compra') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Compra
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Consultas') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Consultas
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Dias_Atencion') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Dias_Atencion
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Especialidades') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Especialidades
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Especialidades_Medicos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Especialidades_Medicos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Funcionalidades') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Funcionalidades
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Medicamentos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Medicamentos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Medicamentos_Por_Consulta') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Medicos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Medicos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Planes_Medicos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Planes_Medicos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Roles') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Roles
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Roles_Por_Funcionalidades') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Tipos_Especialidades') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Tipos_Especialidades
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Turnos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Turnos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Usuarios
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios_Por_Rol') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Usuarios_Por_Rol
-;
-
-DROP SCHEMA [CUATRO_QUESOS]
-GO
-*/
-
 
 CREATE SCHEMA [CUATRO_QUESOS] AUTHORIZATION [gd]
 GO
@@ -575,3 +421,75 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Us
 	FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
 	ON DELETE CASCADE ON UPDATE CASCADE
 ;
+
+
+/* ****** Migrar datos existentes ******* */
+
+--Planes medicos
+
+INSERT INTO CUATRO_QUESOS.Planes_Medicos
+	(
+	Codigo,
+	Descripcion,
+	Precio_Bono_Consulta,
+	Precio_Bono_Farmacia
+	)
+	
+	select distinct Plan_Med_Codigo as Codigo,
+		Plan_Med_Descripcion as Descripcion,
+		Plan_Med_Precio_Bono_Consulta as Precio_Bono_Consulta,
+		Plan_Med_Precio_Bono_Farmacia as Precio_Bono_Farmacia
+		
+	from gd_esquema.Maestra
+
+--Afiliados
+
+INSERT INTO CUATRO_QUESOS.Afiliados
+	(
+	Nro_Afiliado,
+	Nombre,
+	Apellido,
+	Sexo,
+	Tipo_Doc,
+	Nro_Doc,
+	Direccion,
+	Telefono,
+	Mail,
+	Fecha_Nac,
+	Cod_Plan,
+	Estado_Civil,
+	Nro_Titular,
+	Nro_Conyuge,
+	Fecha_Baja,
+	Nro_Consulta
+	)
+	
+	select (row_number() over(order by paciente_dni))*100 as Nro_afiliado, --hasta ahora son todos titulares
+	Paciente_Nombre as Nombre, 
+	Paciente_Apellido as Apellido,
+	'-' as Sexo, --indefinido o migrado
+	'DNI' as Tipo_Doc, --como la columna de la maestra dice DNI, asumo que todos los documentos existentes son DNI
+	Paciente_Dni as Nro_Doc, 
+	Paciente_Direccion as Direccion,
+	Paciente_Telefono as Telefono,
+	Paciente_Mail as Mail,
+	Paciente_Fecha_Nac as Fecha_Nac, 
+	Plan_Med_Codigo as Cod_Plan,
+	'Soltero' as Estado_Civil, --presumido
+	(row_number() over(order by paciente_dni))*100 as Nro_Titular, --es el titular
+	NULL as Nro_Conyuge, --nadie tiene conyuge
+	NULL as Fecha_Baja, --asumo que los socios dados están activos
+	0 as Nro_Consulta --cantidad de consultas que lleva hechas (0 porque es desde la migracion - estara bien asi?)	
+
+	from 
+		(select distinct Paciente_Nombre, Paciente_Apellido, Paciente_Direccion, Paciente_Dni, Paciente_Telefono, Paciente_Fecha_Nac, Paciente_Mail, Plan_Med_Codigo
+		from gd_esquema.Maestra) as subtabla
+
+
+
+
+
+
+
+
+
