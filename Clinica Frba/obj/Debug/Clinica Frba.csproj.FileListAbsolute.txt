@@ -1,0 +1,17 @@
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\bin\Debug\Clinica Frba.exe
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\bin\Debug\Clinica Frba.pdb
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\obj\Debug\Clinica_Frba.Properties.Resources.resources
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\obj\Debug\Clinica Frba.csproj.GenerateResource.Cache
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\obj\Debug\Clinica Frba.exe
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\obj\Debug\Clinica Frba.pdb
+C:\Users\Jonathan\Desktop\CLINICA_FRBA\Aplicacion Desktop\Clinica Frba\obj\Debug\Clinica_Frba.Form1.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica Frba.exe
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica Frba.pdb
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\bin\Debug\Clinica Frba.exe
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\bin\Debug\Clinica Frba.pdb
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Properties.Resources.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica Frba.csproj.GenerateResource.Cache
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.PantallaPrincipal.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Login.LoginForm.resources
