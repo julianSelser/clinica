@@ -21,12 +21,23 @@ namespace Clinica_Frba
 
         private void PantallaPrincipal_Load(object sender, EventArgs e)
         {
-
+            usuarioLogueado.Visible = false;
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
             FormHelper.mostrarNuevaVentana(new LoginForm(this), this);
+        }
+
+        public void setearUsuarioLogueado(String usuario)
+        {
+            usuarioLogueado.Visible = true;
+            usuarioLogueado.Text = "Logueado como: " + usuario;
+        }
+
+        private void deslogButton_Click(object sender, EventArgs e)
+        {
+            usuarioLogueado.Visible = false;
         }
     }
 }

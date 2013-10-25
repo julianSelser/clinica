@@ -30,8 +30,8 @@
         {
             this.lblTitulo = new System.Windows.Forms.Label();
             this.loginButton = new System.Windows.Forms.Button();
-            this.cuentaLogueada = new System.Windows.Forms.Label();
             this.deslogButton = new System.Windows.Forms.Button();
+            this.usuarioLogueado = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -55,15 +55,6 @@
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
-            // cuentaLogueada
-            // 
-            this.cuentaLogueada.AutoSize = true;
-            this.cuentaLogueada.Location = new System.Drawing.Point(522, 49);
-            this.cuentaLogueada.Name = "cuentaLogueada";
-            this.cuentaLogueada.Size = new System.Drawing.Size(87, 13);
-            this.cuentaLogueada.TabIndex = 16;
-            this.cuentaLogueada.Text = "Logueado como:";
-            // 
             // deslogButton
             // 
             this.deslogButton.Location = new System.Drawing.Point(643, 14);
@@ -72,14 +63,23 @@
             this.deslogButton.TabIndex = 17;
             this.deslogButton.Text = "Desloguear";
             this.deslogButton.UseVisualStyleBackColor = true;
+            this.deslogButton.Click += new System.EventHandler(this.deslogButton_Click);
+            // 
+            // usuarioLogueado
+            // 
+            this.usuarioLogueado.AutoSize = true;
+            this.usuarioLogueado.Location = new System.Drawing.Point(522, 49);
+            this.usuarioLogueado.Name = "usuarioLogueado";
+            this.usuarioLogueado.Size = new System.Drawing.Size(0, 13);
+            this.usuarioLogueado.TabIndex = 18;
             // 
             // PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(767, 412);
+            this.Controls.Add(this.usuarioLogueado);
             this.Controls.Add(this.deslogButton);
-            this.Controls.Add(this.cuentaLogueada);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.lblTitulo);
             this.Name = "PantallaPrincipal";
@@ -94,8 +94,8 @@
 
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button loginButton;
-        private System.Windows.Forms.Label cuentaLogueada;
         private System.Windows.Forms.Button deslogButton;
+        private System.Windows.Forms.Label usuarioLogueado;
 
 
     }

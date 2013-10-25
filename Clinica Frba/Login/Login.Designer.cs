@@ -33,6 +33,7 @@
             this.userLabel = new System.Windows.Forms.Label();
             this.passLabel = new System.Windows.Forms.Label();
             this.acceptButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -48,6 +49,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(160, 20);
             this.textBox2.TabIndex = 1;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // userLabel
             // 
@@ -77,11 +79,22 @@
             this.acceptButton.UseVisualStyleBackColor = true;
             this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(180, 73);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 5;
+            this.cancelButton.Text = "Cancelar";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.button1_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 109);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.passLabel);
             this.Controls.Add(this.userLabel);
@@ -102,5 +115,6 @@
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Label passLabel;
         private System.Windows.Forms.Button acceptButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

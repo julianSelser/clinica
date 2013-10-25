@@ -18,6 +18,15 @@ namespace Clinica_Frba.Login
         {
             pantallaPrincipal = principal;
             InitializeComponent();
+            InitializePassword();
+
+        }
+
+        private void InitializePassword()
+        {
+            textBox2.Text = "";
+            textBox2.PasswordChar = '*';
+            textBox2.MaxLength = 16;
         }
 
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -29,6 +38,7 @@ namespace Clinica_Frba.Login
 
         private void acceptButton_Click(object sender, EventArgs e)
         {
+            pantallaPrincipal.setearUsuarioLogueado(textBox1.Text);
             pantallaPrincipal.Show();
             this.Close();
         }
@@ -36,6 +46,16 @@ namespace Clinica_Frba.Login
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
