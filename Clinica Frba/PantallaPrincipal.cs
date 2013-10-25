@@ -22,6 +22,7 @@ namespace Clinica_Frba
         private void PantallaPrincipal_Load(object sender, EventArgs e)
         {
             usuarioLogueado.Visible = false;
+            deslogButton.Visible = false;
         }
 
         private void loginButton_Click(object sender, EventArgs e)
@@ -31,16 +32,21 @@ namespace Clinica_Frba
 
         public void setearUsuarioLogueado(String usuario)
         {
-            if (usuario.Length > 0 && !usuario.Contains(""))
+            if (usuario.Length > 0 && !usuario.Contains(" "))
             {
                 usuarioLogueado.Visible = true;
                 usuarioLogueado.Text = "Logueado como: " + usuario;
+                loginButton.Visible = false;
+                deslogButton.Visible = true;
             }
         }
 
         private void deslogButton_Click(object sender, EventArgs e)
         {
             usuarioLogueado.Visible = false;
+            deslogButton.Visible = false;
+            loginButton.Visible = true;
         }
+
     }
 }
