@@ -31,8 +31,11 @@ namespace Clinica_Frba
 
         public void setearUsuarioLogueado(String usuario)
         {
-            usuarioLogueado.Visible = true;
-            usuarioLogueado.Text = "Logueado como: " + usuario;
+            if (usuario.Length > 0 && !usuario.Contains(""))
+            {
+                usuarioLogueado.Visible = true;
+                usuarioLogueado.Text = "Logueado como: " + usuario;
+            }
         }
 
         private void deslogButton_Click(object sender, EventArgs e)
