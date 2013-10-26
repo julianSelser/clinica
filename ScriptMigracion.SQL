@@ -462,6 +462,54 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 		from gd_esquema.Maestra) as subtabla
 
 
+--Medicamentos
+
+INSERT INTO CUATRO_QUESOS.Medicamentos
+	(
+	Id_Medicamento,
+	Descripcion
+	)
+
+	select (ROW_NUMBER() over (order by Bono_Farmacia_Medicamento)) as ID_Medicamento,
+		Bono_Farmacia_Medicamento as Descripcion
+
+	from (select distinct Bono_Farmacia_Medicamento
+		from gd_esquema.Maestra
+		where Bono_Farmacia_Medicamento is not null) as subtabla
+
+--Tipos de especialidades médicas
+
+INSERT INTO CUATRO_QUESOS.Tipos_Especialidades
+	(
+	Codigo,
+	Descripcion
+	)
+	
+	select distinct Tipo_Especialidad_Codigo as Codigo,
+		Tipo_Especialidad_Descripcion as Descripcion
+		
+	from gd_esquema.Maestra
+	where Tipo_Especialidad_Codigo is not null
+
+
+
+--Especialidades médicas
+
+INSERT INTO CUATRO_QUESOS.Especialidades
+	(
+	Codigo,
+	Descripcion,
+	Tipo_Codigo
+	)
+	
+	select distinct Especialidad_Codigo as Codigo, 
+		Especialidad_Descripcion as Descripcion,
+		Tipo_Especialidad_Codigo as Tipo_Codigo
+	
+	from gd_esquema.Maestra 
+	where Especialidad_Codigo is not null
+
+
 COMMIT
 
 
