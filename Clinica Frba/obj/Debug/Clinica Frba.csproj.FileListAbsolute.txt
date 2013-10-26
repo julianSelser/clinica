@@ -15,3 +15,6 @@ C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.P
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica Frba.csproj.GenerateResource.Cache
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.PantallaPrincipal.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Login.LoginForm.resources
+C:\Users\Julio\Desktop\GestionTP\Clinica Frba\bin\Debug\Clinica Frba.exe.config
+C:\Users\Julio\Desktop\GestionTP\Clinica Frba\obj\Debug\Clinica Frba.exe
+C:\Users\Julio\Desktop\GestionTP\Clinica Frba\obj\Debug\Clinica Frba.pdb
