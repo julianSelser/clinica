@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Clinica_Frba;
 
 namespace Clinica_Frba.Login
 {
@@ -47,6 +46,11 @@ namespace Clinica_Frba.Login
         {
             pantallaPrincipal.Show();
             this.Close();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

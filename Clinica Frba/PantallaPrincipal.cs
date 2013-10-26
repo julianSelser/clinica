@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using Clinica_Frba.Helpers;
 using Clinica_Frba.Login;
+using Clinica_Frba.Abm_de_Afiliado;
 
 namespace Clinica_Frba
 {
@@ -46,6 +47,11 @@ namespace Clinica_Frba
             usuarioLogueado.Visible = false;
             deslogButton.Visible = false;
             loginButton.Visible = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FormHelper.mostrarNuevaVentana(new ABM_Afiliado(this), this);
         }
 
     }

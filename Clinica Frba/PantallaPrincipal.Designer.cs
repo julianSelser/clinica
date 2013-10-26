@@ -44,6 +44,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -63,7 +64,7 @@
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(83, 24);
             this.loginButton.TabIndex = 15;
-            this.loginButton.Text = "Login";
+            this.loginButton.Text = "Loguear";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
@@ -93,6 +94,7 @@
             this.button1.TabIndex = 19;
             this.button1.Text = "Afiliados";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -118,86 +120,96 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(142, 34);
             this.button4.TabIndex = 22;
-            this.button4.Text = "Planes médicos";
+            this.button4.Text = "Planes Médicos";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 150);
+            this.button5.Location = new System.Drawing.Point(175, 150);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(142, 34);
             this.button5.TabIndex = 23;
-            this.button5.Text = "Pedir turno";
+            this.button5.Text = "Pedir Turno";
             this.button5.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(175, 150);
+            this.button6.Location = new System.Drawing.Point(336, 150);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(142, 34);
             this.button6.TabIndex = 24;
-            this.button6.Text = "Cancelar atención";
+            this.button6.Text = "Cancelar Atención";
             this.button6.UseVisualStyleBackColor = true;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(336, 150);
+            this.button7.Location = new System.Drawing.Point(175, 208);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(142, 34);
             this.button7.TabIndex = 25;
-            this.button7.Text = "Registrar llegada";
+            this.button7.Text = "Registrar Llegada";
             this.button7.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(498, 150);
+            this.button8.Location = new System.Drawing.Point(498, 208);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(142, 34);
             this.button8.TabIndex = 26;
-            this.button8.Text = "Registrar resultado de atención";
+            this.button8.Text = "Registrar Resultado de Atención";
             this.button8.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(12, 208);
+            this.button9.Location = new System.Drawing.Point(12, 258);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(142, 34);
             this.button9.TabIndex = 27;
-            this.button9.Text = "Listados estadísticos";
+            this.button9.Text = "Listados Estadísticos";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(175, 208);
+            this.button10.Location = new System.Drawing.Point(336, 208);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(142, 34);
             this.button10.TabIndex = 28;
-            this.button10.Text = "Generar receta";
+            this.button10.Text = "Generar Receta";
             this.button10.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(336, 208);
+            this.button11.Location = new System.Drawing.Point(12, 208);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(142, 34);
             this.button11.TabIndex = 29;
-            this.button11.Text = "Comprar bono";
+            this.button11.Text = "Comprar Bono";
             this.button11.UseVisualStyleBackColor = true;
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(498, 208);
+            this.button12.Location = new System.Drawing.Point(498, 150);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(142, 34);
             this.button12.TabIndex = 30;
-            this.button12.Text = "Registrar agenda";
+            this.button12.Text = "Registrar Agenda";
             this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(12, 150);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(142, 34);
+            this.button13.TabIndex = 31;
+            this.button13.Text = "Especialidades Médicas";
+            this.button13.UseVisualStyleBackColor = true;
             // 
             // PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 263);
+            this.ClientSize = new System.Drawing.Size(646, 304);
+            this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
@@ -240,6 +252,7 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
 
 
     }
