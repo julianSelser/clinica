@@ -1,65 +1,91 @@
 USE [GD2C2013]
 GO
 
-
+BEGIN TRAN
+GO
 --  Drop Foreign Key Constraints 
+ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Afiliados_Planes
+;
 
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Nro_Conyuge
+;
 
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Nro_Titular
-
-ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Afiliado_Plan
+;
 
 ALTER TABLE CUATRO_QUESOS.Bonos DROP CONSTRAINT FK_Bonos_Afiliados
+;
 
 ALTER TABLE CUATRO_QUESOS.Bonos DROP CONSTRAINT FK_Bonos_Compra
+;
 
 ALTER TABLE CUATRO_QUESOS.Bonos DROP CONSTRAINT FK_Bonos_Planes_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Consulta DROP CONSTRAINT FK_Bonos_Consulta_Bonos
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia DROP CONSTRAINT FK_Bonos_Farmacia_Bonos
+;
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Afiliado
+;
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Plan_Destino
+;
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan DROP CONSTRAINT FK_Plan_Origen
-
-ALTER TABLE CUATRO_QUESOS.Compra DROP CONSTRAINT FK_Compra_Afiliados
-
-ALTER TABLE CUATRO_QUESOS.Consultas DROP CONSTRAINT FK_Consultas_Turnos
-
-ALTER TABLE CUATRO_QUESOS.Dias_Atencion DROP CONSTRAINT FK_Dias_Atencion_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Especialidades DROP CONSTRAINT FK_Especialidades_Tipos_Especialidades
-
-ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos DROP CONSTRAINT FK_Especialidades_Medicos_Especialidades
-
-ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos DROP CONSTRAINT FK_Especialidades_Medicos_Medicos
-
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Bonos_Farmacia
-
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Consultas
-
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Medicamentos
-
-ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades DROP CONSTRAINT FK_Roles_Por_Funcionalidades_Funcionalidades
-
-ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades DROP CONSTRAINT FK_Roles_Por_Funcionalidades_Roles
-
-ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Afiliados
-
-ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Bonos_Consulta
+;
 
 ALTER TABLE CUATRO_QUESOS.Cancelaciones DROP CONSTRAINT FK_Cancelaciones_Turnos
+;
+
+
+ALTER TABLE CUATRO_QUESOS.Compra DROP CONSTRAINT FK_Compra_Afiliados
+;
+
+ALTER TABLE CUATRO_QUESOS.Consultas DROP CONSTRAINT FK_Consultas_Turnos
+;
+
+
+ALTER TABLE CUATRO_QUESOS.Dias_Atencion DROP CONSTRAINT FK_Dias_Atencion_Medicos
+;
+
+ALTER TABLE CUATRO_QUESOS.Especialidades DROP CONSTRAINT FK_Especialidades_Tipos_Especialidades
+;
+
+
+ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos DROP CONSTRAINT FK_Especialidades_Medicos_Especialidades
+;
+
+
+ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos DROP CONSTRAINT FK_Especialidades_Medicos_Medicos
+;
+
+
+ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Bonos_Por_Consulta
+;
+
+ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Consultas
+;
+
+ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta DROP CONSTRAINT FK_Medicamentos_Por_Consulta_Medicamentos
+;
+
+ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades DROP CONSTRAINT FK_Roles_Por_Funcionalidades_Funcionalidades
+;
+
+ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades DROP CONSTRAINT FK_Roles_Por_Funcionalidades_Roles
+;
+
+ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Bonos_Turnos
+;
+
+ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Afiliados
+;
 
 ALTER TABLE CUATRO_QUESOS.Turnos DROP CONSTRAINT FK_Turnos_Medicos
+;
 
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_Roles
+;
 
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_Usuarios
-
+;
 
 
 --  Drop Tables, Stored Procedures and Views 
@@ -68,17 +94,8 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Afil
 DROP TABLE CUATRO_QUESOS.Afiliados
 ;
 
-
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Bonos
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos_Consulta') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Bonos_Consulta
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos_Farmacia') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE CUATRO_QUESOS.Bonos_Farmacia
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Cambios_Plan') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
@@ -155,3 +172,5 @@ DROP TABLE CUATRO_QUESOS.Usuarios_Por_Rol
 
 DROP SCHEMA [CUATRO_QUESOS]
 GO
+
+COMMIT

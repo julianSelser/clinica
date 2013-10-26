@@ -7,7 +7,8 @@
 USE [GD2C2013]
 GO
 
-
+BEGIN TRAN
+GO
 CREATE SCHEMA [CUATRO_QUESOS] AUTHORIZATION [gd]
 GO
 
@@ -38,19 +39,10 @@ CREATE TABLE CUATRO_QUESOS.Bonos (
 	Compra_Bono_Fecha datetime NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Cod_Plan numeric(18) NOT NULL,
-	Id_Compra numeric(18) NOT NULL
-)
-;
-
-CREATE TABLE CUATRO_QUESOS.Bonos_Consulta ( 
-	Bono_Numero numeric(18) NOT NULL,
+	Id_Compra numeric(18) NOT NULL,
+	Tipo_Bono varchar(255) NOT NULL,
+	Fecha_Vencimiento datetime,
 	Nro_Consulta int
-)
-;
-
-CREATE TABLE CUATRO_QUESOS.Bonos_Farmacia ( 
-	Bono_Numero numeric(18) NOT NULL,
-	Fecha_Vencimiento datetime NOT NULL
 )
 ;
 
@@ -63,11 +55,19 @@ CREATE TABLE CUATRO_QUESOS.Cambios_Plan (
 )
 ;
 
+CREATE TABLE CUATRO_QUESOS.Cancelaciones ( 
+	Nro_Turno numeric(18) NOT NULL,
+	Tipo varchar(255) NOT NULL,
+	Motivo varchar(255)
+)
+;
+
 CREATE TABLE CUATRO_QUESOS.Compra ( 
 	Id_Compra numeric(18) NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Fecha datetime NOT NULL,
-	Cantidad_Comprada numeric(18) NOT NULL,
+	Cantidad_Comprada_Consulta numeric(18),
+	Cantidad_Comprada_Farmacia numeric(18),
 	Monto numeric(18) NOT NULL
 )
 ;
@@ -75,7 +75,8 @@ CREATE TABLE CUATRO_QUESOS.Compra (
 CREATE TABLE CUATRO_QUESOS.Consultas ( 
 	Id_Consulta numeric(18) NOT NULL,
 	Nro_Turno numeric(18) NOT NULL,
-	Fecha datetime NOT NULL,
+	Fecha_Llegada datetime,
+	Fecha_Atencion datetime,
 	Sintomas varchar(255) NOT NULL,
 	Enfermedades varchar(255) NOT NULL
 )
@@ -118,7 +119,8 @@ CREATE TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta (
 	Id_Consulta numeric(18) NOT NULL,
 	Id_Medicamento numeric(18) NOT NULL,
 	Nro_Bono_Farmacia numeric(18) NOT NULL,
-	Cantidad smallint NOT NULL
+	Cantidad smallint NOT NULL,
+	Tipo_Bono varchar(255)
 )
 ;
 
@@ -126,6 +128,7 @@ CREATE TABLE CUATRO_QUESOS.Medicos (
 	Id_Medico numeric(18) NOT NULL,
 	Nombre varchar(255) NOT NULL,
 	Apellido varchar(255) NOT NULL,
+	Sexo varchar(255) NOT NULL,
 	Tipo_Doc varchar(3) NOT NULL,
 	Nro_Doc numeric(18) NOT NULL,
 	Direccion varchar(255) NOT NULL,
@@ -134,7 +137,8 @@ CREATE TABLE CUATRO_QUESOS.Medicos (
 	Fecha_Nac datetime NOT NULL,
 	Nro_Matricula numeric(18),
 	Fecha_Atencion_Desde datetime NOT NULL,
-	Fecha_Atencion_Hasta datetime NOT NULL
+	Fecha_Atencion_Hasta datetime NOT NULL,
+	Habilitado bit NOT NULL
 )
 ;
 
@@ -168,18 +172,11 @@ CREATE TABLE CUATRO_QUESOS.Tipos_Especialidades (
 
 CREATE TABLE CUATRO_QUESOS.Turnos ( 
 	Numero numeric(18) NOT NULL,
-	Fecha_Llegada datetime,
-	Fecha_Atencion datetime,
+	Fecha datetime NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Id_Medico numeric(18) NOT NULL,
-	Nro_Bono_Consulta numeric(18) NOT NULL
-)
-;
-
-CREATE TABLE CUATRO_QUESOS.Cancelaciones(
-	Nro_Turno numeric(18) NOT NULL,
-	Tipo varchar(20) NOT NULL,
-	Motivo varchar(250)
+	Nro_Bono_Consulta numeric(18) NOT NULL,
+	Tipo_Bono varchar(255)
 )
 ;
 
@@ -204,19 +201,15 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT PK_Afiliados
 ;
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT PK_Bonos 
-	PRIMARY KEY CLUSTERED (Numero)
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Consulta ADD CONSTRAINT PK_Bonos_Consulta 
-	PRIMARY KEY CLUSTERED (Bono_Numero)
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia ADD CONSTRAINT PK_Bonos_Farmacia 
-	PRIMARY KEY CLUSTERED (Bono_Numero)
+	PRIMARY KEY CLUSTERED (Numero, Tipo_Bono)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan ADD CONSTRAINT PK_Cambios_Plan 
 	PRIMARY KEY CLUSTERED (Nro_Afiliado, Fecha)
+;
+
+ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT PK_Cancelaciones 
+	PRIMARY KEY CLUSTERED (Nro_Turno)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Compra ADD CONSTRAINT PK_Compra 
@@ -275,10 +268,6 @@ ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT PK_Turnos
 	PRIMARY KEY CLUSTERED (Numero)
 ;
 
-ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT PK_Cancelaciones
-	PRIMARY KEY CLUSTERED (Nro_Turno)
-;
-
 ALTER TABLE CUATRO_QUESOS.Usuarios ADD CONSTRAINT PK_Usuarios 
 	PRIMARY KEY CLUSTERED (Username)
 ;
@@ -290,16 +279,16 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT PK_Usuarios_Por_Rol
 
 
 --  Create Foreign Key Constraints 
+ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Afiliados_Planes 
+	FOREIGN KEY (Cod_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
+;
+
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Conyuge 
 	FOREIGN KEY (Nro_Conyuge) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Titular 
 	FOREIGN KEY (Nro_Titular) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
-;
-
-ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Afiliado_Plan
-	FOREIGN KEY (Cod_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados 
@@ -314,15 +303,6 @@ ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Compra
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Planes_Medicos 
 	FOREIGN KEY (Cod_Plan) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Consulta ADD CONSTRAINT FK_Bonos_Consulta_Bonos 
-	FOREIGN KEY (Bono_Numero) REFERENCES CUATRO_QUESOS.Bonos (Numero)
-	ON UPDATE CASCADE
-;
-
-ALTER TABLE CUATRO_QUESOS.Bonos_Farmacia ADD CONSTRAINT FK_Bonos_Farmacia_Bonos 
-	FOREIGN KEY (Bono_Numero) REFERENCES CUATRO_QUESOS.Bonos (Numero)
 	ON UPDATE CASCADE
 ;
 
@@ -339,20 +319,17 @@ ALTER TABLE CUATRO_QUESOS.Cambios_Plan ADD CONSTRAINT FK_Plan_Origen
 	FOREIGN KEY (Plan_Origen) REFERENCES CUATRO_QUESOS.Planes_Medicos (Codigo)
 ;
 
+ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT FK_Cancelaciones_Turnos 
+	FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
+;
+
 ALTER TABLE CUATRO_QUESOS.Compra ADD CONSTRAINT FK_Compra_Afiliados 
 	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT FK_Consultas_Turnos 
 	FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
-	ON UPDATE CASCADE  --es necesario?
 ;
-
-ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT FK_Cancelaciones_Turnos
-	FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
-	ON UPDATE CASCADE  --es necesario?
-;
-
 
 ALTER TABLE CUATRO_QUESOS.Dias_Atencion ADD CONSTRAINT FK_Dias_Atencion_Medicos 
 	FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
@@ -374,9 +351,8 @@ ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos ADD CONSTRAINT FK_Especialidade
 	ON UPDATE CASCADE
 ;
 
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta ADD CONSTRAINT FK_Medicamentos_Por_Consulta_Bonos_Farmacia 
-	FOREIGN KEY (Nro_Bono_Farmacia) REFERENCES CUATRO_QUESOS.Bonos_Farmacia (Bono_Numero)
-	ON UPDATE CASCADE
+ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta ADD CONSTRAINT FK_Bonos_Por_Consulta 
+	FOREIGN KEY (Nro_Bono_Farmacia, Tipo_Bono) REFERENCES CUATRO_QUESOS.Bonos (Numero, Tipo_Bono)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta ADD CONSTRAINT FK_Medicamentos_Por_Consulta_Consultas 
@@ -399,12 +375,12 @@ ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades ADD CONSTRAINT FK_Roles_Por_
 	ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
-ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Afiliados 
-	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
+ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Bonos_Turnos 
+	FOREIGN KEY (Nro_Bono_Consulta, Tipo_Bono) REFERENCES CUATRO_QUESOS.Bonos (Numero, Tipo_Bono)
 ;
 
-ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Bonos_Consulta 
-	FOREIGN KEY (Nro_Bono_Consulta) REFERENCES CUATRO_QUESOS.Bonos_Consulta (Bono_Numero)
+ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Afiliados 
+	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Medicos 
@@ -486,7 +462,7 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 		from gd_esquema.Maestra) as subtabla
 
 
-
+COMMIT
 
 
 
