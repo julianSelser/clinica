@@ -36,7 +36,6 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
 CREATE TABLE CUATRO_QUESOS.Bonos ( 
 	Numero numeric(18) NOT NULL,
 	Fecha_Impresion datetime NOT NULL,
-	Compra_Bono_Fecha datetime NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Cod_Plan numeric(18) NOT NULL,
 	Id_Compra numeric(18) NOT NULL,
@@ -78,7 +77,9 @@ CREATE TABLE CUATRO_QUESOS.Consultas (
 	Fecha_Llegada datetime,
 	Fecha_Atencion datetime,
 	Sintomas varchar(255) NOT NULL,
-	Enfermedades varchar(255) NOT NULL
+	Enfermedades varchar(255) NOT NULL,
+	Nro_Bono_Consulta numeric(18) NOT NULL,
+	Tipo_Bono varchar(255) NOT NULL
 )
 ;
 
@@ -175,8 +176,6 @@ CREATE TABLE CUATRO_QUESOS.Turnos (
 	Fecha datetime NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Id_Medico numeric(18) NOT NULL,
-	Nro_Bono_Consulta numeric(18) NOT NULL,
-	Tipo_Bono varchar(255)
 )
 ;
 
@@ -331,6 +330,10 @@ ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT FK_Consultas_Turnos
 	FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
 ;
 
+ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT FK_Bonos_Consultas
+	FOREIGN KEY (Nro_Bono_Consulta, Tipo_Bono) REFERENCES CUATRO_QUESOS.Bonos (Numero, Tipo_Bono)
+;
+
 ALTER TABLE CUATRO_QUESOS.Dias_Atencion ADD CONSTRAINT FK_Dias_Atencion_Medicos 
 	FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
 	ON UPDATE CASCADE
@@ -375,9 +378,6 @@ ALTER TABLE CUATRO_QUESOS.Roles_Por_Funcionalidades ADD CONSTRAINT FK_Roles_Por_
 	ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
-ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Bonos_Turnos 
-	FOREIGN KEY (Nro_Bono_Consulta, Tipo_Bono) REFERENCES CUATRO_QUESOS.Bonos (Numero, Tipo_Bono)
-;
 
 ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Afiliados 
 	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
