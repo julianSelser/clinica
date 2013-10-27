@@ -783,5 +783,25 @@ INSERT INTO CUATRO_QUESOS.Consultas
 
 	where Bono_Consulta_Numero is not null and Turno_Numero is not null
 
+	
+INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
+	(
+	ID_Consulta,
+	ID_Medicamento,
+	Nro_Bono_Farmacia,
+	Cantidad,
+	Tipo_Bono
+	)
+	
+	select (select sub1.ID_Consulta from CUATRO_QUESOS.Consultas as sub1 where principal.Turno_Numero = sub1.Nro_Turno) as ID_Consulta,
+		(select sub2.ID_Medicamento from CUATRO_QUESOS.Medicamentos as sub2 where Bono_Farmacia_Medicamento =sub2.Descripcion) as Medicamento,
+		Bono_Farmacia_Numero as Nro_Bono_Farmacia,
+		1 as Cantidad, --asumo que sólo se receto una instancia del medicamento que aparece en la maestra
+		'Farmacia' as Tipo_Bono
+		
+	from gd_esquema.Maestra as principal
+	where Turno_Numero is not null 
+		and Bono_Farmacia_Numero is not null
+		and Bono_Farmacia_Medicamento is not null
 		
 COMMIT
