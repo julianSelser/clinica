@@ -38,7 +38,7 @@ CREATE TABLE CUATRO_QUESOS.Bonos (
 	Fecha_Impresion datetime NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Cod_Plan numeric(18) NOT NULL,
-	Id_Compra numeric(18) NOT NULL,
+	Id_Compra numeric(18),
 	Tipo_Bono varchar(255) NOT NULL,
 	Fecha_Vencimiento datetime,
 	Nro_Consulta int,
@@ -568,3 +568,86 @@ INSERT INTO CUATRO_QUESOS.Medicos
 		Medico_Fecha_Nac
 
 
+--Bonos consulta
+INSERT INTO CUATRO_QUESOS.Bonos
+	(
+	Numero,
+	Fecha_Impresion,
+	Nro_Afiliado,
+	Cod_Plan,
+	ID_Compra,
+	Tipo_Bono,
+	Fecha_Vencimiento,
+	Nro_Consulta,
+	Nro_Usuario
+	)
+	
+	select distinct Bono_Consulta_Numero as Numero,
+		Bono_Consulta_Fecha_Impresion as Fecha_Impresion,
+		(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI) as Nro_Afiliado,
+		Plan_Med_Codigo as Cod_Plan,
+		NULL as ID_Compra, --no se tienen datos de las compras anteriores a la migración
+		'Consulta' as Tipo_Bono,
+		NULL as Fecha_Vencimiento, --no aplica para bonos consulta
+		
+		--lo que sigue es para calcular el campo nro_consulta (se anota en el bono cuantas veces se atendio ESE afiliado)
+		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero) --esta columna cambia según si para este bono hubo turno asociado (consulta concretada) o no
+		when 0 then NULL --si no hubo consulta el nro_consulta es null
+		else --si hubo consulta hay que calcular nro_consulta
+		(select COUNT(*) --para obtener el nro_consulta de ese paciente tengo que contar....
+			from gd_esquema.Maestra submaestra --usando una tabla auxiliar
+			where principal.Paciente_Dni = submaestra.Paciente_Dni --para ese afiliado
+				and submaestra.Bono_Consulta_Numero <= principal.Bono_Consulta_Numero --cuantos bonos menores o iguales a este bono existen
+				and submaestra.Turno_Numero is not null) --y que hayan sido usados en una consulta (sabemos que se usaron cuando se asocian a un turno)
+		 end as Nro_Consulta,
+		 
+		 --lo que sigue es para determinar el usuario. Si se concretó el turno, asumo que el usuario es el mismo que lo compró, si no se concretó el usuario es NULL
+		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero) 
+		when 0 then NULL --si no hubo consulta el nro_consulta es null
+		else
+			(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
+		end as Nro_Usuario
+
+
+	from gd_esquema.Maestra as principal
+	where Bono_Consulta_Numero is not null
+		and Compra_Bono_Fecha is not null
+		
+		
+/*NOTA: ACA EMPIEZA LA PARTE DE LOS BONOS. ESTA PARTE DEL SCRIPT POR SÍ SOLA TARDA 30 SEGUNDOS*/
+		
+--Bonos farmacia
+INSERT INTO CUATRO_QUESOS.Bonos
+	(
+	Numero,
+	Fecha_Impresion,
+	Nro_Afiliado,
+	Cod_Plan,
+	ID_Compra,
+	Tipo_Bono,
+	Fecha_Vencimiento,
+	Nro_Consulta,
+	Nro_Usuario
+	)
+	--este es bastante straightforward comparado con el de bonos consulta
+	select distinct Bono_Farmacia_Numero as Numero,
+		Bono_Farmacia_Fecha_Impresion as Fecha_Impresion,
+		(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI) as Nro_Afiliado,
+		Plan_Med_Codigo as Cod_Plan,
+		NULL as ID_Compra,
+		'Farmacia' as Tipo_Bono,
+		Bono_Farmacia_Fecha_Vencimiento as Fecha_Vencimiento,
+		NULL as Nro_Consulta, --no aplica para bonos farmacia
+		--lo que sigue es para determinar el usuario. Si se usó, asumo que el usuario es el mismo que lo compró, si no se usó el usuario es NULL
+		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero) --claramente un bono farmacia usado es el que tiene un medicamento escrito
+		when 0 then NULL --si no hubo se usó el nro_consulta es null
+		else
+			(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
+		end as Nro_Usuario
+		
+		
+
+from gd_esquema.Maestra as principal
+where Bono_Farmacia_Numero is not null 
+
+/* *********************FIN INSERCION DE BONOS************************ */
