@@ -756,4 +756,32 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
 		and Turno_Fecha < GETDATE()-- y esto otro significa que el turno debería haberse concretado antes de la migración
 
 
+--Consultas
+
+INSERT INTO CUATRO_QUESOS.Consultas
+	(
+	ID_Consulta,
+	Nro_Turno,
+	Fecha_Llegada,
+	Fecha_Atencion,
+	Sintomas,
+	Enfermedades,
+	Nro_Bono_Consulta,
+	Tipo_Bono
+	)
+	
+	select ROW_NUMBER() over(order by Turno_Numero) as ID_Consulta,
+	Turno_Numero as Nro_Turno,
+	Turno_Fecha as Fecha_Llegada,
+	Turno_Fecha as Fecha_Atencion,
+	Consulta_Sintomas as Sintomas,
+	Consulta_Enfermedades as Enfermedades,
+	Bono_Consulta_Numero as Nro_Bono_Consulta,
+	'Consulta' as Tipo_Bono
+
+	from gd_esquema.Maestra
+
+	where Bono_Consulta_Numero is not null and Turno_Numero is not null
+
+		
 COMMIT
