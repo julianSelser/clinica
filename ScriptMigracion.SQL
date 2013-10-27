@@ -471,8 +471,9 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 	(select COUNT(*) from gd_esquema.Maestra as sub1 
 		where subtabla.Paciente_DNI = sub1.Paciente_DNI 
 			and sub1.Turno_Numero is not null
-			and sub1.Bono_Consulta_Numero is not null)
-	as Nro_Consulta --cuento la cantidad de consultas concretadas (turno asociado a bono consulta = consulta concretada)
+			and sub1.Bono_Consulta_Numero is not null
+			and sub1.Turno_Fecha < GETDATE())
+	as Nro_Consulta --cuento la cantidad de consultas concretadas (turno pasado asociado a bono consulta = consulta concretada)
 
 	from 
 		(select distinct Paciente_Nombre, Paciente_Apellido, Paciente_Direccion, Paciente_Dni, Paciente_Telefono, Paciente_Fecha_Nac, Paciente_Mail, Plan_Med_Codigo
@@ -610,11 +611,12 @@ INSERT INTO CUATRO_QUESOS.Bonos
 			from gd_esquema.Maestra submaestra --usando una tabla auxiliar
 			where principal.Paciente_Dni = submaestra.Paciente_Dni --para ese afiliado
 				and submaestra.Bono_Consulta_Numero <= principal.Bono_Consulta_Numero --cuantos bonos menores o iguales a este bono existen
-				and submaestra.Turno_Numero is not null) --y que hayan sido usados en una consulta (sabemos que se usaron cuando se asocian a un turno)
+				and submaestra.Turno_Numero is not null
+				and submaestra.Turno_Fecha < GETDATE()) --y que hayan sido usados en una consulta PASADA (sabemos que se usaron cuando se asocian a un turno)
 		 end as Nro_Consulta,
 		 
 		 --lo que sigue es para determinar el usuario. Si se concretó el turno, asumo que el usuario es el mismo que lo compró, si no se concretó el usuario es NULL
-		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero) 
+		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero and sub1.Turno_Fecha < GETDATE()) 
 		when 0 then NULL --si no hubo consulta el nro_consulta es null
 		else
 			(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
@@ -651,7 +653,7 @@ INSERT INTO CUATRO_QUESOS.Bonos
 		Bono_Farmacia_Fecha_Vencimiento as Fecha_Vencimiento,
 		NULL as Nro_Consulta, --no aplica para bonos farmacia
 		--lo que sigue es para determinar el usuario. Si se usó, asumo que el usuario es el mismo que lo compró, si no se usó el usuario es NULL
-		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero) --claramente un bono farmacia usado es el que tiene un medicamento escrito
+		case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero and sub1.Turno_Fecha < GETDATE()) --claramente un bono farmacia usado es el que tiene un medicamento escrito.... en el pasado
 		when 0 then NULL --si no hubo se usó el nro_consulta es null
 		else
 			(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
@@ -689,8 +691,8 @@ INSERT INTO CUATRO_QUESOS.Dias_Atencion
 				and datepart(hour, Turno_Fecha) < 20) --menor a 20 porque si la clínica cierra a las 20, el último turno es a las 19:30
 			or 
 				(DATENAME(dw, Turno_Fecha) = 'Sábado' --clausula para los sábados
-				and datepart(hour, Turno_Fecha) >= 7
-				and datepart(hour, Turno_Fecha) < 20)
+				and datepart(hour, Turno_Fecha) >= 10
+				and datepart(hour, Turno_Fecha) < 15)
 			) 
 	group by Medico_Dni, DATENAME(dw, Turno_Fecha)
 
@@ -756,6 +758,33 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
 		and Turno_Fecha < GETDATE()-- y esto otro significa que el turno debería haberse concretado antes de la migración
 
 
+INSERT INTO CUATRO_QUESOS.Cancelaciones
+	(
+	Nro_Turno,
+	Tipo,
+	Motivo
+	)
+	
+	select distinct Turno_Numero as Nro_Turno,
+	'Horario no permitido' as Tipo,
+	'Se encontró un turno futuro en un horario en el cual la clínica no estará abierta' as Motivo
+	
+	from gd_esquema.Maestra as principal
+	where Turno_Numero is not null 
+		and Turno_Fecha > GETDATE()
+		and (DATENAME(dw, Turno_Fecha) = 'Domingo' 
+			
+			or ((DATENAME(dw, Turno_Fecha) = 'Sábado' 
+					and (datepart(hour, Turno_Fecha) < 10
+						or datepart(hour, Turno_Fecha) >= 15)) 
+			or datepart(hour, Turno_Fecha) < 7
+			
+			or datepart(hour, Turno_Fecha) >= 20)
+			) 
+
+		
+		
+		
 --Consultas
 
 INSERT INTO CUATRO_QUESOS.Consultas
@@ -781,7 +810,7 @@ INSERT INTO CUATRO_QUESOS.Consultas
 
 	from gd_esquema.Maestra
 
-	where Bono_Consulta_Numero is not null and Turno_Numero is not null
+	where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha < GETDATE() 
 
 	
 INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
@@ -803,5 +832,6 @@ INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
 	where Turno_Numero is not null 
 		and Bono_Farmacia_Numero is not null
 		and Bono_Farmacia_Medicamento is not null
+		and Turno_Fecha < GETDATE()
 		
 COMMIT
