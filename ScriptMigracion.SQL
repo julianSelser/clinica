@@ -41,7 +41,8 @@ CREATE TABLE CUATRO_QUESOS.Bonos (
 	Id_Compra numeric(18) NOT NULL,
 	Tipo_Bono varchar(255) NOT NULL,
 	Fecha_Vencimiento datetime,
-	Nro_Consulta int
+	Nro_Consulta int,
+	Nro_Usuario numeric(18)
 )
 ;
 
@@ -294,6 +295,12 @@ ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados
 	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 	ON UPDATE CASCADE
 ;
+
+ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Usuarios
+	FOREIGN KEY (Nro_Usuario) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
+	ON UPDATE CASCADE
+;
+
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Compra 
 	FOREIGN KEY (Id_Compra) REFERENCES CUATRO_QUESOS.Compra (Id_Compra)
