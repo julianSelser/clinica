@@ -298,7 +298,7 @@ ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Usuarios
 	FOREIGN KEY (Nro_Usuario) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
-	ON UPDATE CASCADE
+	ON UPDATE NO ACTION --no entiendo por qué no me deja cascadear este también
 ;
 
 
