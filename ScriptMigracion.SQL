@@ -517,7 +517,7 @@ INSERT INTO CUATRO_QUESOS.Especialidades
 	where Especialidad_Codigo is not null
 
 
-COMMIT
+
 
 
 
@@ -553,7 +553,7 @@ INSERT INTO CUATRO_QUESOS.Medicos
 		Medico_Fecha_Nac as Fecha_Nac,
 		0 as Nro_Matricula, --indefinido
 		getdate() as Fecha_Atencion_Desde,
-		case when (MAX(Turno_Fecha) > GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
+		case when (MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
 		1 as Habilitado --asumo que los medicos existentes están todos activos
 		
 		
@@ -568,6 +568,8 @@ INSERT INTO CUATRO_QUESOS.Medicos
 		Medico_Fecha_Nac
 
 
+/*NOTA: ACA EMPIEZA LA PARTE DE LOS BONOS. */
+		
 --Bonos consulta
 INSERT INTO CUATRO_QUESOS.Bonos
 	(
@@ -614,7 +616,7 @@ INSERT INTO CUATRO_QUESOS.Bonos
 		and Compra_Bono_Fecha is not null
 		
 		
-/*NOTA: ACA EMPIEZA LA PARTE DE LOS BONOS. ESTA PARTE DEL SCRIPT POR SÍ SOLA TARDA 30 SEGUNDOS*/
+
 		
 --Bonos farmacia
 INSERT INTO CUATRO_QUESOS.Bonos
@@ -650,4 +652,10 @@ INSERT INTO CUATRO_QUESOS.Bonos
 from gd_esquema.Maestra as principal
 where Bono_Farmacia_Numero is not null 
 
-/* *********************FIN INSERCION DE BONOS************************ */
+/* *************FIN INSERCION DE BONOS*************** */
+
+
+
+
+
+COMMIT
