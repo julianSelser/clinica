@@ -177,6 +177,7 @@ CREATE TABLE CUATRO_QUESOS.Turnos (
 	Fecha datetime NOT NULL,
 	Nro_Afiliado numeric(18) NOT NULL,
 	Id_Medico numeric(18) NOT NULL,
+	Cod_Especialidad numeric(18) NOT NULL
 )
 ;
 
@@ -395,6 +396,11 @@ ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Medicos
 	ON UPDATE CASCADE
 ;
 
+ALTER TABLE CUATRO_QUESOS.Turnos ADD CONSTRAINT FK_Turnos_Especialidades 
+	FOREIGN KEY (Cod_Especialidad) REFERENCES CUATRO_QUESOS.Especialidades(Codigo)
+	ON UPDATE CASCADE
+;
+
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Roles 
 	FOREIGN KEY (Id_Rol) REFERENCES CUATRO_QUESOS.Roles (Id_Rol)
 	ON DELETE CASCADE ON UPDATE CASCADE
@@ -573,7 +579,7 @@ INSERT INTO CUATRO_QUESOS.Medicos
 
 
 /*NOTA: ACA EMPIEZA LA PARTE DE LOS BONOS. */
-		
+
 --Bonos consulta
 INSERT INTO CUATRO_QUESOS.Bonos
 	(
@@ -657,6 +663,97 @@ from gd_esquema.Maestra as principal
 where Bono_Farmacia_Numero is not null 
 
 /* *************FIN INSERCION DE BONOS*************** */
+
+
+--Días de atención
+
+INSERT INTO CUATRO_QUESOS.Dias_Atencion
+	(
+	ID_Medico,
+	Nombre_Dia,
+	Hora_Desde,
+	Hora_Hasta
+	)
+
+
+	select (select ID_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = Medico_Dni) as ID_Medico,
+		DATENAME(dw, Turno_Fecha) as Nombre_Dia,
+		MIN(Cast(Turno_Fecha as time)) as Hora_Desde,
+		MAX(Cast(Turno_Fecha as time)) as Hora_Hasta
+
+	from gd_esquema.Maestra
+	where Turno_Fecha is not null 
+		and DATENAME(dw, Turno_Fecha) != 'Domingo' --esto falla espectacularmente si la base de datos no está en español
+		and (	(DATENAME(dw, Turno_Fecha) != 'Sábado' --clausula para los días hábiles
+				and datepart(hour, Turno_Fecha) >= 7
+				and datepart(hour, Turno_Fecha) < 20) --menor a 20 porque si la clínica cierra a las 20, el último turno es a las 19:30
+			or 
+				(DATENAME(dw, Turno_Fecha) = 'Sábado' --clausula para los sábados
+				and datepart(hour, Turno_Fecha) >= 7
+				and datepart(hour, Turno_Fecha) < 20)
+			) 
+	group by Medico_Dni, DATENAME(dw, Turno_Fecha)
+
+	
+--Especialidades por médico
+
+INSERT INTO CUATRO_QUESOS.Especialidades_Medicos
+	(
+	ID_Medico,
+	Cod_Especialidad
+	)
+	
+	select distinct (select ID_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = Medico_Dni) as ID_Medico,
+		Especialidad_Codigo as Cod_Especialidad
+	from gd_esquema.Maestra
+	where Medico_Dni is not null
+
+	
+--Turnos
+
+INSERT INTO CUATRO_QUESOS.Turnos
+	(
+	Numero,
+	Fecha,
+	Nro_Afiliado,
+	ID_Medico,
+	Cod_Especialidad
+	)
+
+	select distinct Turno_Numero as Numero, 
+		Turno_Fecha as Fecha,
+		(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI) as Nro_Afiliado,
+		(select ID_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = Medico_Dni) as ID_Medico,
+		Especialidad_Codigo
+
+	from gd_esquema.Maestra
+	where Turno_Numero is not null
+
+
+	
+--Cancelaciones
+
+INSERT INTO CUATRO_QUESOS.Cancelaciones
+	(
+	Nro_Turno,
+	Tipo,
+	Motivo
+	)
+	
+	select Turno_Numero as Nro_Turno,
+	'No asistencia' as Tipo,
+	'Se encontró un turno pasado para el cual no se registra la consulta correspondiente' as Motivo
+	
+	from gd_esquema.Maestra as principal
+	where Turno_Numero is not null 
+		--and Bono_Consulta_Numero is null
+		and (select COUNT(*) 
+			from gd_esquema.Maestra as sub1
+			where principal.Turno_Numero = sub1.Turno_Numero
+				and sub1.Bono_Consulta_Numero is not null) = 0
+		--esta condición significa que no existe un registro con este número de turno y un bono de consulta asociado
+		--esto quiere decir que el turno no se concretó ya que no se usó bono consulta
+		and Turno_Fecha < GETDATE()-- y esto otro significa que el turno debería haberse concretado antes de la migración
 
 
 COMMIT
