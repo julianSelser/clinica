@@ -462,7 +462,11 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 	(row_number() over(order by paciente_dni))*100 as Nro_Titular, --es el titular
 	NULL as Nro_Conyuge, --nadie tiene conyuge
 	NULL as Fecha_Baja, --asumo que los socios dados están activos
-	0 as Nro_Consulta --cantidad de consultas que lleva hechas (0 porque es desde la migracion - estara bien asi?)	
+	(select COUNT(*) from gd_esquema.Maestra as sub1 
+		where subtabla.Paciente_DNI = sub1.Paciente_DNI 
+			and sub1.Turno_Numero is not null
+			and sub1.Bono_Consulta_Numero is not null)
+	as Nro_Consulta --cuento la cantidad de consultas concretadas (turno asociado a bono consulta = consulta concretada)
 
 	from 
 		(select distinct Paciente_Nombre, Paciente_Apellido, Paciente_Direccion, Paciente_Dni, Paciente_Telefono, Paciente_Fecha_Nac, Paciente_Mail, Plan_Med_Codigo
@@ -553,7 +557,7 @@ INSERT INTO CUATRO_QUESOS.Medicos
 		Medico_Fecha_Nac as Fecha_Nac,
 		0 as Nro_Matricula, --indefinido
 		getdate() as Fecha_Atencion_Desde,
-		case when (MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
+		case when MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
 		1 as Habilitado --asumo que los medicos existentes están todos activos
 		
 		
@@ -653,9 +657,6 @@ from gd_esquema.Maestra as principal
 where Bono_Farmacia_Numero is not null 
 
 /* *************FIN INSERCION DE BONOS*************** */
-
-
-
 
 
 COMMIT
