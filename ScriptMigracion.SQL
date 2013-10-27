@@ -514,6 +514,50 @@ COMMIT
 
 
 
+--Medicos
 
+INSERT INTO CUATRO_QUESOS.Medicos
+	(
+	ID_Medico,
+	Nombre,
+	Apellido,
+	Sexo,
+	Tipo_Doc,
+	Nro_Doc,
+	Direccion,
+	Telefono,
+	Mail,
+	Fecha_Nac,
+	Nro_Matricula,
+	Fecha_Atencion_Desde,
+	Fecha_Atencion_Hasta,
+	Habilitado
+	)
+	
+	select (row_number() over(order by Medico_DNI)) as ID_Medico,
+		Medico_Nombre as Nombre,
+		Medico_Apellido as Apellido,
+		'-' as Sexo, --indefinido
+		'DNI' as Tipo_Doc, --como la columna de la maestra dice DNI, asumo que todos los documentos existentes son DNI
+		Medico_Dni as Nro_Doc,
+		Medico_Direccion as Direccion,
+		Medico_Telefono as Telefono,
+		Medico_Mail as Mail,
+		Medico_Fecha_Nac as Fecha_Nac,
+		0 as Nro_Matricula, --indefinido
+		getdate() as Fecha_Atencion_Desde,
+		case when (MAX(Turno_Fecha) > GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
+		1 as Habilitado --asumo que los medicos existentes están todos activos
+		
+		
+	from gd_esquema.Maestra
+	where Medico_Dni is not null
+	group by Medico_Dni, 
+		Medico_Nombre, 
+		Medico_Apellido, 
+		Medico_Direccion,
+		Medico_Telefono,
+		Medico_Mail,
+		Medico_Fecha_Nac
 
 
