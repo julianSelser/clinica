@@ -29,5 +29,15 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             AsistenteVistas.mostrarNuevaVentana(new Alta_Profesional(this), this);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Baja_Profesional(this), this);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Modificar_Profesional(this), this);
+        }
     }
 }

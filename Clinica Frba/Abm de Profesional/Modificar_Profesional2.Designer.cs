@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Profesional
 {
-    partial class Alta_Profesional
+    partial class Modificar_Profesional2
     {
         /// <summary>
         /// Required designer variable.
@@ -599,7 +599,7 @@
             this.button4.Text = "Quitar";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // Alta_Profesional
+            // Modificar_Profesional2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -642,8 +642,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Alta_Profesional";
-            this.Text = "Alta Profesional";
+            this.Name = "Modificar_Profesional2";
+            this.Text = "Modificar Profesional2";
             this.ResumeLayout(false);
             this.PerformLayout();
 

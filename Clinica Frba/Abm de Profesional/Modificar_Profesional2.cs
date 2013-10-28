@@ -10,10 +10,10 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Profesional
 {
-    public partial class Modificar_Profesional : Form
+    public partial class Modificar_Profesional2 : Form
     {
         private Form padre;
-        public Modificar_Profesional(Form padre)
+        public Modificar_Profesional2(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
@@ -25,9 +25,14 @@ namespace Clinica_Frba.Abm_de_Profesional
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Modificar_Profesional2(this), this);
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

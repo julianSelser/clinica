@@ -61,6 +61,12 @@
     <Compile Include="Abm de Profesional\Baja_Profesional.Designer.cs">
       <DependentUpon>Baja_Profesional.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm de Profesional\Modificar_Profesional2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Profesional\Modificar_Profesional2.Designer.cs">
+      <DependentUpon>Modificar_Profesional2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm de Profesional\Modificar_Profesional.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Profesional\Baja_Profesional.resx">
       <DependentUpon>Baja_Profesional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Profesional\Modificar_Profesional2.resx">
+      <DependentUpon>Modificar_Profesional2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Profesional\Modificar_Profesional.resx">
       <DependentUpon>Modificar_Profesional.cs</DependentUpon>
