@@ -207,7 +207,7 @@
             "31"});
             this.comboBox2.Location = new System.Drawing.Point(146, 248);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(33, 21);
+            this.comboBox2.Size = new System.Drawing.Size(45, 21);
             this.comboBox2.TabIndex = 13;
             // 
             // comboBox3
@@ -226,9 +226,9 @@
             "Octubre",
             "Noviembre",
             "Diciembre"});
-            this.comboBox3.Location = new System.Drawing.Point(185, 248);
+            this.comboBox3.Location = new System.Drawing.Point(197, 248);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(36, 21);
+            this.comboBox3.Size = new System.Drawing.Size(79, 21);
             this.comboBox3.TabIndex = 14;
             // 
             // comboBox4
@@ -259,24 +259,25 @@
             "1992",
             "1991",
             "1990"});
-            this.comboBox4.Location = new System.Drawing.Point(227, 248);
+            this.comboBox4.Location = new System.Drawing.Point(282, 248);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(53, 21);
+            this.comboBox4.Size = new System.Drawing.Size(60, 21);
             this.comboBox4.TabIndex = 15;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(338, 31);
+            this.label8.Location = new System.Drawing.Point(356, 33);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(93, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "Numero Matricula:";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(336, 60);
+            this.label9.Location = new System.Drawing.Point(356, 60);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(119, 13);
             this.label9.TabIndex = 17;
@@ -285,7 +286,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(338, 90);
+            this.label10.Location = new System.Drawing.Point(356, 90);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(116, 13);
             this.label10.TabIndex = 18;
@@ -329,7 +330,7 @@
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(461, 30);
+            this.textBox7.Location = new System.Drawing.Point(490, 30);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(100, 20);
             this.textBox7.TabIndex = 23;
@@ -369,10 +370,11 @@
             "29",
             "30",
             "31"});
-            this.comboBox6.Location = new System.Drawing.Point(461, 57);
+            this.comboBox6.Location = new System.Drawing.Point(490, 57);
             this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(36, 21);
+            this.comboBox6.Size = new System.Drawing.Size(44, 21);
             this.comboBox6.TabIndex = 24;
+            this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
             // 
             // comboBox7
             // 
@@ -390,9 +392,9 @@
             "Octubre",
             "Noviembre",
             "Diciembre"});
-            this.comboBox7.Location = new System.Drawing.Point(505, 56);
+            this.comboBox7.Location = new System.Drawing.Point(540, 57);
             this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(35, 21);
+            this.comboBox7.Size = new System.Drawing.Size(75, 21);
             this.comboBox7.TabIndex = 25;
             // 
             // comboBox8
@@ -423,9 +425,9 @@
             "1992",
             "1991",
             "1990"});
-            this.comboBox8.Location = new System.Drawing.Point(546, 56);
+            this.comboBox8.Location = new System.Drawing.Point(621, 56);
             this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(38, 21);
+            this.comboBox8.Size = new System.Drawing.Size(59, 21);
             this.comboBox8.TabIndex = 26;
             // 
             // comboBox9
@@ -463,9 +465,9 @@
             "29",
             "30",
             "31"});
-            this.comboBox9.Location = new System.Drawing.Point(461, 90);
+            this.comboBox9.Location = new System.Drawing.Point(490, 87);
             this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(36, 21);
+            this.comboBox9.Size = new System.Drawing.Size(44, 21);
             this.comboBox9.TabIndex = 27;
             // 
             // comboBox10
@@ -484,9 +486,9 @@
             "Octubre",
             "Noviembre",
             "Diciembre"});
-            this.comboBox10.Location = new System.Drawing.Point(504, 90);
+            this.comboBox10.Location = new System.Drawing.Point(540, 87);
             this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(36, 21);
+            this.comboBox10.Size = new System.Drawing.Size(75, 21);
             this.comboBox10.TabIndex = 28;
             // 
             // comboBox11
@@ -517,14 +519,14 @@
             "1992",
             "1991",
             "1990"});
-            this.comboBox11.Location = new System.Drawing.Point(547, 89);
+            this.comboBox11.Location = new System.Drawing.Point(621, 87);
             this.comboBox11.Name = "comboBox11";
-            this.comboBox11.Size = new System.Drawing.Size(37, 21);
+            this.comboBox11.Size = new System.Drawing.Size(59, 21);
             this.comboBox11.TabIndex = 29;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(397, 271);
+            this.button1.Location = new System.Drawing.Point(427, 271);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 34);
             this.button1.TabIndex = 30;
@@ -533,7 +535,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(499, 271);
+            this.button2.Location = new System.Drawing.Point(546, 271);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 34);
             this.button2.TabIndex = 31;
@@ -545,7 +547,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 317);
+            this.ClientSize = new System.Drawing.Size(702, 317);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox11);
