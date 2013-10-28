@@ -17,6 +17,10 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             InitializeComponent();
             this.padre = padre;
+            for (int x = 1; x <= 20; x++)
+            {
+                checkedListBox1.Items.Add("Especialidad " + x.ToString());
+            }
 
         }
 
