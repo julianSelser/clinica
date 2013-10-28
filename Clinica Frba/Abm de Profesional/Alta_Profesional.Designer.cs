@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Profesional
 {
-    partial class Form1
+    partial class Alta_Profesional
     {
         /// <summary>
         /// Required designer variable.
