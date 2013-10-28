@@ -33,7 +33,7 @@
             this.deslogButton = new System.Windows.Forms.Button();
             this.usuarioLogueado = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.boton_profesional = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -96,15 +96,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // boton_profesional
             // 
-            this.button2.Location = new System.Drawing.Point(175, 88);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 34);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Profesionales";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.boton_profesional.Location = new System.Drawing.Point(175, 88);
+            this.boton_profesional.Name = "boton_profesional";
+            this.boton_profesional.Size = new System.Drawing.Size(142, 34);
+            this.boton_profesional.TabIndex = 20;
+            this.boton_profesional.Text = "Profesionales";
+            this.boton_profesional.UseVisualStyleBackColor = true;
+            this.boton_profesional.Click += new System.EventHandler(this.boton_profesional_Click);
             // 
             // button3
             // 
@@ -221,7 +221,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.boton_profesional);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.usuarioLogueado);
             this.Controls.Add(this.deslogButton);
@@ -242,7 +242,7 @@
         private System.Windows.Forms.Button deslogButton;
         private System.Windows.Forms.Label usuarioLogueado;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button boton_profesional;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
