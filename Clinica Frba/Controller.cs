@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
-using Clinica_Frba.Exceptions;
 using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba
@@ -14,21 +13,21 @@ namespace Clinica_Frba
         private static Regex patronAlfanumerico = new Regex("[a-zA-Z0-9]");
         private static Regex patronCodigo = new Regex(@"^\d+$");
         public enum TipoValidacion { Alfanumerico, Dinero, Codigo, Patente };
-        public static void validarCampos(List<AbstractCampo> campos)
+        public static void validarCampos(List<CampoAbstracto> campos)
         {
             string mensajeError = "";
-            foreach (AbstractCampo campo in campos)
+            foreach (CampoAbstracto campo in campos)
             {
                 try
                 {
                     campo.validar();
                 }
-                catch (ValidationException ex)
+                catch (ExcepcionValidacion ex)
                 {
                     mensajeError += ex.mensaje;
                 }
             }
-            if (!stringEstaVacio(mensajeError)) { throw new ValidationException(mensajeError); }
+            if (!stringEstaVacio(mensajeError)) { throw new ExcepcionValidacion(mensajeError); }
 
         }
 
@@ -40,13 +39,13 @@ namespace Clinica_Frba
                 switch (campo.tipoVal)
                 {
                     case TipoValidacion.Alfanumerico:
-                        if (!stringValido(campo.texto)) { throw new ValidationException("-El campo " + campo.nombre + " debe ser alfanumérico." + Environment.NewLine); }
+                        if (!stringValido(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe ser alfanumérico." + Environment.NewLine); }
                         break;
                     case TipoValidacion.Dinero:
-                        if (!stringEsDinero(campo.texto)) { throw new ValidationException("-El campo " + campo.nombre + " debe representar dinero.(sin letras, negativo ni ',')" + Environment.NewLine); }
+                        if (!stringEsDinero(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe representar dinero.(sin letras, negativo ni ',')" + Environment.NewLine); }
                         break;
                     case TipoValidacion.Codigo:
-                        if (!stringEsCodigo(campo.texto)) { throw new ValidationException("-El campo " + campo.nombre + " no es un código válido. Solo se permiten números." + Environment.NewLine); }
+                        if (!stringEsCodigo(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " no es un código válido. Solo se permiten números." + Environment.NewLine); }
                         break;
 
                 }

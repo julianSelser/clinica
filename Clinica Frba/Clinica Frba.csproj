@@ -68,11 +68,11 @@
       <DependentUpon>Modificar_Profesional.cs</DependentUpon>
     </Compile>
     <Compile Include="AppModel\Campo.cs" />
-    <Compile Include="Conector\ConectorSQL.cs" />
+    <Compile Include="AppModel\ConectorSQL.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="AppModel\AbstractCampo.cs" />
-    <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="Helpers\FormHelper.cs" />
+    <Compile Include="AppModel\CampoAbstracto.cs" />
+    <Compile Include="AppModel\ExcepcionValidacion.cs" />
+    <Compile Include="AppModel\AsistenteVistas.cs" />
     <Compile Include="PantallaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Clinica_Frba.AppModel
 {
-    public abstract class AbstractCampo
+    public abstract class CampoAbstracto
     {
         public abstract void validar();
     }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Clinica_Frba.Exceptions
+namespace Clinica_Frba.AppModel
 {
-    class ValidationException : Exception
+    class ExcepcionValidacion : Exception
     {
         public string mensaje { get; set; }
 
-        public ValidationException(string msgError)
+        public ExcepcionValidacion(string msgError)
         {
             this.mensaje = msgError;
         }

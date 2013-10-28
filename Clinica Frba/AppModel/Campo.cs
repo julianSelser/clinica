@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Clinica_Frba.Exceptions;
 using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.AppModel
 {
-    class Campo : AbstractCampo
+    class Campo : CampoAbstracto
     {
         public string texto { get; set; }
         public string nombre { get; set; }
@@ -32,14 +31,14 @@ namespace Clinica_Frba.AppModel
             {
                 Controller.validarTipo(this);
             }
-            catch (ValidationException ex)
+            catch (ExcepcionValidacion ex)
             {
                 mensaje += ex.mensaje;
                 rta = false;
             }
 
             if (rta) { return; }
-            else { throw new ValidationException(mensaje); }
+            else { throw new ExcepcionValidacion(mensaje); }
         }
     }
 }

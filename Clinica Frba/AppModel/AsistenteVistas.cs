@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Clinica_Frba.Helpers
+namespace Clinica_Frba.AppModel
 {
-    class FormHelper
+    class AsistenteVistas
     {
-        public static void volverAPadre(Form ventanaPadre)
+        public static void volverAPadreYCerrar(Form ventanaPadre, Form ventana)
         {
             ventanaPadre.Visible = true;
             ventanaPadre.Activate();
             ventanaPadre.Select();
+            ventana.Close();
         }
         public static void mostrarNuevaVentana(Form ventanaNueva, Form ventanaPadre)
         {

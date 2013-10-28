@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Login
 {
@@ -28,29 +29,16 @@ namespace Clinica_Frba.Login
             textBox2.MaxLength = 16;
         }
 
-        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            pantallaPrincipal.Visible = true;
-            pantallaPrincipal.Activate();
-            pantallaPrincipal.Select();
-        }
-
         private void acceptButton_Click(object sender, EventArgs e)
         {
             pantallaPrincipal.setearUsuarioLogueado(textBox1.Text);
-            pantallaPrincipal.Show();
-            this.Close();
+            AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            pantallaPrincipal.Show();
-            this.Close();
+            AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
