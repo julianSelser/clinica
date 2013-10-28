@@ -24,15 +24,6 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
-
-        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
+  
     }
 }

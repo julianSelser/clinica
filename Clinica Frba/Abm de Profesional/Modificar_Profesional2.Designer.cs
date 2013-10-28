@@ -61,11 +61,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -278,7 +274,6 @@
             this.label8.Size = new System.Drawing.Size(93, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "Numero Matricula:";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
@@ -380,7 +375,6 @@
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(44, 21);
             this.comboBox6.TabIndex = 24;
-            this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
             // 
             // comboBox7
             // 
@@ -554,61 +548,24 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(356, 150);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(110, 13);
+            this.label13.Size = new System.Drawing.Size(81, 13);
             this.label13.TabIndex = 32;
-            this.label13.Text = "Agregar Especialidad:";
+            this.label13.Text = "Especialidades:";
             // 
-            // label14
+            // checkedListBox1
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(356, 177);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(101, 13);
-            this.label14.TabIndex = 33;
-            this.label14.Text = "Quitar Especialidad:";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(490, 148);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 20);
-            this.textBox8.TabIndex = 34;
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(490, 174);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(100, 20);
-            this.textBox9.TabIndex = 35;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(605, 145);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 36;
-            this.button3.Text = "Agregar";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(605, 171);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 37;
-            this.button4.Text = "Quitar";
-            this.button4.UseVisualStyleBackColor = true;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(454, 150);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(226, 79);
+            this.checkedListBox1.TabIndex = 33;
             // 
             // Modificar_Profesional2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 317);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.label14);
+            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -684,10 +641,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }
