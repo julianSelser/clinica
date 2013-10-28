@@ -11,9 +11,9 @@ namespace Clinica_Frba.AppModel
         public string texto { get; set; }
         public string nombre { get; set; }
         public bool obligatorio { get; set; }
-        public Controller.TipoValidacion tipoVal { get; set; }
+        public Controlador.TipoValidacion tipoVal { get; set; }
 
-        public Campo(string nom, string text, bool oblig, Controller.TipoValidacion val)
+        public Campo(string nom, string text, bool oblig, Controlador.TipoValidacion val)
         {
             this.nombre = nom;
             this.texto = text;
@@ -26,10 +26,10 @@ namespace Clinica_Frba.AppModel
             string mensaje = "";
             bool rta = true;
 
-            if (this.obligatorio && Controller.stringEstaVacio(this.texto)) { mensaje += "-El campo " + this.nombre + " es obligatorio." + Environment.NewLine; rta = false; }
+            if (this.obligatorio && Controlador.stringVacio(this.texto)) { mensaje += "-El campo " + this.nombre + " es obligatorio." + Environment.NewLine; rta = false; }
             try
             {
-                Controller.validarTipo(this);
+                Controlador.validarTipo(this);
             }
             catch (ExcepcionValidacion ex)
             {

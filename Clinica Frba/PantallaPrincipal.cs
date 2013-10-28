@@ -11,7 +11,6 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.Login;
 using Clinica_Frba.Abm_de_Afiliado;
 using Clinica_Frba.Abm_de_Profesional;
-using Clinica_Frba.Abm_de_Especialidades_Medicas;
 
 namespace Clinica_Frba
 {
@@ -60,12 +59,6 @@ namespace Clinica_Frba
         {
             AsistenteVistas.mostrarNuevaVentana(new ABM_Profesional(this), this);
         }
-
-        private void button13_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.mostrarNuevaVentana(new ABM_Especialidades(this), this);
-        }
-
 
     }
 }
