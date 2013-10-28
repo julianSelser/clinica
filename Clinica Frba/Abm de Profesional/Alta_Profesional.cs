@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
-using Clinica_Frba.Abm_de_Profesional.ABM_Profesional;
 
 namespace Clinica_Frba.Abm_de_Profesional
 {
     public partial class Alta_Profesional : Form
     {
-        public Alta_Profesional()
+        private Form padre;
+        public Alta_Profesional(Form padre)
         {
             InitializeComponent();
+            this.padre = padre;
+
         }
     }
 }
