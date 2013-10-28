@@ -19,5 +19,10 @@ namespace Clinica_Frba.Abm_de_Profesional
             this.padre = padre;
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
     }
 }
