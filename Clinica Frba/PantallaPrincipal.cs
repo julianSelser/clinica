@@ -51,14 +51,14 @@ namespace Clinica_Frba
             loginButton.Visible = true;
         }
 
-        private void boton_profesional_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.mostrarNuevaVentana(new ABM_Profesional(this), this);
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new ABM_Rol(this), this);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ABM_Profesional(this), this);
         }
 
     }

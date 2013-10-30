@@ -79,6 +79,30 @@
     <Compile Include="Abm de Rol\ABM_Rol.Designer.cs">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm de Rol\Alta_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Rol\Alta_Rol.Designer.cs">
+      <DependentUpon>Alta_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm de Rol\Baja_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Rol\Baja_Rol.Designer.cs">
+      <DependentUpon>Baja_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm de Rol\Modificar_Rol2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Rol\Modificar_Rol2.Designer.cs">
+      <DependentUpon>Modificar_Rol2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm de Rol\Modificar_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Rol\Modificar_Rol.Designer.cs">
+      <DependentUpon>Modificar_Rol.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
     <Compile Include="Controlador.cs" />
@@ -179,6 +203,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Rol\Alta_Rol.resx">
+      <DependentUpon>Alta_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Rol\Baja_Rol.resx">
+      <DependentUpon>Baja_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Rol\Modificar_Rol2.resx">
+      <DependentUpon>Modificar_Rol2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Rol\Modificar_Rol.resx">
+      <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\Cancelar_Atencion.resx">
       <DependentUpon>Cancelar_Atencion.cs</DependentUpon>

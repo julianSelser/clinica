@@ -33,7 +33,6 @@
             this.deslogButton = new System.Windows.Forms.Button();
             this.usuarioLogueado = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.boton_profesional = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -92,17 +92,6 @@
             this.button1.TabIndex = 19;
             this.button1.Text = "Afiliados";
             this.button1.UseVisualStyleBackColor = true;
-
-            // 
-            // boton_profesional
-            // 
-            this.boton_profesional.Location = new System.Drawing.Point(175, 88);
-            this.boton_profesional.Name = "boton_profesional";
-            this.boton_profesional.Size = new System.Drawing.Size(142, 34);
-            this.boton_profesional.TabIndex = 20;
-            this.boton_profesional.Text = "Profesionales";
-            this.boton_profesional.UseVisualStyleBackColor = true;
-           // this.boton_profesional.Click += new System.EventHandler(this.boton_profesional_Click);
             // 
             // button3
             // 
@@ -186,11 +175,22 @@
             this.button12.Text = "Registrar Agenda";
             this.button12.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(175, 88);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(142, 33);
+            this.button2.TabIndex = 31;
+            this.button2.Text = "Profesionales";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 261);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
@@ -200,7 +200,6 @@
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.boton_profesional);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.usuarioLogueado);
             this.Controls.Add(this.deslogButton);
@@ -221,7 +220,6 @@
         private System.Windows.Forms.Button deslogButton;
         private System.Windows.Forms.Label usuarioLogueado;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button boton_profesional;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
@@ -231,6 +229,7 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button2;
 
 
     }
