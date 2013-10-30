@@ -49,6 +49,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abm de Afiliado\Alta_Afiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Alta_Afiliado.Designer.cs">
+      <DependentUpon>Alta_Afiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Baja_Afiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Baja_Afiliado.Designer.cs">
+      <DependentUpon>Baja_Afiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Modificar_Afiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Modificar_Afiliado.Designer.cs">
+      <DependentUpon>Modificar_Afiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Modificar_Afiliado2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Afiliado\Modificar_Afiliado2.Designer.cs">
+      <DependentUpon>Modificar_Afiliado2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm de Profesional\Alta_Profesional.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +209,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Abm de Afiliado\ABM_Afiliado.resx">
       <DependentUpon>ABM_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Afiliado\Alta_Afiliado.resx">
+      <DependentUpon>Alta_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Afiliado\Baja_Afiliado.resx">
+      <DependentUpon>Baja_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Afiliado\Modificar_Afiliado.resx">
+      <DependentUpon>Modificar_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Afiliado\Modificar_Afiliado2.resx">
+      <DependentUpon>Modificar_Afiliado2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Profesional\ABM_Profesional.resx">
       <DependentUpon>ABM_Profesional.cs</DependentUpon>

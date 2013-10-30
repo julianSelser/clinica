@@ -61,5 +61,10 @@ namespace Clinica_Frba
             AsistenteVistas.mostrarNuevaVentana(new ABM_Profesional(this), this);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ABM_Afiliado(this), this);
+        }
+
     }
 }
