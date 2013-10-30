@@ -155,8 +155,7 @@ CREATE TABLE CUATRO_QUESOS.Planes_Medicos (
 CREATE TABLE CUATRO_QUESOS.Roles ( 
 	Id_Rol numeric(18) NOT NULL,
 	Habilitado bit NOT NULL,
-	Nombre varchar(50) NOT NULL,
-	Descripcion varchar(50)
+	Nombre varchar(50) NOT NULL
 )
 ;
 

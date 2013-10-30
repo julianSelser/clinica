@@ -92,7 +92,7 @@
             this.button1.TabIndex = 19;
             this.button1.Text = "Afiliados";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+
             // 
             // boton_profesional
             // 
@@ -102,7 +102,7 @@
             this.boton_profesional.TabIndex = 20;
             this.boton_profesional.Text = "Profesionales";
             this.boton_profesional.UseVisualStyleBackColor = true;
-            this.boton_profesional.Click += new System.EventHandler(this.boton_profesional_Click);
+           // this.boton_profesional.Click += new System.EventHandler(this.boton_profesional_Click);
             // 
             // button3
             // 
