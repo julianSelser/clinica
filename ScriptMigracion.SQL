@@ -332,7 +332,7 @@ ALTER TABLE CUATRO_QUESOS.Compra ADD CONSTRAINT FK_Compra_Afiliados
 	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 ;
 
-ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT FK_Bonos_Consultas 
+ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT FK_Consultas_Bonos 
 	FOREIGN KEY (Nro_Bono_Consulta, Tipo_Bono) REFERENCES CUATRO_QUESOS.Bonos (Numero, Tipo_Bono)
 ;
 
@@ -360,7 +360,7 @@ ALTER TABLE CUATRO_QUESOS.Especialidades_Medicos ADD CONSTRAINT FK_Especialidade
 	ON UPDATE CASCADE
 ;
 
-ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta ADD CONSTRAINT FK_Bonos_Por_Consulta 
+ALTER TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta ADD CONSTRAINT FK_Medicamentos_Por_Consulta_Bonos 
 	FOREIGN KEY (Nro_Bono_Farmacia, Tipo_Bono) REFERENCES CUATRO_QUESOS.Bonos (Numero, Tipo_Bono)
 ;
 
