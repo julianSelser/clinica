@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Listados_Estadisticos
+﻿namespace Clinica_Frba.Cancelar_Atencion
 {
-    partial class Listados_Estadisticos
+    partial class Cancelacion_Atencion
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Listados_Estadisticos
+            // Cancelar_Atencion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Listados_Estadisticos";
-            this.Text = "Listados Estadísticos";
+            this.Name = "Cancelar_Atencion";
+            this.Text = "Cancelar Atención";
             this.ResumeLayout(false);
 
         }

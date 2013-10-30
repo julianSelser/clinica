@@ -129,10 +129,22 @@
     </Compile>
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
+    <Compile Include="Compra de Bono\Comprar_Bono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra de Bono\Comprar_Bono.Designer.cs">
+      <DependentUpon>Comprar_Bono.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controlador.cs" />
     <Compile Include="AppModel\CampoAbstracto.cs" />
     <Compile Include="AppModel\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
+    <Compile Include="Generar Receta\Generar_Receta1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Receta\Generar_Receta1.Designer.cs">
+      <DependentUpon>Generar_Receta1.cs</DependentUpon>
+    </Compile>
     <Compile Include="PantallaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,17 +175,11 @@
     <Compile Include="Registrar Agenda\Registrar_Agenda.Designer.cs">
       <DependentUpon>Registrar_Agenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra de Bono\Compra_Bono.cs">
+    <Compile Include="Pedir Turno\Solicitar_Turno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra de Bono\Compra_Bono.Designer.cs">
-      <DependentUpon>Compra_Bono.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Pedir Turno\Pedir_Turno.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pedir Turno\Pedir_Turno.Designer.cs">
-      <DependentUpon>Pedir_Turno.cs</DependentUpon>
+    <Compile Include="Pedir Turno\Solicitar_Turno.Designer.cs">
+      <DependentUpon>Solicitar_Turno.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro de LLegada\Registro_Llegada.cs">
       <SubType>Form</SubType>
@@ -187,17 +193,11 @@
     <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion.Designer.cs">
       <DependentUpon>Registro_Resultado_Atencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Atencion\Cancelar_Atencion.cs">
+    <Compile Include="Cancelar Atencion\Cancelacion_Atencion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\Cancelar_Atencion.Designer.cs">
-      <DependentUpon>Cancelar_Atencion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generar Receta\Generar_Receta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Generar Receta\Generar_Receta.Designer.cs">
-      <DependentUpon>Generar_Receta.cs</DependentUpon>
+    <Compile Include="Cancelar Atencion\Cancelacion_Atencion.Designer.cs">
+      <DependentUpon>Cancelacion_Atencion.cs</DependentUpon>
     </Compile>
     <Compile Include="Listados Estadisticos\Listados_Estadisticos.cs">
       <SubType>Form</SubType>
@@ -252,14 +252,8 @@
     <EmbeddedResource Include="Abm de Rol\Modificar_Rol.resx">
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\Cancelar_Atencion.resx">
-      <DependentUpon>Cancelar_Atencion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Compra de Bono\Compra_Bono.resx">
-      <DependentUpon>Compra_Bono.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Generar Receta\Generar_Receta.resx">
-      <DependentUpon>Generar_Receta.cs</DependentUpon>
+    <EmbeddedResource Include="Cancelar Atencion\Cancelacion_Atencion.resx">
+      <DependentUpon>Cancelacion_Atencion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listados Estadisticos\Listados_Estadisticos.resx">
       <DependentUpon>Listados_Estadisticos.cs</DependentUpon>
@@ -270,8 +264,8 @@
     <EmbeddedResource Include="PantallaPrincipal.resx">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pedir Turno\Pedir_Turno.resx">
-      <DependentUpon>Pedir_Turno.cs</DependentUpon>
+    <EmbeddedResource Include="Pedir Turno\Solicitar_Turno.resx">
+      <DependentUpon>Solicitar_Turno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

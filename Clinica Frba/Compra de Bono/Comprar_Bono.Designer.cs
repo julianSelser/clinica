@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Pedir_Turno
+﻿namespace Clinica_Frba.Compra_de_Bono
 {
-    partial class Pedir_Turno
+    partial class Comprar_Bono
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Pedir_Turno
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Pedir_Turno";
-            this.Text = "Pedido de Turno";
-            this.ResumeLayout(false);
-
+            this.Text = "Comprar_Bono";
         }
 
         #endregion

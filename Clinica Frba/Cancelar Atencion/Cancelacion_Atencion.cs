@@ -6,14 +6,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clinica_Frba.AppModel;
 
-namespace Clinica_Frba.Generar_Receta
+namespace Clinica_Frba.Cancelar_Atencion
 {
-    public partial class Form1 : Form
+    public partial class Cancelacion_Atencion : Form
     {
-        public Form1()
+        private Form padre;
+
+        public Cancelacion_Atencion(Form padre)
         {
             InitializeComponent();
+            this.padre = padre;
         }
     }
 }

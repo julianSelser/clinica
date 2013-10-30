@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Cancelar_Atencion
+﻿namespace Clinica_Frba.Generar_Receta
 {
-    partial class Cancelar_Atencion
+    partial class Generar_Receta1
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Cancelar_Atencion
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Cancelar_Atencion";
-            this.Text = "Cancelar Atención";
-            this.ResumeLayout(false);
-
+            this.Text = "Generar_Receta1";
         }
 
         #endregion

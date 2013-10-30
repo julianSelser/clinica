@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Compra_Bono
+﻿namespace Clinica_Frba.Listados_Estadisticos
 {
-    partial class Compra_Bono
+    partial class Listados_Estadisticos1
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Compra_Bono
+            // Listados_Estadisticos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Compra_Bono";
-            this.Text = "Compra de bono";
+            this.Name = "Listados_Estadisticos";
+            this.Text = "Listados Estadísticos";
             this.ResumeLayout(false);
 
         }

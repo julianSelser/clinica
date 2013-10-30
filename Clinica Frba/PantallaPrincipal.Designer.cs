@@ -112,6 +112,7 @@
             this.button5.TabIndex = 23;
             this.button5.Text = "Pedir Turno";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -121,6 +122,7 @@
             this.button6.TabIndex = 24;
             this.button6.Text = "Cancelar Atención";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -157,6 +159,7 @@
             this.button10.TabIndex = 28;
             this.button10.Text = "Generar Receta";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
@@ -166,6 +169,7 @@
             this.button11.TabIndex = 29;
             this.button11.Text = "Comprar Bono";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button12
             // 

@@ -6,14 +6,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Clinica_Frba.AppModel;
 
-namespace Clinica_Frba.Compra_Bono
+namespace Clinica_Frba.Generar_Receta
 {
-    public partial class Compra_Bono : Form
+    public partial class Generar_Receta1 : Form
     {
-        public Compra_Bono()
+        private Form padre;
+
+        public Generar_Receta1(Form padre)
         {
             InitializeComponent();
+            this.padre = padre;
         }
     }
 }
