@@ -19,5 +19,15 @@ namespace Clinica_Frba.Cancelar_Atencion
             InitializeComponent();
             this.padre = padre;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void Cancelacion_Atencion_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

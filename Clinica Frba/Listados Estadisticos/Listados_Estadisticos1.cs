@@ -12,9 +12,17 @@ namespace Clinica_Frba.Listados_Estadisticos
 {
     public partial class Listados_Estadisticos1 : Form
     {
-        public Listados_Estadisticos1()
+        private Form padre;
+
+        public Listados_Estadisticos1(Form padre)
         {
             InitializeComponent();
+            this.padre = padre;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
     }
 }

@@ -10,11 +10,19 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Registro_Resultado_Atencion
 {
-    public partial class Registro_Resultado_Atencion : Form
+    public partial class Registro_Resultado_Atencion1 : Form
     {
-        public Registro_Resultado_Atencion()
+        private Form padre;
+
+        public Registro_Resultado_Atencion1(Form padre)
         {
             InitializeComponent();
+            this.padre = padre;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
     }
 }

@@ -93,6 +93,26 @@ namespace Clinica_Frba
         {
             AsistenteVistas.mostrarNuevaVentana(new Comprar_Bono(this), this);
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Listados_Estadisticos1(this), this);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Registrar_Agenda1(this), this);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Registro_Llegada1(this), this);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Registro_Resultado_Atencion1(this), this);
+        }
         
 
     }

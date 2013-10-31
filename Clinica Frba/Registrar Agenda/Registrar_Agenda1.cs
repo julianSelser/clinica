@@ -10,11 +10,19 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Registrar_Agenda
 {
-    public partial class Registrar_Agenda : Form
+    public partial class Registrar_Agenda1 : Form
     {
-        public Registrar_Agenda()
+        private Form padre;
+
+        public Registrar_Agenda1(Form padre)
         {
             InitializeComponent();
+            this.padre = padre;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
     }
 }

@@ -169,11 +169,11 @@
     <Compile Include="Abm de Profesional\ABM_Profesional.Designer.cs">
       <DependentUpon>ABM_Profesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Agenda\Registrar_Agenda.cs">
+    <Compile Include="Registrar Agenda\Registrar_Agenda1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registrar Agenda\Registrar_Agenda.Designer.cs">
-      <DependentUpon>Registrar_Agenda.cs</DependentUpon>
+    <Compile Include="Registrar Agenda\Registrar_Agenda1.Designer.cs">
+      <DependentUpon>Registrar_Agenda1.cs</DependentUpon>
     </Compile>
     <Compile Include="Pedir Turno\Solicitar_Turno.cs">
       <SubType>Form</SubType>
@@ -181,17 +181,17 @@
     <Compile Include="Pedir Turno\Solicitar_Turno.Designer.cs">
       <DependentUpon>Solicitar_Turno.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro de LLegada\Registro_Llegada.cs">
+    <Compile Include="Registro de LLegada\Registro_Llegada1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro de LLegada\Registro_Llegada.Designer.cs">
-      <DependentUpon>Registro_Llegada.cs</DependentUpon>
+    <Compile Include="Registro de LLegada\Registro_Llegada1.Designer.cs">
+      <DependentUpon>Registro_Llegada1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion.cs">
+    <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion.Designer.cs">
-      <DependentUpon>Registro_Resultado_Atencion.cs</DependentUpon>
+    <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.Designer.cs">
+      <DependentUpon>Registro_Resultado_Atencion1.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar Atencion\Cancelacion_Atencion.cs">
       <SubType>Form</SubType>
@@ -199,11 +199,11 @@
     <Compile Include="Cancelar Atencion\Cancelacion_Atencion.Designer.cs">
       <DependentUpon>Cancelacion_Atencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados Estadisticos\Listados_Estadisticos.cs">
+    <Compile Include="Listados Estadisticos\Listados_Estadisticos1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados Estadisticos\Listados_Estadisticos.Designer.cs">
-      <DependentUpon>Listados_Estadisticos.cs</DependentUpon>
+    <Compile Include="Listados Estadisticos\Listados_Estadisticos1.Designer.cs">
+      <DependentUpon>Listados_Estadisticos1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -255,8 +255,14 @@
     <EmbeddedResource Include="Cancelar Atencion\Cancelacion_Atencion.resx">
       <DependentUpon>Cancelacion_Atencion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Listados Estadisticos\Listados_Estadisticos.resx">
-      <DependentUpon>Listados_Estadisticos.cs</DependentUpon>
+    <EmbeddedResource Include="Compra de Bono\Comprar_Bono.resx">
+      <DependentUpon>Comprar_Bono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Receta\Generar_Receta1.resx">
+      <DependentUpon>Generar_Receta1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados Estadisticos\Listados_Estadisticos1.resx">
+      <DependentUpon>Listados_Estadisticos1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -272,14 +278,14 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Agenda\Registrar_Agenda.resx">
-      <DependentUpon>Registrar_Agenda.cs</DependentUpon>
+    <EmbeddedResource Include="Registrar Agenda\Registrar_Agenda1.resx">
+      <DependentUpon>Registrar_Agenda1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro de LLegada\Registro_Llegada.resx">
-      <DependentUpon>Registro_Llegada.cs</DependentUpon>
+    <EmbeddedResource Include="Registro de LLegada\Registro_Llegada1.resx">
+      <DependentUpon>Registro_Llegada1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Resultado Atencion\Registro_Resultado_Atencion.resx">
-      <DependentUpon>Registro_Resultado_Atencion.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.resx">
+      <DependentUpon>Registro_Resultado_Atencion1.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

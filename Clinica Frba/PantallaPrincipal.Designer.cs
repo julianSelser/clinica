@@ -132,6 +132,7 @@
             this.button7.TabIndex = 25;
             this.button7.Text = "Registrar Llegada";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
@@ -141,6 +142,7 @@
             this.button8.TabIndex = 26;
             this.button8.Text = "Registrar Resultado de Atención";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -150,6 +152,7 @@
             this.button9.TabIndex = 27;
             this.button9.Text = "Listados Estadísticos";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
@@ -179,6 +182,7 @@
             this.button12.TabIndex = 30;
             this.button12.Text = "Registrar Agenda";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button2
             // 
