@@ -831,3 +831,55 @@ INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
 		and Turno_Fecha < GETDATE()
 		
 COMMIT
+
+go
+
+
+
+
+--create procedures
+
+create procedure CUATRO_QUESOS.agregarMedico2(@nombre varchar(255),
+											 @apellido varchar(255),
+											 @sexo varchar(255),
+											 @tipoDoc varchar(3),
+											 @nroDoc numeric(18),
+											 @direccion varchar(255),
+											 @telefono numeric(18),
+											 @mail varchar(255),
+											 @fechaNac datetime,
+											 @nroMatricula numeric(18),
+											 @fechaAtencionDesde datetime,
+											 @fechaAtencionHasta datetime)
+as
+	begin tran
+	
+		declare @id numeric(18)
+		
+		set @id = (select top 1 m.Id_Medico
+				   from CUATRO_QUESOS.Medicos m
+				   order by m.Id_Medico desc)
+		--hago este select para saber cual fue el ultimo id generado				 
+		set @id = @id + 1
+
+		insert into CUATRO_QUESOS.Medicos (Id_Medico, Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula, Fecha_Atencion_Desde, Fecha_Atencion_Hasta, Habilitado)
+
+		values (@id,
+				@nombre,
+				@apellido,
+				@sexo,
+				@tipoDoc,
+				@nroDoc,
+				@direccion,
+				@telefono,
+				@mail,
+				@fechaNac,
+				@nroMatricula,
+				@fechaAtencionDesde,
+				@fechaAtencionHasta,
+				1)
+	commit
+
+--falta hacer el insert de las especialidades, y horarios de consulta
+
+go
