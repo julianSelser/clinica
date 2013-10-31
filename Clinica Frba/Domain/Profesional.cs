@@ -20,7 +20,7 @@ namespace Clinica_Frba.Domain
         public string mail;
         public string sexo;
 
-        //si al metodo le ponia un nombre diferente al de la clase me tiraba error
+        //si al metodo le ponia un nombre diferente al de la clase me tiraba error (me estaba faltando ponerle el retono)
         public Profesional(string unNombre, string unApellido, string unTipoDoc, string unNroDoc, string unaDireccion, string unTelefono, string unaFechaNac, string unNroMatricula, string unaFechaAtencionHasta, string unaFechaAtencionDesde, string unMail, string unSexo){
             this.nombre = unNombre;
             this.apellido = unApellido;
