@@ -923,7 +923,7 @@ commit
 go
 
 
-create procedure CUATRO_QUESOS.bajaMedico2(@medico numeric(18))  --lo busco por el dni
+create procedure CUATRO_QUESOS.bajaMedico(@medico numeric(18))  --lo busco por el dni
 as
 begin tran
 	delete from CUATRO_QUESOS.Medicos
@@ -931,3 +931,15 @@ begin tran
 commit
 
 go
+
+
+create function CUATRO_QUESOS.getMedico(@nroDoc numeric(18))
+	returns numeric(18)
+as
+	begin
+		declare @resultado numeric(18)
+		set @resultado = (select Id_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = @nroDoc)
+		return @resultado
+	end
+	
+go	
