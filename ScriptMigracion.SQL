@@ -837,20 +837,22 @@ go
 
 
 
---create procedures
+--CREATE PROCEDURES--
 
-create procedure CUATRO_QUESOS.agregarMedico2(@nombre varchar(255),
-											 @apellido varchar(255),
-											 @sexo varchar(255),
-											 @tipoDoc varchar(3),
-											 @nroDoc numeric(18),
-											 @direccion varchar(255),
-											 @telefono numeric(18),
-											 @mail varchar(255),
-											 @fechaNac datetime,
-											 @nroMatricula numeric(18),
-											 @fechaAtencionDesde datetime,
-											 @fechaAtencionHasta datetime)
+--procedures medicos
+
+create procedure CUATRO_QUESOS.altaMedico(@nombre varchar(255),
+										  @apellido varchar(255),
+										  @sexo varchar(255),
+										  @tipoDoc varchar(3),
+										  @nroDoc numeric(18),
+										  @direccion varchar(255),
+										  @telefono numeric(18),
+										  @mail varchar(255),
+										  @fechaNac datetime,
+										  @nroMatricula numeric(18),
+										  @fechaAtencionDesde datetime,
+										  @fechaAtencionHasta datetime)
 as
 	begin tran
 	
@@ -881,5 +883,51 @@ as
 	commit
 
 --falta hacer el insert de las especialidades, y horarios de consulta
+
+go
+
+
+create procedure CUATRO_QUESOS.updateMedico(@id numeric(18),
+											@nombre varchar(255),
+											@apellido varchar(255),
+										    @sexo varchar(255),
+											@tipoDoc varchar(3),
+											@nroDoc numeric(18),
+											@direccion varchar(255),
+											@telefono numeric(18),
+											@mail varchar(255),
+											@fechaNac datetime,
+											@nroMatricula numeric(18),
+											@fechaAtencionDesde datetime,
+											@fechaAtencionHasta datetime)
+as
+begin tran
+	update CUATRO_QUESOS.Medicos
+		
+		set Nombre = @nombre,
+			Apellido = @apellido,
+			Sexo = @sexo,
+			Tipo_Doc = @tipoDoc,
+			Nro_Doc = @nroDoc,
+			Direccion = @direccion,
+			Telefono = @telefono,
+			Mail = @mail,
+			Fecha_Nac = @fechaNac,
+			Nro_Matricula = @nroMatricula,
+			Fecha_Atencion_Desde = @fechaAtencionDesde,
+			Fecha_Atencion_Hasta = @fechaAtencionHasta
+			
+		where Id_Medico = @id
+commit
+		
+go
+
+
+create procedure CUATRO_QUESOS.bajaMedico2(@medico numeric(18))  --lo busco por el dni
+as
+begin tran
+	delete from CUATRO_QUESOS.Medicos
+	where Nro_Doc = @medico
+commit
 
 go
