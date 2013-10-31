@@ -139,6 +139,7 @@
     <Compile Include="AppModel\CampoAbstracto.cs" />
     <Compile Include="AppModel\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
+    <Compile Include="Domain\Profesional.cs" />
     <Compile Include="Generar Receta\Generar_Receta1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,9 +304,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
