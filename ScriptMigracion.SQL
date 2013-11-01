@@ -140,7 +140,7 @@ CREATE TABLE CUATRO_QUESOS.Medicos (
 	Nro_Matricula numeric(18),
 	Fecha_Atencion_Desde datetime NOT NULL,
 	Fecha_Atencion_Hasta datetime NOT NULL,
-	Habilitado bit NOT NULL
+	Habilitado bit NOT NULL DEFAULT 1
 )
 ;
 
@@ -920,4 +920,29 @@ BEGIN TRAN
 		  Apellido = @apellido
 COMMIT
 
+GO
+
+DROP PROCEDURE CUATRO_QUESOS.getMedicos
+
+CREATE PROCEDURE CUATRO_QUESOS.getMedicos
+AS
+SELECT Id_Medico 'ID Medico',
+Nombre 'Nombre', Apellido 'Apellido', 
+Sexo 'Sexo', Tipo_Doc 'Tipo Documento',
+Nro_Doc 'Numero Documento', Direccion 'Direccion',
+Telefono 'Telefono', Mail 'Mail', Fecha_Nac 'Fecha Nacimiento',
+Nro_Matricula 'Numero Matricula', Fecha_Atencion_Desde 'Fecha Atencion Desde',
+Fecha_Atencion_Hasta 'Fecha Atencion Hasta', Habilitado 'Habilitado'
+FROM CUATRO_QUESOS.Medicos
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255), @nroDoc numeric(18))
+RETURNS numeric(18)
+BEGIN
+	DECLARE @Id
+	SELECT @Id = Id_Medico
+	FROM CUATRO_QUESOS.Medicos
+	WHERE Nombre = @nombre, Apellido = @apellido, Nro_Doc = @nroDoc
+	RETURN @Id
+END
 GO

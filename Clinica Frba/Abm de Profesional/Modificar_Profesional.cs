@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Profesional
 {
@@ -28,6 +29,12 @@ namespace Clinica_Frba.Abm_de_Profesional
         private void button1_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new Modificar_Profesional2(this), this);
+        }
+
+        public string TextotextId
+        {
+            get { return nroDoc.Text; }
+            set { nroDoc.Text = value; }
         }
     }
 }
