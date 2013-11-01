@@ -76,42 +76,42 @@ namespace Clinica_Frba
 
         private void button5_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Solicitar_Turno(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new PedirTurno(this), this);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Cancelacion_Atencion(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new CancelarAtencion(this), this);
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Generar_Receta1(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new GenerarReceta(this), this);
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Comprar_Bono(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new CompraBono(this), this);
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Listados_Estadisticos1(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadosEstadisticos(this), this);
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Registrar_Agenda1(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new RegistrarAgenda(this), this);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Registro_Llegada1(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new RegistroLlegada(this), this);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Registro_Resultado_Atencion1(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new RegistroResultadoAtencion(this), this);
         }
         
 

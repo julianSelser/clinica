@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Data;
 
 
-namespace Clinica_Frba.Conector
+namespace Clinica_Frba.AppModel
 {
   class ConectorSQL //objeto que hace de interfaz con la base de datos
   {

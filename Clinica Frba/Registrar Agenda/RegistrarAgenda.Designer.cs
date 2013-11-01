@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Generar_Receta
+﻿namespace Clinica_Frba.Registrar_Agenda
 {
-    partial class Generar_Receta1
+    partial class RegistrarAgenda
     {
         /// <summary>
         /// Required designer variable.
@@ -34,32 +34,32 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(168, 204);
+            this.button2.Location = new System.Drawing.Point(163, 198);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
+            this.button2.TabIndex = 11;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(47, 204);
+            this.button1.Location = new System.Drawing.Point(42, 198);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
+            this.button1.TabIndex = 10;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // Generar_Receta1
+            // Registrar_Agenda1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 266);
+            this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Generar_Receta1";
-            this.Text = "Generar_Receta1";
+            this.Name = "Registrar_Agenda1";
+            this.Text = "Registrar Agenda";
             this.ResumeLayout(false);
 
         }

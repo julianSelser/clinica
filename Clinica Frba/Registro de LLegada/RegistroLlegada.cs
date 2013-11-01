@@ -8,13 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
-namespace Clinica_Frba.Cancelar_Atencion
+namespace Clinica_Frba.Registro_de_LLegada
 {
-    public partial class Cancelacion_Atencion : Form
+    public partial class RegistroLlegada : Form
     {
         private Form padre;
 
-        public Cancelacion_Atencion(Form padre)
+        public RegistroLlegada(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
@@ -23,11 +23,6 @@ namespace Clinica_Frba.Cancelar_Atencion
         private void button2_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
-        }
-
-        private void Cancelacion_Atencion_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

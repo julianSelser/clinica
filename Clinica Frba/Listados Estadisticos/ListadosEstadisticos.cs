@@ -8,13 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
-namespace Clinica_Frba.Pedir_Turno
+namespace Clinica_Frba.Listados_Estadisticos
 {
-    public partial class Solicitar_Turno : Form
+    public partial class ListadosEstadisticos : Form
     {
         private Form padre;
 
-        public Solicitar_Turno(Form padre)
+        public ListadosEstadisticos(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

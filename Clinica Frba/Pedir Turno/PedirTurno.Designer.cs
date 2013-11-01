@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Pedir_Turno
 {
-    partial class Solicitar_Turno
+    partial class PedirTurno
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Registro_de_LLegada
+﻿namespace Clinica_Frba.Cancelar_Atencion
 {
-    partial class Registro_Llegada1
+    partial class CancelarAtencion
     {
         /// <summary>
         /// Required designer variable.
@@ -34,32 +34,33 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(166, 207);
+            this.button2.Location = new System.Drawing.Point(163, 207);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
+            this.button2.TabIndex = 3;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(45, 207);
+            this.button1.Location = new System.Drawing.Point(42, 207);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
+            this.button1.TabIndex = 2;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // Registro_Llegada1
+            // Cancelacion_Atencion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Registro_Llegada1";
-            this.Text = "Registro de Llegada";
+            this.Name = "Cancelacion_Atencion";
+            this.Text = "Cancelar Atención";
+            this.Load += new System.EventHandler(this.Cancelacion_Atencion_Load);
             this.ResumeLayout(false);
 
         }

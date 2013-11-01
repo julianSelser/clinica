@@ -10,11 +10,11 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Generar_Receta
 {
-    public partial class Generar_Receta1 : Form
+    public partial class GenerarReceta : Form
     {
         private Form padre;
 
-        public Generar_Receta1(Form padre)
+        public GenerarReceta(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

@@ -10,11 +10,11 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Registro_Resultado_Atencion
 {
-    public partial class Registro_Resultado_Atencion1 : Form
+    public partial class RegistroResultadoAtencion : Form
     {
         private Form padre;
 
-        public Registro_Resultado_Atencion1(Form padre)
+        public RegistroResultadoAtencion(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

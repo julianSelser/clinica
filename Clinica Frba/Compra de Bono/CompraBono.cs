@@ -8,13 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
-namespace Clinica_Frba.Listados_Estadisticos
+namespace Clinica_Frba.Compra_de_Bono
 {
-    public partial class Listados_Estadisticos1 : Form
+    public partial class CompraBono : Form
     {
         private Form padre;
 
-        public Listados_Estadisticos1(Form padre)
+        public CompraBono(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

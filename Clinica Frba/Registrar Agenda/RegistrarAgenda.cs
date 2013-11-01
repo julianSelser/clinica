@@ -8,13 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
-namespace Clinica_Frba.Compra_de_Bono
+namespace Clinica_Frba.Registrar_Agenda
 {
-    public partial class Comprar_Bono : Form
+    public partial class RegistrarAgenda : Form
     {
         private Form padre;
 
-        public Comprar_Bono(Form padre)
+        public RegistrarAgenda(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

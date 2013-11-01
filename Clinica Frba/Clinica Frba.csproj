@@ -127,24 +127,25 @@
     <Compile Include="Abm de Rol\Modificar_Rol.Designer.cs">
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppModel\AppProfesional.cs" />
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
-    <Compile Include="Compra de Bono\Comprar_Bono.cs">
+    <Compile Include="Compra de Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra de Bono\Comprar_Bono.Designer.cs">
-      <DependentUpon>Comprar_Bono.cs</DependentUpon>
+    <Compile Include="Compra de Bono\CompraBono.Designer.cs">
+      <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlador.cs" />
     <Compile Include="AppModel\CampoAbstracto.cs" />
     <Compile Include="AppModel\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
     <Compile Include="Domain\Profesional.cs" />
-    <Compile Include="Generar Receta\Generar_Receta1.cs">
+    <Compile Include="Generar Receta\GenerarReceta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Receta\Generar_Receta1.Designer.cs">
-      <DependentUpon>Generar_Receta1.cs</DependentUpon>
+    <Compile Include="Generar Receta\GenerarReceta.Designer.cs">
+      <DependentUpon>GenerarReceta.cs</DependentUpon>
     </Compile>
     <Compile Include="PantallaPrincipal.cs">
       <SubType>Form</SubType>
@@ -152,11 +153,11 @@
     <Compile Include="PantallaPrincipal.Designer.cs">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\Login.cs">
+    <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="Login\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm de Afiliado\ABM_Afiliado.cs">
       <SubType>Form</SubType>
@@ -176,11 +177,11 @@
     <Compile Include="Registrar Agenda\Registrar_Agenda1.Designer.cs">
       <DependentUpon>Registrar_Agenda1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pedir Turno\Solicitar_Turno.cs">
+    <Compile Include="Pedir Turno\PedirTurno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pedir Turno\Solicitar_Turno.Designer.cs">
-      <DependentUpon>Solicitar_Turno.cs</DependentUpon>
+    <Compile Include="Pedir Turno\PedirTurno.Designer.cs">
+      <DependentUpon>PedirTurno.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro de LLegada\Registro_Llegada1.cs">
       <SubType>Form</SubType>
@@ -194,17 +195,17 @@
     <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.Designer.cs">
       <DependentUpon>Registro_Resultado_Atencion1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Atencion\Cancelacion_Atencion.cs">
+    <Compile Include="Cancelar Atencion\CancelarAtencion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\Cancelacion_Atencion.Designer.cs">
-      <DependentUpon>Cancelacion_Atencion.cs</DependentUpon>
+    <Compile Include="Cancelar Atencion\CancelarAtencion.Designer.cs">
+      <DependentUpon>CancelarAtencion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados Estadisticos\Listados_Estadisticos1.cs">
+    <Compile Include="Listados Estadisticos\ListadosEstadisticos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados Estadisticos\Listados_Estadisticos1.Designer.cs">
-      <DependentUpon>Listados_Estadisticos1.cs</DependentUpon>
+    <Compile Include="Listados Estadisticos\ListadosEstadisticos.Designer.cs">
+      <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -253,26 +254,26 @@
     <EmbeddedResource Include="Abm de Rol\Modificar_Rol.resx">
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\Cancelacion_Atencion.resx">
-      <DependentUpon>Cancelacion_Atencion.cs</DependentUpon>
+    <EmbeddedResource Include="Cancelar Atencion\CancelarAtencion.resx">
+      <DependentUpon>CancelarAtencion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compra de Bono\Comprar_Bono.resx">
-      <DependentUpon>Comprar_Bono.cs</DependentUpon>
+    <EmbeddedResource Include="Compra de Bono\CompraBono.resx">
+      <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Receta\Generar_Receta1.resx">
-      <DependentUpon>Generar_Receta1.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Receta\GenerarReceta.resx">
+      <DependentUpon>GenerarReceta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Listados Estadisticos\Listados_Estadisticos1.resx">
-      <DependentUpon>Listados_Estadisticos1.cs</DependentUpon>
+    <EmbeddedResource Include="Listados Estadisticos\ListadosEstadisticos.resx">
+      <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="Login\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PantallaPrincipal.resx">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pedir Turno\Solicitar_Turno.resx">
-      <DependentUpon>Solicitar_Turno.cs</DependentUpon>
+    <EmbeddedResource Include="Pedir Turno\PedirTurno.resx">
+      <DependentUpon>PedirTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
