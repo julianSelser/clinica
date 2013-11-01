@@ -14,7 +14,7 @@ GO
 
 --  Create Tables 
 CREATE TABLE CUATRO_QUESOS.Afiliados ( 
-	Nro_Afiliado numeric(18) NOT NULL identity(100,100),
+	Nro_Afiliado numeric(18) NOT NULL identity(101,100),
 	Nombre varchar(255) NOT NULL,
 	Apellido varchar(255) NOT NULL,
 	Sexo char(1) NOT NULL,
@@ -29,7 +29,8 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
 	Nro_Titular numeric(18),
 	Nro_Conyuge numeric(18),
 	Fecha_Baja datetime,
-	Nro_Consulta int
+	Nro_Consulta int DEFAULT 0,
+	CantFamiliaresACargo tinyint NOT NULL DEFAULT 0
 )
 ;
 
@@ -459,7 +460,7 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 	Paciente_Fecha_Nac as Fecha_Nac, 
 	Plan_Med_Codigo as Cod_Plan,
 	'Soltero' as Estado_Civil, --presumido
-	(row_number() over(order by paciente_dni))*100 as Nro_Titular, --es el titular
+	(row_number() over(order by paciente_dni))*100 + 1  as Nro_Titular, --es el titular
 	NULL as Nro_Conyuge, --nadie tiene conyuge
 	NULL as Fecha_Baja, --asumo que los socios dados están activos
 	(select COUNT(*) from gd_esquema.Maestra as sub1 
@@ -922,8 +923,6 @@ COMMIT
 
 GO
 
-DROP PROCEDURE CUATRO_QUESOS.getMedicos
-
 CREATE PROCEDURE CUATRO_QUESOS.getMedicos
 AS
 SELECT Id_Medico 'ID Medico',
@@ -939,10 +938,10 @@ GO
 CREATE FUNCTION CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255), @nroDoc numeric(18))
 RETURNS numeric(18)
 BEGIN
-	DECLARE @Id
+	DECLARE @Id numeric(18)
 	SELECT @Id = Id_Medico
 	FROM CUATRO_QUESOS.Medicos
-	WHERE Nombre = @nombre, Apellido = @apellido, Nro_Doc = @nroDoc
+	WHERE Nombre = @nombre AND Apellido = @apellido AND Nro_Doc = @nroDoc
 	RETURN @Id
 END
 GO

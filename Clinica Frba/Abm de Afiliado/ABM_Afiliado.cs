@@ -32,17 +32,17 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void button3_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Baja_Afiliado(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this), this);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Modificar_Afiliado(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado(this), this);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Alta_Afiliado(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado("Titular",this), this);
         }
     }
 }

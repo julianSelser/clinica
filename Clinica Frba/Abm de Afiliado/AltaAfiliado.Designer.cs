@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Afiliado
 {
-    partial class Alta_Afiliado
+    partial class AltaAfiliado
     {
         /// <summary>
         /// Required designer variable.
@@ -30,16 +30,12 @@
         {
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.labelFamiliares = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.labelEstadoCivil = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,14 +49,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox12 = new System.Windows.Forms.ComboBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.estadoCivil = new System.Windows.Forms.ComboBox();
+            this.cantFamiliares = new System.Windows.Forms.TextBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.altaConyuge = new System.Windows.Forms.Button();
+            this.altaFamiliar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(538, 267);
+            this.button2.Location = new System.Drawing.Point(620, 267);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 34);
             this.button2.TabIndex = 135;
@@ -70,23 +71,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(419, 267);
+            this.button1.Location = new System.Drawing.Point(513, 267);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 34);
             this.button1.TabIndex = 134;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "Masculino",
-            "Femenino"});
-            this.comboBox5.Location = new System.Drawing.Point(138, 216);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 126;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox6
             // 
@@ -113,131 +104,37 @@
             this.label11.TabIndex = 123;
             this.label11.Text = "Mail:";
             // 
-            // label10
+            // labelFamiliares
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(348, 86);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(159, 13);
-            this.label10.TabIndex = 122;
-            this.label10.Text = "Cantidad De Familiares A Cargo:";
+            this.labelFamiliares.AutoSize = true;
+            this.labelFamiliares.Location = new System.Drawing.Point(348, 84);
+            this.labelFamiliares.Name = "labelFamiliares";
+            this.labelFamiliares.Size = new System.Drawing.Size(152, 13);
+            this.labelFamiliares.TabIndex = 122;
+            this.labelFamiliares.Text = "Cantidad de familiares a cargo:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(348, 56);
+            this.label9.Location = new System.Drawing.Point(348, 26);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(69, 13);
             this.label9.TabIndex = 121;
             this.label9.Text = "Plan Medico:";
             // 
-            // label8
+            // labelEstadoCivil
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(348, 29);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 120;
-            this.label8.Text = "Estado Civil:";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "2013",
-            "2012",
-            "2011",
-            "2010",
-            "2009",
-            "2008",
-            "2007",
-            "2006",
-            "2005",
-            "2004",
-            "2003",
-            "2002",
-            "2001",
-            "2000",
-            "1999",
-            "1998",
-            "1997",
-            "1996",
-            "1995",
-            "1994",
-            "1993",
-            "1992",
-            "1991",
-            "1990"});
-            this.comboBox4.Location = new System.Drawing.Point(274, 244);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(60, 21);
-            this.comboBox4.TabIndex = 119;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Enero",
-            "Febrero",
-            "Marzo",
-            "Abril",
-            "Mayo",
-            "Junio",
-            "Julio",
-            "Agosto",
-            "Septiembre",
-            "Octubre",
-            "Noviembre",
-            "Diciembre"});
-            this.comboBox3.Location = new System.Drawing.Point(189, 244);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(79, 21);
-            this.comboBox3.TabIndex = 118;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.comboBox2.Location = new System.Drawing.Point(138, 244);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(45, 21);
-            this.comboBox2.TabIndex = 117;
+            this.labelEstadoCivil.AutoSize = true;
+            this.labelEstadoCivil.Location = new System.Drawing.Point(348, 54);
+            this.labelEstadoCivil.Name = "labelEstadoCivil";
+            this.labelEstadoCivil.Size = new System.Drawing.Size(65, 13);
+            this.labelEstadoCivil.TabIndex = 120;
+            this.labelEstadoCivil.Text = "Estado Civil:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(26, 244);
+            this.label7.Location = new System.Drawing.Point(29, 244);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 13);
             this.label7.TabIndex = 116;
@@ -287,9 +184,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(29, 112);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 13);
+            this.label4.Size = new System.Drawing.Size(105, 13);
             this.label4.TabIndex = 110;
-            this.label4.Text = "Numero Doc:";
+            this.label4.Text = "Numero Documento:";
             // 
             // comboBox1
             // 
@@ -298,17 +195,17 @@
             "DNI"});
             this.comboBox1.Location = new System.Drawing.Point(138, 80);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(100, 21);
             this.comboBox1.TabIndex = 109;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 80);
+            this.label3.Location = new System.Drawing.Point(29, 80);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 108;
-            this.label3.Text = "Tipo Doc:";
+            this.label3.Text = "Tipo Documento:";
             // 
             // textBox2
             // 
@@ -342,54 +239,108 @@
             this.label1.TabIndex = 104;
             this.label1.Text = "Nombre:";
             // 
-            // comboBox12
+            // estadoCivil
             // 
-            this.comboBox12.FormattingEnabled = true;
-            this.comboBox12.Items.AddRange(new object[] {
+            this.estadoCivil.FormattingEnabled = true;
+            this.estadoCivil.Items.AddRange(new object[] {
             "Soltero/a",
             "Casado/a",
             "Viudo/a",
             "Concubinato",
             "Divorciado/a"});
-            this.comboBox12.Location = new System.Drawing.Point(482, 23);
-            this.comboBox12.Name = "comboBox12";
-            this.comboBox12.Size = new System.Drawing.Size(121, 21);
-            this.comboBox12.TabIndex = 138;
+            this.estadoCivil.Location = new System.Drawing.Point(482, 53);
+            this.estadoCivil.Name = "estadoCivil";
+            this.estadoCivil.Size = new System.Drawing.Size(121, 21);
+            this.estadoCivil.TabIndex = 138;
+            this.estadoCivil.SelectedIndexChanged += new System.EventHandler(this.estadoCivil_SelectedIndexChanged);
             // 
-            // textBox7
+            // cantFamiliares
             // 
-            this.textBox7.Location = new System.Drawing.Point(482, 53);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(121, 20);
-            this.textBox7.TabIndex = 139;
+            this.cantFamiliares.Location = new System.Drawing.Point(530, 81);
+            this.cantFamiliares.Name = "cantFamiliares";
+            this.cantFamiliares.Size = new System.Drawing.Size(73, 20);
+            this.cantFamiliares.TabIndex = 140;
+            this.cantFamiliares.TextChanged += new System.EventHandler(this.cantFamiliares_TextChanged);
             // 
-            // textBox8
+            // radioButton1
             // 
-            this.textBox8.Location = new System.Drawing.Point(530, 83);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(73, 20);
-            this.textBox8.TabIndex = 140;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(138, 216);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(34, 17);
+            this.radioButton1.TabIndex = 141;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "M";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // Alta_Afiliado
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(178, 216);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(31, 17);
+            this.radioButton2.TabIndex = 142;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "F";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(138, 244);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 143;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(482, 23);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 144;
+            // 
+            // altaConyuge
+            // 
+            this.altaConyuge.Location = new System.Drawing.Point(616, 51);
+            this.altaConyuge.Name = "altaConyuge";
+            this.altaConyuge.Size = new System.Drawing.Size(124, 23);
+            this.altaConyuge.TabIndex = 145;
+            this.altaConyuge.Text = "Dar Alta Conyuge";
+            this.altaConyuge.UseVisualStyleBackColor = true;
+            this.altaConyuge.Click += new System.EventHandler(this.altaConyuge_Click);
+            // 
+            // altaFamiliar
+            // 
+            this.altaFamiliar.Location = new System.Drawing.Point(616, 83);
+            this.altaFamiliar.Name = "altaFamiliar";
+            this.altaFamiliar.Size = new System.Drawing.Size(124, 23);
+            this.altaFamiliar.TabIndex = 146;
+            this.altaFamiliar.Text = "Dar Familiares A Cargo";
+            this.altaFamiliar.UseVisualStyleBackColor = true;
+            this.altaFamiliar.Click += new System.EventHandler(this.altaFamiliar_Click);
+            // 
+            // AltaAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(699, 326);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.comboBox12);
+            this.ClientSize = new System.Drawing.Size(752, 326);
+            this.Controls.Add(this.altaFamiliar);
+            this.Controls.Add(this.altaConyuge);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.cantFamiliares);
+            this.Controls.Add(this.estadoCivil);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox5);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.labelFamiliares);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.labelEstadoCivil);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label6);
@@ -403,7 +354,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Alta_Afiliado";
+            this.Name = "AltaAfiliado";
             this.Text = "Alta_Afiliado";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -414,16 +365,12 @@
 
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelFamiliares;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label labelEstadoCivil;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label6;
@@ -437,8 +384,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox12;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.ComboBox estadoCivil;
+        private System.Windows.Forms.TextBox cantFamiliares;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button altaConyuge;
+        private System.Windows.Forms.Button altaFamiliar;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Afiliado
 {
-    partial class Modificar_Afiliado2
+    partial class ModificarAfiliado2
     {
         /// <summary>
         /// Required designer variable.

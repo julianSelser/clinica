@@ -10,11 +10,11 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
-    public partial class Modificar_Afiliado : Form
+    public partial class ModificarAfiliado : Form
     {
         private Form padre;
 
-        public Modificar_Afiliado(Form padre)
+        public ModificarAfiliado(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
@@ -27,7 +27,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Modificar_Afiliado2(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado2(this), this);
         }
     }
 }

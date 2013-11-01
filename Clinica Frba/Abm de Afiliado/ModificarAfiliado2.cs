@@ -8,14 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
-
 namespace Clinica_Frba.Abm_de_Afiliado
 {
-    public partial class Alta_Afiliado : Form
+    public partial class ModificarAfiliado2 : Form
     {
         private Form padre;
 
-        public Alta_Afiliado(Form padre)
+        public ModificarAfiliado2(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

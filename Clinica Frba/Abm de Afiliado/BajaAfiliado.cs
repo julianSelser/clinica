@@ -10,11 +10,11 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
-    public partial class Baja_Afiliado : Form
+    public partial class BajaAfiliado : Form
     {
         private Form padre;
 
-        public Baja_Afiliado(Form padre)
+        public BajaAfiliado(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
