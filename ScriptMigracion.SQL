@@ -14,7 +14,7 @@ GO
 
 --  Create Tables 
 CREATE TABLE CUATRO_QUESOS.Afiliados ( 
-	Nro_Afiliado numeric(18) NOT NULL,
+	Nro_Afiliado numeric(18) NOT NULL identity(100,100),
 	Nombre varchar(255) NOT NULL,
 	Apellido varchar(255) NOT NULL,
 	Sexo char(1) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE CUATRO_QUESOS.Cancelaciones (
 ;
 
 CREATE TABLE CUATRO_QUESOS.Compra ( 
-	Id_Compra numeric(18) NOT NULL,
+	Id_Compra numeric(18) NOT NULL Identity(1,1),
 	Nro_Afiliado numeric(18) NOT NULL,
 	Fecha datetime NOT NULL,
 	Cantidad_Comprada_Consulta numeric(18),
@@ -73,7 +73,7 @@ CREATE TABLE CUATRO_QUESOS.Compra (
 ;
 
 CREATE TABLE CUATRO_QUESOS.Consultas ( 
-	Id_Consulta numeric(18) NOT NULL,
+	Id_Consulta numeric(18) NOT NULL Identity(1,1),
 	Nro_Turno numeric(18) NOT NULL,
 	Fecha_Llegada datetime,
 	Fecha_Atencion datetime,
@@ -106,13 +106,13 @@ CREATE TABLE CUATRO_QUESOS.Especialidades_Medicos (
 ;
 
 CREATE TABLE CUATRO_QUESOS.Funcionalidades ( 
-	Id_Funcionalidad numeric(18) NOT NULL,
+	Id_Funcionalidad numeric(18) NOT NULL Identity(1,1),
 	Descripcion varchar(255)
 )
 ;
 
 CREATE TABLE CUATRO_QUESOS.Medicamentos ( 
-	Id_Medicamento numeric(18) NOT NULL,
+	Id_Medicamento numeric(18) NOT NULL Identity(1,1),
 	Descripcion varchar(255) NOT NULL
 )
 ;
@@ -127,7 +127,7 @@ CREATE TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta (
 ;
 
 CREATE TABLE CUATRO_QUESOS.Medicos ( 
-	Id_Medico numeric(18) NOT NULL,
+	Id_Medico numeric(18) NOT NULL Identity(1,1),
 	Nombre varchar(255) NOT NULL,
 	Apellido varchar(255) NOT NULL,
 	Sexo varchar(255) NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE CUATRO_QUESOS.Planes_Medicos (
 ;
 
 CREATE TABLE CUATRO_QUESOS.Roles ( 
-	Id_Rol numeric(18) NOT NULL,
+	Id_Rol numeric(18) NOT NULL Identity(1,1),
 	Habilitado bit NOT NULL,
 	Nombre varchar(50) NOT NULL
 )
@@ -182,7 +182,7 @@ CREATE TABLE CUATRO_QUESOS.Turnos (
 
 CREATE TABLE CUATRO_QUESOS.Usuarios ( 
 	Username nvarchar(20) NOT NULL,
-	Password nvarchar(255) NOT NULL,
+	Pass nvarchar(255) NOT NULL,
 	Intentos_Fallidos tinyint,
 	Habilitado bit
 )
@@ -431,7 +431,6 @@ INSERT INTO CUATRO_QUESOS.Planes_Medicos
 
 INSERT INTO CUATRO_QUESOS.Afiliados
 	(
-	Nro_Afiliado,
 	Nombre,
 	Apellido,
 	Sexo,
@@ -449,8 +448,7 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 	Nro_Consulta
 	)
 	
-	select (row_number() over(order by paciente_dni))*100 as Nro_afiliado, --hasta ahora son todos titulares
-	Paciente_Nombre as Nombre, 
+	select Paciente_Nombre as Nombre, 
 	Paciente_Apellido as Apellido,
 	'-' as Sexo, --indefinido o migrado
 	'DNI' as Tipo_Doc, --como la columna de la maestra dice DNI, asumo que todos los documentos existentes son DNI
@@ -480,11 +478,10 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 
 INSERT INTO CUATRO_QUESOS.Medicamentos
 	(
-	Id_Medicamento,
 	Descripcion
 	)
 
-	select (ROW_NUMBER() over (order by Bono_Farmacia_Medicamento)) as ID_Medicamento,
+	select
 		Bono_Farmacia_Medicamento as Descripcion
 
 	from (select distinct Bono_Farmacia_Medicamento
@@ -532,7 +529,6 @@ INSERT INTO CUATRO_QUESOS.Especialidades
 
 INSERT INTO CUATRO_QUESOS.Medicos
 	(
-	ID_Medico,
 	Nombre,
 	Apellido,
 	Sexo,
@@ -548,7 +544,7 @@ INSERT INTO CUATRO_QUESOS.Medicos
 	Habilitado
 	)
 	
-	select (row_number() over(order by Medico_DNI)) as ID_Medico,
+	select 
 		Medico_Nombre as Nombre,
 		Medico_Apellido as Apellido,
 		'-' as Sexo, --indefinido
@@ -785,7 +781,6 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
 
 INSERT INTO CUATRO_QUESOS.Consultas
 	(
-	ID_Consulta,
 	Nro_Turno,
 	Fecha_Llegada,
 	Fecha_Atencion,
@@ -795,7 +790,7 @@ INSERT INTO CUATRO_QUESOS.Consultas
 	Tipo_Bono
 	)
 	
-	select ROW_NUMBER() over(order by Turno_Numero) as ID_Consulta,
+	select
 	Turno_Numero as Nro_Turno,
 	Turno_Fecha as Fecha_Llegada,
 	Turno_Fecha as Fecha_Atencion,
@@ -837,11 +832,11 @@ go
 
 
 
---CREATE PROCEDURES--
+--CREATE PROCEDURES
 
 --procedures medicos
 
-create procedure CUATRO_QUESOS.altaMedico(@nombre varchar(255),
+CREATE PROCEDURE CUATRO_QUESOS.altaMedico(@nombre varchar(255),
 										  @apellido varchar(255),
 										  @sexo varchar(255),
 										  @tipoDoc varchar(3),
@@ -853,20 +848,13 @@ create procedure CUATRO_QUESOS.altaMedico(@nombre varchar(255),
 										  @nroMatricula numeric(18),
 										  @fechaAtencionDesde datetime,
 										  @fechaAtencionHasta datetime)
-as
-	begin tran
-	
-		declare @id numeric(18)
-		
-		set @id = (select top 1 m.Id_Medico
-				   from CUATRO_QUESOS.Medicos m
-				   order by m.Id_Medico desc)
-		--hago este select para saber cual fue el ultimo id generado				 
-		set @id = @id + 1
+AS
+	BEGIN TRAN
 
-		insert into CUATRO_QUESOS.Medicos (Id_Medico, Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula, Fecha_Atencion_Desde, Fecha_Atencion_Hasta, Habilitado)
 
-		values (@id,
+		INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula, Fecha_Atencion_Desde, Fecha_Atencion_Hasta, Habilitado)
+
+		VALUES (
 				@nombre,
 				@apellido,
 				@sexo,
@@ -880,14 +868,14 @@ as
 				@fechaAtencionDesde,
 				@fechaAtencionHasta,
 				1)
-	commit
+	COMMIT
 
 --falta hacer el insert de las especialidades, y horarios de consulta
 
-go
+GO
 
 
-create procedure CUATRO_QUESOS.updateMedico(@id numeric(18),
+CREATE PROCEDURE CUATRO_QUESOS.updateMedico(@id numeric(18),
 											@nombre varchar(255),
 											@apellido varchar(255),
 										    @sexo varchar(255),
@@ -900,11 +888,11 @@ create procedure CUATRO_QUESOS.updateMedico(@id numeric(18),
 											@nroMatricula numeric(18),
 											@fechaAtencionDesde datetime,
 											@fechaAtencionHasta datetime)
-as
-begin tran
-	update CUATRO_QUESOS.Medicos
+AS
+BEGIN TRAN
+	UPDATE CUATRO_QUESOS.Medicos
 		
-		set Nombre = @nombre,
+		SET Nombre = @nombre,
 			Apellido = @apellido,
 			Sexo = @sexo,
 			Tipo_Doc = @tipoDoc,
@@ -917,29 +905,19 @@ begin tran
 			Fecha_Atencion_Desde = @fechaAtencionDesde,
 			Fecha_Atencion_Hasta = @fechaAtencionHasta
 			
-		where Id_Medico = @id
-commit
+		WHERE Id_Medico = @id
+COMMIT
 		
-go
+GO
 
 
-create procedure CUATRO_QUESOS.bajaMedico(@medico numeric(18))  --lo busco por el dni
-as
-begin tran
-	delete from CUATRO_QUESOS.Medicos
-	where Nro_Doc = @medico
-commit
+CREATE PROCEDURE CUATRO_QUESOS.bajaMedico(@dni numeric(18), @nombre varchar(255), @apellido varchar(255))  --lo busco por el dni, nombre y apellido
+AS
+BEGIN TRAN
+	DELETE FROM CUATRO_QUESOS.Medicos
+	WHERE Nro_Doc = @dni AND
+		  Nombre = @nombre AND
+		  Apellido = @apellido
+COMMIT
 
-go
-
-
-create function CUATRO_QUESOS.getMedico(@nroDoc numeric(18))
-	returns numeric(18)
-as
-	begin
-		declare @resultado numeric(18)
-		set @resultado = (select Id_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = @nroDoc)
-		return @resultado
-	end
-	
-go	
+GO
