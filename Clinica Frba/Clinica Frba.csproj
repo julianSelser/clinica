@@ -171,29 +171,11 @@
     <Compile Include="Abm de Profesional\ABM_Profesional.Designer.cs">
       <DependentUpon>ABM_Profesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Agenda\Registrar_Agenda1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registrar Agenda\Registrar_Agenda1.Designer.cs">
-      <DependentUpon>Registrar_Agenda1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Pedir Turno\PedirTurno.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pedir Turno\PedirTurno.Designer.cs">
       <DependentUpon>PedirTurno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registro de LLegada\Registro_Llegada1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro de LLegada\Registro_Llegada1.Designer.cs">
-      <DependentUpon>Registro_Llegada1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.Designer.cs">
-      <DependentUpon>Registro_Resultado_Atencion1.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar Atencion\CancelarAtencion.cs">
       <SubType>Form</SubType>
@@ -280,14 +262,14 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Agenda\Registrar_Agenda1.resx">
-      <DependentUpon>Registrar_Agenda1.cs</DependentUpon>
+    <EmbeddedResource Include="Registrar Agenda\RegistrarAgenda.resx">
+      <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro de LLegada\Registro_Llegada1.resx">
-      <DependentUpon>Registro_Llegada1.cs</DependentUpon>
+    <EmbeddedResource Include="Registro de LLegada\RegistroLlegada.resx">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Resultado Atencion\Registro_Resultado_Atencion1.resx">
-      <DependentUpon>Registro_Resultado_Atencion1.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Resultado Atencion\RegistroResultadoAtencion.resx">
+      <DependentUpon>RegistroResultadoAtencion.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -301,6 +283,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Registrar Agenda\RegistrarAgenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Agenda\RegistrarAgenda.Designer.cs">
+      <DependentUpon>RegistrarAgenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro de LLegada\RegistroLlegada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de LLegada\RegistroLlegada.Designer.cs">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Resultado Atencion\RegistroResultadoAtencion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Resultado Atencion\RegistroResultadoAtencion.Designer.cs">
+      <DependentUpon>RegistroResultadoAtencion.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
