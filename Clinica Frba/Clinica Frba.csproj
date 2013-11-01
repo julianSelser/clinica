@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="AppModel\AppProfesional.cs" />
     <Compile Include="AppModel\Campo.cs" />
+    <Compile Include="AppModel\AppAfiliado.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
     <Compile Include="Compra de Bono\CompraBono.cs">
       <SubType>Form</SubType>
@@ -140,6 +141,7 @@
     <Compile Include="AppModel\CampoAbstracto.cs" />
     <Compile Include="AppModel\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
+    <Compile Include="Domain\Afiliado.cs" />
     <Compile Include="Domain\Profesional.cs" />
     <Compile Include="Generar Receta\GenerarReceta.cs">
       <SubType>Form</SubType>

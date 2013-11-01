@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 
 namespace Clinica_Frba.Abm_de_Afiliado
@@ -64,7 +65,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void estadoCivil_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (estadoCivil.Text == "Casado/a") altaConyuge.Visible = true;
+            if (estadoCivil.Text == "Casado/a" || estadoCivil.Text == "Concubinato") altaConyuge.Visible = true;
             else altaConyuge.Visible = false;
         }
 
@@ -92,15 +93,21 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AltaAfiliado padre1 =(AltaAfiliado)padre;
-            if (modo == "Familiar")
+            if (modo != "Titular")
             {
-                padre1.decrementarFamiliar();
+                AltaAfiliado padre1 = (AltaAfiliado)padre;
+
+                if (modo == "Familiar")
+                {
+                    padre1.decrementarFamiliar();
+                }
+                if (modo == "Conyuge")
+                {
+                    padre1.deshabilitarAltaConyuge();
+                }
             }
-            if (modo == "Conyuge")
-            {
-                padre1.deshabilitarAltaConyuge();
-            }
+            Afiliado afiliado = crearAfiliado();
+            AppAfiliado.altaAfiliado(afiliado);
             AsistenteVistas.volverAPadreYCerrar(padre,this);
         }
 
@@ -114,6 +121,24 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             estadoCivil.Enabled = false;
             altaConyuge.Visible = false;
+        }
+
+        private Afiliado crearAfiliado()
+        {
+            Afiliado afiliado = new Afiliado();
+            afiliado.nombre = nombre.Text;
+            afiliado.apellido = apellido.Text;
+            afiliado.sexo = sexo;
+            afiliado.tipoDoc = tipoDoc.Text;
+            afiliado.nroDoc = Convert.ToInt32(nroDoc.Text);
+            afiliado.direccion = direccion.Text;
+            afiliado.mail = mail.Text;
+            afiliado.telefono = Convert.ToInt32(telefono.Text);
+            afiliado.fechaNac = Convert.ToDateTime(fechaNacimiento.Value);
+            afiliado.codPlan = Convert.ToInt32(planMedico.Text);
+            afiliado.estadoCivil = estadoCivil.Text;
+            afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliares.Text);
+            return afiliado;
         }
     }
 }

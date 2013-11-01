@@ -25,5 +25,11 @@ namespace Clinica_Frba.Abm_de_Afiliado
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int nro = Convert.ToInt32(nroAfiliado.Text);
+            AppAfiliado.darBajaAfiliado(nro);
+        }
+
     }
 }

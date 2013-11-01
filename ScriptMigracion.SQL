@@ -26,9 +26,9 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
 	Fecha_Nac datetime NOT NULL,
 	Cod_Plan numeric(18) NOT NULL,
 	Estado_Civil varchar(255) NOT NULL,
-	Nro_Titular numeric(18),
-	Nro_Conyuge numeric(18),
-	Fecha_Baja datetime,
+	Nro_Titular numeric(18) DEFAULT NULL,
+	Nro_Conyuge numeric(18)DEFAULT NULL,
+	Fecha_Baja datetime DEFAULT NULL,
 	Nro_Consulta int DEFAULT 0,
 	CantFamiliaresACargo tinyint NOT NULL DEFAULT 0
 )
@@ -459,7 +459,7 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 	Paciente_Mail as Mail,
 	Paciente_Fecha_Nac as Fecha_Nac, 
 	Plan_Med_Codigo as Cod_Plan,
-	'Soltero' as Estado_Civil, --presumido
+	'Soltero/a' as Estado_Civil, --presumido
 	(row_number() over(order by paciente_dni))*100 + 1  as Nro_Titular, --es el titular
 	NULL as Nro_Conyuge, --nadie tiene conyuge
 	NULL as Fecha_Baja, --asumo que los socios dados están activos
@@ -943,5 +943,39 @@ BEGIN
 	FROM CUATRO_QUESOS.Medicos
 	WHERE Nombre = @nombre AND Apellido = @apellido AND Nro_Doc = @nroDoc
 	RETURN @Id
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado
+(@Nombre varchar(255),
+ @Apellido varchar(255),
+ @Sexo char(1) ,
+ @Tipo_Doc varchar(3) ,
+ @Nro_Doc numeric(18) ,
+ @Direccion varchar(255),
+ @Mail varchar(255),
+ @Telefono numeric(18),
+ @Fecha_Nac datetime ,
+ @Cod_Plan numeric(18),
+ @Estado_Civil varchar(255) ,
+ @CantFamiliaresACargo tinyint
+)
+AS
+BEGIN
+INSERT INTO CUATRO_QUESOS.Afiliados
+(Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+VALUES (@Nombre,
+@Apellido,
+@Sexo,
+@Tipo_Doc,
+@Nro_Doc, 
+@Direccion,
+@Mail,
+@Telefono,
+ GETDATE(),
+@Cod_Plan, 
+@Estado_Civil, 
+@CantFamiliaresACargo
+)
 END
 GO
