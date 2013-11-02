@@ -134,6 +134,7 @@
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="AppModel\AppProfesional.cs" />
+    <Compile Include="AppModel\AppRol.cs" />
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\AppAfiliado.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="AppModel\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
     <Compile Include="Domain\Afiliado.cs" />
+    <Compile Include="Domain\Funcionalidad.cs" />
     <Compile Include="Domain\Rol.cs" />
     <Compile Include="Domain\Profesional.cs" />
     <Compile Include="Generar Receta\GenerarReceta.cs">

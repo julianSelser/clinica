@@ -1059,3 +1059,4 @@ as
 		SELECT  Descripcion 'Funcionalidad'
 		FROM CUATRO_QUESOS.Funcionalidades
 	end
+	
