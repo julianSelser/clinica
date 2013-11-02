@@ -138,6 +138,42 @@
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\AppAfiliado.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
+    <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\AdministradorCancelar.Designer.cs">
+      <DependentUpon>AdministradorCancelar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\AfiliadoCancelar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\AfiliadoCancelar.Designer.cs">
+      <DependentUpon>AfiliadoCancelar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\BaseCancelarAtencion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\BaseCancelarAtencion.Designer.cs">
+      <DependentUpon>BaseCancelarAtencion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\CancelarPeriodo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\CancelarPeriodo.Designer.cs">
+      <DependentUpon>CancelarPeriodo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\ProfesionalCancelar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\ProfesionalCancelar.Designer.cs">
+      <DependentUpon>ProfesionalCancelar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\SetearMotivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\SetearMotivo.Designer.cs">
+      <DependentUpon>SetearMotivo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra de Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,12 +223,6 @@
     </Compile>
     <Compile Include="Pedir Turno\PedirTurno.Designer.cs">
       <DependentUpon>PedirTurno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cancelar Atencion\CancelarAtencion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cancelar Atencion\CancelarAtencion.Designer.cs">
-      <DependentUpon>CancelarAtencion.cs</DependentUpon>
     </Compile>
     <Compile Include="Listados Estadisticos\ListadosEstadisticos.cs">
       <SubType>Form</SubType>
@@ -250,8 +280,23 @@
     <EmbeddedResource Include="Abm de Rol\Modificar_Rol.resx">
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Atencion\CancelarAtencion.resx">
-      <DependentUpon>CancelarAtencion.cs</DependentUpon>
+    <EmbeddedResource Include="Cancelar Atencion\AdministradorCancelar.resx">
+      <DependentUpon>AdministradorCancelar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\AfiliadoCancelar.resx">
+      <DependentUpon>AfiliadoCancelar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\BaseCancelarAtencion.resx">
+      <DependentUpon>BaseCancelarAtencion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\CancelarPeriodo.resx">
+      <DependentUpon>CancelarPeriodo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\ProfesionalCancelar.resx">
+      <DependentUpon>ProfesionalCancelar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\SetearMotivo.resx">
+      <DependentUpon>SetearMotivo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra de Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
@@ -319,6 +364,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

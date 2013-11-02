@@ -10,11 +10,11 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Cancelar_Atencion
 {
-    public partial class CancelarAtencion : Form
+    public partial class CancelarPeriodo : Form
     {
         private Form padre;
 
-        public CancelarAtencion(Form padre)
+        public CancelarPeriodo(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
@@ -25,7 +25,7 @@ namespace Clinica_Frba.Cancelar_Atencion
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void Cancelacion_Atencion_Load(object sender, EventArgs e)
+        private void CancelarPeriodo_Load(object sender, EventArgs e)
         {
 
         }

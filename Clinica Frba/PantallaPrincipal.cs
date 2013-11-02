@@ -81,7 +81,7 @@ namespace Clinica_Frba
 
         private void button6_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new CancelarAtencion(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new AdministradorCancelar(this), this);
         }
 
         private void button10_Click(object sender, EventArgs e)
