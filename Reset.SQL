@@ -109,6 +109,37 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_R
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol DROP CONSTRAINT FK_Usuarios_Por_Rol_Usuarios
 ;
 
+ALTER TABLE Usuarios_Afiliados DROP CONSTRAINT UQ_Usuarios_Afiliados_Nro_Afiliado 
+;
+
+ALTER TABLE Usuarios_Afiliados DROP CONSTRAINT UQ_Usuarios_Afiliados_Username
+;
+
+ALTER TABLE Usuarios_Afiliados DROP CONSTRAINT PK_Usuarios_Afiliados 
+;
+
+ALTER TABLE Usuarios_Afiliados DROP CONSTRAINT FK_Usuarios_Afiliados_Afiliados
+;
+
+ALTER TABLE Usuarios_Afiliados DROP CONSTRAINT FK_Usuarios_Afiliados_Usuarios 
+;
+
+
+ALTER TABLE Usuarios_Medicos DROP CONSTRAINT UQ_Usuarios_Medicos_Id_Medico
+;
+
+ALTER TABLE Usuarios_Medicos DROP CONSTRAINT UQ_Usuarios_Medicos_Username 
+;
+
+ALTER TABLE Usuarios_Medicos DROP CONSTRAINT PK_Usuarios_Medicos 
+;
+
+ALTER TABLE Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_Medicos 
+;
+
+ALTER TABLE Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_Usuarios 
+;
+
 
 --  Drop Tables, Stored Procedures and Views 
 
@@ -186,6 +217,14 @@ DROP TABLE CUATRO_QUESOS.Turnos
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Usuarios
+;
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('Usuarios_Afiliados') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE Usuarios_Afiliados
+;
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('Usuarios_Medicos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE Usuarios_Medicos
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios_Por_Rol') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
