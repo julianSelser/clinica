@@ -220,11 +220,11 @@ DROP TABLE CUATRO_QUESOS.Usuarios
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios_Afiliados') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE Usuarios_Afiliados
+DROP TABLE CUATRO_QUESOS.Usuarios_Afiliados
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios_Medicos') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-DROP TABLE Usuarios_Medicos
+DROP TABLE CUATRO_QUESOS.Usuarios_Medicos
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usuarios_Por_Rol') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
