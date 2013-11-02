@@ -189,13 +189,13 @@ CREATE TABLE CUATRO_QUESOS.Usuarios (
 )
 ;
 
-CREATE TABLE Usuarios_Afiliados ( 
+CREATE TABLE CUATRO_QUESOS.Usuarios_Afiliados ( 
 	Nro_Afiliado numeric(18) NOT NULL,
 	Username nvarchar(20) NOT NULL
 )
 ;
 
-CREATE TABLE Usuarios_Medicos ( 
+CREATE TABLE CUATRO_QUESOS.Usuarios_Medicos ( 
 	Username nvarchar(20) NOT NULL,
 	Id_Medico numeric(18) NOT NULL
 )
@@ -285,46 +285,46 @@ ALTER TABLE CUATRO_QUESOS.Usuarios ADD CONSTRAINT PK_Usuarios
 	PRIMARY KEY CLUSTERED (Username)
 ;
 
-ALTER TABLE Usuarios_Afiliados
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados
 	ADD CONSTRAINT UQ_Usuarios_Afiliados_Nro_Afiliado UNIQUE (Nro_Afiliado)
 ;
 
-ALTER TABLE Usuarios_Afiliados
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados
 	ADD CONSTRAINT UQ_Usuarios_Afiliados_Username UNIQUE (Username)
 ;
 
-ALTER TABLE Usuarios_Afiliados ADD CONSTRAINT PK_Usuarios_Afiliados 
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT PK_Usuarios_Afiliados 
 	PRIMARY KEY CLUSTERED (Nro_Afiliado, Username)
 ;
 
-ALTER TABLE Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Afiliados 
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Afiliados 
 	FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 	ON UPDATE CASCADE
 ;
 
-ALTER TABLE Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Usuarios 
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Usuarios 
 	FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
 	ON UPDATE CASCADE
 ;
 
-ALTER TABLE Usuarios_Medicos
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos
 	ADD CONSTRAINT UQ_Usuarios_Medicos_Id_Medico UNIQUE (Id_Medico)
 ;
 
-ALTER TABLE Usuarios_Medicos
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos
 	ADD CONSTRAINT UQ_Usuarios_Medicos_Username UNIQUE (Username)
 ;
 
-ALTER TABLE Usuarios_Medicos ADD CONSTRAINT PK_Usuarios_Medicos 
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT PK_Usuarios_Medicos 
 	PRIMARY KEY CLUSTERED (Username, Id_Medico)
 ;
 
-ALTER TABLE Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Medicos 
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Medicos 
 	FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
 	ON UPDATE CASCADE
 ;
 
-ALTER TABLE Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Usuarios 
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Usuarios 
 	FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
 	ON UPDATE CASCADE
 ;
