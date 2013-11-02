@@ -14,7 +14,7 @@ GO
 
 --  Create Tables 
 CREATE TABLE CUATRO_QUESOS.Afiliados ( 
-	Nro_Afiliado numeric(18) NOT NULL identity(101,100),
+	Nro_Afiliado numeric(18) NOT NULL,
 	Nombre varchar(255) NOT NULL,
 	Apellido varchar(255) NOT NULL,
 	Sexo char(1) NOT NULL,
@@ -432,6 +432,7 @@ INSERT INTO CUATRO_QUESOS.Planes_Medicos
 
 INSERT INTO CUATRO_QUESOS.Afiliados
 	(
+	Nro_Afiliado,
 	Nombre,
 	Apellido,
 	Sexo,
@@ -449,7 +450,8 @@ INSERT INTO CUATRO_QUESOS.Afiliados
 	Nro_Consulta
 	)
 	
-	select Paciente_Nombre as Nombre, 
+	select (row_number() over(order by paciente_dni))*100 + 1 as Nro_Afiliado,
+	Paciente_Nombre as Nombre, 
 	Paciente_Apellido as Apellido,
 	'-' as Sexo, --indefinido o migrado
 	'DNI' as Tipo_Doc, --como la columna de la maestra dice DNI, asumo que todos los documentos existentes son DNI
@@ -962,9 +964,13 @@ CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado
 )
 AS
 BEGIN
+DECLARE @Nro_Afiliado numeric(18)
+SELECT TOP 1 @Nro_Afiliado = (Nro_Afiliado + 100) FROM CUATRO_QUESOS.Afiliados ORDER BY Nro_Afiliado ASC
 INSERT INTO CUATRO_QUESOS.Afiliados
-(Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
-VALUES (@Nombre,
+(Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+VALUES (
+@Nro_Afiliado,
+@Nombre,
 @Apellido,
 @Sexo,
 @Tipo_Doc,
@@ -982,7 +988,9 @@ GO
 
 CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18))
 AS
-DELETE FROM CUATRO_QUESOS.Afiliados WHERE Nro_Afiliado = @nroAfiliado
+UPDATE CUATRO_QUESOS.Afiliados
+SET Fecha_Baja = GETDATE()
+WHERE Nro_Afiliado = @nroAfiliado
 
 GO
 
