@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
@@ -29,5 +30,12 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado2(this), this);
         }
+
+        public int numeroAfiliado
+        {
+            get { return Convert.ToInt32(nroAfiliado.Text); }
+            set { nroAfiliado.Text = value.ToString(); }
+        }
+
     }
 }

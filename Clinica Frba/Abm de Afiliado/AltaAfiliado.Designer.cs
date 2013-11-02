@@ -360,7 +360,7 @@
             this.Controls.Add(this.nombre);
             this.Controls.Add(this.label1);
             this.Name = "AltaAfiliado";
-            this.Text = "Alta_Afiliado";
+            this.Text = "Alta Afiliado";
             this.ResumeLayout(false);
             this.PerformLayout();
 

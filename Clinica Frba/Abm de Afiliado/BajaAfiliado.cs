@@ -29,6 +29,8 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             int nro = Convert.ToInt32(nroAfiliado.Text);
             AppAfiliado.darBajaAfiliado(nro);
+            MessageBox.Show("La baja se ha realizado correctamente.");
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
     }

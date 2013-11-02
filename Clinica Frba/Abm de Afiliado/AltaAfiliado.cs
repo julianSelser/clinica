@@ -108,6 +108,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             }
             Afiliado afiliado = crearAfiliado();
             AppAfiliado.altaAfiliado(afiliado);
+            MessageBox.Show("El alta se ha realizado correctamente.");
             AsistenteVistas.volverAPadreYCerrar(padre,this);
         }
 
