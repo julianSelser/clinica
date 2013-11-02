@@ -10,10 +10,10 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Rol
 {
-    public partial class Baja_Rol : Form
+    public partial class Habilitar_Rol : Form
     {
         private Form padre;
-        public Baja_Rol(Form padre)
+        public Habilitar_Rol(Form padre)
         {
             InitializeComponent();
             this.padre = padre;

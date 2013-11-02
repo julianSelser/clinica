@@ -32,12 +32,17 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button3_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new Habilitar_Rol(this), this);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol(this), this);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new Inhabilitar_Rol(this), this);
         }
     }
 }
