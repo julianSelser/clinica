@@ -65,7 +65,7 @@
             this.altaFamiliar.Name = "altaFamiliar";
             this.altaFamiliar.Size = new System.Drawing.Size(124, 23);
             this.altaFamiliar.TabIndex = 175;
-            this.altaFamiliar.Text = "Dar Familiares A Cargo";
+            this.altaFamiliar.Text = "Dar Alta Familiar";
             this.altaFamiliar.UseVisualStyleBackColor = true;
             // 
             // altaConyuge
@@ -348,7 +348,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "ModificarAfiliado2";
-            this.Text = "Modificar_Afiliado2";
+            this.Text = "Modificar Afiliado";
             this.ResumeLayout(false);
             this.PerformLayout();
 

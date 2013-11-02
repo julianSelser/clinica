@@ -972,10 +972,25 @@ VALUES (@Nombre,
 @Direccion,
 @Mail,
 @Telefono,
- GETDATE(),
+@Fecha_Nac,
 @Cod_Plan, 
 @Estado_Civil, 
 @CantFamiliaresACargo
 )
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18))
+AS
+DELETE FROM CUATRO_QUESOS.Afiliados WHERE Nro_Afiliado = @nroAfiliado
+
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.tipoAfiliado(@nroAfiliado numeric(18)) --1 es titular, 2 es conyuge, 3 es familiar no titular ni conyuge
+RETURNS int
+BEGIN
+	DECLARE @tipo int
+	SET @tipo = @nroAfiliado % 100
+	RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
 END
 GO

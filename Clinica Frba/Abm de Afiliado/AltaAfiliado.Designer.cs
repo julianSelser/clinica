@@ -321,7 +321,7 @@
             this.altaFamiliar.Name = "altaFamiliar";
             this.altaFamiliar.Size = new System.Drawing.Size(124, 23);
             this.altaFamiliar.TabIndex = 146;
-            this.altaFamiliar.Text = "Dar Familiares A Cargo";
+            this.altaFamiliar.Text = "Dar Alta Familiar";
             this.altaFamiliar.UseVisualStyleBackColor = true;
             this.altaFamiliar.Click += new System.EventHandler(this.altaFamiliar_Click);
             // 
