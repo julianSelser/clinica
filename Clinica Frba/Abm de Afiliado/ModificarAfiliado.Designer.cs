@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.nroAfiliado = new System.Windows.Forms.Label();
+            this.nroAfiliado = new System.Windows.Forms.TextBox();
+            this.labelAfiliado = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -44,21 +44,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(142, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 11;
-            // 
             // nroAfiliado
             // 
-            this.nroAfiliado.AutoSize = true;
-            this.nroAfiliado.Location = new System.Drawing.Point(47, 51);
+            this.nroAfiliado.Location = new System.Drawing.Point(142, 48);
             this.nroAfiliado.Name = "nroAfiliado";
-            this.nroAfiliado.Size = new System.Drawing.Size(84, 13);
-            this.nroAfiliado.TabIndex = 10;
-            this.nroAfiliado.Text = "Número Afiliado:";
+            this.nroAfiliado.Size = new System.Drawing.Size(100, 20);
+            this.nroAfiliado.TabIndex = 11;
+            // 
+            // labelAfiliado
+            // 
+            this.labelAfiliado.AutoSize = true;
+            this.labelAfiliado.Location = new System.Drawing.Point(47, 51);
+            this.labelAfiliado.Name = "labelAfiliado";
+            this.labelAfiliado.Size = new System.Drawing.Size(84, 13);
+            this.labelAfiliado.TabIndex = 10;
+            this.labelAfiliado.Text = "Número Afiliado:";
             // 
             // button2
             // 
@@ -76,8 +76,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 141);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.nroAfiliado);
+            this.Controls.Add(this.labelAfiliado);
             this.Controls.Add(this.button2);
             this.Name = "ModificarAfiliado";
             this.Text = "Modificar Afiliado";
@@ -89,8 +89,8 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label nroAfiliado;
+        private System.Windows.Forms.TextBox nroAfiliado;
+        private System.Windows.Forms.Label labelAfiliado;
         private System.Windows.Forms.Button button2;
     }
 }
