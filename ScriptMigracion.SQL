@@ -948,6 +948,8 @@ BEGIN
 END
 GO
 
+--procedures afiliados
+
 CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado
 (@Nombre varchar(255),
  @Apellido varchar(255),
@@ -1002,3 +1004,58 @@ BEGIN
 	RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
 END
 GO
+
+--procedures abm rol
+
+CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18))
+AS
+	BEGIN TRAN
+		INSERT INTO CUATRO_QUESOS.Roles (Habilitado)
+		VALUES (0) -- para baja logica
+	COMMIT
+	
+go
+
+CREATE PROCEDURE CUATRO_QUESOS.habilitarRol(@rol numeric(18))
+AS
+	BEGIN TRAN
+		INSERT INTO CUATRO_QUESOS.Roles (Habilitado)
+		VALUES (1) -- para baja logica
+	COMMIT	
+
+go
+
+create procedure CUATRO_QUESOS.addFuncionalidadARol(@rol numeric(18), @funcionalidad numeric(18))                                               --me refiero a los id
+as
+	begin
+		insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+		values (@rol, @funcionalidad)
+	end
+	
+go
+
+create procedure CUATRO_QUESOS.sacarTodaFuncionalidadARol(@rol numeric(18))
+as
+	begin
+		delete from CUATRO_QUESOS.Roles_Por_Funcionalidades
+		where Id_Rol = @rol --va a borrar a todas las filas que cumplan esta condicion
+	end
+	
+go
+
+create procedure CUATRO_QUESOS.altaRol(@nombre varchar(50))	
+--aca el id lo va a autogenerar
+as
+	begin
+		insert into CUATRO_QUESOS.Roles(Nombre, Habilitado)
+		values(@nombre, 1)
+	end	
+	
+go	
+	
+create procedure CUATRO_QUESOS.getFuncionalidades --no recibe parametros
+as
+	begin
+		SELECT  Descripcion 'Funcionalidad'
+		FROM CUATRO_QUESOS.Funcionalidades
+	end
