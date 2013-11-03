@@ -946,6 +946,97 @@ insert into CUATRO_QUESOS.Usuarios_Por_Rol(Username, ID_Rol)
 --el usuario admin lo ingresamos con rol administrativo
 
 
+--crear funcionalidades
+
+set IDENTITY_INSERT CUATRO_QUESOS.Funcionalidades ON
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (1, 'ABM de rol')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (2, 'Registro de usuario')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (3, 'ABM Afiliado')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (4, 'ABM profesional')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (5, 'ABM especialidades medicas')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (6, 'ABM de planes')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (7, 'Registrar agenda profesional')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (8, 'Compra de bonos')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (9, 'Pedir turno')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (10, 'Registro de llegada')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (11, 'Registro de resultado')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (12, 'Cancelar turno/s')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (13, 'Generar receta')
+;
+
+insert into CUATRO_QUESOS.Funcionalidades(ID_Funcionalidad, Descripcion)
+values (14, 'Listado estadistico')
+;
+
+set IDENTITY_INSERT CUATRO_QUESOS.Funcionalidades OFF
+
+
+
+--asignar funcionalidades a los roles
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades
+select 1, Id_Funcionalidad from CUATRO_QUESOS.Funcionalidades
+--este insert le da todo el power al administrativo
+
+--luego asigno las funcionalidades individualmente
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(2, 7); --medico, registrar agenda profesional
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(3, 8); --afiliado, compra de bonos
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(3, 9); --afiliado, pedir turno
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(2, 11); --medico, registro de resultados
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(2, 12); --medico, cancelar
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(3, 12); --afiliado, cancelar
+
+insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
+values(2, 13); --medico, generar receta
 		
 		
 COMMIT
