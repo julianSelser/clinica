@@ -183,7 +183,7 @@ CREATE TABLE CUATRO_QUESOS.Turnos (
 
 CREATE TABLE CUATRO_QUESOS.Usuarios ( 
 	Username nvarchar(20) NOT NULL,
-	Pass nvarchar(255) NOT NULL,
+	Pass binary(256) NOT NULL,
 	Intentos_Fallidos tinyint,
 	Habilitado bit
 )
