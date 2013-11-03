@@ -883,6 +883,33 @@ INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
 		and Bono_Farmacia_Numero is not null
 		and Bono_Farmacia_Medicamento is not null
 		and Turno_Fecha < GETDATE()
+
+		
+/* *****USUARIOS Y DEMAS YERBAS***** */
+
+
+--crear usuarios para los afiliados
+insert into CUATRO_QUESOS.Usuarios(Username, Pass, Intentos_Fallidos, Habilitado)
+	select CAST(nro_afiliado as varchar(8))+'A', 0xe00c42a301d2d5a17c9f2081ff897f031129c57cae3a55fa7ad6a649f939ea29, 0, 1 from CUATRO_QUESOS.Afiliados
+--la password es UTNFRBA
+
+--relacionarlos con los afiliados
+insert into CUATRO_QUESOS.Usuarios_Afiliados(Username, Nro_Afiliado)
+	select CAST(nro_afiliado as varchar(8))+'A', nro_afiliado from CUATRO_QUESOS.Afiliados
+	
+	
+--crear usuarios para los medicos
+insert into CUATRO_QUESOS.Usuarios(Username, Pass, Intentos_Fallidos, Habilitado)
+	select LEFT(nombre, 2)+LEFT(apellido, 1)+CAST(Id_Medico as varchar(4))+'M', 0xe00c42a301d2d5a17c9f2081ff897f031129c57cae3a55fa7ad6a649f939ea29, 0, 1 from CUATRO_QUESOS.Medicos
+--la password es UTNFRBA
+
+--relacionarlos con los medicos
+insert into CUATRO_QUESOS.Usuarios_Medicos(Username, Id_Medico)
+	select LEFT(nombre, 2)+LEFT(apellido, 1)+CAST(Id_Medico as varchar(4))+'M', Id_Medico from CUATRO_QUESOS.Medicos
+	
+		
+		
+		
 		
 COMMIT
 
