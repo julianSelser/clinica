@@ -908,7 +908,20 @@ insert into CUATRO_QUESOS.Usuarios_Medicos(Username, Id_Medico)
 	select LEFT(nombre, 2)+LEFT(apellido, 1)+CAST(Id_Medico as varchar(4))+'M', Id_Medico from CUATRO_QUESOS.Medicos
 	
 		
-		
+--crear roles
+
+set IDENTITY_INSERT CUATRO_QUESOS.Roles ON
+
+insert into CUATRO_QUESOS.Roles(Id_Rol, Habilitado, Nombre)
+values(1, 1, 'Administrativo');
+
+insert into CUATRO_QUESOS.Roles(Id_Rol, Habilitado, Nombre)
+values(2, 1, 'Profesional');
+
+insert into CUATRO_QUESOS.Roles(Id_Rol, Habilitado, Nombre)
+values(3, 1, 'Afiliado');
+
+set IDENTITY_INSERT CUATRO_QUESOS.Roles OFF
 		
 		
 COMMIT
