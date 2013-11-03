@@ -907,6 +907,13 @@ insert into CUATRO_QUESOS.Usuarios(Username, Pass, Intentos_Fallidos, Habilitado
 insert into CUATRO_QUESOS.Usuarios_Medicos(Username, Id_Medico)
 	select LEFT(nombre, 2)+LEFT(apellido, 1)+CAST(Id_Medico as varchar(4))+'M', Id_Medico from CUATRO_QUESOS.Medicos
 	
+--crear usuario admin
+--set IDENTITY_INSERT CUATRO_QUESOS.Usuarios ON
+
+insert into CUATRO_QUESOS.Usuarios(Username, Pass, Intentos_Fallidos, Habilitado)
+	values('admin', 0xe6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7, 0, 1)
+		
+--set IDENTITY_INSERT CUATRO_QUESOS.Usuarios OFF
 		
 --crear roles
 
@@ -922,6 +929,23 @@ insert into CUATRO_QUESOS.Roles(Id_Rol, Habilitado, Nombre)
 values(3, 1, 'Afiliado');
 
 set IDENTITY_INSERT CUATRO_QUESOS.Roles OFF
+		
+
+--relacionar usuarios por rol (relacion muchos a muchos)
+
+insert into CUATRO_QUESOS.Usuarios_Por_Rol(Username, ID_Rol)
+select username, 2 as ID_Rol from CUATRO_QUESOS.Usuarios_Medicos
+--todos los usuarios que son médicos, tienen el rol médico
+
+insert into CUATRO_QUESOS.Usuarios_Por_Rol(Username, ID_Rol)
+select username, 3 as ID_Rol from CUATRO_QUESOS.Usuarios_Afiliados
+--todos los usuarios que son afiliados, tienen el rol afiliado
+
+insert into CUATRO_QUESOS.Usuarios_Por_Rol(Username, ID_Rol)
+	values('admin', 1)
+--el usuario admin lo ingresamos con rol administrativo
+
+
 		
 		
 COMMIT
