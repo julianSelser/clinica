@@ -20,11 +20,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
             this.padre = padre;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);

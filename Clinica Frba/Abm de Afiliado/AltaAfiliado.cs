@@ -27,19 +27,19 @@ namespace Clinica_Frba.Abm_de_Afiliado
             altaFamiliar.Visible = false;
             this.modo = modo;
 
-            if (modo == "Familiar" || modo == "Conyuge")
+            if (modo == "Familiar" || modo == "Casado/a" || modo == "Concubinato")
             {
                 labelEstadoCivil.Visible = false;
                 labelFamiliares.Visible = false;
                 estadoCivil.Visible = false;
                 cantFamiliares.Visible = false;
 
-                if (modo == "Conyuge")
+                if (modo == "Casado/a" || modo == "Concubinato")
                 {
                     labelEstadoCivil.Visible = true;
                     this.cantidadFamiliares = 0;
                     estadoCivil.Visible = true;
-                    estadoCivil.Text = "Casado";
+                    estadoCivil.Text = modo;
                     estadoCivil.Enabled = false;
                 }
             }
@@ -52,7 +52,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void altaConyuge_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado("Conyuge", this), this);
+            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(estadoCivil.Text, this), this);
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -65,8 +65,11 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void estadoCivil_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (estadoCivil.Text == "Casado/a" || estadoCivil.Text == "Concubinato") altaConyuge.Visible = true;
-            else altaConyuge.Visible = false;
+            if(modo == "Titular")
+            {
+                if (estadoCivil.Text == "Casado/a" || estadoCivil.Text == "Concubinato") altaConyuge.Visible = true;
+               else altaConyuge.Visible = false;
+            }
         }
 
         private void cantFamiliares_TextChanged(object sender, EventArgs e)
@@ -101,7 +104,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 {
                     padre1.decrementarFamiliar();
                 }
-                if (modo == "Conyuge")
+                if (modo == "Casado/a" || modo == "Concubinato")
                 {
                     padre1.deshabilitarAltaConyuge();
                 }
