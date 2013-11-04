@@ -1333,4 +1333,31 @@ as
 		SELECT  Descripcion 'Funcionalidad'
 		FROM CUATRO_QUESOS.Funcionalidades
 	end
+
+go	
 	
+CREATE PROCEDURE CUATRO_QUESOS.modificarRol(@idRol numeric(18),@nombre varchar(50))
+AS
+UPDATE CUATRO_QUESOS.Roles
+SET Nombre = @nombre
+WHERE Id_Rol = @idRol
+
+go
+
+create procedure CUATRO_QUESOS.getNombreRol(@idRol numeric(18)) --no recibe parametros
+as
+	begin
+		SELECT  Nombre 'NombreRol' 
+		FROM CUATRO_QUESOS.Roles
+		WHERE Id_Rol = @idRol
+	end
+	
+GO
+
+create procedure CUATRO_QUESOS.getFuncionalidadesRol(@idRol numeric(18)) --no recibe parametros
+as
+	begin
+		SELECT  f.Descripcion 'Funcionalidad'
+		FROM CUATRO_QUESOS.Roles r, CUATRO_QUESOS.Funcionalidades f, CUATRO_QUESOS.Roles_Por_Funcionalidades rf
+		WHERE r.Id_Rol = @idRol and r.Id_Rol = rf.Id_Rol and f.Id_Funcionalidad = rf.Id_Funcionalidad
+	end
