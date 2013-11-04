@@ -1038,6 +1038,28 @@ values(3, 12); --afiliado, cancelar
 insert into CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Rol, Id_Funcionalidad)
 values(2, 13); --medico, generar receta
 		
+
+		
+		
+--esta es una tabla auxiliar, no se si hara falta agregarla en el DER:
+
+create table CUATRO_QUESOS.horas_del_dia
+(
+	hora time primary key
+)
+
+declare @offset tinyint
+set @offset = 0
+
+while @offset < 24
+begin
+	insert into CUATRO_QUESOS.Horas_del_dia(hora)
+	values(DATEADD(hour, @offset, '00:00:00'))
+	insert into CUATRO_QUESOS.Horas_del_dia(hora)
+	values(DATEADD(hour, @offset, '00:30:00'))
+	set @offset = @offset+1
+end
+--contiene todos los intervalos de media hora que hay en el día
 		
 COMMIT
 

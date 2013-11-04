@@ -231,6 +231,10 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Usua
 DROP TABLE CUATRO_QUESOS.Usuarios_Por_Rol
 ;
 
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Horas_del_dia') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE CUATRO_QUESOS.Horas_del_dia
+;
+
 DROP SCHEMA [CUATRO_QUESOS]
 GO
 
