@@ -1060,7 +1060,28 @@ begin
 	set @offset = @offset+1
 end
 --contiene todos los intervalos de media hora que hay en el día
-		
+
+
+--otra tabla auxiliar:
+
+
+create table CUATRO_QUESOS.Dias --calendar table
+(
+	dia date primary key
+)
+
+declare @offdias integer
+set @offdias = 0
+while @offdias < 2000
+begin
+	insert into CUATRO_QUESOS.Dias(dia)
+	values(DATEADD(day, @offdias, '20120101'))
+	set @offdias = @offdias + 1
+end
+
+--contiene todos los días que hay de acá a más o menos 2017
+
+
 COMMIT
 
 go
