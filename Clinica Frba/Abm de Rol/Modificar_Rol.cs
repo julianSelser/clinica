@@ -27,6 +27,7 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Modificar_Rol2.cargarFuncionalidades(); //o tengo que cargarlas despues de abrirla?
             AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this), this);
         }
 
