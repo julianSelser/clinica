@@ -1086,8 +1086,28 @@ COMMIT
 
 go
 
+--CREATE VIEWS
+
+--finalmente creo la vista que contiene las agendas de los medicos!
+create view CUATRO_QUESOS.Agendas_Medicos as
+select (CAST(dia as datetime) + cast(hora as datetime)) as Horario, 
+		Medicos.Id_Medico as Id_Medico,
+		case when (select COUNT(*) 
+					from CUATRO_QUESOS.Turnos 
+					where Turnos.Fecha = (CAST(dia as datetime) + cast(hora as datetime))
+						and Turnos.Id_Medico = Medicos.Id_Medico) = 0 then 'Libre'
+			else 'Ocupado'
+		end as Estado			
 
 
+from CUATRO_QUESOS.Medicos,
+ CUATRO_QUESOS.Dias as dia, CUATRO_QUESOS.Horas_del_dia as hora 
+where dia >= Medicos.fecha_atencion_desde and dia <= Medicos.Fecha_Atencion_Hasta
+	and (DATENAME(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
+	and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+	and (hora <= (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+
+GO
 
 --CREATE PROCEDURES
 
