@@ -27,11 +27,11 @@ namespace Clinica_Frba.Abm_de_Rol
         }
 
         //IMP: el int lo voy a tener que guardar en una variable glogal cuando lo llame de la vista anteior 
-        private void cargarFuncionalidades()
+        public void cargarFuncionalidades()
         {
             chkBoxFuncionalidades.Items.Clear(); //los vacia
             var items = chkBoxFuncionalidades.Items;
-            List<String> funcionalidades = AppRol.getFuncionalidadesRol((/*falta el int*/);
+            //List<String> funcionalidades = AppRol.getFuncionalidadesRol(/*falta el int*/);
             //List<Funcionalidad> funcionalidadesHabilitadas = oldRol.getFuncionalidades();
 
             // (Funcionalidad func in funcionalidades)
