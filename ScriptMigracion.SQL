@@ -1236,29 +1236,81 @@ CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado
  @Fecha_Nac datetime ,
  @Cod_Plan numeric(18),
  @Estado_Civil varchar(255) ,
- @CantFamiliaresACargo tinyint
+ @CantFamiliaresACargo tinyint,
+ @tipoAfiliado char(1), -- T es titular, C es la pareja del titular y F es un familiar
+ @nroAfiliadoTitular numeric(18)--Solo se usa en el caso de conyuge o familiar
 )
 AS
 BEGIN
-DECLARE @Nro_Afiliado numeric(18)
-SELECT TOP 1 @Nro_Afiliado = (Nro_Afiliado + 100) FROM CUATRO_QUESOS.Afiliados ORDER BY Nro_Afiliado DESC
-INSERT INTO CUATRO_QUESOS.Afiliados
-(Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
-VALUES (
-@Nro_Afiliado,
-@Nombre,
-@Apellido,
-@Sexo,
-@Tipo_Doc,
-@Nro_Doc, 
-@Direccion,
-@Mail,
-@Telefono,
-@Fecha_Nac,
-@Cod_Plan, 
-@Estado_Civil, 
-@CantFamiliaresACargo
-)
+	DECLARE @Nro_AfiliadoRaiz numeric(18)
+	SET @Nro_AfiliadoRaiz = @nroAfiliadoTitular
+	
+	IF(@tipoAfiliado = 'T')
+		BEGIN
+			SELECT TOP 1 @Nro_AfiliadoRaiz = CUATRO_QUESOS.raizNroAfiliado(Nro_Afiliado) FROM CUATRO_QUESOS.Afiliados ORDER BY Nro_Afiliado DESC
+			SET @Nro_AfiliadoRaiz = @Nro_AfiliadoRaiz + 1;
+			INSERT INTO CUATRO_QUESOS.Afiliados
+			(Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+			VALUES (
+			@Nro_AfiliadoRaiz,
+			@Nombre,
+			@Apellido,
+			@Sexo,
+			@Tipo_Doc,
+			@Nro_Doc, 
+			@Direccion,
+			@Mail,
+			@Telefono,
+			@Fecha_Nac,
+			@Cod_Plan, 
+			@Estado_Civil, 
+			@CantFamiliaresACargo
+			)
+		END
+	ELSE
+		IF(@tipoAfiliado = 'C')
+		BEGIN
+			SET @Nro_AfiliadoRaiz = @Nro_AfiliadoRaiz + 2;
+			INSERT INTO CUATRO_QUESOS.Afiliados
+			(Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+			VALUES (
+			@Nro_AfiliadoRaiz,
+			@Nombre,
+			@Apellido,
+			@Sexo,
+			@Tipo_Doc,
+			@Nro_Doc, 
+			@Direccion,
+			@Mail,
+			@Telefono,
+			@Fecha_Nac,
+			@Cod_Plan, 
+			@Estado_Civil,
+			0
+			)
+		END
+		ELSE
+			IF(@tipoAfiliado = 'F')
+			BEGIN
+				SET @Nro_AfiliadoRaiz = CUATRO_QUESOS.siguienteNroFamiliar(@Nro_AfiliadoRaiz)
+				INSERT INTO CUATRO_QUESOS.Afiliados
+				(Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+				VALUES (
+				@Nro_AfiliadoRaiz,
+				@Nombre,
+				@Apellido,
+				@Sexo,
+				@Tipo_Doc,
+				@Nro_Doc, 
+				@Direccion,
+				@Mail,
+				@Telefono,
+				@Fecha_Nac,
+				@Cod_Plan, 
+				'Soltero/a',
+				0
+				)
+			END	
 END
 GO
 
@@ -1276,6 +1328,27 @@ BEGIN
 	DECLARE @tipo int
 	SET @tipo = @nroAfiliado % 100
 	RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18))
+RETURNS int
+BEGIN
+RETURN (CAST(@nroAfiliado AS INT)/ 100)*100
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
+RETURNS int
+BEGIN
+	DECLARE @nroFamiliar numeric(18)
+	
+	SELECT TOP 1 @nroFamiliar = Nro_Afiliado + 1
+	FROM CUATRO_QUESOS.Afiliados 
+	WHERE Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100
+	ORDER BY Nro_Afiliado DESC
+	
+	RETURN @nroFamiliar
 END
 GO
 
