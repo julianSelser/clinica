@@ -1095,8 +1095,9 @@ select (CAST(dia as datetime) + cast(hora as datetime)) as Horario,
 		case when (select COUNT(*) 
 					from CUATRO_QUESOS.Turnos 
 					where Turnos.Fecha = (CAST(dia as datetime) + cast(hora as datetime))
-						and Turnos.Id_Medico = Medicos.Id_Medico) = 0 then 'Libre'
-			else 'Ocupado'
+						and Turnos.Id_Medico = Medicos.Id_Medico
+						and Turnos.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones)) >0 then 'Ocupado'
+			else 'Libre'
 		end as Estado			
 
 
