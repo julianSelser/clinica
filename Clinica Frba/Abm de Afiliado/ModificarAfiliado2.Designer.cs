@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.planMedico = new System.Windows.Forms.ComboBox();
             this.cantFamiliares = new System.Windows.Forms.TextBox();
             this.estadoCivil = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.acceptButton = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.labelFamiliares = new System.Windows.Forms.Label();
@@ -44,13 +44,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // comboBox2
+            // planMedico
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(403, 22);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 173;
+            this.planMedico.FormattingEnabled = true;
+            this.planMedico.Location = new System.Drawing.Point(403, 22);
+            this.planMedico.Name = "planMedico";
+            this.planMedico.Size = new System.Drawing.Size(121, 21);
+            this.planMedico.TabIndex = 173;
             // 
             // cantFamiliares
             // 
@@ -73,25 +73,25 @@
             this.estadoCivil.Size = new System.Drawing.Size(121, 21);
             this.estadoCivil.TabIndex = 168;
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.Location = new System.Drawing.Point(451, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(85, 34);
-            this.button2.TabIndex = 167;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.cancelButton.Location = new System.Drawing.Point(451, 121);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(85, 34);
+            this.cancelButton.TabIndex = 167;
+            this.cancelButton.Text = "Cancelar";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button1
+            // acceptButton
             // 
-            this.button1.Location = new System.Drawing.Point(344, 121);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 34);
-            this.button1.TabIndex = 166;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.acceptButton.Location = new System.Drawing.Point(344, 121);
+            this.acceptButton.Name = "acceptButton";
+            this.acceptButton.Size = new System.Drawing.Size(85, 34);
+            this.acceptButton.TabIndex = 166;
+            this.acceptButton.Text = "Aceptar";
+            this.acceptButton.UseVisualStyleBackColor = true;
+            this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
             // 
             // textBox6
             // 
@@ -173,11 +173,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(567, 171);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.planMedico);
             this.Controls.Add(this.cantFamiliares);
             this.Controls.Add(this.estadoCivil);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.labelFamiliares);
@@ -196,11 +196,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox planMedico;
         private System.Windows.Forms.TextBox cantFamiliares;
         private System.Windows.Forms.ComboBox estadoCivil;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button acceptButton;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label labelFamiliares;

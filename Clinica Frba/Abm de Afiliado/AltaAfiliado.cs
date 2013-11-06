@@ -18,14 +18,13 @@ namespace Clinica_Frba.Abm_de_Afiliado
         public char sexo;
         public int cantidadFamiliares;
         public string modo;
+        private Afiliado afiliado;
 
-        public AltaAfiliado(string modo,Form padre)
+        public AltaAfiliado(ModoAfiliado modoAfiliado,Form padre)
         {
             InitializeComponent();
             this.padre = padre;
-            altaConyuge.Visible = false;
-            altaFamiliar.Visible = false;
-            this.modo = modo;
+            this.modo = modoAfiliado.modo;
 
             if (modo == "Familiar" || modo == "Casado/a" || modo == "Concubinato")
             {
@@ -52,7 +51,9 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void altaConyuge_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(estadoCivil.Text, this), this);
+            ModoAfiliado modoAfiliado = new ModoAfiliado();
+            modoAfiliado.modo = estadoCivil.Text;
+            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modoAfiliado, this), this);
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -63,68 +64,24 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 sexo = 'F';
         }
 
-        private void estadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if(modo == "Titular")
-            {
-                if (estadoCivil.Text == "Casado/a" || estadoCivil.Text == "Concubinato") altaConyuge.Visible = true;
-               else altaConyuge.Visible = false;
-            }
+            afiliado = crearAfiliado();
+            AppAfiliado.altaAfiliado(afiliado);
+            MessageBox.Show("El alta se ha realizado correctamente.");
+            altasOpcionales();
         }
 
-        private void cantFamiliares_TextChanged(object sender, EventArgs e)
+        private void altasOpcionales()
         {
-            cantidadFamiliares = Convert.ToInt32(cantFamiliares.Text);
-            if (cantidadFamiliares > 0)
+            if (afiliado.estadoCivil == "Concubinato" || afiliado.estadoCivil == "Casado/a" || afiliado.cantFamiliaresACargo > 0)
             {
-                altaFamiliar.Visible = true;
-            }
-        }
-
-        private void altaFamiliar_Click(object sender, EventArgs e)
-        {
-            cantFamiliares.Enabled = false;
-            if (cantidadFamiliares > 0)
-            {
-                AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado("Familiar", this), this);
+                AsistenteVistas.mostrarNuevaVentana(new PeticionAlta(afiliado, padre), this);
             }
             else
             {
-                altaFamiliar.Visible = false;
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (modo != "Titular")
-            {
-                AltaAfiliado padre1 = (AltaAfiliado)padre;
-
-                if (modo == "Familiar")
-                {
-                    padre1.decrementarFamiliar();
-                }
-                if (modo == "Casado/a" || modo == "Concubinato")
-                {
-                    padre1.deshabilitarAltaConyuge();
-                }
-            }
-            Afiliado afiliado = crearAfiliado();
-            AppAfiliado.altaAfiliado(afiliado);
-            MessageBox.Show("El alta se ha realizado correctamente.");
-            AsistenteVistas.volverAPadreYCerrar(padre,this);
-        }
-
-        public void decrementarFamiliar()
-        {
-            cantidadFamiliares--;
-            if (cantidadFamiliares == 0) altaFamiliar.Visible = false;
-        }
-
-        public void deshabilitarAltaConyuge()
-        {
-            estadoCivil.Enabled = false;
-            altaConyuge.Visible = false;
         }
 
         private Afiliado crearAfiliado()

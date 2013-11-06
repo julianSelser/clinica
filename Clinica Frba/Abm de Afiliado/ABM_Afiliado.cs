@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
@@ -37,7 +38,9 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado("Titular",this), this);
+            ModoAfiliado modoTitular = new ModoAfiliado();
+            modoTitular.modo = "Titular";
+            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modoTitular,this), this);
         }
     }
 }

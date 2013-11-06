@@ -55,13 +55,11 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.fechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.planMedico = new System.Windows.Forms.ComboBox();
-            this.altaConyuge = new System.Windows.Forms.Button();
-            this.altaFamiliar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(620, 267);
+            this.button2.Location = new System.Drawing.Point(506, 192);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 34);
             this.button2.TabIndex = 135;
@@ -71,7 +69,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(513, 267);
+            this.button1.Location = new System.Drawing.Point(393, 192);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 34);
             this.button1.TabIndex = 134;
@@ -81,15 +79,15 @@
             // 
             // mail
             // 
-            this.mail.Location = new System.Drawing.Point(138, 190);
+            this.mail.Location = new System.Drawing.Point(390, 112);
             this.mail.Name = "mail";
-            this.mail.Size = new System.Drawing.Size(100, 20);
+            this.mail.Size = new System.Drawing.Size(163, 20);
             this.mail.TabIndex = 125;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(29, 216);
+            this.label12.Location = new System.Drawing.Point(348, 141);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(34, 13);
             this.label12.TabIndex = 124;
@@ -98,7 +96,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(29, 190);
+            this.label11.Location = new System.Drawing.Point(348, 115);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 123;
@@ -134,7 +132,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(29, 244);
+            this.label7.Location = new System.Drawing.Point(29, 192);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 13);
             this.label7.TabIndex = 116;
@@ -248,24 +246,22 @@
             "Viudo/a",
             "Concubinato",
             "Divorciado/a"});
-            this.estadoCivil.Location = new System.Drawing.Point(482, 53);
+            this.estadoCivil.Location = new System.Drawing.Point(432, 49);
             this.estadoCivil.Name = "estadoCivil";
             this.estadoCivil.Size = new System.Drawing.Size(121, 21);
             this.estadoCivil.TabIndex = 138;
-            this.estadoCivil.SelectedIndexChanged += new System.EventHandler(this.estadoCivil_SelectedIndexChanged);
             // 
             // cantFamiliares
             // 
-            this.cantFamiliares.Location = new System.Drawing.Point(530, 81);
+            this.cantFamiliares.Location = new System.Drawing.Point(506, 81);
             this.cantFamiliares.Name = "cantFamiliares";
-            this.cantFamiliares.Size = new System.Drawing.Size(73, 20);
+            this.cantFamiliares.Size = new System.Drawing.Size(47, 20);
             this.cantFamiliares.TabIndex = 140;
-            this.cantFamiliares.TextChanged += new System.EventHandler(this.cantFamiliares_TextChanged);
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(138, 216);
+            this.radioButton1.Location = new System.Drawing.Point(392, 142);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(34, 17);
             this.radioButton1.TabIndex = 141;
@@ -277,7 +273,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(178, 216);
+            this.radioButton2.Location = new System.Drawing.Point(432, 142);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(31, 17);
             this.radioButton2.TabIndex = 142;
@@ -287,7 +283,7 @@
             // 
             // fechaNacimiento
             // 
-            this.fechaNacimiento.Location = new System.Drawing.Point(138, 244);
+            this.fechaNacimiento.Location = new System.Drawing.Point(138, 192);
             this.fechaNacimiento.Name = "fechaNacimiento";
             this.fechaNacimiento.Size = new System.Drawing.Size(200, 20);
             this.fechaNacimiento.TabIndex = 143;
@@ -300,38 +296,16 @@
             "555556",
             "555557",
             "555558"});
-            this.planMedico.Location = new System.Drawing.Point(482, 23);
+            this.planMedico.Location = new System.Drawing.Point(432, 23);
             this.planMedico.Name = "planMedico";
             this.planMedico.Size = new System.Drawing.Size(121, 21);
             this.planMedico.TabIndex = 144;
-            // 
-            // altaConyuge
-            // 
-            this.altaConyuge.Location = new System.Drawing.Point(616, 51);
-            this.altaConyuge.Name = "altaConyuge";
-            this.altaConyuge.Size = new System.Drawing.Size(124, 23);
-            this.altaConyuge.TabIndex = 145;
-            this.altaConyuge.Text = "Dar Alta Conyuge";
-            this.altaConyuge.UseVisualStyleBackColor = true;
-            this.altaConyuge.Click += new System.EventHandler(this.altaConyuge_Click);
-            // 
-            // altaFamiliar
-            // 
-            this.altaFamiliar.Location = new System.Drawing.Point(616, 83);
-            this.altaFamiliar.Name = "altaFamiliar";
-            this.altaFamiliar.Size = new System.Drawing.Size(124, 23);
-            this.altaFamiliar.TabIndex = 146;
-            this.altaFamiliar.Text = "Dar Alta Familiar";
-            this.altaFamiliar.UseVisualStyleBackColor = true;
-            this.altaFamiliar.Click += new System.EventHandler(this.altaFamiliar_Click);
             // 
             // AltaAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 326);
-            this.Controls.Add(this.altaFamiliar);
-            this.Controls.Add(this.altaConyuge);
+            this.ClientSize = new System.Drawing.Size(620, 249);
             this.Controls.Add(this.planMedico);
             this.Controls.Add(this.fechaNacimiento);
             this.Controls.Add(this.radioButton2);
@@ -395,7 +369,5 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.DateTimePicker fechaNacimiento;
         private System.Windows.Forms.ComboBox planMedico;
-        private System.Windows.Forms.Button altaConyuge;
-        private System.Windows.Forms.Button altaFamiliar;
     }
 }

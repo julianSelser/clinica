@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
     public partial class ModificarAfiliado2 : Form
     {
         private ModificarAfiliado padre;
+        private Afiliado afiliado;
 
         public ModificarAfiliado2(ModificarAfiliado padre)
         {
@@ -53,19 +55,15 @@ namespace Clinica_Frba.Abm_de_Afiliado
             return numeroAfiliado % 100;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void acceptButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
-        }
     }
 }
