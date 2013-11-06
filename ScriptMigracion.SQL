@@ -1241,7 +1241,7 @@ CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado
 AS
 BEGIN
 DECLARE @Nro_Afiliado numeric(18)
-SELECT TOP 1 @Nro_Afiliado = (Nro_Afiliado + 100) FROM CUATRO_QUESOS.Afiliados ORDER BY Nro_Afiliado ASC
+SELECT TOP 1 @Nro_Afiliado = (Nro_Afiliado + 100) FROM CUATRO_QUESOS.Afiliados ORDER BY Nro_Afiliado DESC
 INSERT INTO CUATRO_QUESOS.Afiliados
 (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
 VALUES (
