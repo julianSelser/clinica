@@ -19,12 +19,14 @@ namespace Clinica_Frba.Abm_de_Afiliado
         public int cantidadFamiliares;
         public string modo;
         private Afiliado afiliado;
+        public int nroTitular;
 
         public AltaAfiliado(ModoAfiliado modoAfiliado,Form padre)
         {
             InitializeComponent();
             this.padre = padre;
             this.modo = modoAfiliado.modo;
+            this.nroTitular = 0;
 
             if (modo == "Familiar" || modo == "Casado/a" || modo == "Concubinato")
             {
@@ -32,6 +34,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 labelFamiliares.Visible = false;
                 estadoCivil.Visible = false;
                 cantFamiliares.Visible = false;
+                this.nroTitular = modoAfiliado.nroAfiliado;
 
                 if (modo == "Casado/a" || modo == "Concubinato")
                 {
@@ -49,13 +52,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void altaConyuge_Click(object sender, EventArgs e)
-        {
-            ModoAfiliado modoAfiliado = new ModoAfiliado();
-            modoAfiliado.modo = estadoCivil.Text;
-            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modoAfiliado, this), this);
-        }
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
@@ -67,7 +63,18 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private void button1_Click(object sender, EventArgs e)
         {
             afiliado = crearAfiliado();
-            AppAfiliado.altaAfiliado(afiliado);
+            switch (modo)
+            {
+                case "Titular":
+                    AppAfiliado.altaAfiliadoTitular(afiliado);
+                    break;
+                case "Familiar":
+                    AppAfiliado.altaAfiliadoFamiliar(afiliado);
+                    break;
+                default:
+                    AppAfiliado.altaAfiliadoConyuge(afiliado);
+                    break;
+            }
             MessageBox.Show("El alta se ha realizado correctamente.");
             altasOpcionales();
         }
@@ -87,6 +94,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private Afiliado crearAfiliado()
         {
             Afiliado afiliado = new Afiliado();
+            afiliado.nroAfiliado = nroTitular;
             afiliado.nombre = nombre.Text;
             afiliado.apellido = apellido.Text;
             afiliado.sexo = sexo;

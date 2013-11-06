@@ -13,9 +13,17 @@ namespace Clinica_Frba.AppModel
             ejecutarProcedure("darBajaAfiliado", nroAfiliado);
         }
 
-        public static void altaAfiliado(Afiliado afiliado)
+        public static void altaAfiliadoTitular(Afiliado afiliado)
         {
-            ejecutarProcedure("darAltaAfiliado", afiliado.nombre, afiliado.apellido, afiliado.sexo, afiliado.tipoDoc, afiliado.nroDoc, afiliado.direccion, afiliado.mail, afiliado.telefono, afiliado.fechaNac, afiliado.codPlan,afiliado.estadoCivil, afiliado.cantFamiliaresACargo);
+            ejecutarProcedure("darAltaAfiliado", afiliado.nombre, afiliado.apellido, afiliado.sexo, afiliado.tipoDoc, afiliado.nroDoc, afiliado.direccion, afiliado.mail, afiliado.telefono, afiliado.fechaNac, afiliado.codPlan,afiliado.estadoCivil, afiliado.cantFamiliaresACargo, 'T', afiliado.nroAfiliado);
+        }
+        public static void altaAfiliadoConyuge(Afiliado afiliado)
+        {
+            ejecutarProcedure("darAltaAfiliado", afiliado.nombre, afiliado.apellido, afiliado.sexo, afiliado.tipoDoc, afiliado.nroDoc, afiliado.direccion, afiliado.mail, afiliado.telefono, afiliado.fechaNac, afiliado.codPlan, afiliado.estadoCivil, afiliado.cantFamiliaresACargo, 'C', afiliado.nroAfiliado);
+        }
+        public static void altaAfiliadoFamiliar(Afiliado afiliado)
+        {
+            ejecutarProcedure("darAltaAfiliado", afiliado.nombre, afiliado.apellido, afiliado.sexo, afiliado.tipoDoc, afiliado.nroDoc, afiliado.direccion, afiliado.mail, afiliado.telefono, afiliado.fechaNac, afiliado.codPlan, afiliado.estadoCivil, afiliado.cantFamiliaresACargo, 'F', afiliado.nroAfiliado);
         }
 
         public static int buscarNroAfiliado(Afiliado afiliado)
