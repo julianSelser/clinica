@@ -45,21 +45,7 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string nuevoNombre = this.textBoxRol.Text;//pongo el nuevo nombre en una variable
-            int codRol = oldRol.id;
-            List<Funcionalidad> funcsAgregadas = this.getFuncionalidadesAgregadas();
-            List<Funcionalidad> funcsAQuitar = this.getFuncionalidadesAQuitar();
-            if (_seRealizaronModificaciones(nuevoNombre, funcsAgregadas, funcsAQuitar, habilitado))
-            {
-                DAORol.modificarRol(oldRol, codRol, nuevoNombre, habilitado, funcsAgregadas, funcsAQuitar);
-                MessageBox.Show("El rol ha sido modificado exitosamente.");
-                _padre.cargarGrid(DAORol.getDataTableRoles());
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("No ha modificado el Rol.");
-            }
+
         }
     }
 }
