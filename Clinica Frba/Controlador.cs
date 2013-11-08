@@ -12,7 +12,7 @@ namespace Clinica_Frba
     {
         private static Regex alfanumerico = new Regex("[a-zA-Z0-9]");
         private static Regex codigo = new Regex(@"^\d+$");
-        public enum TipoValidacion { Alfanumerico, Dinero, Codigo, Patente };
+        public enum TipoValidacion { Alfanumerico, Dinero, Codigo };
         public static void validarCampos(List<CampoAbstracto> campos)
         {
             string mensajeError = "";
@@ -79,6 +79,38 @@ namespace Clinica_Frba
         public static Boolean stringValido(string unString)
         {
             return alfanumerico.IsMatch(unString);
+        }
+
+        //wrapper para el parseo de datetime, parsea si puede, sino devuelve null, no maneja excepciones de parseo
+        public static DateTime? parsear(string cadena)
+        {
+            return (!cadenaEsVaciaONull(cadena)) ? DateTime.Parse(cadena) : (DateTime?)null;
+        }
+
+        //valida que un string nombre tenga el nombre y el apellido
+        public static bool tieneNombreYAPellido(string nombreYapellido)
+        {
+            return new Regex(@"^\s*\w+\s+\w+\s*$").IsMatch(nombreYapellido);
+        }
+
+        //separa el nombre y el apellido en una cadena donde viene todo junto
+        public static string[] separarNombreYApellido(string nombreYapellido)
+        {
+            return nombreYapellido.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static bool cadenaEsNumerica(string cadena)
+        {
+            return new Regex(@"^\d+$").IsMatch(cadena);
+        }
+
+        public static bool cadenaEsVaciaONull(string cadena)
+        {
+            if (cadena == null) return true;
+
+            foreach (char c in cadena) if (c != ' ') return false; //chequea si son todos whitespace
+
+            return true; //si llega aca eran todos whitespace
         }
     }
 }
