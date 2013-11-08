@@ -172,6 +172,10 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Cons
 DROP TABLE CUATRO_QUESOS.Consultas
 ;
 
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Consultas_Exceptions') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE CUATRO_QUESOS.Consultas_Exceptions
+;
+
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Dias_Atencion') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Dias_Atencion
 ;
