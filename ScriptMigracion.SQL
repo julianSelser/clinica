@@ -85,6 +85,19 @@ CREATE TABLE CUATRO_QUESOS.Consultas (
 )
 ;
 
+CREATE TABLE CUATRO_QUESOS.Consultas_Exceptions (
+        Id_Consulta numeric(18),
+        Nro_Turno numeric(18) NOT NULL,
+        Fecha_Llegada datetime,
+        Fecha_Atencion datetime,
+        Sintomas varchar(255) NOT NULL,
+        Enfermedades varchar(255) NOT NULL,
+        Nro_Bono_Consulta numeric(18) NOT NULL,
+        Nro_Bono_Farmacia numeric(18) NOT NULL,
+        Medicamento varchar(255) NOT NULL,
+)
+;
+
 CREATE TABLE CUATRO_QUESOS.Dias_Atencion (
         Id_Medico numeric(18) NOT NULL,
         Nombre_Dia varchar(9) NOT NULL,
@@ -862,6 +875,34 @@ INSERT INTO CUATRO_QUESOS.Consultas
 
         where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha < GETDATE()
 
+INSERT INTO CUATRO_QUESOS.Consultas_Exceptions
+--en esta tabla van las consultas futuras
+        (
+        Nro_Turno,
+        Fecha_Llegada,
+        Fecha_Atencion,
+        Sintomas,
+        Enfermedades,
+        Nro_Bono_Consulta,
+        Nro_Bono_Farmacia,
+        Medicamento
+        )
+        
+        select
+        Turno_Numero as Nro_Turno,
+        Turno_Fecha as Fecha_Llegada,
+        Turno_Fecha as Fecha_Atencion,
+        Consulta_Sintomas as Sintomas,
+        Consulta_Enfermedades as Enfermedades,
+        Bono_Consulta_Numero as Nro_Bono_Consulta,
+        Bono_Farmacia_Numero as Nro_Bono_Farmacia,
+        Bono_Farmacia_Medicamento as Medicamento
+
+        from gd_esquema.Maestra
+
+        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha >= GETDATE()
+        
+        
         
 INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
         (
@@ -1437,13 +1478,14 @@ as
         end
 GO
 
--- ABM DE CANCELACION DE ATENCION
+-- CÓDIGO DE ABM DE CANCELACIÓN
 
 CREATE TYPE [CUATRO_QUESOS].[TURNOS_MEDICO] AS TABLE(
-	numero numeric(18, 0) NOT NULL,
-	nombre_paciente varchar(255) NOT NULL,
-	paciente_apellido varchar(255) NOT NULL,
-	fecha date NOT NULL);
+	[numero] [numeric](18, 0) NOT NULL,
+	[nombre_paciente] [varchar](255) NOT NULL,
+	[paciente_apellido] [varchar](255) NOT NULL,
+	[fecha] [date] NOT NULL
+)
 GO
 
 CREATE FUNCTION [CUATRO_QUESOS].[getNroAfiliado] (@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDocumento VARCHAR(3))
@@ -1501,7 +1543,8 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones (Nro_Turno, Tipo, Motivo)
 VALUES (@Nro_Turno, @TipoMotivo, @Motivo)
 GO
 
-CREATE PROCEDURE [CUATRO_QUESOS].[cancelarPeriodo](	@Tabla [CUATRO_QUESOS].[TURNOS_MEDICO] READONLY, @Motivo VARCHAR(255)		)
+CREATE PROCEDURE [CUATRO_QUESOS].[cancelarPeriodo](	@Tabla CUATRO_QUESOS.TURNOS_MEDICO READONLY, 
+												@Motivo VARCHAR(255)		)
 AS
 	INSERT INTO CUATRO_QUESOS.Cancelaciones
 	SELECT t.numero, 'No asistencia', @Motivo
@@ -1509,4 +1552,4 @@ AS
 GO
 
 
--- FIN ABM CANCELACION DE ATENCIÓN        
+-- FIN ABM DE CANCELACIÓN
