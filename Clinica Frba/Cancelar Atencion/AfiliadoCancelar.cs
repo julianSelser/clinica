@@ -15,22 +15,22 @@ namespace Clinica_Frba.Cancelar_Atencion
         public AfiliadoCancelar(Form padre): base(padre)
         {
             InitializeComponent();
+            cancelarAtencion.Location = new Point(
+                                        (volver.Location.X + buscar.Location.X)/2,
+                                        cancelarAtencion.Location.Y);
+            cancelarPeriodo.Visible = false;
+            cancelarPeriodo.Enabled = false;
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        override protected bool camposValidos() 
         {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            return cadenasBusquedaValidas(nombreTextBox.Text, nroDocTextBox.Text);
         }
 
-        private void Cancelacion_Atencion_Load(object sender, EventArgs e)
+        override protected DataTable llenarGrilla() 
         {
-
+            return AppCancelarAtencion.traerTablaPedida(nombreTextBox.Text, "Afiliado", nroDocTextBox.Text, tipoDocSelector.Text, null, null);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

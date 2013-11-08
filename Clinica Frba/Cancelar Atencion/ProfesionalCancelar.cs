@@ -17,20 +17,21 @@ namespace Clinica_Frba.Cancelar_Atencion
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        override protected bool camposValidos()
         {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            return cadenasBusquedaValidas(nombreTextBox.Text, nroDocTextBox.Text)
+                && fechasValidas(desdeTextBox.Text, hastaTextBox.Text);
         }
 
-        private void Cancelacion_Atencion_Load(object sender, EventArgs e)
+        protected override DataTable llenarGrilla()
         {
-
+            return AppCancelarAtencion.traerTablaPedida(nombreTextBox.Text
+                                                        , "Profesional"
+                                                        , nroDocTextBox.Text
+                                                        , tipoDocSelector.Text
+                                                        , Controlador.parsear(desdeTextBox.Text)
+                                                        , Controlador.parsear(hastaTextBox.Text));
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
     }
 }
