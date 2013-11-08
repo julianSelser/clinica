@@ -30,6 +30,10 @@ DROP PROCEDURE CUATRO_QUESOS.getNombreRol
 DROP PROCEDURE CUATRO_QUESOS.modificarRol
 DROP TYPE CUATRO_QUESOS.TURNOS_MEDICO
 
+drop trigger CUATRO_QUESOS.quitarRolInhabilitado
+drop trigger CUATRO_QUESOS.revocarUsuario
+drop trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados
+
 -- Drop Foreign Key Constraints
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Afiliados_Planes
 ;

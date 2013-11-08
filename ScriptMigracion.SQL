@@ -1151,6 +1151,91 @@ where dia >= Medicos.fecha_atencion_desde and dia <= Medicos.Fecha_Atencion_Hast
 
 GO
 
+--CREATE TRIGGERS
+
+create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for update
+as
+if UPDATE(Habilitado)
+begin
+	--los roles son muy pocos, me voy a tomar la libertad de usar un cursor
+	declare @ID numeric(18)
+	declare @Habilitado bit
+	declare curLocal cursor for select ID_Rol, Habilitado from inserted
+	
+	open curLocal
+	fetch CurLocal into @ID, @Habilitado
+	while @@FETCH_STATUS = 0
+	begin
+		if @Habilitado = 0 --uno de los roles se inhabilito
+			delete from CUATRO_QUESOS.Usuarios_Por_Rol where CUATRO_QUESOS.Usuarios_Por_Rol.ID_Rol = @ID	
+			--se lo quito a todos los usuarios que lo tienen	
+	fetch CurLocal into @ID, @Habilitado
+	end
+	
+	close CurLocal
+	deallocate CurLocal
+
+end
+
+
+GO
+
+create trigger CUATRO_QUESOS.revocarUsuario on CUATRO_QUESOS.Usuarios for update
+as
+if UPDATE(Intentos_Fallidos)
+begin
+	--esto SÍ O SÍ se actualiza un registro a la vez. SÉ que inserted tiene una fila
+	if (select Intentos_Fallidos from inserted) > 2
+		update CUATRO_QUESOS.Usuarios set Habilitado = 0 where CUATRO_QUESOS.Usuarios.Username = (select username from inserted)	
+
+end
+
+GO
+
+
+create trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados on CUATRO_QUESOS.Medicos for update
+as
+if UPDATE(Habilitado)
+
+begin
+	--no se si los médicos se darán de baja de a uno o masivamente... meto cursor nomás
+	declare @ID numeric(18)
+	declare @Habilitado bit
+	declare curLocal cursor for select ID_Medico, Habilitado from inserted
+	
+	open curLocal
+	fetch CurLocal into @ID, @Habilitado
+	while @@FETCH_STATUS = 0
+	begin
+		if @Habilitado = 0 --uno de los médicos se dio de baja
+			--tengo que cancelar sus turnos futuros
+			
+			INSERT INTO CUATRO_QUESOS.Cancelaciones
+			(
+			Nro_Turno,
+			Tipo,
+			Motivo
+			)
+			
+			select Numero as Nro_Turno,
+					'Desvinculación' as Tipo,
+					'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
+			from CUATRO_QUESOS.Turnos as sub
+			where sub.ID_Medico = @ID
+				and sub.Fecha > GETDATE()
+				and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+			
+	fetch CurLocal into @ID, @Habilitado
+	end
+	
+	close CurLocal
+	deallocate CurLocal
+end
+
+GO
+
+
+
 --CREATE PROCEDURES
 
 --procedures medicos
