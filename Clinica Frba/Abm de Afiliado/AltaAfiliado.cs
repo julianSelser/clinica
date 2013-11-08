@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Ventana que da alta un afiliado, 
+//dependiendo del tipo de afiliado (titular, conyuge, familiar) 
+//se inicializa con distintos campos
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {

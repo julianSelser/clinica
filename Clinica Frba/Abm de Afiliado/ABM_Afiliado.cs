@@ -29,15 +29,15 @@ namespace Clinica_Frba.Abm_de_Afiliado
             modoTitular.modo = "Titular";
             AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modoTitular, this), this);
         }
-        //TODO: llevar a una nueva ventana de listado con string discriminador "modificar"
+        
         private void modificarButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado(this), this); 
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "modificar"), this); 
         }
-        //TODO: llevar a una nueva ventana de listado con string discriminador "baja"
+        
         private void bajaButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "baja"), this);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

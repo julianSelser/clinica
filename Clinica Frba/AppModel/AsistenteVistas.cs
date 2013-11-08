@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+//Asistente que agrupa la logica de volver a la ventana anterior, inicializar una nueva o cargar una grilla
+
 namespace Clinica_Frba.AppModel
 {
     class AsistenteVistas
