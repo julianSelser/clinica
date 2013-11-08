@@ -222,6 +222,16 @@ CREATE TABLE CUATRO_QUESOS.Usuarios_Por_Rol (
 
 
 -- Create Primary Key Constraints
+
+ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT CHK_Estado_Civil
+	CHECK(Estado_Civil = 'Soltero/a' OR
+	 Estado_Civil = 'Divorciado/a' OR
+	 Estado_Civil = 'Viudo/a' OR
+	 Estado_Civil = 'Concubinato' OR
+	 Estado_Civil = 'Casado/a' OR 
+	 Estado_Civil = '-')
+;
+
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT PK_Afiliados
         PRIMARY KEY CLUSTERED (Nro_Afiliado)
 ;
@@ -1122,9 +1132,6 @@ end
 
 --contiene todos los días que hay de acá a más o menos 2017
 
-
-COMMIT
-
 go
 
 --CREATE VIEWS
@@ -1463,6 +1470,48 @@ WHERE Nro_Afiliado = @nroAfiliado
 
 GO
 
+CREATE PROCEDURE CUATRO_QUESOS.updateAfiliado (
+@nroAfiliado numeric(18), 
+@direccion varchar(255), 
+@telefono numeric(18), 
+@mail varchar(255), 
+@cod_plan numeric(18), 
+@estadoCivil varchar(255), 
+@cantFamiliares tinyint)
+AS
+BEGIN
+
+IF(CUATRO_QUESOS.tipoAfiliado(@nroAfiliado) = 1)
+	BEGIN
+		UPDATE CUATRO_QUESOS.Afiliados
+		SET Direccion = @direccion, 
+		Telefono = @telefono, 
+		Mail = @mail, 
+		Cod_Plan = @cod_plan, 
+		Estado_Civil = @estadoCivil, 
+		CantFamiliaresACargo = @cantFamiliares 
+		-- TODO: crear un trigger que valide la cantidad de familiares 
+		--que estan dados de alta contra el nuevo valor de la columna CantFamiliaresACargo, 
+		--en caso de que el valor de este sea menor, solicitar la baja obligatoria de algun familiar (se da el nro de afiliado), 
+		--de lo contrario dejar la cantidad real de familiares a cargo que existen en la BD para mantener la consistencia
+		WHERE Nro_Afiliado = @nroAfiliado
+	END
+ELSE
+	BEGIN
+
+		UPDATE CUATRO_QUESOS.Afiliados
+		SET Direccion = @direccion, 
+		Telefono = @telefono, 
+		Mail = @mail, 
+		Cod_Plan = @cod_plan
+		WHERE Nro_Afiliado = @nroAfiliado
+	
+	END
+
+END
+
+GO
+
 CREATE FUNCTION CUATRO_QUESOS.tipoAfiliado(@nroAfiliado numeric(18)) --1 es titular, 2 es conyuge, 3 es familiar no titular ni conyuge
 RETURNS int
 BEGIN
@@ -1654,3 +1703,6 @@ GO
 
 
 -- FIN ABM DE CANCELACIÓN
+
+COMMIT
+GO

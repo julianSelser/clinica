@@ -40,11 +40,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
                     estadoCivil.Visible = true;
                     labelEstadoCivil.Visible = true;
                     break;
-                case 2:
-                    estadoCivil.Visible = true;
-                    labelEstadoCivil.Visible = true;
-                    estadoCivil.Enabled = false;
-                    break;
                 default:
                     break;
             }

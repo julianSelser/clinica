@@ -4,6 +4,7 @@ GO
 BEGIN TRAN
 GO
 
+DROP PROCEDURE CUATRO_QUESOS.updateAfiliado
 DROP PROCEDURE CUATRO_QUESOS.getAfiliado
 DROP FUNCTION CUATRO_QUESOS.getIdMedico
 DROP FUNCTION CUATRO_QUESOS.tipoAfiliado
@@ -36,6 +37,9 @@ drop trigger CUATRO_QUESOS.revocarUsuario
 drop trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados
 
 -- Drop Foreign Key Constraints
+ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
+;
+
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Afiliados_Planes
 ;
 
