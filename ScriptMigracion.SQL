@@ -1365,7 +1365,7 @@ CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado
  @Estado_Civil varchar(255) ,
  @CantFamiliaresACargo tinyint,
  @tipoAfiliado char(1), -- T es titular, C es la pareja del titular y F es un familiar
- @nroAfiliadoTitular numeric(18)--Solo se usa en el caso de conyuge o familiar
+ @nroAfiliadoTitular numeric(18)-- Solo se usa en el caso de conyuge o familiar
 )
 AS
 BEGIN
@@ -1434,11 +1434,25 @@ BEGIN
                                 @Telefono,
                                 @Fecha_Nac,
                                 @Cod_Plan,
-                                'Soltero/a',
+                                '-' , -- Como no interesa el estado civil de un hijo / familiar a cargo, se pone guion por defecto
                                 0
                                 )
                         END        
 END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.getAfiliado(@nroAfiliado numeric(18))
+AS
+SELECT Nro_Afiliado 'Numero Afiliado',
+Nombre 'Nombre', Apellido 'Apellido',
+Sexo 'Sexo', Tipo_Doc 'Tipo Documento',
+Nro_Doc 'Numero Documento', Direccion 'Direccion',
+Telefono 'Telefono', Mail 'Mail', Fecha_Nac 'Fecha Nacimiento',
+Cod_Plan 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Numero de Titular',
+Nro_Conyuge 'Numero Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Numero de Consultas Realizadas',
+CantFamiliaresACargo 'Cantidad de Familiares a Cargo'
+FROM CUATRO_QUESOS.Afiliados
+WHERE Nro_Afiliado = @nroAfiliado
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18))
@@ -1474,6 +1488,8 @@ BEGIN
         FROM CUATRO_QUESOS.Afiliados
         WHERE Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100
         ORDER BY Nro_Afiliado DESC
+        
+        IF(@nroFamiliar % 100 = 2) SET @nroFamiliar = @nroFamiliar + 1
         
         RETURN @nroFamiliar
 END
