@@ -30,9 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.altaButton = new System.Windows.Forms.Button();
+            this.modificarButton = new System.Windows.Forms.Button();
+            this.bajaButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -55,35 +55,35 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button3
+            // altaButton
             // 
-            this.button3.Location = new System.Drawing.Point(63, 135);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(157, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Dar de baja";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.altaButton.Location = new System.Drawing.Point(63, 77);
+            this.altaButton.Name = "altaButton";
+            this.altaButton.Size = new System.Drawing.Size(157, 23);
+            this.altaButton.TabIndex = 5;
+            this.altaButton.Text = "Dar de alta";
+            this.altaButton.UseVisualStyleBackColor = true;
+            this.altaButton.Click += new System.EventHandler(this.altaButton_Click);
             // 
-            // button2
+            // modificarButton
             // 
-            this.button2.Location = new System.Drawing.Point(63, 106);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(157, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Modificar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.modificarButton.Location = new System.Drawing.Point(63, 106);
+            this.modificarButton.Name = "modificarButton";
+            this.modificarButton.Size = new System.Drawing.Size(157, 23);
+            this.modificarButton.TabIndex = 6;
+            this.modificarButton.Text = "Modificar";
+            this.modificarButton.UseVisualStyleBackColor = true;
+            this.modificarButton.Click += new System.EventHandler(this.modificarButton_Click);
             // 
-            // button1
+            // bajaButton
             // 
-            this.button1.Location = new System.Drawing.Point(63, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Dar de alta";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.bajaButton.Location = new System.Drawing.Point(63, 135);
+            this.bajaButton.Name = "bajaButton";
+            this.bajaButton.Size = new System.Drawing.Size(157, 23);
+            this.bajaButton.TabIndex = 7;
+            this.bajaButton.Text = "Dar de baja";
+            this.bajaButton.UseVisualStyleBackColor = true;
+            this.bajaButton.Click += new System.EventHandler(this.bajaButton_Click);
             // 
             // ABM_Afiliado
             // 
@@ -92,9 +92,9 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bajaButton);
+            this.Controls.Add(this.modificarButton);
+            this.Controls.Add(this.altaButton);
             this.Name = "ABM_Afiliado";
             this.Text = "Afiliado";
             this.ResumeLayout(false);
@@ -106,8 +106,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button altaButton;
+        private System.Windows.Forms.Button modificarButton;
+        private System.Windows.Forms.Button bajaButton;
     }
 }
