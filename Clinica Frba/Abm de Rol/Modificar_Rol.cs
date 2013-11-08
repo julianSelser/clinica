@@ -27,6 +27,7 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DataTable dt = AppRol.getDataTableRolesPorId(Convert.ToInt32(textBox1));//se trae toda la fila que machee con ese id
             //Modificar_Rol2.cargarFuncionalidades(); //o tengo que cargarlas despues de abrirla?
             AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this), this);
         }

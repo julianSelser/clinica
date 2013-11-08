@@ -59,6 +59,14 @@ namespace Clinica_Frba.AppModel
             //hasta aca mete los nombres de la tabla de funcionalidades en una lista
 
             return nombresFuncionalidades;
+        
         }
+
+        public static DataTable getDataTableRolesPorId(int idRol)
+        {
+            DataTable tablaNombre = traerDataTable("getNombreRol", idRol);
+            return tablaNombre;
+        }    
+    
     }
 }

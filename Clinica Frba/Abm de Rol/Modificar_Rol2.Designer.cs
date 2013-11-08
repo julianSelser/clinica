@@ -32,7 +32,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.chkBoxFuncionalidades = new System.Windows.Forms.CheckedListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxRol = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -54,6 +54,7 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -72,12 +73,12 @@
             this.chkBoxFuncionalidades.Size = new System.Drawing.Size(187, 94);
             this.chkBoxFuncionalidades.TabIndex = 8;
             // 
-            // textBox1
+            // textBoxRol
             // 
-            this.textBox1.Location = new System.Drawing.Point(133, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(108, 20);
-            this.textBox1.TabIndex = 7;
+            this.textBoxRol.Location = new System.Drawing.Point(133, 20);
+            this.textBoxRol.Name = "textBoxRol";
+            this.textBoxRol.Size = new System.Drawing.Size(108, 20);
+            this.textBoxRol.TabIndex = 7;
             // 
             // label1
             // 
@@ -97,7 +98,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chkBoxFuncionalidades);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxRol);
             this.Controls.Add(this.label1);
             this.Name = "Modificar_Rol2";
             this.Text = "Modificar_Rol2";
@@ -112,7 +113,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckedListBox chkBoxFuncionalidades;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxRol;
         private System.Windows.Forms.Label label1;
     }
 }
