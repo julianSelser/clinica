@@ -10,12 +10,13 @@ namespace Clinica_Frba.AppModel
 {
     class AppRol : ConectorSQL
     {
+        /*
         private static void habilitarRol(int idRol)
         {
             ejecutarProcedure("habilitarRol", idRol);
         }
-
-        private static void inhabilitarRol(int idRol)
+        */
+        public static void inhabilitarRol(int idRol)
         {
             ejecutarProcedure("inhabilitarRol", idRol);
         }

@@ -10,10 +10,10 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Rol
 {
-    public partial class Inhabilitar_Rol : Form
+    public partial class Baja_Rol : Form
     {
         private Form padre;
-        public Inhabilitar_Rol(Form padre)
+        public Baja_Rol(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
@@ -23,6 +23,14 @@ namespace Clinica_Frba.Abm_de_Rol
         private void button2_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int codRol = Convert.ToInt32(textBox1);//guardo lo que recibo del textbox
+            AppRol.inhabilitarRol(codRol);//llamo a la funcion para darlo de baja
+            AsistenteVistas.volverAPadreYCerrar(padre, this);//vuelvo a la ventana anterior
+            //IMP:tendria que validar, y si no se ingreso ningun rol, mostrar un mensaje
         }
     }
 }

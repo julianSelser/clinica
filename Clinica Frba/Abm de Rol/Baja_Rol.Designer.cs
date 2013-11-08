@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Rol
 {
-    partial class Inhabilitar_Rol
+    partial class Baja_Rol
     {
         /// <summary>
         /// Required designer variable.
@@ -52,6 +52,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox1
             // 
@@ -69,7 +70,7 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Rol:";
             // 
-            // Inhabilitar_Rol
+            // Baja_Rol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -78,8 +79,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Inhabilitar_Rol";
-            this.Text = "Inhabilitar_Rol";
+            this.Name = "Baja_Rol";
+            this.Text = "Baja_Rol";
             this.ResumeLayout(false);
             this.PerformLayout();
 
