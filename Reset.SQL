@@ -21,6 +21,8 @@ DROP PROCEDURE CUATRO_QUESOS.getFuncionalidades
 DROP PROCEDURE CUATRO_QUESOS.getFuncionalidadesRol
 DROP PROCEDURE CUATRO_QUESOS.getNombreRol
 DROP PROCEDURE CUATRO_QUESOS.modificarRol
+DROP FUNCTION CUATRO_QUESOS.raizNroAfiliado
+DROP FUNCTION CUATRO_QUESOS.siguienteNroFamiliar
  
 
 --  Drop Foreign Key Constraints 
