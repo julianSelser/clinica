@@ -24,7 +24,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
             InitializeComponent();
             this.padre = padre;
             this.funcion = funcion;
-            grillaAfiliados.ReadOnly = true;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -44,5 +43,16 @@ namespace Clinica_Frba.Abm_de_Afiliado
             }
         }
 
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            inicializarCampos();
+        }
+
+        private void inicializarCampos()
+        {
+            nombreBox.Text = "";
+            apellidoBox.Text = "";
+            nroAfiliadoRaizBox.Text = "";
+        }
     }
 }

@@ -61,6 +61,7 @@
             this.limpiarButton.TabIndex = 1;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // label1
             // 
@@ -99,6 +100,7 @@
             this.grillaAfiliados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaAfiliados.Location = new System.Drawing.Point(16, 119);
             this.grillaAfiliados.Name = "grillaAfiliados";
+            this.grillaAfiliados.RowTemplate.ReadOnly = true;
             this.grillaAfiliados.Size = new System.Drawing.Size(660, 197);
             this.grillaAfiliados.TabIndex = 6;
             // 
