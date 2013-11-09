@@ -38,12 +38,14 @@
             this.nroAfiliadoRaizBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaAfiliados)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(497, 82);
+            this.buscarButton.Location = new System.Drawing.Point(243, 58);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
             this.buscarButton.TabIndex = 0;
@@ -52,7 +54,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(26, 82);
+            this.limpiarButton.Location = new System.Drawing.Point(324, 58);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 1;
@@ -62,7 +64,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 33);
+            this.label1.Location = new System.Drawing.Point(11, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 2;
@@ -71,7 +73,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 59);
+            this.label2.Location = new System.Drawing.Point(11, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 3;
@@ -79,14 +81,14 @@
             // 
             // nombreBox
             // 
-            this.nombreBox.Location = new System.Drawing.Point(76, 30);
+            this.nombreBox.Location = new System.Drawing.Point(64, 26);
             this.nombreBox.Name = "nombreBox";
             this.nombreBox.Size = new System.Drawing.Size(100, 20);
             this.nombreBox.TabIndex = 4;
             // 
             // apellidoBox
             // 
-            this.apellidoBox.Location = new System.Drawing.Point(76, 56);
+            this.apellidoBox.Location = new System.Drawing.Point(64, 58);
             this.apellidoBox.Name = "apellidoBox";
             this.apellidoBox.Size = new System.Drawing.Size(100, 20);
             this.apellidoBox.TabIndex = 5;
@@ -101,7 +103,7 @@
             // 
             // nroAfiliadoRaizBox
             // 
-            this.nroAfiliadoRaizBox.Location = new System.Drawing.Point(318, 30);
+            this.nroAfiliadoRaizBox.Location = new System.Drawing.Point(299, 26);
             this.nroAfiliadoRaizBox.Name = "nroAfiliadoRaizBox";
             this.nroAfiliadoRaizBox.Size = new System.Drawing.Size(100, 20);
             this.nroAfiliadoRaizBox.TabIndex = 7;
@@ -109,7 +111,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(202, 32);
+            this.label3.Location = new System.Drawing.Point(183, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(110, 13);
             this.label3.TabIndex = 8;
@@ -117,34 +119,45 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(601, 82);
+            this.cancelButton.Location = new System.Drawing.Point(570, 330);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(91, 25);
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Cancelar";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.nombreBox);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.nroAfiliadoRaizBox);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.buscarButton);
+            this.groupBox1.Controls.Add(this.limpiarButton);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.apellidoBox);
+            this.groupBox1.Location = new System.Drawing.Point(16, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(421, 100);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Búsqueda";
+            // 
             // ListadoAfiliados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(688, 328);
+            this.ClientSize = new System.Drawing.Size(687, 367);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.nroAfiliadoRaizBox);
             this.Controls.Add(this.grillaAfiliados);
-            this.Controls.Add(this.apellidoBox);
-            this.Controls.Add(this.nombreBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.limpiarButton);
-            this.Controls.Add(this.buscarButton);
             this.Name = "ListadoAfiliados";
             this.Text = "Listado de Afiliados";
             ((System.ComponentModel.ISupportInitialize)(this.grillaAfiliados)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -160,5 +173,6 @@
         private System.Windows.Forms.TextBox nroAfiliadoRaizBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

@@ -82,7 +82,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 case "Familiar":
                     AppAfiliado.altaAfiliadoFamiliar(afiliado);
                     break;
-                default:
+                default: 
                     AppAfiliado.altaAfiliadoConyuge(afiliado);
                     break;
             }
