@@ -24,18 +24,23 @@ namespace Clinica_Frba.Login
 
         private void InitializePassword()
         {
-            textBox2.Text = "";
-            textBox2.PasswordChar = '*';
-            textBox2.MaxLength = 16;
+            passTextBox.Text = "";
+            passTextBox.PasswordChar = '*';
+            passTextBox.MaxLength = 16;
         }
 
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            pantallaPrincipal.setearUsuarioLogueado(textBox1.Text);
+            pantallaPrincipal.setearUsuarioLogueado(usrNameTextBox.Text);
             AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }
