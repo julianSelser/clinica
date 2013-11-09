@@ -35,11 +35,6 @@ namespace Clinica_Frba.Login
             AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
-        }
-
         private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
