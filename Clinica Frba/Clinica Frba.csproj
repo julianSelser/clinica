@@ -153,6 +153,7 @@
     <Compile Include="AppModel\ConectorSQL.cs" />
     <Compile Include="AppModel\ErrorManager.cs" />
     <Compile Include="AppModel\Globales.cs" />
+    <Compile Include="AppModel\IListado.cs" />
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
       <SubType>Form</SubType>
     </Compile>
