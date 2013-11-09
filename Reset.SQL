@@ -38,6 +38,7 @@ DROP TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
 drop trigger CUATRO_QUESOS.quitarRolInhabilitado
 drop trigger CUATRO_QUESOS.revocarUsuario
 drop trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados
+drop trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados
 drop trigger CUATRO_QUESOS.limitarJornadaLaboral
 drop trigger CUATRO_QUESOS.obedecerHorariosClinica
 drop trigger CUATRO_QUESOS.limitarMedicamentosPorBono

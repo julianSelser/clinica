@@ -1229,7 +1229,7 @@ begin
 			)
 			
 			select Numero as Nro_Turno,
-					'Desvinculación' as Tipo,
+					'Desvinculación del médico' as Tipo,
 					'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
 			from CUATRO_QUESOS.Turnos as sub
 			where sub.ID_Medico = @ID
@@ -1237,6 +1237,47 @@ begin
 				and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
 			
 	fetch CurLocal into @ID, @Habilitado
+	end
+	
+	close CurLocal
+	deallocate CurLocal
+end
+
+GO
+
+create trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados on CUATRO_QUESOS.Afiliados for update
+as
+if UPDATE(Fecha_Baja)
+
+begin
+	--no se si los pacientes se darán de baja de a uno o masivamente... meto cursor nomás
+	declare @Nro numeric(18)
+	declare @Fecha_Baja datetime
+	declare curLocal cursor for select Nro_Afiliado, Fecha_Baja from inserted
+	
+	open curLocal
+	fetch CurLocal into @Nro, @Fecha_Baja
+	while @@FETCH_STATUS = 0
+	begin
+		if @Fecha_Baja is not null --uno de los pacientes está dado de baja
+			--tengo que cancelar sus turnos futuros
+			
+			INSERT INTO CUATRO_QUESOS.Cancelaciones
+			(
+			Nro_Turno,
+			Tipo,
+			Motivo
+			)
+			
+			select Numero as Nro_Turno,
+					'Desvinculación del paciente' as Tipo,
+					'El paciente de este turno ya no se atiende en la clínica' as Motivo
+			from CUATRO_QUESOS.Turnos as sub
+			where sub.Nro_Afiliado = @Nro
+				and sub.Fecha > GETDATE()
+				and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+			
+	fetch CurLocal into @Nro, @Fecha_Baja
 	end
 	
 	close CurLocal
