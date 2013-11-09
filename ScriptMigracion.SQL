@@ -1543,11 +1543,16 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.getAfiliados
+CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @nroAfiliadoRaiz numeric(18)
 AS
 SELECT TOP 100 Nro_Afiliado,Nombre, Apellido ,Sexo , Tipo_Doc ,Nro_Doc , Direccion ,Telefono , Mail , Fecha_Nac,Cod_Plan , Estado_Civil,Nro_Titular ,
 Nro_Conyuge , Fecha_Baja, Nro_Consulta ,CantFamiliaresACargo 
 FROM CUATRO_QUESOS.Afiliados
+WHERE Nombre LIKE '%' + @nombre + '%'
+AND Apellido LIKE '%' + @apellido + '%'
+AND 
+((@nroAfiliadoRaiz > 99 AND Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100) OR
+(@nroAfiliadoRaiz <= 99))
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18), @fechaSistema datetime)

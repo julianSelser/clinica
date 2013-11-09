@@ -32,9 +32,11 @@ namespace Clinica_Frba.AppModel
             return ejecutarProcedureWithReturnValue("buscarNroAfiliado",afiliado.nombre, afiliado.apellido, afiliado.tipoDoc, afiliado.nroDoc);
         }
 
-        public static DataTable getAfiliados()
+        public static DataTable getAfiliados(string nombre, string apellido, string nroRaiz)
         {
-            return traerDataTable("getAfiliados");
+            int nro = 0;
+            if (nroRaiz != "") { nro = Convert.ToInt32(nroRaiz); }
+            return traerDataTable("getAfiliados", nombre, apellido, nro);
         }
     }
 }

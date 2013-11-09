@@ -36,7 +36,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             try
             {
-                AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados());
+                AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados(nombreBox.Text, apellidoBox.Text, nroAfiliadoRaizBox.Text));
             }
             catch (Exception ex)
             {
