@@ -96,8 +96,9 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 {
                     Afiliado afiliado = crearAfiliado(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
+                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado(this, afiliado), this);
                 }
-                else MessageBox.Show("El afiliado seleccionado ya se encuentra dado de baja");
+                else MessageBox.Show("El afiliado seleccionado esta de baja");
             }
             
         }

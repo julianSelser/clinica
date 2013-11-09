@@ -14,27 +14,59 @@ namespace Clinica_Frba.Abm_de_Afiliado
     public partial class ModificarAfiliado : Form
     {
         private Form padre;
+        private Afiliado afiliado;
 
-        public ModificarAfiliado(Form padre)
+        internal ModificarAfiliado(Form padre, Afiliado afiliado)
         {
             InitializeComponent();
             this.padre = padre;
+            this.afiliado = afiliado;
+            habilitarBotonesSegunTipo();
+            rellenarCampos();
+            
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void rellenarCampos() //TODO: crear procedure que traiga los planes disponibles
+        {
+            nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
+            direcBox.Text = afiliado.direccion;
+        }
+
+        private void habilitarBotonesSegunTipo()
+        {
+            int retorno = tipoAfiliado(afiliado);
+
+            cantFamiliaresBox.Visible = false;
+            labelFamiliares.Visible = false;
+            estadoCivilBox.Visible = false;
+            labelEstadoCivil.Visible = false;
+
+            switch (retorno)
+            {
+                case 1:
+                    cantFamiliaresBox.Visible = true;
+                    labelFamiliares.Visible = true;
+                    estadoCivilBox.Visible = true;
+                    labelEstadoCivil.Visible = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private int tipoAfiliado(Afiliado afiliado)
+        {
+            return afiliado.nroAfiliado % 100;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void acceptButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado2(this), this);
-        }
-
-        public int numeroAfiliado
-        {
-            get { return Convert.ToInt32(nroAfiliado.Text); }
-            set { nroAfiliado.Text = value.ToString(); }
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
     }
