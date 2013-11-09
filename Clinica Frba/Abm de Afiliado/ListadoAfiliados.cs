@@ -24,6 +24,8 @@ namespace Clinica_Frba.Abm_de_Afiliado
             InitializeComponent();
             this.padre = padre;
             this.funcion = funcion;
+            cargarGrilla();
+            cargarBotonFuncionalidad();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -34,8 +36,8 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private void buscarButton_Click(object sender, EventArgs e)
         {
             try
-            {
-                AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados(nombreBox.Text, apellidoBox.Text, nroAfiliadoRaizBox.Text));
+            {   //Se carga la grilla ejecutando el procedure con los valores de filtro como parametro
+                cargarGrilla();
             }
             catch (Exception ex)
             {
@@ -43,9 +45,14 @@ namespace Clinica_Frba.Abm_de_Afiliado
             }
         }
 
+        private void cargarGrilla()
+        {
+            AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados(nombreBox.Text, apellidoBox.Text, nroAfiliadoRaizBox.Text));
+        }
+
         private void limpiarButton_Click(object sender, EventArgs e)
         {
-            inicializarCampos();
+            inicializarCampos(); //Limpia los campos
         }
 
         private void inicializarCampos()
@@ -53,6 +60,16 @@ namespace Clinica_Frba.Abm_de_Afiliado
             nombreBox.Text = "";
             apellidoBox.Text = "";
             nroAfiliadoRaizBox.Text = "";
+        }
+
+        private void cargarBotonFuncionalidad()
+        {
+            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+            col.Text = funcion;
+            col.Name = "";
+            col.UseColumnTextForButtonValue = true;
+            grillaAfiliados.Columns.Add(col);
+
         }
     }
 }

@@ -12,7 +12,7 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
         Nombre varchar(255) NOT NULL,
         Apellido varchar(255) NOT NULL,
         Sexo char(1) NOT NULL CHECK(Sexo = 'M' OR Sexo = 'F' OR Sexo = '-'),
-        Tipo_Doc varchar(3) NOT NULL,
+        Tipo_Doc varchar(3) NOT NULL CHECK(Tipo_Doc = 'DNI' OR Tipo_Doc = 'LE' OR Tipo_Doc = 'LC'),
         Nro_Doc numeric(18) NOT NULL,
         Direccion varchar(255) NOT NULL,
         Mail varchar(255),
@@ -138,8 +138,8 @@ CREATE TABLE CUATRO_QUESOS.Medicos (
         Id_Medico numeric(18) NOT NULL Identity(1,1),
         Nombre varchar(255) NOT NULL,
         Apellido varchar(255) NOT NULL,
-        Sexo varchar(255) NOT NULL,
-        Tipo_Doc varchar(3) NOT NULL,
+        Sexo varchar(255) NOT NULL CHECK(Sexo = 'M' OR Sexo = 'F' OR Sexo = '-'),
+        Tipo_Doc varchar(3) NOT NULL CHECK(Tipo_Doc = 'DNI' OR Tipo_Doc = 'LE' OR Tipo_Doc = 'LC'),
         Nro_Doc numeric(18) NOT NULL,
         Direccion varchar(255) NOT NULL,
         Telefono numeric(18) NOT NULL,
@@ -1543,10 +1543,12 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @nroAfiliadoRaiz numeric(18)
+ALTER PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @nroAfiliadoRaiz numeric(18)
 AS
-SELECT TOP 100 Nro_Afiliado,Nombre, Apellido ,Sexo , Tipo_Doc ,Nro_Doc , Direccion ,Telefono , Mail , Fecha_Nac,Cod_Plan , Estado_Civil,Nro_Titular ,
-Nro_Conyuge , Fecha_Baja, Nro_Consulta ,CantFamiliaresACargo 
+SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo', 
+Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
+Fecha_Nac 'Fecha de Nacimiento',Cod_Plan 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
+Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo' 
 FROM CUATRO_QUESOS.Afiliados
 WHERE Nombre LIKE '%' + @nombre + '%'
 AND Apellido LIKE '%' + @apellido + '%'

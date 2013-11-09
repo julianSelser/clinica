@@ -191,7 +191,9 @@
             // 
             this.tipoDoc.FormattingEnabled = true;
             this.tipoDoc.Items.AddRange(new object[] {
-            "DNI"});
+            "DNI",
+            "LE",
+            "LC"});
             this.tipoDoc.Location = new System.Drawing.Point(138, 80);
             this.tipoDoc.Name = "tipoDoc";
             this.tipoDoc.Size = new System.Drawing.Size(100, 21);

@@ -101,7 +101,7 @@
             this.grillaAfiliados.Location = new System.Drawing.Point(16, 119);
             this.grillaAfiliados.Name = "grillaAfiliados";
             this.grillaAfiliados.RowTemplate.ReadOnly = true;
-            this.grillaAfiliados.Size = new System.Drawing.Size(660, 197);
+            this.grillaAfiliados.Size = new System.Drawing.Size(1101, 313);
             this.grillaAfiliados.TabIndex = 6;
             // 
             // nroAfiliadoRaizBox
@@ -122,7 +122,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(570, 330);
+            this.cancelButton.Location = new System.Drawing.Point(1026, 438);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(91, 25);
             this.cancelButton.TabIndex = 9;
@@ -151,7 +151,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 367);
+            this.ClientSize = new System.Drawing.Size(1129, 475);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.grillaAfiliados);
