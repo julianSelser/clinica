@@ -1780,11 +1780,13 @@ CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255),
 													@DesdeFecha DATE,
 													@HastaFecha DATE)
 AS
+declare @ID_Medico numeric(18)
+set @ID_Medico = CUATRO_QUESOS.getIdMedico(@Nombre, @Apellido, @Documento)
 SELECT t.numero, a.nombre AS 'Nombre Paciente', a.apellido AS 'Apellido Paciente', t.fecha
 FROM CUATRO_QUESOS.Turnos t 
 JOIN CUATRO_QUESOS.Afiliados a
 ON t.nro_afiliado = a.nro_afiliado
-AND t.id_medico = (SELECT CUATRO_QUESOS.getIdMedico(@Nombre, @Apellido, @Documento))
+AND t.id_medico = @ID_Medico
 WHERE  t.Numero NOT IN(
 		SELECT c.Nro_Turno
 		FROM CUATRO_QUESOS.Cancelaciones c)
