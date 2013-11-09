@@ -76,7 +76,7 @@
             this.aceptarButton.TabIndex = 134;
             this.aceptarButton.Text = "Aceptar";
             this.aceptarButton.UseVisualStyleBackColor = true;
-            this.aceptarButton.Click += new System.EventHandler(this.button1_Click);
+            this.aceptarButton.Click += new System.EventHandler(this.aceptarButton_Click);
             // 
             // mail
             // 
@@ -269,6 +269,7 @@
             this.sexoButton1.TabStop = true;
             this.sexoButton1.Text = "M";
             this.sexoButton1.UseVisualStyleBackColor = true;
+            this.sexoButton1.CheckedChanged += new System.EventHandler(this.sexoButton1_CheckedChanged);
             // 
             // sexoButton2
             // 
@@ -280,6 +281,7 @@
             this.sexoButton2.TabStop = true;
             this.sexoButton2.Text = "F";
             this.sexoButton2.UseVisualStyleBackColor = true;
+            this.sexoButton2.CheckedChanged += new System.EventHandler(this.sexoButton1_CheckedChanged);
             // 
             // fechaNacimiento
             // 

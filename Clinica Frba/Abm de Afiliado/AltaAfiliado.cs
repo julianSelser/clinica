@@ -11,14 +11,19 @@ using Clinica_Frba.Domain;
 
 //Ventana que da alta un afiliado, 
 //dependiendo del tipo de afiliado (titular, conyuge, familiar) 
-//se inicializa con distintos campos
+//ciertos campos se habilitan o no
+
+//Una vez dado de alta el titular se 
+//da la opcion de dar de alta al conyuge o familiares si los tuviere.
+//En caso de no darlos de alta en este momento, se debe ir a modificar el afiliado titular
+//para volver a tener la opcion
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
     public partial class AltaAfiliado : Form
     {
         private Form padre;
-        public char sexo;
+        public char sexo;  //TODO: agregar validaciones (tipo de dato de campos de la vista; campos obligatorios no completos, marcarlos con asterisco rojo cuales)
         public int cantidadFamiliares;
         public string modo;
         private Afiliado afiliado;
@@ -37,7 +42,9 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 labelEstadoCivil.Visible = false;
                 labelFamiliares.Visible = false;
                 estadoCivil.Visible = false;
+                estadoCivil.Text = "-";
                 cantFamiliares.Visible = false;
+                cantFamiliares.Text = "0";
                 this.nroTitular = modoAfiliado.nroAfiliado;
 
                 if (modo == "Casado/a" || modo == "Concubinato")
@@ -64,12 +71,12 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 sexo = 'F';
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void aceptarButton_Click(object sender, EventArgs e)
         {
             afiliado = crearAfiliado();
             switch (modo)
             {
-                case "Titular":
+                case "Titular": //TODO: Agregar validaciones de existencia (nombre y apellido ya existe; mail ya existe)
                     AppAfiliado.altaAfiliadoTitular(afiliado);
                     break;
                 case "Familiar":
@@ -80,7 +87,29 @@ namespace Clinica_Frba.Abm_de_Afiliado
                     break;
             }
             MessageBox.Show("El alta se ha realizado correctamente.");
-            altasOpcionales();
+
+            PeticionAlta ventanaPadre;
+
+            if (modo == "Concubinato" || modo == "Casado/a")
+            {
+                ventanaPadre = (PeticionAlta)padre;
+                ventanaPadre.deshabilitarConyuge();
+            }
+
+            if (modo == "Familiar")
+            {
+                ventanaPadre = (PeticionAlta)padre;
+                ventanaPadre.decrementarCantFamiliares();
+            }
+
+            if (modo == "Titular")
+            {
+                altasOpcionales();
+            }
+            else
+            {
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
         }
 
         private void altasOpcionales()

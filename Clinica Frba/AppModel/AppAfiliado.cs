@@ -10,7 +10,7 @@ namespace Clinica_Frba.AppModel
     {
         public static void darBajaAfiliado(int nroAfiliado)
         {
-            ejecutarProcedure("darBajaAfiliado", nroAfiliado);
+            ejecutarProcedure("darBajaAfiliado", nroAfiliado, Globales.getFechaSistema());
         }
 
         public static void altaAfiliadoTitular(Afiliado afiliado)

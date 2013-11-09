@@ -15,6 +15,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
     {
         private Form padre;
         private Afiliado afiliado;
+        private int cantFamiliares;
 
         internal PeticionAlta(Afiliado afiliado, Form padre)
         {
@@ -22,6 +23,8 @@ namespace Clinica_Frba.Abm_de_Afiliado
             this.padre = padre;
             this.afiliado = afiliado;
             afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
+            this.cantFamiliares = afiliado.cantFamiliaresACargo;
+            deshabilitarBotones();
         }
 
         private void altaConyuge_Click(object sender, EventArgs e)
@@ -29,7 +32,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             ModoAfiliado modo = new ModoAfiliado();
             modo.modo = afiliado.estadoCivil;
             modo.nroAfiliado = afiliado.nroAfiliado;
-            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modo,this),this);
+            AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modo, this),this);
         }
 
         private void altaFamiliar_Click(object sender, EventArgs e)
@@ -43,6 +46,29 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private void finalizar_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void deshabilitarBotones()
+        {
+            if (cantFamiliares <= 0)
+            {
+                altaFamiliar.Enabled = false;
+            }
+            if (afiliado.estadoCivil != "Concubinato" && afiliado.estadoCivil != "Casado/a")
+            {
+                deshabilitarConyuge();
+            }
+        }
+
+        public void decrementarCantFamiliares()
+        {
+            cantFamiliares--;
+            deshabilitarBotones();
+        }
+
+        public void deshabilitarConyuge()
+        {
+            altaConyuge.Enabled = false;
         }
     }
 }
