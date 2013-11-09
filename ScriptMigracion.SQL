@@ -755,7 +755,7 @@ INSERT INTO CUATRO_QUESOS.Dias_Atencion
         select (select ID_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = Medico_Dni) as ID_Medico,
                 DATENAME(dw, Turno_Fecha) as Nombre_Dia,
                 MIN(Cast(Turno_Fecha as time)) as Hora_Desde,
-                MAX(Cast(Turno_Fecha as time)) as Hora_Hasta
+                MAX(Cast(DATEADD(minute, 30, Turno_Fecha) as time)) as Hora_Hasta
 
         from gd_esquema.Maestra
         where Turno_Fecha is not null
@@ -1130,7 +1130,7 @@ begin
         set @offdias = @offdias + 1
 end
 
---contiene todos los días que hay de acá a más o menos 2017
+--contiene todos los días que hay de 2012 a más o menos 2017
 
 go
 
@@ -1154,7 +1154,7 @@ from CUATRO_QUESOS.Medicos,
 where dia >= Medicos.fecha_atencion_desde and dia <= Medicos.Fecha_Atencion_Hasta
         and (DATENAME(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
         and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
-        and (hora <= (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
 
 GO
 
