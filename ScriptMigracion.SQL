@@ -1575,6 +1575,13 @@ WHERE Nombre = @nombre AND Apellido = @apellido AND Tipo_Doc = @tipoDoc AND Nro_
 RETURN @nroAfiliado
 GO
 
+CREATE PROCEDURE CUATRO_QUESOS.updateNroConyuge (@nroAfiliado numeric(18))
+AS
+UPDATE CUATRO_QUESOS.Afiliados
+SET Nro_Conyuge = @nroAfiliado
+WHERE Nro_Afiliado = (@nroAfiliado - 1)
+GO
+
 CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
 ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
 AS
@@ -1585,13 +1592,6 @@ BEGIN
 	IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
 	EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
 END
-GO
-
-CREATE PROCEDURE CUATRO_QUESOS.updateNroConyuge (@nroAfiliado numeric(18))
-AS
-UPDATE CUATRO_QUESOS.Afiliados
-SET Nro_Conyuge = @nroAfiliado
-WHERE Nro_Afiliado = (@nroAfiliado - 1)
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.updateAfiliado (
