@@ -103,6 +103,7 @@
             this.grillaAfiliados.RowTemplate.ReadOnly = true;
             this.grillaAfiliados.Size = new System.Drawing.Size(1101, 313);
             this.grillaAfiliados.TabIndex = 6;
+            this.grillaAfiliados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaAfiliados_CellContentClick);
             // 
             // nroAfiliadoRaizBox
             // 

@@ -31,13 +31,13 @@ namespace Clinica_Frba.Abm_de_Afiliado
         }
         
         private void modificarButton_Click(object sender, EventArgs e)
-        { 
-            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "modificar"), this); 
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "Modificar"), this); 
         }
         
         private void bajaButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "baja"), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "Baja"), this);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
