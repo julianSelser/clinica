@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+//inicializa una nueva ventana con la lista de afiliados,
+//se puede filtrar por criterios y al seleccionar una fila se comporta distinto
+//segun el tipo de funcionalidad especificada que recibio por parametro
+
 namespace Clinica_Frba.Abm_de_Afiliado
 {
     public partial class ListadoAfiliados : Form

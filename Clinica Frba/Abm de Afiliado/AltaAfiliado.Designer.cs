@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.aceptarButton = new System.Windows.Forms.Button();
             this.mail = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -51,31 +51,32 @@
             this.label1 = new System.Windows.Forms.Label();
             this.estadoCivil = new System.Windows.Forms.ComboBox();
             this.cantFamiliares = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.sexoButton1 = new System.Windows.Forms.RadioButton();
+            this.sexoButton2 = new System.Windows.Forms.RadioButton();
             this.fechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.planMedico = new System.Windows.Forms.ComboBox();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.Location = new System.Drawing.Point(506, 192);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(85, 34);
-            this.button2.TabIndex = 135;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cancelButton.Location = new System.Drawing.Point(506, 225);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(85, 34);
+            this.cancelButton.TabIndex = 135;
+            this.cancelButton.Text = "Cancelar";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button1
+            // aceptarButton
             // 
-            this.button1.Location = new System.Drawing.Point(393, 192);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 34);
-            this.button1.TabIndex = 134;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.aceptarButton.Location = new System.Drawing.Point(393, 225);
+            this.aceptarButton.Name = "aceptarButton";
+            this.aceptarButton.Size = new System.Drawing.Size(85, 34);
+            this.aceptarButton.TabIndex = 134;
+            this.aceptarButton.Text = "Aceptar";
+            this.aceptarButton.UseVisualStyleBackColor = true;
+            this.aceptarButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // mail
             // 
@@ -258,28 +259,27 @@
             this.cantFamiliares.Size = new System.Drawing.Size(47, 20);
             this.cantFamiliares.TabIndex = 140;
             // 
-            // radioButton1
+            // sexoButton1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(392, 142);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(34, 17);
-            this.radioButton1.TabIndex = 141;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "M";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.sexoButton1.AutoSize = true;
+            this.sexoButton1.Location = new System.Drawing.Point(392, 142);
+            this.sexoButton1.Name = "sexoButton1";
+            this.sexoButton1.Size = new System.Drawing.Size(34, 17);
+            this.sexoButton1.TabIndex = 141;
+            this.sexoButton1.TabStop = true;
+            this.sexoButton1.Text = "M";
+            this.sexoButton1.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // sexoButton2
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(432, 142);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(31, 17);
-            this.radioButton2.TabIndex = 142;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "F";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.sexoButton2.AutoSize = true;
+            this.sexoButton2.Location = new System.Drawing.Point(432, 142);
+            this.sexoButton2.Name = "sexoButton2";
+            this.sexoButton2.Size = new System.Drawing.Size(31, 17);
+            this.sexoButton2.TabIndex = 142;
+            this.sexoButton2.TabStop = true;
+            this.sexoButton2.Text = "F";
+            this.sexoButton2.UseVisualStyleBackColor = true;
             // 
             // fechaNacimiento
             // 
@@ -301,19 +301,30 @@
             this.planMedico.Size = new System.Drawing.Size(121, 21);
             this.planMedico.TabIndex = 144;
             // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(32, 225);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(85, 34);
+            this.limpiarButton.TabIndex = 145;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
+            // 
             // AltaAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 249);
+            this.ClientSize = new System.Drawing.Size(620, 271);
+            this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.planMedico);
             this.Controls.Add(this.fechaNacimiento);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.sexoButton2);
+            this.Controls.Add(this.sexoButton1);
             this.Controls.Add(this.cantFamiliares);
             this.Controls.Add(this.estadoCivil);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.aceptarButton);
             this.Controls.Add(this.mail);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -342,8 +353,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button aceptarButton;
         private System.Windows.Forms.TextBox mail;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
@@ -365,9 +376,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox estadoCivil;
         private System.Windows.Forms.TextBox cantFamiliares;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton sexoButton1;
+        private System.Windows.Forms.RadioButton sexoButton2;
         private System.Windows.Forms.DateTimePicker fechaNacimiento;
         private System.Windows.Forms.ComboBox planMedico;
+        private System.Windows.Forms.Button limpiarButton;
     }
 }

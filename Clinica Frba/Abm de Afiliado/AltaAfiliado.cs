@@ -30,6 +30,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             this.padre = padre;
             this.modo = modoAfiliado.modo;
             this.nroTitular = 0;
+            fechaNacimiento.Value = Globales.getFechaSistema();
 
             if (modo == "Familiar" || modo == "Casado/a" || modo == "Concubinato")
             {
@@ -50,14 +51,14 @@ namespace Clinica_Frba.Abm_de_Afiliado
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void sexoButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (sexoButton1.Checked)
                 sexo = 'M';
             else
                 sexo = 'F';
@@ -111,6 +112,36 @@ namespace Clinica_Frba.Abm_de_Afiliado
             afiliado.estadoCivil = estadoCivil.Text;
             afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliares.Text);
             return afiliado;
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            inicializarCampos();
+        }
+
+        private void inicializarCampos()
+        {
+            inicializarVariables();
+            nombre.Clear();
+            apellido.Clear();
+            sexoButton1.Checked = false;
+            sexoButton2.Checked = false;
+            direccion.Clear();
+            fechaNacimiento.Value = Globales.getFechaSistema();
+            tipoDoc.SelectedIndex = -1;
+            nroDoc.Clear();
+            mail.Clear();
+            estadoCivil.SelectedIndex = -1;
+            cantFamiliares.Clear();
+            planMedico.SelectedIndex = -1;
+            telefono.Clear();
+        }
+
+        private void inicializarVariables()
+        {
+            sexo = ' ';
+            nroTitular = 0;
+            cantidadFamiliares = 0;
         }
     }
 }

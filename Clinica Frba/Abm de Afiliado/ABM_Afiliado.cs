@@ -31,7 +31,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
         }
         
         private void modificarButton_Click(object sender, EventArgs e)
-        {
+        { 
             AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "modificar"), this); 
         }
         
