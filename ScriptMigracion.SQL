@@ -481,6 +481,16 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Us
         ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
+--Create other constraints
+
+--constraint para verificar que la agenda profesional sea de 120 días como máximo
+alter table CUATRO_QUESOS.Medicos add constraint limitarAgendaProfesional 
+		check (datediff(day, fecha_atencion_desde, fecha_atencion_hasta) <= 120)
+
+--constraint para verificar que no se recete más de 3 instancias del mismo medicamento
+alter table CUATRO_QUESOS.Medicamentos_Por_Consulta add constraint verificarCantidadMedicamentoIndividual
+	check (Cantidad <=3)
+
 
 /* ****** Migrar datos existentes ******* */
 
@@ -1235,6 +1245,54 @@ end
 
 GO
 
+--trigger para verificar que no se receten más de 5 medicamentos en un mismo bono farmacia	
+create trigger CUATRO_QUESOS.limitarMedicamentosPorBono on CUATRO_QUESOS.Medicamentos_Por_Consulta for update, insert
+as
+begin
+	if (select top 1 COUNT(*) 
+	from CUATRO_QUESOS.Medicamentos_Por_Consulta
+	group by Nro_Bono_Farmacia 
+	order by 1 desc) > 5 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+	begin
+		rollback
+		raiserror('Error: no se pueden recetar más de 5 medicamentos usando un mismo bono.', 16, 0)
+	end
+end
+
+GO
+
+--trigger para verificar que la jornada semanal sea menor a 48 horas
+create trigger CUATRO_QUESOS.limitarJornadaLaboral on CUATRO_QUESOS.Dias_Atencion for update, insert
+as
+begin
+	if (select top 1 SUM(DATEDIFF(HOUR, hora_desde, hora_hasta)) 
+	from CUATRO_QUESOS.Dias_Atencion 
+	group by ID_Medico 
+	order by 1 desc) > 48 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+	begin
+		rollback
+		raiserror('Error: un médico no puede trabajar más de 48 horas a la semana.', 16, 0)
+	end
+end
+
+GO
+
+
+--trigger para verificar que los horarios de los médicos queden dentro de los horarios de la clínica
+
+create trigger CUATRO_QUESOS.obedecerHorariosClinica on CUATRO_QUESOS.Dias_Atencion for insert, update
+as
+begin
+	if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
+		or
+		((select COUNT(*) from inserted where Nombre_Dia = 'Sábado' and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
+	begin
+		rollback
+		raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)
+	end
+end
+
+GO
 
 
 --CREATE PROCEDURES

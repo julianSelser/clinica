@@ -7,7 +7,7 @@ GO
 DROP PROCEDURE CUATRO_QUESOS.buscarNroAfiliado
 DROP PROCEDURE CUATRO_QUESOS.updateNroConyuge
 DROP PROCEDURE CUATRO_QUESOS.updateAfiliado
-DROP PROCEDURE CUATRO_QUESOS.getAfiliado
+DROP PROCEDURE CUATRO_QUESOS.getAfiliados
 DROP FUNCTION CUATRO_QUESOS.getIdMedico
 DROP FUNCTION CUATRO_QUESOS.tipoAfiliado
 DROP FUNCTION CUATRO_QUESOS.getNroAfiliado
@@ -38,6 +38,10 @@ DROP TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
 drop trigger CUATRO_QUESOS.quitarRolInhabilitado
 drop trigger CUATRO_QUESOS.revocarUsuario
 drop trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados
+drop trigger CUATRO_QUESOS.limitarJornadaLaboral
+drop trigger CUATRO_QUESOS.obedecerHorariosClinica
+drop trigger CUATRO_QUESOS.limitarMedicamentosPorBono
+
 
 -- Drop Foreign Key Constraints
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
@@ -162,6 +166,13 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_M
 ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_Usuarios
 ;
 
+-- Drop other constraints
+
+alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional 
+;
+
+alter table CUATRO_QUESOS.Medicamentos_Por_Consulta drop constraint verificarCantidadMedicamentoIndividual
+;
 
 -- Drop Tables, Stored Procedures and Views
 
