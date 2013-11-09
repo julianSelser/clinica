@@ -1382,9 +1382,9 @@ BEGIN
         IF(@tipoAfiliado = 'T')
                 BEGIN
                         SELECT TOP 1 @Nro_AfiliadoRaiz = CUATRO_QUESOS.raizNroAfiliado(Nro_Afiliado) FROM CUATRO_QUESOS.Afiliados ORDER BY Nro_Afiliado DESC
-                        SET @Nro_AfiliadoRaiz = @Nro_AfiliadoRaiz + 1;
+                        SET @Nro_AfiliadoRaiz = @Nro_AfiliadoRaiz + 101;
                         INSERT INTO CUATRO_QUESOS.Afiliados
-                        (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+                        (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo, Nro_Titular)
                         VALUES (
                         @Nro_AfiliadoRaiz,
                         @Nombre,
@@ -1398,7 +1398,8 @@ BEGIN
                         @Fecha_Nac,
                         @Cod_Plan,
                         @Estado_Civil,
-                        @CantFamiliaresACargo
+                        @CantFamiliaresACargo,
+                        @Nro_AfiliadoRaiz
                         )
                 END
         ELSE
@@ -1406,7 +1407,7 @@ BEGIN
                 BEGIN
                         SET @Nro_AfiliadoRaiz = @Nro_AfiliadoRaiz + 2;
                         INSERT INTO CUATRO_QUESOS.Afiliados
-                        (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+                        (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo, Nro_Titular)
                         VALUES (
                         @Nro_AfiliadoRaiz,
                         @Nombre,
@@ -1420,7 +1421,8 @@ BEGIN
                         @Fecha_Nac,
                         @Cod_Plan,
                         @Estado_Civil,
-                        0
+                        0,
+                        @nroAfiliadoTitular
                         )
                 END
                 ELSE
@@ -1428,7 +1430,7 @@ BEGIN
                         BEGIN
                                 SET @Nro_AfiliadoRaiz = CUATRO_QUESOS.siguienteNroFamiliar(@Nro_AfiliadoRaiz)
                                 INSERT INTO CUATRO_QUESOS.Afiliados
-                                (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo)
+                                (Nro_Afiliado,Nombre,Apellido,Sexo,Tipo_Doc,Nro_Doc,Direccion,Mail,Telefono,Fecha_Nac,Cod_Plan,Estado_Civil,CantFamiliaresACargo, Nro_Titular)
                                 VALUES (
                                 @Nro_AfiliadoRaiz,
                                 @Nombre,
@@ -1442,7 +1444,8 @@ BEGIN
                                 @Fecha_Nac,
                                 @Cod_Plan,
                                 '-' , -- Como no interesa el estado civil de un hijo / familiar a cargo, se pone guion por defecto
-                                0
+                                0,
+                                @nroAfiliadoTitular
                                 )
                         END        
 END
