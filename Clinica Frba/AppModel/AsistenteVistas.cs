@@ -25,13 +25,11 @@ namespace Clinica_Frba.AppModel
             ventanaPadre.Hide();
         }
 
-        public static DataGridView cargarGrid(DataGridView grid, System.Data.DataTable dataTable)
+        public static void cargarGrilla(DataGridView grid, System.Data.DataTable dataTable)
         {
             grid.DataSource = dataTable;
             grid.AutoResizeColumns();
             grid.AutoResizeRows();
-
-            return grid;
         }
     }
 }

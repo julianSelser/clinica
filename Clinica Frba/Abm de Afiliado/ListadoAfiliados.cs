@@ -23,11 +23,25 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             InitializeComponent();
             this.padre = padre;
+            this.funcion = funcion;
+            grillaAfiliados.ReadOnly = true;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre,this);
+        }
+
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados());
+            }
+            catch (Exception ex)
+            {
+                ErrorManager.fatalError(padre, this, ex);
+            }
         }
 
     }

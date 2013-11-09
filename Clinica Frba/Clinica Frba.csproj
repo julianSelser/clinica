@@ -151,6 +151,7 @@
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\AppAfiliado.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
+    <Compile Include="AppModel\ErrorManager.cs" />
     <Compile Include="AppModel\Globales.cs" />
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
       <SubType>Form</SubType>

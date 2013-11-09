@@ -1545,14 +1545,8 @@ GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getAfiliados
 AS
-SELECT Nro_Afiliado 'Numero Afiliado',
-Nombre 'Nombre', Apellido 'Apellido',
-Sexo 'Sexo', Tipo_Doc 'Tipo Documento',
-Nro_Doc 'Numero Documento', Direccion 'Direccion',
-Telefono 'Telefono', Mail 'Mail', Fecha_Nac 'Fecha Nacimiento',
-Cod_Plan 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Numero de Titular',
-Nro_Conyuge 'Numero Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Numero de Consultas Realizadas',
-CantFamiliaresACargo 'Cantidad de Familiares a Cargo'
+SELECT TOP 100 Nro_Afiliado,Nombre, Apellido ,Sexo , Tipo_Doc ,Nro_Doc , Direccion ,Telefono , Mail , Fecha_Nac,Cod_Plan , Estado_Civil,Nro_Titular ,
+Nro_Conyuge , Fecha_Baja, Nro_Consulta ,CantFamiliaresACargo 
 FROM CUATRO_QUESOS.Afiliados
 GO
 

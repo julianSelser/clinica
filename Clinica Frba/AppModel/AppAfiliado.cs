@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Clinica_Frba.Domain;
+using System.Data;
 
 namespace Clinica_Frba.AppModel
 {
@@ -29,6 +30,11 @@ namespace Clinica_Frba.AppModel
         public static int buscarNroAfiliado(Afiliado afiliado)
         {
             return ejecutarProcedureWithReturnValue("buscarNroAfiliado",afiliado.nombre, afiliado.apellido, afiliado.tipoDoc, afiliado.nroDoc);
+        }
+
+        public static DataTable getAfiliados()
+        {
+            return traerDataTable("getAfiliados");
         }
     }
 }
