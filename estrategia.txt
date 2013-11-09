@@ -1,0 +1,96 @@
+Estrategia:
+
+---Migración de datos---
+
+Se comienza la migración de los datos creando las tablas del DER. También se agregan las contraints de primary key y foreign key, las constraints para las columnas que no admiten nulos, constraints de unicidad y constraints "check" para los campos con dominio acotado.
+
+La migración de los datos se realiza "de afuera hacia adentro", comenzando por las tablas que no poseen foreign keys, y pasando a las que sí las tienen una vez que las tablas referenciadas fueron creadas.
+
+Planes médicos, medicamentos, especialidades médicas, tipos de especialidades médicas:
+Se tomaron los datos que existían en la tabla maestra. Todos los datos necesarios para el modelo  estaban disponibles.
+
+Afiliados: 
+Se tomaron los afiliados existentes en la tabla maestra. Se autogeneró el número de afiliado siguiendo los lineamientos del enunciado. Se eligió arbitrariamente el número de DNI como orden para generar los números de afiliado. 
+Al tener un campo Paciente_DNI, se asumió que los números disponibles eran de DNI, y por lo tanto este número pasó a ser el número de documento, y el tipo de documento para todos los pacientes existentes es DNI.
+Al no haber información de la familia, se supuso que todos los socios existentes son titulares y no tienen familiares a cargo. También se asumió que son solteros. Finalmente, se consideró que los afiliados existentes están activos.
+Como no hay información del sexo, se dejó indefinido (valor '-'). Se calculó el número de consulta en base a las veces que ya se atendió en la clínica.
+
+Médicos:
+Se tomaron los médicos existentes en la tabla maestra. Se introduce un número ID_Médico autogenerado como primary key para los médicos, similar a lo que ocurre en cualquier empresa con los números de empleado.
+En cuanto al sexo y al documento, se siguió el mismo criterio que para los afiliados.
+El número de matrícula se mantiene indefinido (en este caso 0) ya que esa información no está disponible.
+Se infiere el período de atención del médico: atiende desde la fecha de la migración hasta dentro de un mes. Si hubiera turnos más allá del mes, su período de atención se extiende hasta ese momento. Se verificó que este criterio no genera períodos de atención mayores a 120 días.
+También se asumió que todos los médicos que aparecen están activos.
+
+Bonos:
+Se asume que los bonos se general al ser comprados, y por lo tanto todos los bonos que aparecen en la tabla fueron comprados. Esto se ve confirmado por el hecho de que todos tienen un número de afiliado asociado. Sin embargo, no hay información sobre cuándo se compraron, por lo que el campo ID_Compra se deja sin información (NULL).
+Se eligió una sola tabla que contenga tanto los bonos consulta como los bonos farmacia, con una PK doble: número de bono y tipo de bono.
+Se verificó que Compra_Bono_Fecha, cuando contiene datos, es igual a la fecha de impresión de cada bono (consulta o farmacia). Además, se verificó que siempre que un bono está asociado a un turno, esa fila también tiene información sobre los síntomas, enfermedades y medicamentos. Por lo tanto, un bono para el cual existe una fila con número de turno, significa que ese bono se usó en una consulta. A partir de esto se calcula el Nro_Consulta que sólo aplica para los bonos consulta.
+
+Para los bonos farmacia, se supone que la persona que la usó es la misma persona que lo compró, ya que no hay forma de suponer lo contrario. La fecha de vencimiento se mantuvo inalterada, por más que no sea a 60 días de la fecha de impresión, porque existe la posibilidad de que antes existieran otras reglas para determinar esa fecha. Además, recalcular la fecha de vencimiento significaría perder datos.
+
+
+Días de atención:
+Se calcularon los días de atención en base a los turnos existentes en la base de datos. Se supuso que un médico atiende un día en el que tiene turnos, y atiende desde el primer turno hasta finalizado el último, sin importar si tiene huecos en el medio. Sin embargo, no se tomaron en cuenta como días de atención aquellos que no cumplen con los horarios de la clínica. Se verificó que, tomando este criterio, la carga semanal de los médicos existentes en ningún caso supera las 48 horas.
+
+
+Especialidades por médico:
+Para completar esta parte del modelo se observó que en algunos turnos un médico aparece con una cierta especialidad, pero puede aparecer con otra en otros. Por lo tanto, la tabla Especialidades_Médicos contiene las filas que permiten consolidar esta relación muchos a muchos.
+
+
+Turnos:
+Se tomaron los turnos existentes en la tabla maestra. Aunque algunos turnos debieron ser cancelados, en ningún caso dejan de aparecer en la tabla Turnos. Un turno cancelado es aquel turno que aparece tanto en Turnos como en Cancelaciones.
+
+Cancelaciones:
+Se cancelaron los siguientes turnos encontrados en la tabla maestra:
+-Turnos en el pasado que nunca se concretaron: turnos que tienen fecha anterior a la migración, pero no hay una fila que lo asocie con un bono consulta - esto significa que nunca se concretó. Se dieron por cancelados ya que debieron haberse concretado en el pasado y no fue así.
+-Turnos no permitidos en el futuro: turnos que tienen fecha futura pero no caen dentro de los horarios de funcionamiento de la clínica.
+
+Consultas:
+Se toman las consultas de las filas que tienen tanto numero de turno como numero de bono consulta no nulos. La tabla maestra todos los datos necesarios para completar esta parte del modelo.
+Las consultas que ocurrieron en el futuro se pasan a una tabla especial Consultas_Exceptions, que no se relaciona con el resto del modelo, y cuyo propósito es simplemente almacenar estos datos que no parecen tener sentido para su posterior tratamiento. Los bonos utilizados en estas consultas futuras se dan como no aún utilizados.
+
+Agenda profesional:
+Se creó la vista Agendas_Medicos, que muestra, para cada médico, todos los posibles horarios en los que puede trabajar, tomando en cuenta sus fechas de inicio y de fin, sus días y sus horarios de atención. 
+Se recurrieron a dos tablas auxiliares para generar los horarios del día y los distintos días. Una vez generados, su producto cartesiano muestra todos los posibles intervalos de media hora. Una vez obtenido esto, se filtra con los datos específicos del médico (fechas y horarios de atención) y, finalmente, se verifica en cuáles de esos intervalos el médico tiene un turno. Así se determina cuándo está libre para atender y cuándo está ocupado.
+
+Recetas:
+Las recetas están representadas en la tabla Medicamentos_Por_Consulta. Se toman los medicamentos obtenidos de las consultas existentes en la tabla maestra, suponiendo que se recetó sólo una instancia de cada uno de éstos.
+
+Usuarios:
+Se crearon usuarios para todos los afiliados y los Médicos.
+El formato para los afiliados es #A donde # es el número de afiliado (longitud variable) y A es la letra A.
+El formato para los médicos es nna#M donde nn son las primeras dos letras del nombre, a es la primera letra del apellido, # es el ID_Medico (longitud variable) y M es la letra M.
+Para todos ellos la contraseña es UTNFRBA.
+
+También se creó el usuario admin, al que se le asignó el rol de administrativo, con la contraseña w23e especificada en el enunciado.
+
+
+---Controles adicionales---
+
+Se implementaron las siguientes constraints adicionales:
+
+-limitarAgendaProfesional sobre la tabla Medicos, verifica que la diferencia entre fecha_hasta y fecha_desde, es decir, la longitud de su agenda, no exceda los 120 días.
+
+-verificarCantidadMedicamentoIndividual sobre la tabla Medicamentos_Por_Consulta, verifica que no se receten más de tres instancias del mismo medicamento para una misma receta.
+
+Los siguientes triggers también implementan controles:
+
+-limitarMedicamentosPorBono sobre Medicamentos_Por_Consulta, evita que se receten más de 5 medicamentos en un solo bono.
+
+-limitarJornadaLaboral sobre Dias_Atencion, no permite a un médico trabajar más de 48 hs semanales.
+
+-obedecerHorariosClinica sobre Dias_Atencion, no permite a un médico atender fuera de los horarios de la clínica.
+
+
+---Desencadenadores---
+
+Los siguientes triggers implementan otros requerimientos del enunciado:
+
+-quitarRolInhabilitado le quita un rol inhabilitado a todos los usuarios que lo posean.
+
+-revocarUsuario inhabilita a un usuario que acumule tres intentos de login fallidos.
+
+-cancelarTurnosMedicosDesvinculados cancela todos los turnos de un médico que sea dado de baja.
+
+-cancelarTurnosPacientesDesvinculados cancela todos los turnos de un afiliado que sea dado de baja.
