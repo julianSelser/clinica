@@ -1547,9 +1547,9 @@ CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varc
 AS
 SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo', 
 Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
-Fecha_Nac 'Fecha de Nacimiento',Cod_Plan 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
+Fecha_Nac 'Fecha de Nacimiento', Planes_Medicos.Descripcion 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
 Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo' 
-FROM CUATRO_QUESOS.Afiliados
+FROM CUATRO_QUESOS.Afiliados JOIN CUATRO_QUESOS.Planes_Medicos ON Afiliados.Cod_Plan = Planes_Medicos.Codigo
 WHERE Nombre LIKE '%' + @nombre + '%'
 AND Apellido LIKE '%' + @apellido + '%'
 AND Tipo_Doc LIKE '%' + @tipoDoc + '%'

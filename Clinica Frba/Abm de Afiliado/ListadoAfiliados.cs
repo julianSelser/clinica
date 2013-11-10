@@ -19,15 +19,22 @@ namespace Clinica_Frba.Abm_de_Afiliado
     {
         public Form padre;
         public string funcion;
+        List<PlanMedico> planesMedicos;
 
         public ListadoAfiliados(Form padre, string funcion)
         {
             InitializeComponent();
             this.padre = padre;
             this.funcion = funcion;
+            cargarPlanesMedicos();
             cargarGrilla();
             ocultarColumnas();
             cargarBotonFuncionalidad();
+        }
+
+        private void cargarPlanesMedicos()
+        {
+            planesMedicos = AppAfiliado.traerPlanesMedicos();
         }
 
 
@@ -57,6 +64,15 @@ namespace Clinica_Frba.Abm_de_Afiliado
         public void cargarGrilla()
         {
             AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados(nombreBox.Text, apellidoBox.Text, "", 0,nroAfiliadoRaizBox.Text));
+        }
+
+        private int getCodigoPlan(string descripcion)
+        {
+            foreach (PlanMedico plan in planesMedicos)
+            {
+                if (plan.descripcion == descripcion) return plan.codigo;
+            }
+            throw new Exception("Descripcion no encuentra correspondiente codigo de plan medico.\nDetalle: " + descripcion);
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -115,7 +131,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             index = grillaAfiliados.Columns["Teléfono"].Index;
             afiliado.telefono = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
             index = grillaAfiliados.Columns["Plan Medico"].Index;
-            afiliado.codPlan = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            afiliado.codPlan = getCodigoPlan(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
             index = grillaAfiliados.Columns["Estado Civil"].Index;
             afiliado.estadoCivil = grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString();
             index = grillaAfiliados.Columns["Cantidad de Familiares a Cargo"].Index;
