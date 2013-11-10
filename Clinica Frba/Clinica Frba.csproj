@@ -147,6 +147,8 @@
     <Compile Include="AppModel\AppAfiliado.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
     <Compile Include="AppModel\ErrorManager.cs" />
+    <Compile Include="AppModel\Excepciones\AfiliadoYaExiste.cs" />
+    <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
     <Compile Include="AppModel\Globales.cs" />
     <Compile Include="AppModel\IListado.cs" />
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">

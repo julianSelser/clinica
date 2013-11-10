@@ -1543,7 +1543,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @nroAfiliadoRaiz numeric(18)
+CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @tipoDoc varchar(3), @nroDoc numeric(18), @nroAfiliadoRaiz numeric(18)
 AS
 SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo', 
 Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
@@ -1552,8 +1552,9 @@ Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 
 FROM CUATRO_QUESOS.Afiliados
 WHERE Nombre LIKE '%' + @nombre + '%'
 AND Apellido LIKE '%' + @apellido + '%'
-AND 
-((@nroAfiliadoRaiz > 99 AND Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100) OR
+AND Tipo_Doc LIKE '%' + @tipoDoc + '%'
+AND ((@nroDoc > 0 AND Nro_Doc = @nroDoc) OR (@nroDoc = 0))
+AND ((@nroAfiliadoRaiz > 99 AND Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100) OR
 (@nroAfiliadoRaiz <= 99))
 GO
 

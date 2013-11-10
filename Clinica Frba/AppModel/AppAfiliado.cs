@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Clinica_Frba.Domain;
 using System.Data;
+using Clinica_Frba.AppModel.Excepciones;
 
 namespace Clinica_Frba.AppModel
 {
@@ -37,11 +38,18 @@ namespace Clinica_Frba.AppModel
             return ejecutarProcedureWithReturnValue("buscarNroAfiliado",afiliado.nombre, afiliado.apellido, afiliado.tipoDoc, afiliado.nroDoc);
         }
 
-        public static DataTable getAfiliados(string nombre, string apellido, string nroRaiz)
+        public static DataTable getAfiliados(string nombre, string apellido, string tipoDoc,int nroDoc ,string nroRaiz)
         {
-            int nro = 0;
-            if (nroRaiz != "") { nro = Convert.ToInt32(nroRaiz); }
-            return traerDataTable("getAfiliados", nombre, apellido, nro);
+            int nroAfiliadoRaiz = 0;
+            int numeroDoc = 0;
+            if (numeroDoc != 0) numeroDoc = nroDoc;
+            if (nroRaiz != "") nroAfiliadoRaiz = Convert.ToInt32(nroRaiz);
+            return traerDataTable("getAfiliados", nombre, apellido, tipoDoc, numeroDoc ,nroAfiliadoRaiz);
+        }
+
+        internal static void existeAfiliado(Afiliado afiliado)
+        {
+            if(checkIfExists("getAfiliados",afiliado.nombre, afiliado.apellido, afiliado.tipoDoc, afiliado.nroDoc, 0)) throw new AfiliadoYaExisteException(afiliado);
         }
     }
 }

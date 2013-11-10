@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.AppModel.Excepciones;
 using Clinica_Frba.Domain;
 
 //Ventana que da alta un afiliado, 
@@ -23,7 +24,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
     public partial class AltaAfiliado : Form
     {
         private Form padre;
-        public char sexo;  //TODO: agregar validaciones (tipo de dato de campos de la vista; campos obligatorios no completos, marcarlos con asterisco rojo cuales)
+        public char sexo;
         public int cantidadFamiliares;
         public string modo;
         private Afiliado afiliado;
@@ -80,9 +81,9 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 aceptarButton.Enabled = true;
                 errorBox.Text = "";
             }
-            catch (ExcepcionValidacion vEx)
+            catch (ExcepcionValidacion validacion)
             {
-                errorBox.Text = vEx.mensaje;
+                errorBox.Text = validacion.mensaje;
                 aceptarButton.Enabled = false;
             }
         }
@@ -104,39 +105,48 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             if(cantFamiliares.Text == "")cantFamiliares.Text = "0";
             afiliado = crearAfiliado();
-            switch (modo)
+            try
             {
-                case "Titular": //TODO: Agregar validaciones de existencia (nombre-apellido-tipoDoc-nroDoc ya existe)
-                    AppAfiliado.altaAfiliadoTitular(afiliado);
-                    break;
-                case "Familiar":
-                    AppAfiliado.altaAfiliadoFamiliar(afiliado);
-                    break;
-                default: 
-                    AppAfiliado.altaAfiliadoConyuge(afiliado);
-                    break;
-            }
+                AppAfiliado.existeAfiliado(afiliado);
+                switch (modo)
+                {
+                    case "Titular":
+                        AppAfiliado.altaAfiliadoTitular(afiliado);
+                        break;
+                    case "Familiar":
+                        AppAfiliado.altaAfiliadoFamiliar(afiliado);
+                        break;
+                    default:
+                        AppAfiliado.altaAfiliadoConyuge(afiliado);
+                        break;
+                }
 
-            afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
-            MessageBox.Show("El alta del afiliado Nro. "+ afiliado.nroAfiliado +" se ha realizado correctamente.");
 
-            if (modo == "Concubinato" || modo == "Casado/a")
-            {
-                (padre as IPeticionAlta).deshabilitarConyuge();
-            }
+                afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
+                MessageBox.Show("El alta del afiliado Nro. " + afiliado.nroAfiliado + " se ha realizado correctamente.");
 
-            if (modo == "Familiar")
-            {
-                (padre as IPeticionAlta).decrementarCantFamiliares();
-            }
+                if (modo == "Concubinato" || modo == "Casado/a")
+                {
+                    (padre as IPeticionAlta).deshabilitarConyuge();
+                }
 
-            if (modo == "Titular")
-            {
-                altasOpcionales();
+                if (modo == "Familiar")
+                {
+                    (padre as IPeticionAlta).decrementarCantFamiliares();
+                }
+
+                if (modo == "Titular")
+                {
+                    altasOpcionales();
+                }
+                else
+                {
+                    AsistenteVistas.volverAPadreYCerrar(padre, this);
+                }
             }
-            else
+            catch (AfiliadoYaExisteException ex)
             {
-                AsistenteVistas.volverAPadreYCerrar(padre, this);
+                ErrorManager.messageErrorBox(ex, "Alta Afiliado");
             }
         }
 

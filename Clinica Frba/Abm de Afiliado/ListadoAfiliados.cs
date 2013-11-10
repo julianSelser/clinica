@@ -56,7 +56,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         public void cargarGrilla()
         {
-            AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados(nombreBox.Text, apellidoBox.Text, nroAfiliadoRaizBox.Text));
+            AsistenteVistas.cargarGrilla(grillaAfiliados, AppAfiliado.getAfiliados(nombreBox.Text, apellidoBox.Text, "", 0,nroAfiliadoRaizBox.Text));
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
