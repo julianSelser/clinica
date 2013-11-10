@@ -54,16 +54,16 @@
             "555556",
             "555557",
             "555558"});
-            this.planMedicoBox.Location = new System.Drawing.Point(403, 22);
+            this.planMedicoBox.Location = new System.Drawing.Point(516, 21);
             this.planMedicoBox.Name = "planMedicoBox";
-            this.planMedicoBox.Size = new System.Drawing.Size(121, 21);
+            this.planMedicoBox.Size = new System.Drawing.Size(178, 21);
             this.planMedicoBox.TabIndex = 173;
             // 
             // cantFamiliaresBox
             // 
-            this.cantFamiliaresBox.Location = new System.Drawing.Point(451, 80);
+            this.cantFamiliaresBox.Location = new System.Drawing.Point(564, 79);
             this.cantFamiliaresBox.Name = "cantFamiliaresBox";
-            this.cantFamiliaresBox.Size = new System.Drawing.Size(73, 20);
+            this.cantFamiliaresBox.Size = new System.Drawing.Size(130, 20);
             this.cantFamiliaresBox.TabIndex = 169;
             // 
             // estadoCivilBox
@@ -75,14 +75,14 @@
             "Viudo/a",
             "Concubinato",
             "Divorciado/a"});
-            this.estadoCivilBox.Location = new System.Drawing.Point(403, 52);
+            this.estadoCivilBox.Location = new System.Drawing.Point(516, 51);
             this.estadoCivilBox.Name = "estadoCivilBox";
-            this.estadoCivilBox.Size = new System.Drawing.Size(121, 21);
+            this.estadoCivilBox.Size = new System.Drawing.Size(178, 21);
             this.estadoCivilBox.TabIndex = 168;
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(451, 121);
+            this.cancelButton.Location = new System.Drawing.Point(583, 125);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(85, 34);
             this.cancelButton.TabIndex = 167;
@@ -92,7 +92,7 @@
             // 
             // acceptButton
             // 
-            this.acceptButton.Location = new System.Drawing.Point(344, 121);
+            this.acceptButton.Location = new System.Drawing.Point(476, 125);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(85, 34);
             this.acceptButton.TabIndex = 166;
@@ -104,7 +104,7 @@
             // 
             this.mailBox.Location = new System.Drawing.Point(97, 113);
             this.mailBox.Name = "mailBox";
-            this.mailBox.Size = new System.Drawing.Size(127, 20);
+            this.mailBox.Size = new System.Drawing.Size(229, 20);
             this.mailBox.TabIndex = 165;
             // 
             // label11
@@ -119,7 +119,7 @@
             // labelFamiliares
             // 
             this.labelFamiliares.AutoSize = true;
-            this.labelFamiliares.Location = new System.Drawing.Point(263, 83);
+            this.labelFamiliares.Location = new System.Drawing.Point(388, 82);
             this.labelFamiliares.Name = "labelFamiliares";
             this.labelFamiliares.Size = new System.Drawing.Size(152, 13);
             this.labelFamiliares.TabIndex = 162;
@@ -128,7 +128,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(263, 25);
+            this.label9.Location = new System.Drawing.Point(388, 24);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(69, 13);
             this.label9.TabIndex = 161;
@@ -137,7 +137,7 @@
             // labelEstadoCivil
             // 
             this.labelEstadoCivil.AutoSize = true;
-            this.labelEstadoCivil.Location = new System.Drawing.Point(263, 53);
+            this.labelEstadoCivil.Location = new System.Drawing.Point(388, 52);
             this.labelEstadoCivil.Name = "labelEstadoCivil";
             this.labelEstadoCivil.Size = new System.Drawing.Size(65, 13);
             this.labelEstadoCivil.TabIndex = 160;
@@ -147,7 +147,7 @@
             // 
             this.telBox.Location = new System.Drawing.Point(97, 82);
             this.telBox.Name = "telBox";
-            this.telBox.Size = new System.Drawing.Size(127, 20);
+            this.telBox.Size = new System.Drawing.Size(229, 20);
             this.telBox.TabIndex = 158;
             // 
             // label6
@@ -163,7 +163,7 @@
             // 
             this.direcBox.Location = new System.Drawing.Point(97, 52);
             this.direcBox.Name = "direcBox";
-            this.direcBox.Size = new System.Drawing.Size(127, 20);
+            this.direcBox.Size = new System.Drawing.Size(229, 20);
             this.direcBox.TabIndex = 156;
             // 
             // label5
@@ -189,14 +189,14 @@
             this.nroAfiliadoBox.Location = new System.Drawing.Point(97, 19);
             this.nroAfiliadoBox.Name = "nroAfiliadoBox";
             this.nroAfiliadoBox.ReadOnly = true;
-            this.nroAfiliadoBox.Size = new System.Drawing.Size(127, 20);
+            this.nroAfiliadoBox.Size = new System.Drawing.Size(229, 20);
             this.nroAfiliadoBox.TabIndex = 175;
             // 
             // ModificarAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 171);
+            this.ClientSize = new System.Drawing.Size(718, 171);
             this.Controls.Add(this.nroAfiliadoBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.planMedicoBox);

@@ -30,6 +30,11 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
             direcBox.Text = afiliado.direccion;
+            telBox.Text = afiliado.telefono.ToString();
+            mailBox.Text = afiliado.mail;
+            planMedicoBox.Text = afiliado.codPlan.ToString();
+            estadoCivilBox.Text = afiliado.estadoCivil;
+            cantFamiliaresBox.Text = afiliado.cantFamiliaresACargo.ToString();
         }
 
         private void habilitarBotonesSegunTipo()
@@ -65,8 +70,22 @@ namespace Clinica_Frba.Abm_de_Afiliado
         }
 
         private void acceptButton_Click(object sender, EventArgs e)
-        {
+        {//TODO: agregar validacion de campos
+            actualizarAfiliado();
+            AppAfiliado.actualizarAfiliado(afiliado);
+            MessageBox.Show("La actualización se ha realizado con éxito");
+            (padre as IListado).cargarGrilla();
             AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void actualizarAfiliado()
+        {
+            afiliado.direccion = direcBox.Text;
+            afiliado.telefono = Convert.ToInt32(telBox.Text); 
+            afiliado.mail = mailBox.Text;
+            afiliado.codPlan = Convert.ToInt32(planMedicoBox.Text);
+            afiliado.estadoCivil = estadoCivilBox.Text;
+            afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliaresBox.Text);
         }
 
     }

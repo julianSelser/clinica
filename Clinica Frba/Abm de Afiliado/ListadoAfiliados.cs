@@ -98,7 +98,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado(this, afiliado), this);
                 }
-                else MessageBox.Show("El afiliado seleccionado esta de baja");
+                else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
             }
             
         }
@@ -106,19 +106,20 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private Afiliado crearAfiliado(int fila)
         {
             Afiliado afiliado = new Afiliado();
-            afiliado.nroAfiliado = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[1].Value.ToString()); //el valor de la celda es un objeto, lo paso a string primero y despues lo convierto a int
-           /* afiliado.nombre = nombre.Text;
-            afiliado.apellido = apellido.Text;
-            afiliado.sexo = sexo;
-            afiliado.tipoDoc = tipoDoc.Text;
-            afiliado.nroDoc = Convert.ToInt32(nroDoc.Text);
-            afiliado.direccion = direccion.Text;
-            afiliado.mail = mail.Text;
-            afiliado.telefono = Convert.ToInt32(telefono.Text);
-            afiliado.fechaNac = Convert.ToDateTime(fechaNacimiento.Value);
-            afiliado.codPlan = Convert.ToInt32(planMedico.Text);
-            afiliado.estadoCivil = estadoCivil.Text;
-            afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliares.Text);*/
+            int index = grillaAfiliados.Columns["Nª Afiliado"].Index;
+            afiliado.nroAfiliado = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString()); //el valor de la celda es un objeto, lo paso a string primero y despues lo convierto a int
+            index = grillaAfiliados.Columns["Dirección"].Index;
+            afiliado.direccion = grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString();
+            index = grillaAfiliados.Columns["Mail"].Index;
+            afiliado.mail = grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString();
+            index = grillaAfiliados.Columns["Teléfono"].Index;
+            afiliado.telefono = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            index = grillaAfiliados.Columns["Plan Medico"].Index;
+            afiliado.codPlan = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            index = grillaAfiliados.Columns["Estado Civil"].Index;
+            afiliado.estadoCivil = grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString();
+            index = grillaAfiliados.Columns["Cantidad de Familiares a Cargo"].Index;
+            afiliado.cantFamiliaresACargo = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return afiliado;
         }
     }
