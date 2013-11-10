@@ -305,11 +305,6 @@
             // planMedico
             // 
             this.planMedico.FormattingEnabled = true;
-            this.planMedico.Items.AddRange(new object[] {
-            "555555",
-            "555556",
-            "555557",
-            "555558"});
             this.planMedico.Location = new System.Drawing.Point(439, 72);
             this.planMedico.Name = "planMedico";
             this.planMedico.Size = new System.Drawing.Size(121, 21);

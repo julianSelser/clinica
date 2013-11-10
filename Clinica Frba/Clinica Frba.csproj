@@ -201,11 +201,12 @@
     </Compile>
     <Compile Include="Controlador.cs" />
     <Compile Include="AppModel\CampoAbstracto.cs" />
-    <Compile Include="AppModel\ExcepcionValidacion.cs" />
+    <Compile Include="AppModel\Excepciones\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
     <Compile Include="Domain\Afiliado.cs" />
     <Compile Include="Domain\Funcionalidad.cs" />
     <Compile Include="Domain\ModoAfiliado.cs" />
+    <Compile Include="Domain\PlanMedico.cs" />
     <Compile Include="Domain\Rol.cs" />
     <Compile Include="Domain\Profesional.cs" />
     <Compile Include="Generar Receta\GenerarReceta.cs">

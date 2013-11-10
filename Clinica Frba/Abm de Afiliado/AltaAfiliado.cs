@@ -29,6 +29,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
         public string modo;
         private Afiliado afiliado;
         public int nroTitular;
+        List<PlanMedico> planes;
 
         public AltaAfiliado(ModoAfiliado modoAfiliado,Form padre)
         {
@@ -36,6 +37,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             this.padre = padre;
             this.modo = modoAfiliado.modo;
             this.nroTitular = 0;
+            cargarCombos();
             fechaNacimiento.Value = Globales.getFechaSistema();
             aceptarButton.Enabled = false;
             sexoButton1.Checked = true;
@@ -60,6 +62,15 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 }
             }
             validarCampos();
+        }
+
+        private void cargarCombos()
+        {
+            planes = AppAfiliado.traerPlanesMedicos();
+            foreach (PlanMedico plan in planes)
+            {
+                planMedico.Items.Add(plan.descripcion);
+            }    
         }
         
         private void validarCampos()
@@ -175,10 +186,19 @@ namespace Clinica_Frba.Abm_de_Afiliado
             afiliado.mail = mail.Text;
             afiliado.telefono = Convert.ToInt32(telefono.Text);
             afiliado.fechaNac = Convert.ToDateTime(fechaNacimiento.Value);
-            afiliado.codPlan = Convert.ToInt32(planMedico.Text);
+            afiliado.codPlan = getCodigoPlan(planMedico.Text);
             afiliado.estadoCivil = estadoCivil.Text;
             afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliares.Text);
             return afiliado;
+        }
+
+        private int getCodigoPlan(string descripcion)
+        {
+            foreach (PlanMedico plan in planes)
+            {
+                if (plan.descripcion == descripcion) return plan.codigo;
+            }
+            throw new Exception("Descripcion no encuentra correspondiente codigo de plan medico.\nDetalle: " + descripcion);
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
