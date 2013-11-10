@@ -10,9 +10,9 @@ namespace Clinica_Frba
 {
     class Controlador
     {
+        private static Regex alfa = new Regex("[a-zA-Z]");
         private static Regex alfanumerico = new Regex("[a-zA-Z0-9]");
-        private static Regex codigo = new Regex(@"^\d+$");
-        public enum TipoValidacion { Alfanumerico, Dinero, Codigo };
+        public enum TipoValidacion { Alfa, Alfanumerico, Dinero, Codigo };
         public static void validarCampos(List<CampoAbstracto> campos)
         {
             string mensajeError = "";
@@ -38,6 +38,9 @@ namespace Clinica_Frba
             {
                 switch (campo.tipoVal)
                 {
+                    case TipoValidacion.Alfa:
+                        if (!stringAlfa(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe ser solo letras." + Environment.NewLine); }
+                        break;
                     case TipoValidacion.Alfanumerico:
                         if (!stringValido(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe ser alfanumérico." + Environment.NewLine); }
                         break;
@@ -45,12 +48,21 @@ namespace Clinica_Frba
                         if (!esDinero(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe representar dinero.(sin letras, negativo ni ',')" + Environment.NewLine); }
                         break;
                     case TipoValidacion.Codigo:
-                        if (!esCodigo(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " no es un código válido. Solo se permiten números." + Environment.NewLine); }
+                        if (!cadenaEsNumerica(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " no es un código válido. Solo se permiten números." + Environment.NewLine); }
                         break;
 
                 }
 
             }
+        }
+
+        public static Boolean stringAlfa(string unString)
+        {
+            foreach(char unChar in unString)
+            {
+                if(!alfa.IsMatch(unChar.ToString())) return false;
+            }
+            return true;
         }
 
         public static Boolean stringNumero(string unString)
@@ -69,11 +81,6 @@ namespace Clinica_Frba
         {
             double num;
             return double.TryParse(unString, NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out num);
-        }
-
-        public static Boolean esCodigo(string unString)
-        {
-            return codigo.IsMatch(unString);
         }
 
         public static Boolean stringValido(string unString)

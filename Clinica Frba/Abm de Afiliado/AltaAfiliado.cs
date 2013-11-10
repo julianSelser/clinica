@@ -36,6 +36,9 @@ namespace Clinica_Frba.Abm_de_Afiliado
             this.modo = modoAfiliado.modo;
             this.nroTitular = 0;
             fechaNacimiento.Value = Globales.getFechaSistema();
+            aceptarButton.Enabled = false;
+            sexoButton1.Checked = true;
+            sexoButton2.Checked = false;
 
             if (modo == "Familiar" || modo == "Casado/a" || modo == "Concubinato")
             {
@@ -50,11 +53,37 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 if (modo == "Casado/a" || modo == "Concubinato")
                 {
                     labelEstadoCivil.Visible = true;
-                    this.cantidadFamiliares = 0;
                     estadoCivil.Visible = true;
                     estadoCivil.Text = modo;
                     estadoCivil.Enabled = false;
                 }
+            }
+            validarCampos();
+        }
+        
+        private void validarCampos()
+        {
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Nombre", nombre.Text, true, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Apellido", apellido.Text, true, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Tipo Documento", tipoDoc.Text, true, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Numero Documento", nroDoc.Text, true, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Dirección", direccion.Text, true, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Teléfono", telefono.Text, true, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Plan Médico", planMedico.Text, true, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Mail", mail.Text, false, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Estado Civil", estadoCivil.Text, true, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Cantidad de familiares a cargo", cantFamiliares.Text, false, Controlador.TipoValidacion.Codigo));
+            try
+            {
+                Controlador.validarCampos(campos);
+                aceptarButton.Enabled = true;
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion vEx)
+            {
+                errorBox.Text = vEx.mensaje;
+                aceptarButton.Enabled = false;
             }
         }
 
@@ -73,10 +102,11 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
+            if(cantFamiliares.Text == "")cantFamiliares.Text = "0";
             afiliado = crearAfiliado();
             switch (modo)
             {
-                case "Titular": //TODO: Agregar validaciones de existencia (nombre y apellido ya existe; mail ya existe)
+                case "Titular": //TODO: Agregar validaciones de existencia (nombre-apellido-tipoDoc-nroDoc ya existe)
                     AppAfiliado.altaAfiliadoTitular(afiliado);
                     break;
                 case "Familiar":
@@ -86,20 +116,18 @@ namespace Clinica_Frba.Abm_de_Afiliado
                     AppAfiliado.altaAfiliadoConyuge(afiliado);
                     break;
             }
-            MessageBox.Show("El alta se ha realizado correctamente.");
 
-            PeticionAlta ventanaPadre;
+            afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
+            MessageBox.Show("El alta del afiliado Nro. "+ afiliado.nroAfiliado +" se ha realizado correctamente.");
 
             if (modo == "Concubinato" || modo == "Casado/a")
             {
-                ventanaPadre = (PeticionAlta)padre;
-                ventanaPadre.deshabilitarConyuge();
+                (padre as IPeticionAlta).deshabilitarConyuge();
             }
 
             if (modo == "Familiar")
             {
-                ventanaPadre = (PeticionAlta)padre;
-                ventanaPadre.decrementarCantFamiliares();
+                (padre as IPeticionAlta).decrementarCantFamiliares();
             }
 
             if (modo == "Titular")
@@ -153,24 +181,77 @@ namespace Clinica_Frba.Abm_de_Afiliado
             inicializarVariables();
             nombre.Clear();
             apellido.Clear();
-            sexoButton1.Checked = false;
+            sexoButton1.Checked = true;
             sexoButton2.Checked = false;
             direccion.Clear();
             fechaNacimiento.Value = Globales.getFechaSistema();
             tipoDoc.SelectedIndex = -1;
             nroDoc.Clear();
             mail.Clear();
-            estadoCivil.SelectedIndex = -1;
-            cantFamiliares.Clear();
+            if (modo == "Titular")
+            {
+                estadoCivil.SelectedIndex = -1;
+                cantFamiliares.Clear();
+            }
             planMedico.SelectedIndex = -1;
             telefono.Clear();
         }
 
         private void inicializarVariables()
         {
-            sexo = ' ';
-            nroTitular = 0;
+            sexo = 'M';
             cantidadFamiliares = 0;
         }
+
+        private void nombre_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void apellido_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void nroDoc_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void direccion_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void telefono_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void mail_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void cantFamiliares_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void tipoDoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void planMedico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void estadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
     }
 }
