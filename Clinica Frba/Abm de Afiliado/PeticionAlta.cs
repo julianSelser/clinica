@@ -11,7 +11,7 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
-    public partial class PeticionAlta : Form
+    public partial class PeticionAlta : Form, IPeticionAlta
     {
         private Form padre;
         private Afiliado afiliado;
@@ -22,7 +22,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
             InitializeComponent();
             this.padre = padre;
             this.afiliado = afiliado;
-            afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
             this.cantFamiliares = afiliado.cantFamiliaresACargo;
             deshabilitarBotones();
         }

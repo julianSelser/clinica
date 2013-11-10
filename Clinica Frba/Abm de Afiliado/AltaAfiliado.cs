@@ -50,7 +50,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 if (modo == "Casado/a" || modo == "Concubinato")
                 {
                     labelEstadoCivil.Visible = true;
-                    this.cantidadFamiliares = 0;
                     estadoCivil.Visible = true;
                     estadoCivil.Text = modo;
                     estadoCivil.Enabled = false;
@@ -76,7 +75,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             afiliado = crearAfiliado();
             switch (modo)
             {
-                case "Titular": //TODO: Agregar validaciones de existencia (nombre y apellido ya existe; mail ya existe)
+                case "Titular": //TODO: Agregar validaciones de existencia (nombre-apellido-tipoDoc-nroDoc ya existe)
                     AppAfiliado.altaAfiliadoTitular(afiliado);
                     break;
                 case "Familiar":
@@ -86,20 +85,18 @@ namespace Clinica_Frba.Abm_de_Afiliado
                     AppAfiliado.altaAfiliadoConyuge(afiliado);
                     break;
             }
-            MessageBox.Show("El alta se ha realizado correctamente.");
 
-            PeticionAlta ventanaPadre;
+            afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
+            MessageBox.Show("El alta del afiliado Nro. "+ afiliado.nroAfiliado +" se ha realizado correctamente.");
 
             if (modo == "Concubinato" || modo == "Casado/a")
             {
-                ventanaPadre = (PeticionAlta)padre;
-                ventanaPadre.deshabilitarConyuge();
+                (padre as IPeticionAlta).deshabilitarConyuge();
             }
 
             if (modo == "Familiar")
             {
-                ventanaPadre = (PeticionAlta)padre;
-                ventanaPadre.decrementarCantFamiliares();
+                (padre as IPeticionAlta).decrementarCantFamiliares();
             }
 
             if (modo == "Titular")
@@ -160,8 +157,11 @@ namespace Clinica_Frba.Abm_de_Afiliado
             tipoDoc.SelectedIndex = -1;
             nroDoc.Clear();
             mail.Clear();
-            estadoCivil.SelectedIndex = -1;
-            cantFamiliares.Clear();
+            if (modo == "Titular")
+            {
+                estadoCivil.SelectedIndex = -1;
+                cantFamiliares.Clear();
+            }
             planMedico.SelectedIndex = -1;
             telefono.Clear();
         }
@@ -169,7 +169,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private void inicializarVariables()
         {
             sexo = ' ';
-            nroTitular = 0;
             cantidadFamiliares = 0;
         }
     }

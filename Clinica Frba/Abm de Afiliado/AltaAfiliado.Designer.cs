@@ -80,7 +80,7 @@
             // 
             // mail
             // 
-            this.mail.Location = new System.Drawing.Point(390, 112);
+            this.mail.Location = new System.Drawing.Point(390, 52);
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(163, 20);
             this.mail.TabIndex = 125;
@@ -88,7 +88,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(348, 141);
+            this.label12.Location = new System.Drawing.Point(348, 81);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(34, 13);
             this.label12.TabIndex = 124;
@@ -97,7 +97,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(348, 115);
+            this.label11.Location = new System.Drawing.Point(348, 52);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 123;
@@ -106,7 +106,7 @@
             // labelFamiliares
             // 
             this.labelFamiliares.AutoSize = true;
-            this.labelFamiliares.Location = new System.Drawing.Point(348, 84);
+            this.labelFamiliares.Location = new System.Drawing.Point(348, 147);
             this.labelFamiliares.Name = "labelFamiliares";
             this.labelFamiliares.Size = new System.Drawing.Size(152, 13);
             this.labelFamiliares.TabIndex = 122;
@@ -124,7 +124,7 @@
             // labelEstadoCivil
             // 
             this.labelEstadoCivil.AutoSize = true;
-            this.labelEstadoCivil.Location = new System.Drawing.Point(348, 54);
+            this.labelEstadoCivil.Location = new System.Drawing.Point(348, 117);
             this.labelEstadoCivil.Name = "labelEstadoCivil";
             this.labelEstadoCivil.Size = new System.Drawing.Size(65, 13);
             this.labelEstadoCivil.TabIndex = 120;
@@ -249,14 +249,14 @@
             "Viudo/a",
             "Concubinato",
             "Divorciado/a"});
-            this.estadoCivil.Location = new System.Drawing.Point(432, 49);
+            this.estadoCivil.Location = new System.Drawing.Point(432, 112);
             this.estadoCivil.Name = "estadoCivil";
             this.estadoCivil.Size = new System.Drawing.Size(121, 21);
             this.estadoCivil.TabIndex = 138;
             // 
             // cantFamiliares
             // 
-            this.cantFamiliares.Location = new System.Drawing.Point(506, 81);
+            this.cantFamiliares.Location = new System.Drawing.Point(506, 144);
             this.cantFamiliares.Name = "cantFamiliares";
             this.cantFamiliares.Size = new System.Drawing.Size(47, 20);
             this.cantFamiliares.TabIndex = 140;
@@ -264,7 +264,7 @@
             // sexoButton1
             // 
             this.sexoButton1.AutoSize = true;
-            this.sexoButton1.Location = new System.Drawing.Point(392, 142);
+            this.sexoButton1.Location = new System.Drawing.Point(392, 82);
             this.sexoButton1.Name = "sexoButton1";
             this.sexoButton1.Size = new System.Drawing.Size(34, 17);
             this.sexoButton1.TabIndex = 141;
@@ -276,7 +276,7 @@
             // sexoButton2
             // 
             this.sexoButton2.AutoSize = true;
-            this.sexoButton2.Location = new System.Drawing.Point(432, 142);
+            this.sexoButton2.Location = new System.Drawing.Point(432, 82);
             this.sexoButton2.Name = "sexoButton2";
             this.sexoButton2.Size = new System.Drawing.Size(31, 17);
             this.sexoButton2.TabIndex = 142;
