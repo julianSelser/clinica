@@ -66,10 +66,13 @@ namespace Clinica_Frba.Abm_de_Afiliado
             List<CampoAbstracto> campos = new List<CampoAbstracto>();
             campos.Add(new Campo("Nombre", nombre.Text, true, Controlador.TipoValidacion.Alfa));
             campos.Add(new Campo("Apellido", apellido.Text, true, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Tipo Documento", tipoDoc.Text, true, Controlador.TipoValidacion.Alfa));
             campos.Add(new Campo("Numero Documento", nroDoc.Text, true, Controlador.TipoValidacion.Codigo));
             campos.Add(new Campo("Dirección", direccion.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Teléfono", telefono.Text, true, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Plan Médico", planMedico.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Mail", mail.Text, false, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Estado Civil", estadoCivil.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Cantidad de familiares a cargo", cantFamiliares.Text, false, Controlador.TipoValidacion.Codigo));
             try
             {
@@ -231,6 +234,21 @@ namespace Clinica_Frba.Abm_de_Afiliado
         }
 
         private void cantFamiliares_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void tipoDoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void planMedico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void estadoCivil_SelectedIndexChanged(object sender, EventArgs e)
         {
             validarCampos();
         }
