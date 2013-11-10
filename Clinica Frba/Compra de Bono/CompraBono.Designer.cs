@@ -188,7 +188,6 @@
             this.Controls.Add(this.botonRegreso);
             this.Name = "CompraBono";
             this.Text = "Comprar_Bono";
-            this.Load += new System.EventHandler(this.CompraBono_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

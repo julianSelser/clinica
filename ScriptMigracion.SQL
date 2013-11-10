@@ -1669,6 +1669,18 @@ BEGIN
 END
 GO
 
+--Procedure Planes Medicos
+
+CREATE PROCEDURE CUATRO_QUESOS.getPlanesMedicos @codigo numeric(18), @descripcion varchar(255),@precioBonoConsulta int, @precioBonoFarmacia int
+AS
+SELECT Codigo, Descripcion, Precio_Bono_Consulta 'Precio Bono Consulta', Precio_Bono_Farmacia 'Precio Bono Farmacia' 
+FROM Planes_Medicos
+WHERE ((Codigo = @codigo AND @codigo > 0) OR (@codigo = 0))
+AND Descripcion LIKE '%' + @descripcion + '%'
+AND Precio_Bono_Consulta >= @precioBonoConsulta
+AND Precio_Bono_Farmacia >= @precioBonoFarmacia
+GO
+
 --procedures abm rol
 
 CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18))

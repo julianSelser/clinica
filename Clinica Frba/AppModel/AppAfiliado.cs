@@ -51,5 +51,37 @@ namespace Clinica_Frba.AppModel
         {
             if(checkIfExists("getAfiliados",afiliado.nombre, afiliado.apellido, afiliado.tipoDoc, afiliado.nroDoc, 0)) throw new AfiliadoYaExisteException(afiliado);
         }
+
+        internal static List<PlanMedico> traerPlanesMedicos()
+        {
+            DataTable table = traerDataTable("getPlanesMedicos",0,"",0,0);
+            return crearListaPlanesMedicos(table);
+        }
+
+        private static List<PlanMedico> crearListaPlanesMedicos(DataTable table)
+        {
+            DataRowCollection rows = table.Rows;
+            List<PlanMedico> planes = new List<PlanMedico>();
+            foreach (DataRow row in rows)
+            {
+                PlanMedico plan = crearPlan(row);
+                planes.Add(plan);
+            }
+            return planes;
+        }
+
+        private static PlanMedico crearPlan(DataRow row)
+        {
+            int cod = Convert.ToInt32(row["Codigo"].ToString());
+            string descripcion = row["Descripcion"].ToString();
+            int precioConsulta = Convert.ToInt32(row["Precio Bono Consulta"].ToString());
+            int precioFarmacia = Convert.ToInt32(row["Precio Bono Farmacia"].ToString());
+            PlanMedico plan = new PlanMedico();
+            plan.codigo = cod;
+            plan.descripcion = descripcion;
+            plan.precioBonoConsulta = precioConsulta;
+            plan.precioBonoFarmacia = precioFarmacia;
+            return plan;
+        }
     }
 }
