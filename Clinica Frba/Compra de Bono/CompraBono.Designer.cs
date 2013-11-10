@@ -30,11 +30,16 @@
         {
             this.botonRegreso = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.botonBuscarAfiliado = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.botonQuitarAfiliado = new System.Windows.Forms.Button();
             this.labPlan = new System.Windows.Forms.Label();
             this.labAfiliado = new System.Windows.Forms.Label();
+            this.labNroPlan = new System.Windows.Forms.Label();
+            this.labNroAfiliado = new System.Windows.Forms.Label();
+            this.botonBuscarAfiliado = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labPrecioFarmacia = new System.Windows.Forms.Label();
+            this.labPrecioConsulta = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -58,10 +63,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.botonBuscarAfiliado);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.botonQuitarAfiliado);
             this.groupBox1.Controls.Add(this.labPlan);
             this.groupBox1.Controls.Add(this.labAfiliado);
+            this.groupBox1.Controls.Add(this.labNroPlan);
+            this.groupBox1.Controls.Add(this.labNroAfiliado);
+            this.groupBox1.Controls.Add(this.botonBuscarAfiliado);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(390, 56);
@@ -69,21 +77,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos personales";
             // 
-            // botonBuscarAfiliado
+            // botonQuitarAfiliado
             // 
-            this.botonBuscarAfiliado.Location = new System.Drawing.Point(171, 22);
-            this.botonBuscarAfiliado.Name = "botonBuscarAfiliado";
-            this.botonBuscarAfiliado.Size = new System.Drawing.Size(30, 21);
-            this.botonBuscarAfiliado.TabIndex = 11;
-            this.botonBuscarAfiliado.Text = "OK";
-            this.botonBuscarAfiliado.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(64, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(94, 20);
-            this.textBox1.TabIndex = 10;
+            this.botonQuitarAfiliado.Location = new System.Drawing.Point(171, 22);
+            this.botonQuitarAfiliado.Name = "botonQuitarAfiliado";
+            this.botonQuitarAfiliado.Size = new System.Drawing.Size(46, 21);
+            this.botonQuitarAfiliado.TabIndex = 12;
+            this.botonQuitarAfiliado.Text = "Quitar";
+            this.botonQuitarAfiliado.UseVisualStyleBackColor = true;
+            this.botonQuitarAfiliado.Visible = false;
+            this.botonQuitarAfiliado.Click += new System.EventHandler(this.botonQuitarAfiliado_Click);
             // 
             // labPlan
             // 
@@ -103,8 +106,47 @@
             this.labAfiliado.TabIndex = 8;
             this.labAfiliado.Text = "Afiliado:";
             // 
+            // labNroPlan
+            // 
+            this.labNroPlan.AutoSize = true;
+            this.labNroPlan.Location = new System.Drawing.Point(286, 24);
+            this.labNroPlan.Name = "labNroPlan";
+            this.labNroPlan.Size = new System.Drawing.Size(33, 13);
+            this.labNroPlan.TabIndex = 13;
+            this.labNroPlan.Text = "(plan)";
+            this.labNroPlan.Visible = false;
+            // 
+            // labNroAfiliado
+            // 
+            this.labNroAfiliado.AutoSize = true;
+            this.labNroAfiliado.Location = new System.Drawing.Point(68, 25);
+            this.labNroAfiliado.Name = "labNroAfiliado";
+            this.labNroAfiliado.Size = new System.Drawing.Size(46, 13);
+            this.labNroAfiliado.TabIndex = 12;
+            this.labNroAfiliado.Text = "(afiliado)";
+            this.labNroAfiliado.Visible = false;
+            // 
+            // botonBuscarAfiliado
+            // 
+            this.botonBuscarAfiliado.Location = new System.Drawing.Point(171, 22);
+            this.botonBuscarAfiliado.Name = "botonBuscarAfiliado";
+            this.botonBuscarAfiliado.Size = new System.Drawing.Size(46, 21);
+            this.botonBuscarAfiliado.TabIndex = 11;
+            this.botonBuscarAfiliado.Text = "Elegir";
+            this.botonBuscarAfiliado.UseVisualStyleBackColor = true;
+            this.botonBuscarAfiliado.Click += new System.EventHandler(this.botonBuscarAfiliado_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(68, 23);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(94, 20);
+            this.textBox1.TabIndex = 10;
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labPrecioFarmacia);
+            this.groupBox2.Controls.Add(this.labPrecioConsulta);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(15, 83);
@@ -113,6 +155,26 @@
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Precios";
+            // 
+            // labPrecioFarmacia
+            // 
+            this.labPrecioFarmacia.AutoSize = true;
+            this.labPrecioFarmacia.Location = new System.Drawing.Point(323, 24);
+            this.labPrecioFarmacia.Name = "labPrecioFarmacia";
+            this.labPrecioFarmacia.Size = new System.Drawing.Size(39, 13);
+            this.labPrecioFarmacia.TabIndex = 14;
+            this.labPrecioFarmacia.Text = "(pfarm)";
+            this.labPrecioFarmacia.Visible = false;
+            // 
+            // labPrecioConsulta
+            // 
+            this.labPrecioConsulta.AutoSize = true;
+            this.labPrecioConsulta.Location = new System.Drawing.Point(100, 24);
+            this.labPrecioConsulta.Name = "labPrecioConsulta";
+            this.labPrecioConsulta.Size = new System.Drawing.Size(42, 13);
+            this.labPrecioConsulta.TabIndex = 13;
+            this.labPrecioConsulta.Text = "(pcons)";
+            this.labPrecioConsulta.Visible = false;
             // 
             // label2
             // 
@@ -158,10 +220,12 @@
             this.botonComprar.TabIndex = 14;
             this.botonComprar.Text = "Comprar";
             this.botonComprar.UseVisualStyleBackColor = true;
+            this.botonComprar.Click += new System.EventHandler(this.botonComprar_Click);
             // 
             // textCantBonosConsulta
             // 
             this.textCantBonosConsulta.Location = new System.Drawing.Point(228, 161);
+            this.textCantBonosConsulta.MaxLength = 3;
             this.textCantBonosConsulta.Name = "textCantBonosConsulta";
             this.textCantBonosConsulta.Size = new System.Drawing.Size(38, 20);
             this.textCantBonosConsulta.TabIndex = 15;
@@ -169,6 +233,7 @@
             // textCantBonosFarmacia
             // 
             this.textCantBonosFarmacia.Location = new System.Drawing.Point(228, 197);
+            this.textCantBonosFarmacia.MaxLength = 3;
             this.textCantBonosFarmacia.Name = "textCantBonosFarmacia";
             this.textCantBonosFarmacia.Size = new System.Drawing.Size(38, 20);
             this.textCantBonosFarmacia.TabIndex = 16;
@@ -188,7 +253,6 @@
             this.Controls.Add(this.botonRegreso);
             this.Name = "CompraBono";
             this.Text = "Comprar_Bono";
-            this.Load += new System.EventHandler(this.CompraBono_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -214,5 +278,10 @@
         private System.Windows.Forms.Button botonComprar;
         private System.Windows.Forms.TextBox textCantBonosConsulta;
         private System.Windows.Forms.TextBox textCantBonosFarmacia;
+        private System.Windows.Forms.Button botonQuitarAfiliado;
+        private System.Windows.Forms.Label labNroPlan;
+        private System.Windows.Forms.Label labNroAfiliado;
+        private System.Windows.Forms.Label labPrecioFarmacia;
+        private System.Windows.Forms.Label labPrecioConsulta;
     }
 }
