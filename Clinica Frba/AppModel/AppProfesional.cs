@@ -28,5 +28,35 @@ namespace Clinica_Frba.AppModel
         {
             return ConectorSQL.traerDataTable("getMedicos");
         }
+
+        internal static List<EspecialidadMedica> getEspecialidades()
+        {
+            DataTable table = traerDataTable("getEspecialidades");
+            return crearListaEspecialidades(table);
+        }
+
+        private static List<EspecialidadMedica> crearListaEspecialidades(DataTable table)
+        {
+            DataRowCollection rows = table.Rows;
+            List<EspecialidadMedica> especialidades = new List<EspecialidadMedica>();
+            foreach (DataRow row in rows)
+            {
+                EspecialidadMedica especialidad = crearEspecialidad(row);
+                especialidades.Add(especialidad);
+            }
+            return especialidades;
+        }
+
+        private static EspecialidadMedica crearEspecialidad(DataRow row)
+        {
+            int cod = Convert.ToInt32(row["Codigo"].ToString());
+            string descripcion = row["Descripcion"].ToString();
+            int tipoCodigo = Convert.ToInt32(row["Tipo Codigo"].ToString());
+            EspecialidadMedica especialidad = new EspecialidadMedica();
+            especialidad.codigo = cod;
+            especialidad.descripcion = descripcion;
+            especialidad.tipoEspecilidadCodigo = tipoCodigo;
+            return especialidad;
+        }
     }
 }

@@ -1448,6 +1448,13 @@ BEGIN
         RETURN @Id
 END
 GO
+/******** PROCEDURES ESPECIALIDES MEDICAS **********/
+
+CREATE PROCEDURE CUATRO_QUESOS.getEspecialidades
+AS
+SELECT Especialidades.Codigo 'Codigo', Especialidades.Descripcion 'Descripcion', Especialidades.Tipo_Codigo 'Tipo Codigo'
+FROM CUATRO_QUESOS.Especialidades
+GO
 
 /********* PROCEDURES AFILIADOS ***************/
 

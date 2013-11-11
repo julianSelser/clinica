@@ -209,6 +209,7 @@
     <Compile Include="AppModel\Excepciones\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
     <Compile Include="Domain\Afiliado.cs" />
+    <Compile Include="Domain\EspecialidadMedica.cs" />
     <Compile Include="Domain\Funcionalidad.cs" />
     <Compile Include="Domain\ModoAfiliado.cs" />
     <Compile Include="Domain\PlanMedico.cs" />

@@ -10,7 +10,7 @@ namespace Clinica_Frba.Domain
         private int id{ get;  set; }
         private string nombre { get; set; }
         private bool habilitado { get; set; }
-        private List<Funcionalidad> funcionalidades; //declaro la lista de funcionalidades
+        private List<Funcionalidad> funcionalidades { get; set; } //declaro la lista de funcionalidades
     }
 
 }
