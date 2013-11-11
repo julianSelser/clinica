@@ -39,7 +39,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
         }
 
 
-        private void ocultarColumnas()
+        private void ocultarColumnas() //oculto las columnas que no son de interes
         {
             grillaAfiliados.Columns["Nª Afiliado de Titular"].Visible = false;
             grillaAfiliados.Columns["Nª Afiliado de Conyuge"].Visible = false;

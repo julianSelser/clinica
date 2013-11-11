@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad que permite editar los datos del afiliado y luego de confirmarlos, los actualiza en la base de datos
+
 namespace Clinica_Frba.Abm_de_Afiliado
 {
     public partial class ModificarAfiliado : Form

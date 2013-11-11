@@ -48,7 +48,11 @@ namespace Clinica_Frba.AppModel
             int nroAfiliadoRaiz = 0;
             int numeroDoc = 0;
             if (numeroDoc != 0) numeroDoc = nroDoc;
-            if (nroRaiz != "") nroAfiliadoRaiz = Convert.ToInt32(nroRaiz);
+            if (nroRaiz != "")
+            {
+                nroAfiliadoRaiz = Convert.ToInt32(nroRaiz);
+                nroAfiliadoRaiz = (nroAfiliadoRaiz - (nroAfiliadoRaiz % 100));
+            }
             return traerDataTable("getAfiliados", nombre, apellido, tipoDoc, numeroDoc ,nroAfiliadoRaiz);
         }
 

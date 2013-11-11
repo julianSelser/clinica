@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad de baja, las bajas son logicas y no fisicas, registrando la fecha en que se dio de baja al afiliado
+
 namespace Clinica_Frba.Abm_de_Afiliado
 {
     public partial class BajaAfiliado : Form

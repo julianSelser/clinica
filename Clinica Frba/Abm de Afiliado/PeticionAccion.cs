@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Clinica_Frba.Domain;
 using Clinica_Frba.AppModel;
 
+//Pantalla intermedia que permite dar las altas de conyuge y afiliados en caso de que corresponda y de modificar un afiliado
+
 namespace Clinica_Frba.Abm_de_Afiliado
 {
     public partial class PeticionAccion : Form
