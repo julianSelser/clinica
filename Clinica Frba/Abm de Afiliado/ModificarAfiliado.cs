@@ -95,7 +95,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
             actualizarAfiliado();
             AppAfiliado.actualizarAfiliado(afiliado);
             MessageBox.Show("La actualización se ha realizado con éxito");
-            (padre as IListado).cargarGrilla();
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
@@ -106,6 +105,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             afiliado.mail = mailBox.Text;
             afiliado.codPlan = getCodigoPlan(planMedicoBox.Text);
             afiliado.estadoCivil = estadoCivilBox.Text;
+            if (cantFamiliaresBox.Text == "") cantFamiliaresBox.Text = "0";
             afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliaresBox.Text);
         }
 

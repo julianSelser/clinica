@@ -158,6 +158,7 @@
             this.Controls.Add(this.grillaAfiliados);
             this.Name = "ListadoAfiliados";
             this.Text = "Listado de Afiliados";
+            this.Activated += new System.EventHandler(this.ListadoAfiliados_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.grillaAfiliados)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

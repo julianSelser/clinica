@@ -84,7 +84,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             campos.Add(new Campo("Teléfono", telefono.Text, true, Controlador.TipoValidacion.Codigo));
             campos.Add(new Campo("Plan Médico", planMedico.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Mail", mail.Text, false, Controlador.TipoValidacion.Alfanumerico));
-            campos.Add(new Campo("Estado Civil", estadoCivil.Text, true, Controlador.TipoValidacion.Alfanumerico));
+            if(modo != "Familiar")campos.Add(new Campo("Estado Civil", estadoCivil.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Cantidad de familiares a cargo", cantFamiliares.Text, false, Controlador.TipoValidacion.Codigo));
             try
             {
@@ -136,16 +136,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 afiliado.nroAfiliado = AppAfiliado.buscarNroAfiliado(afiliado);
                 MessageBox.Show("El alta del afiliado Nro. " + afiliado.nroAfiliado + " se ha realizado correctamente.");
 
-                if (modo == "Concubinato" || modo == "Casado/a")
-                {
-                    (padre as IPeticionAlta).deshabilitarConyuge();
-                }
-
-                if (modo == "Familiar")
-                {
-                    (padre as IPeticionAlta).decrementarCantFamiliares();
-                }
-
                 if (modo == "Titular")
                 {
                     altasOpcionales();
@@ -165,7 +155,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             if (afiliado.estadoCivil == "Concubinato" || afiliado.estadoCivil == "Casado/a" || afiliado.cantFamiliaresACargo > 0)
             {
-                AsistenteVistas.mostrarNuevaVentana(new PeticionAlta(afiliado, padre), this);
+                AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, padre), this);
             }
             else
             {
@@ -188,6 +178,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             afiliado.fechaNac = Convert.ToDateTime(fechaNacimiento.Value);
             afiliado.codPlan = getCodigoPlan(planMedico.Text);
             afiliado.estadoCivil = estadoCivil.Text;
+            if(cantFamiliares.Text == "") cantFamiliares.Text = "0";
             afiliado.cantFamiliaresACargo = Convert.ToInt32(cantFamiliares.Text);
             return afiliado;
         }

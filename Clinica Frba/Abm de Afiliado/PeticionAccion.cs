@@ -11,21 +11,23 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
-    public partial class PeticionAlta : Form, IPeticionAlta
+    public partial class PeticionAccion : Form
     {
         private Form padre;
         private Afiliado afiliado;
-        private int cantFamiliares;
 
-        internal PeticionAlta(Afiliado afiliado, Form padre)
+        internal PeticionAccion(Afiliado afiliado, Form padre)
         {
             InitializeComponent();
             this.padre = padre;
             this.afiliado = afiliado;
-            this.cantFamiliares = afiliado.cantFamiliaresACargo;
             deshabilitarBotones();
         }
 
+        private void PeticionAccion_Activated(object sender, EventArgs e)
+        {
+            deshabilitarBotones();
+        }
         private void altaConyuge_Click(object sender, EventArgs e)
         {
             ModoAfiliado modo = new ModoAfiliado();
@@ -49,25 +51,21 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void deshabilitarBotones()
         {
-            if (cantFamiliares <= 0)
+            if (AppAfiliado.cantidadFamiliaresACargoRegistrados(afiliado) >= afiliado.cantFamiliaresACargo)
             {
                 altaFamiliar.Enabled = false;
             }
-            if (afiliado.estadoCivil != "Concubinato" && afiliado.estadoCivil != "Casado/a")
+            else altaFamiliar.Enabled = true;
+            if (AppAfiliado.tieneConyuge(afiliado) || (afiliado.estadoCivil != "Casado/a" && afiliado.estadoCivil != "Concubinato"))
             {
-                deshabilitarConyuge();
+                 altaConyuge.Enabled = false;
             }
+            else altaConyuge.Enabled = true;
         }
 
-        public void decrementarCantFamiliares()
+        private void modificarButton_Click(object sender, EventArgs e)
         {
-            cantFamiliares--;
-            deshabilitarBotones();
-        }
-
-        public void deshabilitarConyuge()
-        {
-            altaConyuge.Enabled = false;
+            AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado(this, afiliado), this);
         }
     }
 }

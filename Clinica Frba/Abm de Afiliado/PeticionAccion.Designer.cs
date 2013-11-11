@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Afiliado
 {
-    partial class PeticionAlta
+    partial class PeticionAccion
     {
         /// <summary>
         /// Required designer variable.
@@ -31,11 +31,12 @@
             this.altaConyuge = new System.Windows.Forms.Button();
             this.altaFamiliar = new System.Windows.Forms.Button();
             this.finalizar = new System.Windows.Forms.Button();
+            this.modificarButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // altaConyuge
             // 
-            this.altaConyuge.Location = new System.Drawing.Point(82, 24);
+            this.altaConyuge.Location = new System.Drawing.Point(83, 48);
             this.altaConyuge.Name = "altaConyuge";
             this.altaConyuge.Size = new System.Drawing.Size(125, 23);
             this.altaConyuge.TabIndex = 1;
@@ -45,7 +46,7 @@
             // 
             // altaFamiliar
             // 
-            this.altaFamiliar.Location = new System.Drawing.Point(82, 53);
+            this.altaFamiliar.Location = new System.Drawing.Point(83, 77);
             this.altaFamiliar.Name = "altaFamiliar";
             this.altaFamiliar.Size = new System.Drawing.Size(125, 23);
             this.altaFamiliar.TabIndex = 2;
@@ -55,7 +56,7 @@
             // 
             // finalizar
             // 
-            this.finalizar.Location = new System.Drawing.Point(82, 99);
+            this.finalizar.Location = new System.Drawing.Point(83, 123);
             this.finalizar.Name = "finalizar";
             this.finalizar.Size = new System.Drawing.Size(125, 23);
             this.finalizar.TabIndex = 3;
@@ -63,16 +64,28 @@
             this.finalizar.UseVisualStyleBackColor = true;
             this.finalizar.Click += new System.EventHandler(this.finalizar_Click);
             // 
-            // PeticionAlta
+            // modificarButton
+            // 
+            this.modificarButton.Location = new System.Drawing.Point(83, 19);
+            this.modificarButton.Name = "modificarButton";
+            this.modificarButton.Size = new System.Drawing.Size(125, 23);
+            this.modificarButton.TabIndex = 4;
+            this.modificarButton.Text = "Modificar";
+            this.modificarButton.UseVisualStyleBackColor = true;
+            this.modificarButton.Click += new System.EventHandler(this.modificarButton_Click);
+            // 
+            // PeticionAccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 134);
+            this.ClientSize = new System.Drawing.Size(307, 168);
+            this.Controls.Add(this.modificarButton);
             this.Controls.Add(this.finalizar);
             this.Controls.Add(this.altaFamiliar);
             this.Controls.Add(this.altaConyuge);
-            this.Name = "PeticionAlta";
-            this.Text = "Peticion Alta";
+            this.Name = "PeticionAccion";
+            this.Text = "Peticion Acción";
+            this.Activated += new System.EventHandler(this.PeticionAccion_Activated);
             this.ResumeLayout(false);
 
         }
@@ -82,5 +95,6 @@
         private System.Windows.Forms.Button altaConyuge;
         private System.Windows.Forms.Button altaFamiliar;
         private System.Windows.Forms.Button finalizar;
+        private System.Windows.Forms.Button modificarButton;
     }
 }

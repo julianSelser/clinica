@@ -112,7 +112,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
                 {
                     Afiliado afiliado = crearAfiliado(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
-                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarAfiliado(this, afiliado), this);
+                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, this), this);
                 }
                 else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
             }
@@ -137,6 +137,11 @@ namespace Clinica_Frba.Abm_de_Afiliado
             index = grillaAfiliados.Columns["Cantidad de Familiares a Cargo"].Index;
             afiliado.cantFamiliaresACargo = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return afiliado;
+        }
+
+        private void ListadoAfiliados_Activated(object sender, EventArgs e)
+        {
+            cargarGrilla();
         }
     }
 }

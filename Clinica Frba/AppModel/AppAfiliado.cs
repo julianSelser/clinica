@@ -15,6 +15,11 @@ namespace Clinica_Frba.AppModel
             ejecutarProcedure("darBajaAfiliado", nroAfiliado, Globales.getFechaSistema());
         }
 
+        public static int cantidadFamiliaresACargoRegistrados(Afiliado afiliado)
+        {
+            return ejecutarProcedureWithReturnValue("cantFamiliaresRegistrados", afiliado.nroAfiliado);
+        }
+
         public static void altaAfiliadoTitular(Afiliado afiliado)
         {
             ejecutarProcedure("darAltaAfiliado", afiliado.nombre, afiliado.apellido, afiliado.sexo, afiliado.tipoDoc, afiliado.nroDoc, afiliado.direccion, afiliado.mail, afiliado.telefono, afiliado.fechaNac, afiliado.codPlan,afiliado.estadoCivil, afiliado.cantFamiliaresACargo, 'T', afiliado.nroAfiliado);
@@ -82,6 +87,11 @@ namespace Clinica_Frba.AppModel
             plan.precioBonoConsulta = precioConsulta;
             plan.precioBonoFarmacia = precioFarmacia;
             return plan;
+        }
+
+        internal static bool tieneConyuge(Afiliado afiliado)
+        {
+            return checkIfExists("getConyuge",afiliado.nroAfiliado);
         }
     }
 }
