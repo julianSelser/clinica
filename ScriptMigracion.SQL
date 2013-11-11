@@ -1840,8 +1840,106 @@ AS
 	FROM @Tabla t
 GO
 
-
 -- FIN ABM DE CANCELACIÓN
+
+--PROCEDURES PARA LA COMPRA DE BONOS
+create procedure CUATRO_QUESOS.comprarBonos(@afiliado numeric(18), @cant_farmacia int, @cant_consulta int)
+as
+begin
+	declare @plan numeric(18);
+	declare @precio_consulta numeric(18);
+	declare @precio_farmacia numeric(18);
+	declare @id_compra numeric(18);
+	declare @fecha_fija datetime;
+	
+	select @plan = Cod_Plan, @precio_consulta = Planes_Medicos.Precio_Bono_Consulta, @precio_farmacia = Planes_Medicos.Precio_Bono_Farmacia
+	from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Afiliados.Cod_Plan = Planes_Medicos.Codigo
+	where Afiliados.Nro_Afiliado = @afiliado
+	
+	set @id_compra = (select COUNT(*) from CUATRO_QUESOS.Compra) + 1
+	set @fecha_fija = getdate()
+
+	set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
+	insert into CUATRO_QUESOS.Compra(Id_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
+	values (
+			@id_compra,
+			@afiliado,
+			@fecha_fija,
+			@cant_consulta,
+			@cant_farmacia,
+			(@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
+			)
+	set IDENTITY_INSERT CUATRO_QUESOS.Compra OFF	
+	
+	declare @c int;
+	declare @f int;
+	declare @c_base int;
+	declare @f_base int;
+	set @c=0;
+	set @f=0;
+	set @c_base = (select MAX(Numero) from CUATRO_QUESOS.Bonos where Tipo_Bono = 'Consulta') + 1;
+	set @f_base = (select MAX(Numero) from CUATRO_QUESOS.Bonos where Tipo_Bono = 'Farmacia') + 1;
+	
+	while (@c < @cant_consulta)
+	begin
+		insert into CUATRO_QUESOS.Bonos(Numero, Fecha_Impresion, Nro_Afiliado, Cod_Plan, Id_Compra, Tipo_Bono, Fecha_Vencimiento, Nro_Consulta, Nro_Usuario)
+		values
+			(
+			(@c_base+@c),
+			@fecha_fija,
+			@afiliado,
+			@plan,
+			@id_compra,
+			'Consulta',
+			NULL,
+			NULL,
+			NULL
+			)
+			
+		set @c = @c+1
+	end
+	
+			while (@f < @cant_farmacia)
+	begin
+		insert into CUATRO_QUESOS.Bonos(Numero, Fecha_Impresion, Nro_Afiliado, Cod_Plan, Id_Compra, Tipo_Bono, Fecha_Vencimiento, Nro_Consulta, Nro_Usuario)
+		values
+			(
+			(@f_base+@f),
+			@fecha_fija,
+			@afiliado,
+			@plan,
+			@id_compra,
+			'Farmacia',
+			dateadd(day, 60, @fecha_fija),
+			NULL,
+			NULL
+			)
+			
+		set @f = @f+1
+	end	
+
+	return (@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
+
+end
+
+GO
+
+
+create procedure CUATRO_QUESOS.getDatosParaCompra (@afiliado numeric(18))
+as
+begin
+	select Descripcion, Precio_Bono_Consulta, Precio_Bono_Farmacia
+	from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Cod_Plan = Codigo
+	where Afiliados.Nro_Afiliado = @afiliado and afiliados.Fecha_Baja is null
+end
+
+GO
+--FIN COMPRA DE BONOS
+
+
+
+
+
 
 IF @@ERROR != 0 ROLLBACK
 
