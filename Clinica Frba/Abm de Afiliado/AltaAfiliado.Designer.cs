@@ -194,6 +194,7 @@
             // 
             // tipoDoc
             // 
+            this.tipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoDoc.FormattingEnabled = true;
             this.tipoDoc.Items.AddRange(new object[] {
             "DNI",
@@ -250,6 +251,7 @@
             // 
             // estadoCivil
             // 
+            this.estadoCivil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.estadoCivil.FormattingEnabled = true;
             this.estadoCivil.Items.AddRange(new object[] {
             "Soltero/a",
@@ -304,6 +306,7 @@
             // 
             // planMedico
             // 
+            this.planMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.planMedico.FormattingEnabled = true;
             this.planMedico.Location = new System.Drawing.Point(439, 72);
             this.planMedico.Name = "planMedico";

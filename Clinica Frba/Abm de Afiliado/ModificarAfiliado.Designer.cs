@@ -49,6 +49,7 @@
             // 
             // planMedicoBox
             // 
+            this.planMedicoBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.planMedicoBox.FormattingEnabled = true;
             this.planMedicoBox.Location = new System.Drawing.Point(518, 73);
             this.planMedicoBox.Name = "planMedicoBox";
@@ -58,14 +59,15 @@
             // 
             // cantFamiliaresBox
             // 
-            this.cantFamiliaresBox.Location = new System.Drawing.Point(566, 131);
+            this.cantFamiliaresBox.Location = new System.Drawing.Point(548, 131);
             this.cantFamiliaresBox.Name = "cantFamiliaresBox";
-            this.cantFamiliaresBox.Size = new System.Drawing.Size(130, 20);
+            this.cantFamiliaresBox.Size = new System.Drawing.Size(47, 20);
             this.cantFamiliaresBox.TabIndex = 169;
             this.cantFamiliaresBox.TextChanged += new System.EventHandler(this.cantFamiliaresBox_TextChanged);
             // 
             // estadoCivilBox
             // 
+            this.estadoCivilBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.estadoCivilBox.FormattingEnabled = true;
             this.estadoCivilBox.Items.AddRange(new object[] {
             "Soltero/a",
