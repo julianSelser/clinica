@@ -30,6 +30,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             cargarGrilla();
             ocultarColumnas();
             cargarBotonFuncionalidad();
+            validarCampos();
         }
 
         private void cargarPlanesMedicos()
@@ -139,9 +140,43 @@ namespace Clinica_Frba.Abm_de_Afiliado
             return afiliado;
         }
 
+        private void validarCampos()
+        {
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Nombre", nombreBox.Text, false, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Apellido", apellidoBox.Text, false, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Nro Afiliado Raiz", nroAfiliadoRaizBox.Text, false, Controlador.TipoValidacion.Codigo));
+            try
+            {
+                Controlador.validarCampos(campos);
+                buscarButton.Enabled = true;
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion validacion)
+            {
+                errorBox.Text = validacion.mensaje;
+                buscarButton.Enabled = false;
+            }
+        }
+
         private void ListadoAfiliados_Activated(object sender, EventArgs e)
         {
             cargarGrilla();
+        }
+
+        private void nombreBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void apellidoBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void nroAfiliadoRaizBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
         }
     }
 }

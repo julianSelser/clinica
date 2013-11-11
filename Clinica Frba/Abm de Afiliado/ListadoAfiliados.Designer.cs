@@ -39,6 +39,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.errorBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaAfiliados)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +88,7 @@
             this.nombreBox.Name = "nombreBox";
             this.nombreBox.Size = new System.Drawing.Size(100, 20);
             this.nombreBox.TabIndex = 4;
+            this.nombreBox.TextChanged += new System.EventHandler(this.nombreBox_TextChanged);
             // 
             // apellidoBox
             // 
@@ -94,6 +96,7 @@
             this.apellidoBox.Name = "apellidoBox";
             this.apellidoBox.Size = new System.Drawing.Size(100, 20);
             this.apellidoBox.TabIndex = 5;
+            this.apellidoBox.TextChanged += new System.EventHandler(this.apellidoBox_TextChanged);
             // 
             // grillaAfiliados
             // 
@@ -111,6 +114,7 @@
             this.nroAfiliadoRaizBox.Name = "nroAfiliadoRaizBox";
             this.nroAfiliadoRaizBox.Size = new System.Drawing.Size(100, 20);
             this.nroAfiliadoRaizBox.TabIndex = 7;
+            this.nroAfiliadoRaizBox.TextChanged += new System.EventHandler(this.nroAfiliadoRaizBox_TextChanged);
             // 
             // label3
             // 
@@ -148,11 +152,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda";
             // 
+            // errorBox
+            // 
+            this.errorBox.ForeColor = System.Drawing.Color.Red;
+            this.errorBox.Location = new System.Drawing.Point(472, 19);
+            this.errorBox.Multiline = true;
+            this.errorBox.Name = "errorBox";
+            this.errorBox.ReadOnly = true;
+            this.errorBox.Size = new System.Drawing.Size(645, 39);
+            this.errorBox.TabIndex = 11;
+            // 
             // ListadoAfiliados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1129, 475);
+            this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.grillaAfiliados);
@@ -163,6 +178,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -179,5 +195,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox errorBox;
     }
 }
