@@ -1,4 +1,4 @@
-﻿namespace Clinica_Frba.Abm_de_Afiliado
+﻿namespace Clinica_Frba.Abm_de_Profesional
 {
     partial class ListadoProfesionales
     {
@@ -34,13 +34,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nombreBox = new System.Windows.Forms.TextBox();
             this.apellidoBox = new System.Windows.Forms.TextBox();
-            this.grillaAfiliados = new System.Windows.Forms.DataGridView();
-            this.nroAfiliadoRaizBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.grillaProfesionales = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.errorBox = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.grillaAfiliados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,32 +96,15 @@
             this.apellidoBox.TabIndex = 5;
             this.apellidoBox.TextChanged += new System.EventHandler(this.apellidoBox_TextChanged);
             // 
-            // grillaAfiliados
+            // grillaProfesionales
             // 
-            this.grillaAfiliados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaAfiliados.Location = new System.Drawing.Point(16, 119);
-            this.grillaAfiliados.Name = "grillaAfiliados";
-            this.grillaAfiliados.RowTemplate.ReadOnly = true;
-            this.grillaAfiliados.Size = new System.Drawing.Size(1101, 313);
-            this.grillaAfiliados.TabIndex = 6;
-            this.grillaAfiliados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaAfiliados_CellContentClick);
-            // 
-            // nroAfiliadoRaizBox
-            // 
-            this.nroAfiliadoRaizBox.Location = new System.Drawing.Point(299, 26);
-            this.nroAfiliadoRaizBox.Name = "nroAfiliadoRaizBox";
-            this.nroAfiliadoRaizBox.Size = new System.Drawing.Size(100, 20);
-            this.nroAfiliadoRaizBox.TabIndex = 7;
-            this.nroAfiliadoRaizBox.TextChanged += new System.EventHandler(this.nroAfiliadoRaizBox_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(183, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Número Afiliado Raíz:";
+            this.grillaProfesionales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaProfesionales.Location = new System.Drawing.Point(16, 119);
+            this.grillaProfesionales.Name = "grillaProfesionales";
+            this.grillaProfesionales.RowTemplate.ReadOnly = true;
+            this.grillaProfesionales.Size = new System.Drawing.Size(1101, 313);
+            this.grillaProfesionales.TabIndex = 6;
+            this.grillaProfesionales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaAfiliados_CellContentClick);
             // 
             // cancelButton
             // 
@@ -139,8 +120,6 @@
             // 
             this.groupBox1.Controls.Add(this.nombreBox);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.nroAfiliadoRaizBox);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.buscarButton);
             this.groupBox1.Controls.Add(this.limpiarButton);
             this.groupBox1.Controls.Add(this.label2);
@@ -162,7 +141,7 @@
             this.errorBox.Size = new System.Drawing.Size(645, 39);
             this.errorBox.TabIndex = 11;
             // 
-            // ListadoAfiliados
+            // ListadoProfesionales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -170,11 +149,11 @@
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.grillaAfiliados);
-            this.Name = "ListadoAfiliados";
-            this.Text = "Listado de Afiliados";
-            this.Activated += new System.EventHandler(this.ListadoAfiliados_Activated);
-            ((System.ComponentModel.ISupportInitialize)(this.grillaAfiliados)).EndInit();
+            this.Controls.Add(this.grillaProfesionales);
+            this.Name = "ListadoProfesionales";
+            this.Text = "Listado de Profesionales";
+            this.Activated += new System.EventHandler(this.ListadoProfesionales_Activated);
+            ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -190,9 +169,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox nombreBox;
         private System.Windows.Forms.TextBox apellidoBox;
-        private System.Windows.Forms.DataGridView grillaAfiliados;
-        private System.Windows.Forms.TextBox nroAfiliadoRaizBox;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView grillaProfesionales;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox errorBox;

@@ -20,7 +20,7 @@ namespace Clinica_Frba.AppModel
                 medicos.PrimaryKey = new DataColumn[] { medicos.Columns["ID Medico"] };
             }
             DataRow fila = medicos.Rows.Find(id);
-            medico = new Profesional(Convert.ToInt32(fila[0]), fila[1].ToString(), fila[2].ToString(), fila[3].ToString(), fila[4].ToString(), Convert.ToInt32(fila[5]), fila[6].ToString(), Convert.ToInt32(fila[7]), fila[8].ToString(), Convert.ToDateTime(fila[9]), Convert.ToInt32(fila[10]), Convert.ToDateTime(fila[11]), Convert.ToDateTime(fila[12]), Convert.ToBoolean(fila[13])); ;
+            medico = new Profesional(); ;
             return medico;
         }
 

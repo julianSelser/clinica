@@ -25,19 +25,19 @@ namespace Clinica_Frba.Abm_de_Profesional
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void altaButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Alta_Profesional(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new AltaProfesional(this), this);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void bajaButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Baja_Profesional(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Baja"), this);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void modificarButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new Modificar_Profesional(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Modificar"), this);
         }
     }
 }

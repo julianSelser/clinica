@@ -24,9 +24,6 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\bin\Debug\Clinica Frba.exe.config
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Afiliado.ABM_Afiliado.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.ABM_Profesional.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.Alta_Profesional.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.Baja_Profesional.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.Modificar_Profesional.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.ABM_Rol.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\bin\Debug\Clinica Frba.exe
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\bin\Debug\Clinica Frba.pdb
@@ -42,7 +39,6 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Properties.Resources.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica Frba.csproj.GenerateResource.Cache
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.Modificar_Profesional2.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.Modificar_Profesional2.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Alta_Rol.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Modificar_Rol2.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Modificar_Rol.resources
@@ -127,6 +123,10 @@ C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.A
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.BaseSetearMotivo.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.SetearMotivoCancelacion.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.SetMotivoCancelarPeriodo.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Afiliado.ListadoAfiliados.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Afiliado.PeticionAccion.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.DialogConLabeledTextBox.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Afiliado.ListadoProfesionales.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.AltaProfesional.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.BajaProfesional.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.ListadoProfesionales.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Profesional.ModificarProfesional.resources

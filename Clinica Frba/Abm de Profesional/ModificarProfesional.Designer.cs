@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Profesional
 {
-    partial class Modificar_Profesional2
+    partial class ModificarProfesional
     {
         /// <summary>
         /// Required designer variable.

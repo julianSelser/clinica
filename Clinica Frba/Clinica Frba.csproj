@@ -79,29 +79,29 @@
     <Compile Include="Abm de Afiliado\PeticionAccion.Designer.cs">
       <DependentUpon>PeticionAccion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Profesional\Alta_Profesional.cs">
+    <Compile Include="Abm de Profesional\AltaProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm de Profesional\Alta_Profesional.Designer.cs">
-      <DependentUpon>Alta_Profesional.cs</DependentUpon>
+    <Compile Include="Abm de Profesional\AltaProfesional.Designer.cs">
+      <DependentUpon>AltaProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Profesional\Baja_Profesional.cs">
+    <Compile Include="Abm de Profesional\BajaProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm de Profesional\Baja_Profesional.Designer.cs">
-      <DependentUpon>Baja_Profesional.cs</DependentUpon>
+    <Compile Include="Abm de Profesional\BajaProfesional.Designer.cs">
+      <DependentUpon>BajaProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Profesional\Modificar_Profesional2.cs">
+    <Compile Include="Abm de Profesional\ListadoProfesionales.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm de Profesional\Modificar_Profesional2.Designer.cs">
-      <DependentUpon>Modificar_Profesional2.cs</DependentUpon>
+    <Compile Include="Abm de Profesional\ListadoProfesionales.Designer.cs">
+      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Profesional\Modificar_Profesional.cs">
+    <Compile Include="Abm de Profesional\ModificarProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm de Profesional\Modificar_Profesional.Designer.cs">
-      <DependentUpon>Modificar_Profesional.cs</DependentUpon>
+    <Compile Include="Abm de Profesional\ModificarProfesional.Designer.cs">
+      <DependentUpon>ModificarProfesional.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm de Rol\ABM_Rol.cs">
       <SubType>Form</SubType>
@@ -279,17 +279,17 @@
     <EmbeddedResource Include="Abm de Profesional\ABM_Profesional.resx">
       <DependentUpon>ABM_Profesional.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Profesional\Alta_Profesional.resx">
-      <DependentUpon>Alta_Profesional.cs</DependentUpon>
+    <EmbeddedResource Include="Abm de Profesional\AltaProfesional.resx">
+      <DependentUpon>AltaProfesional.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Profesional\Baja_Profesional.resx">
-      <DependentUpon>Baja_Profesional.cs</DependentUpon>
+    <EmbeddedResource Include="Abm de Profesional\BajaProfesional.resx">
+      <DependentUpon>BajaProfesional.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Profesional\Modificar_Profesional2.resx">
-      <DependentUpon>Modificar_Profesional2.cs</DependentUpon>
+    <EmbeddedResource Include="Abm de Profesional\ListadoProfesionales.resx">
+      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Profesional\Modificar_Profesional.resx">
-      <DependentUpon>Modificar_Profesional.cs</DependentUpon>
+    <EmbeddedResource Include="Abm de Profesional\ModificarProfesional.resx">
+      <DependentUpon>ModificarProfesional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
