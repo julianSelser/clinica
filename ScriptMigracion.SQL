@@ -1449,7 +1449,58 @@ BEGIN
 END
 GO
 
---procedures afiliados
+/********* PROCEDURES AFILIADOS ***************/
+
+CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
+RETURNS int
+BEGIN
+        DECLARE @nroFamiliar numeric(18)
+        
+        SELECT TOP 1 @nroFamiliar = Nro_Afiliado + 1
+        FROM CUATRO_QUESOS.Afiliados
+        WHERE Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100
+        ORDER BY Nro_Afiliado DESC
+        
+        IF(@nroFamiliar % 100 = 2) SET @nroFamiliar = @nroFamiliar + 1
+        
+        RETURN @nroFamiliar
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.tipoAfiliado(@nroAfiliado numeric(18)) --1 es titular, 2 es conyuge, 3 es familiar no titular ni conyuge
+RETURNS int
+BEGIN
+        DECLARE @tipo int
+        SET @tipo = @nroAfiliado % 100
+        RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18))
+RETURNS int
+BEGIN
+RETURN (CAST(@nroAfiliado AS INT)/ 100)*100
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.cantFamiliaresRegistrados(@nroAfiliadoTitular numeric(18))
+AS
+DECLARE @cantidadFamiliares int
+SELECT @cantidadFamiliares = COUNT(*)
+FROM CUATRO_QUESOS.Afiliados
+WHERE Nro_Titular = @nroAfiliadoTitular
+RETURN @cantidadFamiliares
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.getConyuge(@nroAfiliadoTitular numeric(18))
+AS
+SELECT Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo', 
+Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
+Fecha_Nac 'Fecha de Nacimiento', Planes_Medicos.Descripcion 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
+Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo' 
+FROM CUATRO_QUESOS.Afiliados LEFT JOIN CUATRO_QUESOS.Planes_Medicos ON Afiliados.Cod_Plan = Planes_Medicos.Codigo
+WHERE Nro_Conyuge = @nroAfiliadoTitular
+GO
 
 CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado  --Procedure para dar de alta un afiliado, dependiendo del tipo de afiliado insertara valores distintos y en distintas columnas
 (@Nombre varchar(255),
@@ -1549,26 +1600,37 @@ SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',
 Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
 Fecha_Nac 'Fecha de Nacimiento', Planes_Medicos.Descripcion 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
 Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo' 
-FROM CUATRO_QUESOS.Afiliados JOIN CUATRO_QUESOS.Planes_Medicos ON Afiliados.Cod_Plan = Planes_Medicos.Codigo
+FROM CUATRO_QUESOS.Afiliados LEFT JOIN CUATRO_QUESOS.Planes_Medicos ON Afiliados.Cod_Plan = Planes_Medicos.Codigo
 WHERE Nombre LIKE '%' + @nombre + '%'
 AND Apellido LIKE '%' + @apellido + '%'
 AND Tipo_Doc LIKE '%' + @tipoDoc + '%'
 AND ((@nroDoc > 0 AND Nro_Doc = @nroDoc) OR (@nroDoc = 0))
 AND ((@nroAfiliadoRaiz > 99 AND Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100) OR
 (@nroAfiliadoRaiz <= 99))
+ORDER BY Nro_Afiliado DESC
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18), @fechaSistema datetime)
+CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18), @fechaSistema datetime) --la baja de un afiliado es logica, no fisica
 AS
-UPDATE CUATRO_QUESOS.Afiliados
-SET Fecha_Baja = @fechaSistema
-WHERE Nro_Afiliado = @nroAfiliado
+IF(CUATRO_QUESOS.tipoAfiliado(@nroAfiliado) = 1) --si el afiliado a dar de baja es titular, da de baja tambien a su conyuge y a los familiares que tiene a cargo
+BEGIN
+	UPDATE CUATRO_QUESOS.Afiliados
+	SET Fecha_Baja = @fechaSistema
+	WHERE Nro_Afiliado = @nroAfiliado OR Nro_Conyuge = @nroAfiliado OR Nro_Titular = @nroAfiliado
+END
+ELSE
+BEGIN	-- si es otro tipo de afiliado, le da de baja solamente a el
+	UPDATE CUATRO_QUESOS.Afiliados
+	SET Fecha_Baja = @fechaSistema
+	WHERE Nro_Afiliado = @nroAfiliado
+END
 
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.buscarNroAfiliado @nombre varchar(255), @apellido varchar(255), @tipoDoc varchar(3), @nroDoc numeric(18)
 AS
 DECLARE @nroAfiliado numeric(18)
+
 SELECT @nroAfiliado = Nro_Afiliado
 FROM CUATRO_QUESOS.Afiliados
 WHERE Nombre = @nombre AND Apellido = @apellido AND Tipo_Doc = @tipoDoc AND Nro_Doc = @nroDoc
@@ -1637,39 +1699,10 @@ END
 
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.tipoAfiliado(@nroAfiliado numeric(18)) --1 es titular, 2 es conyuge, 3 es familiar no titular ni conyuge
-RETURNS int
-BEGIN
-        DECLARE @tipo int
-        SET @tipo = @nroAfiliado % 100
-        RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
-END
-GO
+/********* FIN PROCEDURES AFILIADOS ***************/
 
-CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18))
-RETURNS int
-BEGIN
-RETURN (CAST(@nroAfiliado AS INT)/ 100)*100
-END
-GO
 
-CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
-RETURNS int
-BEGIN
-        DECLARE @nroFamiliar numeric(18)
-        
-        SELECT TOP 1 @nroFamiliar = Nro_Afiliado + 1
-        FROM CUATRO_QUESOS.Afiliados
-        WHERE Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100
-        ORDER BY Nro_Afiliado DESC
-        
-        IF(@nroFamiliar % 100 = 2) SET @nroFamiliar = @nroFamiliar + 1
-        
-        RETURN @nroFamiliar
-END
-GO
-
---Procedure Planes Medicos
+/********** PROCEDURES PLANES MEDICOS ************/
 
 CREATE PROCEDURE CUATRO_QUESOS.getPlanesMedicos @codigo numeric(18), @descripcion varchar(255),@precioBonoConsulta int, @precioBonoFarmacia int
 AS
@@ -1680,6 +1713,8 @@ AND Descripcion LIKE '%' + @descripcion + '%'
 AND Precio_Bono_Consulta >= @precioBonoConsulta
 AND Precio_Bono_Farmacia >= @precioBonoFarmacia
 GO
+
+/********** FIN PROCEDURES PLANES MEDICOS ************/
 
 --procedures abm rol
 
