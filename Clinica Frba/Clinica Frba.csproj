@@ -145,6 +145,12 @@
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\AppAfiliado.cs" />
     <Compile Include="AppModel\ConectorSQL.cs" />
+    <Compile Include="AppModel\DialogConLabeledTextBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppModel\DialogConLabeledTextBox.Designer.cs">
+      <DependentUpon>DialogConLabeledTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppModel\ErrorManager.cs" />
     <Compile Include="AppModel\Excepciones\AfiliadoYaExiste.cs" />
     <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
@@ -302,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\Modificar_Rol.resx">
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppModel\DialogConLabeledTextBox.resx">
+      <DependentUpon>DialogConLabeledTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\AdministradorCancelar.resx">
       <DependentUpon>AdministradorCancelar.cs</DependentUpon>

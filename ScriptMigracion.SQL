@@ -1714,6 +1714,19 @@ AND Precio_Bono_Consulta >= @precioBonoConsulta
 AND Precio_Bono_Farmacia >= @precioBonoFarmacia
 GO
 
+CREATE PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico 
+@nroAfiliado numeric(18), 
+@fecha datetime,  
+@planMedicoAnterior numeric(18), 
+@planMedicoNuevo numeric(18),
+@motivo varchar(255)
+
+AS
+BEGIN
+	INSERT INTO CUATRO_QUESOS.Cambios_Plan
+	VALUES (@nroAfiliado, @fecha, @planMedicoAnterior, @planMedicoNuevo, @motivo)
+END
+
 /********** FIN PROCEDURES PLANES MEDICOS ************/
 
 --procedures abm rol

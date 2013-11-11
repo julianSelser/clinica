@@ -16,12 +16,14 @@ namespace Clinica_Frba.Abm_de_Afiliado
         private Form padre;
         private Afiliado afiliado;
         List<PlanMedico> planes;
+        int planOrigen;
 
         internal ModificarAfiliado(Form padre, Afiliado afiliado)
         {
             InitializeComponent();
             this.padre = padre;
             this.afiliado = afiliado;
+            this.planOrigen = afiliado.codPlan;
             habilitarBotonesSegunTipo();
             acceptButton.Enabled = false;
             cargarCombos();
@@ -95,7 +97,21 @@ namespace Clinica_Frba.Abm_de_Afiliado
             actualizarAfiliado();
             AppAfiliado.actualizarAfiliado(afiliado);
             MessageBox.Show("La actualización se ha realizado con éxito");
+            registrarCambioPlan();
             AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void registrarCambioPlan()
+        {
+            if (afiliado.codPlan != planOrigen)
+            {
+                DialogConLabeledTextBox dialogMotivo = new DialogConLabeledTextBox("Ingrese el motivo de cambio de plan médico");
+                if (dialogMotivo.ShowDialog() == DialogResult.OK)
+                {
+                    AppAfiliado.registrarCambioPlanMedico(afiliado, planOrigen, dialogMotivo.texto);
+                    MessageBox.Show("El registro de cambio de plan médico se ha realizado con éxito");
+                }
+            }
         }
 
         private void actualizarAfiliado()

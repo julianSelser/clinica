@@ -93,5 +93,10 @@ namespace Clinica_Frba.AppModel
         {
             return checkIfExists("getConyuge",afiliado.nroAfiliado);
         }
+
+        internal static void registrarCambioPlanMedico(Afiliado afiliado, int planMedicoOrigen, string motivo)
+        {
+            ejecutarProcedure("registrarCambioPlanMedico", afiliado.nroAfiliado, Globales.getFechaSistema(), planMedicoOrigen, afiliado.codPlan, motivo);
+        }
     }
 }
