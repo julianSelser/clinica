@@ -86,9 +86,9 @@ namespace Clinica_Frba.Abm_de_Profesional
                 MessageBox.Show("El alta del médico se ha realizado con éxito.\n\nDetalle:\nId: "+profesional.id+"\nMédico: " + profesional.nombre + " " + profesional.apellido + "\n" + profesional.tipoDoc + ".: " + profesional.nroDoc);
                 AsistenteVistas.volverAPadreYCerrar(padre, this);
             }
-            catch (SinEspecilidadesCheckedException ex)
+            catch (UserDefinedException ex)
             {
-                ErrorManager.messageWarningBox(ex, "Alta Profesional");
+                ErrorManager.messageErrorBox(ex, "Alta Profesional");
             }
         }
 

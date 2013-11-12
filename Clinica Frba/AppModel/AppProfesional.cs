@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using Clinica_Frba.Domain;
+using Clinica_Frba.AppModel.Excepciones;
 
 namespace Clinica_Frba.AppModel
 {
@@ -67,6 +68,7 @@ namespace Clinica_Frba.AppModel
 
         private static int darAltaMedico(Profesional profesional)
         {
+            if (buscarMedico(profesional)>0) throw new MedicoYaExisteException(profesional);
             ejecutarProcedure("altaMedico", profesional.nombre, profesional.apellido, profesional.sexo, profesional.tipoDoc, profesional.nroDoc, profesional.direccion, profesional.telefono, profesional.mail, profesional.fechaNac, profesional.nroMatricula);
             return buscarMedico(profesional);
         }
