@@ -82,6 +82,7 @@ namespace Clinica_Frba.Compra_de_Bono
 
             try
             {
+                Convert.ToUInt64(textBox1.Text); //esto me asegura que no me pongan cosas raras
                 num_afiliado = Convert.ToDecimal(textBox1.Text);
             }
             catch

@@ -28,7 +28,6 @@ namespace Clinica_Frba.Registrar_Agenda
         private void botonBuscarMedico_Click(object sender, EventArgs e)
         {
             decimal id_medico;
-            int existe;
 
             if (textBox1.Text.Length > 18)
             {
@@ -38,6 +37,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
             try
             {
+                Convert.ToUInt64(textBox1.Text); // esto me asegura que no me pongan cosas raras
                 id_medico = Convert.ToDecimal(textBox1.Text);
             }
             catch
