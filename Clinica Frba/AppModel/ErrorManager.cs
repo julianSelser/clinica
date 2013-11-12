@@ -22,5 +22,10 @@ namespace Clinica_Frba.AppModel
         {
             MessageBox.Show(ex.mensaje, nombreVentana, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        public static void messageWarningBox(UserDefinedException ex, string nombreVentana)
+        {
+            MessageBox.Show(ex.mensaje, nombreVentana, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
     }
 }

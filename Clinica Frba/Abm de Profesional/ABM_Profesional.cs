@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+//Funcionalidad que permite dar de alta, baja y modificar un profesional
+
 namespace Clinica_Frba.Abm_de_Profesional
 {
     public partial class ABM_Profesional : Form

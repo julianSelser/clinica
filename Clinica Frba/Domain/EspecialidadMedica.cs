@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+//Abstraccion que representa a una especialidad medica
+
 namespace Clinica_Frba.Domain
 {
     public class EspecialidadMedica

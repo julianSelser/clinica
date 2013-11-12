@@ -143,11 +143,11 @@ CREATE TABLE CUATRO_QUESOS.Medicos (
         Nro_Doc numeric(18) NOT NULL,
         Direccion varchar(255) NOT NULL,
         Telefono numeric(18) NOT NULL,
-        Mail varchar(255) NOT NULL,
+        Mail varchar(255),
         Fecha_Nac datetime NOT NULL,
-        Nro_Matricula numeric(18),
-        Fecha_Atencion_Desde datetime NOT NULL,
-        Fecha_Atencion_Hasta datetime NOT NULL,
+        Nro_Matricula numeric(18) NOT NULL,
+        Fecha_Atencion_Desde datetime,
+        Fecha_Atencion_Hasta datetime,
         Habilitado bit NOT NULL DEFAULT 1
 )
 ;
@@ -1340,58 +1340,51 @@ GO
 
 --procedures medicos
 
-CREATE PROCEDURE CUATRO_QUESOS.altaMedico(@nombre varchar(255),
-                                                                                 @apellido varchar(255),
-                                                                                 @sexo varchar(255),
-                                                                                 @tipoDoc varchar(3),
-                                                                                 @nroDoc numeric(18),
-                                                                                 @direccion varchar(255),
-                                                                                 @telefono numeric(18),
-                                                                                 @mail varchar(255),
-                                                                                 @fechaNac datetime,
-                                                                                 @nroMatricula numeric(18),
-                                                                                 @fechaAtencionDesde datetime,
-                                                                                 @fechaAtencionHasta datetime)
+CREATE PROCEDURE CUATRO_QUESOS.altaMedico(
+@nombre varchar(255),
+@apellido varchar(255),
+@sexo varchar(255),
+@tipoDoc varchar(3),
+@nroDoc numeric(18),
+@direccion varchar(255),
+@telefono numeric(18),
+@mail varchar(255),
+@fechaNac datetime,
+@nroMatricula numeric(18)
+)
 AS
-        BEGIN TRAN
 
+INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula)
 
-                INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula, Fecha_Atencion_Desde, Fecha_Atencion_Hasta, Habilitado)
-
-                VALUES (
-                                @nombre,
-                                @apellido,
-                                @sexo,
-                                @tipoDoc,
-                                @nroDoc,
-                                @direccion,
-                                @telefono,
-                                @mail,
-                                @fechaNac,
-                                @nroMatricula,
-                                @fechaAtencionDesde,
-                                @fechaAtencionHasta,
-                                1)
-        COMMIT
-
---falta hacer el insert de las especialidades, y horarios de consulta
+VALUES (
+@nombre,
+@apellido,
+@sexo,
+@tipoDoc,
+@nroDoc,
+@direccion,
+@telefono,
+@mail,
+@fechaNac,
+@nroMatricula
+)
 
 GO
 
 
-CREATE PROCEDURE CUATRO_QUESOS.updateMedico(@id numeric(18),
-                                                                                        @nombre varchar(255),
-                                                                                        @apellido varchar(255),
-                                                                                 @sexo varchar(255),
-                                                                                        @tipoDoc varchar(3),
-                                                                                        @nroDoc numeric(18),
-                                                                                        @direccion varchar(255),
-                                                                                        @telefono numeric(18),
-                                                                                        @mail varchar(255),
-                                                                                        @fechaNac datetime,
-                                                                                        @nroMatricula numeric(18),
-                                                                                        @fechaAtencionDesde datetime,
-                                                                                        @fechaAtencionHasta datetime)
+CREATE PROCEDURE CUATRO_QUESOS.updateMedico
+(@id numeric(18),
+@nombre varchar(255),
+@apellido varchar(255),
+@sexo varchar(255),
+@tipoDoc varchar(3),
+@nroDoc numeric(18),
+@direccion varchar(255),
+@telefono numeric(18),
+@mail varchar(255),
+@fechaNac datetime,
+@nroMatricula numeric(18)
+)
 AS
 BEGIN TRAN
         UPDATE CUATRO_QUESOS.Medicos
@@ -1405,24 +1398,21 @@ BEGIN TRAN
                         Telefono = @telefono,
                         Mail = @mail,
                         Fecha_Nac = @fechaNac,
-                        Nro_Matricula = @nroMatricula,
-                        Fecha_Atencion_Desde = @fechaAtencionDesde,
-                        Fecha_Atencion_Hasta = @fechaAtencionHasta
-                        
+                        Nro_Matricula = @nroMatricula
+
                 WHERE Id_Medico = @id
 COMMIT
                 
 GO
 
 
-CREATE PROCEDURE CUATRO_QUESOS.bajaMedico(@dni numeric(18), @nombre varchar(255), @apellido varchar(255)) --lo busco por el dni, nombre y apellido
+CREATE PROCEDURE CUATRO_QUESOS.bajaMedico(@id numeric(18))
 AS
-BEGIN TRAN
-        DELETE FROM CUATRO_QUESOS.Medicos
-        WHERE Nro_Doc = @dni AND
-                 Nombre = @nombre AND
-                 Apellido = @apellido
-COMMIT
+BEGIN
+        UPDATE CUATRO_QUESOS.Medicos
+        SET Habilitado = 0
+        WHERE Id_Medico = @id
+END
 
 GO
 
@@ -1438,13 +1428,13 @@ Fecha_Atencion_Hasta 'Fecha Atencion Hasta', Habilitado 'Habilitado'
 FROM CUATRO_QUESOS.Medicos
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255), @nroDoc numeric(18))
-RETURNS numeric(18)
+CREATE PROCEDURE CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))
+AS
 BEGIN
         DECLARE @Id numeric(18)
         SELECT @Id = Id_Medico
         FROM CUATRO_QUESOS.Medicos
-        WHERE Nombre = @nombre AND Apellido = @apellido AND Nro_Doc = @nroDoc
+        WHERE Nombre = @nombre AND Apellido = @apellido AND Nro_Doc = @nroDoc AND Tipo_Doc = @tipoDoc
         RETURN @Id
 END
 GO
@@ -1456,6 +1446,12 @@ SELECT Especialidades.Codigo 'Codigo', Especialidades.Descripcion 'Descripcion',
 FROM CUATRO_QUESOS.Especialidades
 GO
 
+CREATE PROCEDURE CUATRO_QUESOS.altaMedico_Especialidad ( @codEspecialidad numeric(18), @Id numeric(18) )
+AS
+INSERT INTO CUATRO_QUESOS.Especialidades_Medicos(Cod_Especialidad, Id_Medico)
+VALUES (@codEspecialidad, @Id)
+
+GO
 /********* PROCEDURES AFILIADOS ***************/
 
 CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
@@ -1733,7 +1729,7 @@ BEGIN
 	INSERT INTO CUATRO_QUESOS.Cambios_Plan
 	VALUES (@nroAfiliado, @fecha, @planMedicoAnterior, @planMedicoNuevo, @motivo)
 END
-
+GO
 /********** FIN PROCEDURES PLANES MEDICOS ************/
 
 --procedures abm rol

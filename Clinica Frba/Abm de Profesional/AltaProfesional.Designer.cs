@@ -42,8 +42,6 @@
             this.telBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.mailBox = new System.Windows.Forms.TextBox();
@@ -51,8 +49,6 @@
             this.acceptButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.especialidadesCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.fechaDesdeBox = new System.Windows.Forms.DateTimePicker();
-            this.fechaHastaBox = new System.Windows.Forms.DateTimePicker();
             this.fechaNacBox = new System.Windows.Forms.DateTimePicker();
             this.masculinoRadioButton = new System.Windows.Forms.RadioButton();
             this.femeninoRadioButton = new System.Windows.Forms.RadioButton();
@@ -76,6 +72,7 @@
             this.nombreBox.Name = "nombreBox";
             this.nombreBox.Size = new System.Drawing.Size(203, 20);
             this.nombreBox.TabIndex = 1;
+            this.nombreBox.TextChanged += new System.EventHandler(this.nombreBox_TextChanged);
             // 
             // label2
             // 
@@ -92,6 +89,7 @@
             this.apellidoBox.Name = "apellidoBox";
             this.apellidoBox.Size = new System.Drawing.Size(203, 20);
             this.apellidoBox.TabIndex = 3;
+            this.apellidoBox.TextChanged += new System.EventHandler(this.apellidoBox_TextChanged);
             // 
             // label3
             // 
@@ -114,6 +112,7 @@
             this.tipoDocBox.Name = "tipoDocBox";
             this.tipoDocBox.Size = new System.Drawing.Size(55, 21);
             this.tipoDocBox.TabIndex = 5;
+            this.tipoDocBox.SelectedIndexChanged += new System.EventHandler(this.tipoDocBox_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -130,6 +129,7 @@
             this.nroDocBox.Name = "nroDocBox";
             this.nroDocBox.Size = new System.Drawing.Size(203, 20);
             this.nroDocBox.TabIndex = 7;
+            this.nroDocBox.TextChanged += new System.EventHandler(this.nroDocBox_TextChanged);
             // 
             // label5
             // 
@@ -146,6 +146,7 @@
             this.direcBox.Name = "direcBox";
             this.direcBox.Size = new System.Drawing.Size(203, 20);
             this.direcBox.TabIndex = 9;
+            this.direcBox.TextChanged += new System.EventHandler(this.direcBox_TextChanged);
             // 
             // label6
             // 
@@ -162,6 +163,7 @@
             this.telBox.Name = "telBox";
             this.telBox.Size = new System.Drawing.Size(203, 20);
             this.telBox.TabIndex = 11;
+            this.telBox.TextChanged += new System.EventHandler(this.telBox_TextChanged);
             // 
             // label7
             // 
@@ -180,24 +182,6 @@
             this.label8.Size = new System.Drawing.Size(93, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "Numero Matricula:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(24, 349);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(119, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Fecha Atencion Desde:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(24, 379);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(116, 13);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "Fecha Atencion Hasta:";
             // 
             // label11
             // 
@@ -223,6 +207,7 @@
             this.mailBox.Name = "mailBox";
             this.mailBox.Size = new System.Drawing.Size(203, 20);
             this.mailBox.TabIndex = 21;
+            this.mailBox.TextChanged += new System.EventHandler(this.mailBox_TextChanged);
             // 
             // matriculaBox
             // 
@@ -230,6 +215,7 @@
             this.matriculaBox.Name = "matriculaBox";
             this.matriculaBox.Size = new System.Drawing.Size(200, 20);
             this.matriculaBox.TabIndex = 23;
+            this.matriculaBox.TextChanged += new System.EventHandler(this.matriculaBox_TextChanged);
             // 
             // acceptButton
             // 
@@ -239,6 +225,7 @@
             this.acceptButton.TabIndex = 30;
             this.acceptButton.Text = "Aceptar";
             this.acceptButton.UseVisualStyleBackColor = true;
+            this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
             // 
             // cancelButton
             // 
@@ -248,7 +235,7 @@
             this.cancelButton.TabIndex = 31;
             this.cancelButton.Text = "Cancelar";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.button2_Click);
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // especialidadesCheckedListBox
             // 
@@ -257,20 +244,6 @@
             this.especialidadesCheckedListBox.Name = "especialidadesCheckedListBox";
             this.especialidadesCheckedListBox.Size = new System.Drawing.Size(319, 244);
             this.especialidadesCheckedListBox.TabIndex = 35;
-            // 
-            // fechaDesdeBox
-            // 
-            this.fechaDesdeBox.Location = new System.Drawing.Point(146, 343);
-            this.fechaDesdeBox.Name = "fechaDesdeBox";
-            this.fechaDesdeBox.Size = new System.Drawing.Size(193, 20);
-            this.fechaDesdeBox.TabIndex = 36;
-            // 
-            // fechaHastaBox
-            // 
-            this.fechaHastaBox.Location = new System.Drawing.Point(146, 373);
-            this.fechaHastaBox.Name = "fechaHastaBox";
-            this.fechaHastaBox.Size = new System.Drawing.Size(193, 20);
-            this.fechaHastaBox.TabIndex = 37;
             // 
             // fechaNacBox
             // 
@@ -331,16 +304,12 @@
             this.Controls.Add(this.femeninoRadioButton);
             this.Controls.Add(this.masculinoRadioButton);
             this.Controls.Add(this.fechaNacBox);
-            this.Controls.Add(this.fechaHastaBox);
-            this.Controls.Add(this.fechaDesdeBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.acceptButton);
             this.Controls.Add(this.matriculaBox);
             this.Controls.Add(this.mailBox);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.telBox);
@@ -379,8 +348,6 @@
         private System.Windows.Forms.TextBox telBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox mailBox;
@@ -388,8 +355,6 @@
         private System.Windows.Forms.Button acceptButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.CheckedListBox especialidadesCheckedListBox;
-        private System.Windows.Forms.DateTimePicker fechaDesdeBox;
-        private System.Windows.Forms.DateTimePicker fechaHastaBox;
         private System.Windows.Forms.DateTimePicker fechaNacBox;
         private System.Windows.Forms.RadioButton masculinoRadioButton;
         private System.Windows.Forms.RadioButton femeninoRadioButton;

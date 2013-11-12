@@ -58,5 +58,30 @@ namespace Clinica_Frba.AppModel
             especialidad.tipoEspecilidadCodigo = tipoCodigo;
             return especialidad;
         }
+
+        internal static void darAltaProfesional(Profesional profesional, List<EspecialidadMedica> especialidades)
+        {
+            profesional.id = darAltaMedico(profesional);
+            darAltaEspecialidadesDeMedico(profesional, especialidades);
+        }
+
+        private static int darAltaMedico(Profesional profesional)
+        {
+            ejecutarProcedure("altaMedico", profesional.nombre, profesional.apellido, profesional.sexo, profesional.tipoDoc, profesional.nroDoc, profesional.direccion, profesional.telefono, profesional.mail, profesional.fechaNac, profesional.nroMatricula);
+            return buscarMedico(profesional);
+        }
+
+        private static int buscarMedico(Profesional profesional)
+        {
+            return ejecutarProcedureWithReturnValue("getIdMedico", profesional.nombre, profesional.apellido, profesional.tipoDoc, profesional.nroDoc);
+        }
+
+        private static void darAltaEspecialidadesDeMedico(Profesional profesional, List<EspecialidadMedica> especialidades)
+        {
+            foreach (EspecialidadMedica especialidad in especialidades)
+            {
+                ejecutarProcedure("altaMedico_Especialidad", especialidad.codigo, profesional.id);
+            }
+        }
     }
 }
