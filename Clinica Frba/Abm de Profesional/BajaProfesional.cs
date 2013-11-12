@@ -21,10 +21,18 @@ namespace Clinica_Frba.Abm_de_Profesional
             InitializeComponent();
             this.padre = padre;
             this.profesional = profesional;
+            this.idBox.Text = profesional.id.ToString();
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void acceptButton_Click(object sender, EventArgs e)
+        {
+            AppProfesional.darBajaProfesional(profesional);
+            MessageBox.Show("La baja se ha realizado correctamente.");
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }

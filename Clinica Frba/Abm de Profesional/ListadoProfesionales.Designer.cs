@@ -44,7 +44,7 @@
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(243, 58);
+            this.buscarButton.Location = new System.Drawing.Point(228, 58);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
             this.buscarButton.TabIndex = 0;

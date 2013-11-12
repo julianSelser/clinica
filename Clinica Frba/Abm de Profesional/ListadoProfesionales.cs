@@ -80,9 +80,8 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         private bool estaDadoDeBaja(DataGridViewRow fila)
         {
-            int index = grillaProfesionales.Columns["Fecha de Baja"].Index;
-            return fila.Cells[index].Value != null 
-                && fila.Cells[index].Value.ToString() != "";
+            int index = grillaProfesionales.Columns["Habilitado"].Index;
+            return !(bool)fila.Cells[index].Value;
         }
 
         private void grillaAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -96,7 +95,7 @@ namespace Clinica_Frba.Abm_de_Profesional
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaProfesional(this, profesional), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarProfesional(this, profesional), this);
                 }
-                else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
+                else MessageBox.Show("El profesional seleccionado se encuentra inhabilitado");
             }
             
         }
@@ -104,6 +103,8 @@ namespace Clinica_Frba.Abm_de_Profesional
         private Profesional crearProfesional(int fila)
         {
             Profesional profesional = new Profesional();
+            int index = grillaProfesionales.Columns["ID Medico"].Index;
+            profesional.id = Convert.ToInt32(grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return profesional;
         }
 

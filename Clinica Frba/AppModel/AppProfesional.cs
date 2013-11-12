@@ -9,25 +9,12 @@ using Clinica_Frba.AppModel.Excepciones;
 
 namespace Clinica_Frba.AppModel
 {
-    //esta va a ser la clase que le va a pegar a la BD
+    //Clase que hace de interfaz con los procedures de profesional
     class AppProfesional : ConectorSQL
     {
-        public static Profesional traerUnMedico(string id)
-        {
-            Profesional medico;
-            DataTable medicos = traerDataTableMedicos();
-            if (medicos.Rows.Count > 0)
-            {
-                medicos.PrimaryKey = new DataColumn[] { medicos.Columns["ID Medico"] };
-            }
-            DataRow fila = medicos.Rows.Find(id);
-            medico = new Profesional(); ;
-            return medico;
-        }
-
         public static DataTable traerDataTableMedicos()
         {
-            return ConectorSQL.traerDataTable("getMedicos");
+            return traerDataTable("getMedicos");
         }
 
         internal static List<EspecialidadMedica> getEspecialidades()
@@ -84,6 +71,11 @@ namespace Clinica_Frba.AppModel
             {
                 ejecutarProcedure("altaMedico_Especialidad", especialidad.codigo, profesional.id);
             }
+        }
+
+        public static void darBajaProfesional(Profesional profesional)
+        {
+            ejecutarProcedure("bajaMedico", profesional.id);
         }
     }
 }
