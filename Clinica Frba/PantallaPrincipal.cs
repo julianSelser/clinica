@@ -20,6 +20,7 @@ using Clinica_Frba.Listados_Estadisticos;
 using Clinica_Frba.Registrar_Agenda;
 using Clinica_Frba.Registro_de_LLegada;
 using Clinica_Frba.Registro_Resultado_Atencion;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba
 {
@@ -28,12 +29,8 @@ namespace Clinica_Frba
         public PantallaPrincipal()
         {
             InitializeComponent();
-        }
-
-        private void PantallaPrincipal_Load(object sender, EventArgs e)
-        {
-            usuarioLogueado.Visible = false;
             deslogButton.Visible = false;
+            deshabilitarFuncionalidades();
         }
 
         private void loginButton_Click(object sender, EventArgs e)
@@ -41,12 +38,12 @@ namespace Clinica_Frba
             AsistenteVistas.mostrarNuevaVentana(new LoginForm(this), this);
         }
 
-        public void setearUsuarioLogueado(String usuario)
+        public void setearLogeo(String usuario)
         {
-            if (usuario.Length > 0 && !usuario.Contains(" "))
+            if (usuario.Length > 0 && !Controlador.cadenaEsVaciaONull(usuario))
             {
-                usuarioLogueado.Visible = true;
-                usuarioLogueado.Text = "Logueado como: " + usuario;
+                usuarioLabel.Visible = true;
+                usuarioLabel.Text = usuario;
                 loginButton.Visible = false;
                 deslogButton.Visible = true;
             }
@@ -54,7 +51,8 @@ namespace Clinica_Frba
 
         private void deslogButton_Click(object sender, EventArgs e)
         {
-            usuarioLogueado.Visible = false;
+            deshabilitarFuncionalidades();
+            usuarioLabel.Visible = false;
             deslogButton.Visible = false;
             loginButton.Visible = true;
         }
@@ -113,7 +111,52 @@ namespace Clinica_Frba
         {
             AsistenteVistas.mostrarNuevaVentana(new RegistroResultadoAtencion(this), this);
         }
-        
+
+        public void habilitarFuncionalidades() 
+        {
+            List<Funcionalidad> funcionalidades = UsuarioLogeado.Instance.Rol.funcionalidades;
+
+            foreach (Funcionalidad funcion in funcionalidades) 
+            {
+                switch (funcion.id)
+                {
+                    case 1: button3.Visible = true; break;
+
+                    case 3: button1.Visible = true; break;
+
+                    case 4: button2.Visible = true; break;
+
+                    case 7: button12.Visible = true; break;
+
+                    case 8: button11.Visible = true; break;
+
+                    case 9: button5.Visible = true; break;
+
+                    case 10: button7.Visible = true; break;
+
+                    case 11: button8.Visible = true; break;
+
+                    case 12: button6.Visible = true; break;
+
+                    case 13: button10.Visible = true; break;
+
+                    case 14: button9.Visible = true; break;
+                    
+                    default: break;
+                }
+            }
+            botonera.Visible = true;
+        }
+
+        public void deshabilitarFuncionalidades() 
+        {
+            foreach (Control control in botonera.Controls) 
+            {
+                control.Visible = false;
+            }
+                               
+            botonera.Visible = false;
+        }
 
     }
 }
