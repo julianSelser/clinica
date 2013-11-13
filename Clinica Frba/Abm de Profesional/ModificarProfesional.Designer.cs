@@ -58,6 +58,7 @@
             this.direcBox.Name = "direcBox";
             this.direcBox.Size = new System.Drawing.Size(174, 20);
             this.direcBox.TabIndex = 9;
+            this.direcBox.TextChanged += new System.EventHandler(this.direcBox_TextChanged);
             // 
             // label6
             // 
@@ -74,6 +75,7 @@
             this.telBox.Name = "telBox";
             this.telBox.Size = new System.Drawing.Size(174, 20);
             this.telBox.TabIndex = 11;
+            this.telBox.TextChanged += new System.EventHandler(this.telBox_TextChanged);
             // 
             // label11
             // 
@@ -90,6 +92,7 @@
             this.mailBox.Name = "mailBox";
             this.mailBox.Size = new System.Drawing.Size(174, 20);
             this.mailBox.TabIndex = 21;
+            this.mailBox.TextChanged += new System.EventHandler(this.mailBox_TextChanged);
             // 
             // acceptButton
             // 
@@ -108,6 +111,7 @@
             this.cancelButton.TabIndex = 31;
             this.cancelButton.Text = "Cancelar";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // label13
             // 

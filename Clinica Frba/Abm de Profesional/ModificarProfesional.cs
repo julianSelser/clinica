@@ -63,5 +63,25 @@ namespace Clinica_Frba.Abm_de_Profesional
                 acceptButton.Enabled = false;
             }
         }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void direcBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void telBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void mailBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
     }
 }
