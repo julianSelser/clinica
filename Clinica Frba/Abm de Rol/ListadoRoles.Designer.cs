@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.errorBox = new System.Windows.Forms.TextBox();
-            this.grillaProfesionales = new System.Windows.Forms.DataGridView();
+            this.grillaRoles = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
             this.apellidoBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaRoles)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,15 +50,14 @@
             this.errorBox.Size = new System.Drawing.Size(645, 39);
             this.errorBox.TabIndex = 14;
             // 
-            // grillaProfesionales
+            // grillaRoles
             // 
-            this.grillaProfesionales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaProfesionales.Location = new System.Drawing.Point(15, 135);
-            this.grillaProfesionales.Name = "grillaProfesionales";
-            this.grillaProfesionales.RowTemplate.ReadOnly = true;
-            this.grillaProfesionales.Size = new System.Drawing.Size(1101, 313);
-            this.grillaProfesionales.TabIndex = 12;
-            this.grillaProfesionales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaProfesionales_CellContentClick);
+            this.grillaRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaRoles.Location = new System.Drawing.Point(15, 135);
+            this.grillaRoles.Name = "grillaRoles";
+            this.grillaRoles.RowTemplate.ReadOnly = true;
+            this.grillaRoles.Size = new System.Drawing.Size(1101, 313);
+            this.grillaRoles.TabIndex = 12;
             // 
             // cancelButton
             // 
@@ -124,10 +123,10 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.grillaProfesionales);
+            this.Controls.Add(this.grillaRoles);
             this.Name = "ListadoRoles";
             this.Text = "ListadoRoles";
-            ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaRoles)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -138,7 +137,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox errorBox;
-        private System.Windows.Forms.DataGridView grillaProfesionales;
+        private System.Windows.Forms.DataGridView grillaRoles;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.TextBox apellidoBox;
         private System.Windows.Forms.Label label2;

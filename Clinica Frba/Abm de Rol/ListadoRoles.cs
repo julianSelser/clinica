@@ -11,7 +11,7 @@ using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Rol
 {
-    public partial class ListadoRoles : Form, IListado //esta bien este listado aca?
+    public partial class ListadoRoles : Form//, IListado //era una interfaz pero al final no se implementa
     {
         public Form padre;
         public string funcion; //para saber si es baja o modificacion
@@ -26,7 +26,7 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private bool estaDadoDeBaja(DataGridViewRow fila)
         {
-            int index = grillaProfesionales.Columns["Habilitado"].Index;
+            int index = grillaRoles.Columns["Habilitado"].Index;
             return !(bool)fila.Cells[index].Value;
         }
 /*
