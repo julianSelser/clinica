@@ -105,6 +105,12 @@ namespace Clinica_Frba.Abm_de_Profesional
             Profesional profesional = new Profesional();
             int index = grillaProfesionales.Columns["ID Medico"].Index;
             profesional.id = Convert.ToInt32(grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            index = grillaProfesionales.Columns["Dirección"].Index;
+            profesional.direccion = grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString();
+            index = grillaProfesionales.Columns["Teléfono"].Index;
+            profesional.telefono = Convert.ToInt32(grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            index = grillaProfesionales.Columns["Mail"].Index;
+            profesional.mail = grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString();
             return profesional;
         }
 

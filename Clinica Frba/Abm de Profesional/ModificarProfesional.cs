@@ -15,30 +15,53 @@ namespace Clinica_Frba.Abm_de_Profesional
     {
         private Form padre;
         Profesional profesional;
+        List<EspecialidadMedica> especialidades;
 
         internal ModificarProfesional(Form padre, Profesional profesional)
         {
             InitializeComponent();
             this.padre = padre;
             this.profesional = profesional;
-           // cargarCampos(AppProfesional.traerUnMedico(padre.TextotextId));
+            cargarCampos();
+            validarCampos();
 
         }
 
-        private void cargarCampos(Profesional medico)
+        private void cargarCampos()
         {
-            for (int x = 1; x <= 20; x++)
+            idBox.Text = profesional.id.ToString();
+            direcBox.Text = profesional.direccion;
+            telBox.Text = profesional.telefono.ToString();
+            mailBox.Text = profesional.mail;
+            cargarEspecialidades();
+        }
+
+        private void cargarEspecialidades()
+        {
+            especialidades = AppProfesional.getEspecialidades();
+            foreach (EspecialidadMedica especialidad in especialidades)
             {
-                checkedListBox1.Items.Add("Especialidad " + x.ToString());
-            }
-            nombre.Text = medico.nombre;
-            apellido.Text = medico.apellido;
+                especialidadesCheckedListBox.Items.Add(especialidad.descripcion);
+            }    
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void validarCampos()
         {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Dirección", direcBox.Text, true, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Teléfono", telBox.Text, true, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Mail", mailBox.Text, false, Controlador.TipoValidacion.Alfanumerico));
+            try
+            {
+                Controlador.validarCampos(campos);
+                acceptButton.Enabled = true;
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion validacion)
+            {
+                errorBox.Text = validacion.mensaje;
+                acceptButton.Enabled = false;
+            }
         }
-  
     }
 }
