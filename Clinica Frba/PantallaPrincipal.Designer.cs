@@ -41,10 +41,9 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.botonera = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblTitulo = new System.Windows.Forms.Label();
             this.deslogButton = new System.Windows.Forms.Button();
             this.loginButton = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.botonera.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -199,17 +198,6 @@
             this.botonera.Size = new System.Drawing.Size(640, 156);
             this.botonera.TabIndex = 32;
             // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.ForeColor = System.Drawing.Color.Red;
-            this.lblTitulo.Location = new System.Drawing.Point(24, 16);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(271, 46);
-            this.lblTitulo.TabIndex = 14;
-            this.lblTitulo.Text = "Clinica FRBA";
-            // 
             // deslogButton
             // 
             this.deslogButton.Location = new System.Drawing.Point(347, 38);
@@ -230,13 +218,16 @@
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
-            // groupBox1
+            // lblTitulo
             // 
-            this.groupBox1.Location = new System.Drawing.Point(23, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 69);
-            this.groupBox1.TabIndex = 33;
-            this.groupBox1.TabStop = false;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.Color.Red;
+            this.lblTitulo.Location = new System.Drawing.Point(13, 16);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(271, 46);
+            this.lblTitulo.TabIndex = 33;
+            this.lblTitulo.Text = "Clinica FRBA";
             // 
             // PantallaPrincipal
             // 
@@ -245,12 +236,12 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(661, 229);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.usuarioLabel);
             this.Controls.Add(this.deslogButton);
             this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.botonera);
-            this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(469, 110);
             this.Name = "PantallaPrincipal";
             this.Text = "Clinica FRBA";
             this.botonera.ResumeLayout(false);
@@ -274,10 +265,9 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FlowLayoutPanel botonera;
-        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button deslogButton;
         private System.Windows.Forms.Button loginButton;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblTitulo;
 
 
     }
