@@ -55,7 +55,8 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         public void cargarGrilla()
         {
-            AsistenteVistas.cargarGrilla(grillaProfesionales, AppProfesional.traerDataTableMedicos());
+            if(matriculaBox.Text == "")matriculaBox.Text = "0";
+            AsistenteVistas.cargarGrilla(grillaProfesionales, AppProfesional.traerDataTableMedicos(nombreBox.Text, apellidoBox.Text, Convert.ToInt32(matriculaBox.Text)));
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -67,6 +68,7 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             nombreBox.Text = "";
             apellidoBox.Text = "";
+            matriculaBox.Text = "";
         }
 
         private void cargarBotonFuncionalidad()

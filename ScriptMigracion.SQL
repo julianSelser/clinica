@@ -1399,7 +1399,7 @@ END
 
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.getMedicos
+CREATE PROCEDURE CUATRO_QUESOS.getMedicos @nombre varchar(255), @apellido varchar(255), @matricula numeric(18)
 AS
 SELECT Id_Medico 'ID Medico',
 Nombre 'Nombre', Apellido 'Apellido',
@@ -1409,6 +1409,9 @@ Telefono 'Telefono', Mail 'Mail', Fecha_Nac 'Fecha Nacimiento',
 Nro_Matricula 'Numero Matricula', Fecha_Atencion_Desde 'Fecha Atencion Desde',
 Fecha_Atencion_Hasta 'Fecha Atencion Hasta', Habilitado 'Habilitado'
 FROM CUATRO_QUESOS.Medicos
+WHERE Nombre LIKE '%' + @nombre + '%' AND
+Apellido LIKE '%' + @Apellido + '%' AND
+((Nro_Matricula = @matricula AND @matricula != 0) OR (@matricula = 0))
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))

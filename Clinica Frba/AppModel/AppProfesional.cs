@@ -29,9 +29,9 @@ namespace Clinica_Frba.AppModel
             return especialidades;
         }
       
-        public static DataTable traerDataTableMedicos()
+        public static DataTable traerDataTableMedicos(string nombre, string apellido, int matricula)
         {
-            return traerDataTable("getMedicos");
+            return traerDataTable("getMedicos", nombre, apellido, matricula);
         }
 
         internal static List<EspecialidadMedica> getEspecialidades()

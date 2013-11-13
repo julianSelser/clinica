@@ -38,7 +38,8 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.errorBox = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.matriculaBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -119,7 +120,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.matriculaBox);
             this.groupBox1.Controls.Add(this.nombreBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.buscarButton);
@@ -143,12 +145,21 @@
             this.errorBox.Size = new System.Drawing.Size(645, 39);
             this.errorBox.TabIndex = 11;
             // 
-            // textBox1
+            // matriculaBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(299, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 6;
+            this.matriculaBox.Location = new System.Drawing.Point(299, 23);
+            this.matriculaBox.Name = "matriculaBox";
+            this.matriculaBox.Size = new System.Drawing.Size(100, 20);
+            this.matriculaBox.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(208, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Nro Matrícula:";
             // 
             // ListadoProfesionales
             // 
@@ -182,6 +193,7 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox errorBox;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox matriculaBox;
+        private System.Windows.Forms.Label label3;
     }
 }
