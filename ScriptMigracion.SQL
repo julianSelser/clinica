@@ -1374,34 +1374,17 @@ GO
 
 CREATE PROCEDURE CUATRO_QUESOS.updateMedico
 (@id numeric(18),
-@nombre varchar(255),
-@apellido varchar(255),
-@sexo varchar(255),
-@tipoDoc varchar(3),
-@nroDoc numeric(18),
 @direccion varchar(255),
 @telefono numeric(18),
-@mail varchar(255),
-@fechaNac datetime,
-@nroMatricula numeric(18)
+@mail varchar(255)
 )
 AS
-BEGIN TRAN
-        UPDATE CUATRO_QUESOS.Medicos
-                
-                SET Nombre = @nombre,
-                        Apellido = @apellido,
-                        Sexo = @sexo,
-                        Tipo_Doc = @tipoDoc,
-                        Nro_Doc = @nroDoc,
-                        Direccion = @direccion,
-                        Telefono = @telefono,
-                        Mail = @mail,
-                        Fecha_Nac = @fechaNac,
-                        Nro_Matricula = @nroMatricula
 
-                WHERE Id_Medico = @id
-COMMIT
+UPDATE CUATRO_QUESOS.Medicos
+SET Direccion = @direccion,
+Telefono = @telefono,
+Mail = @mail
+WHERE Id_Medico = @id
                 
 GO
 
@@ -1446,11 +1429,23 @@ SELECT Especialidades.Codigo 'Codigo', Especialidades.Descripcion 'Descripcion',
 FROM CUATRO_QUESOS.Especialidades
 GO
 
+/******* PROCEDURES ESPECIALIDADES_MEDICO ********/
+
 CREATE PROCEDURE CUATRO_QUESOS.altaMedico_Especialidad ( @codEspecialidad numeric(18), @Id numeric(18) )
 AS
 INSERT INTO CUATRO_QUESOS.Especialidades_Medicos(Cod_Especialidad, Id_Medico)
 VALUES (@codEspecialidad, @Id)
 
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.getEspecialidadesMedico @id numeric(18)
+AS
+SELECT Cod_Especialidad FROM CUATRO_QUESOS.Especialidades_Medicos WHERE Id_Medico = @id
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.deleteEspecialidades @id numeric(18)
+AS
+DELETE FROM CUATRO_QUESOS.Especialidades_Medicos WHERE Id_Medico = @id
 GO
 /********* PROCEDURES AFILIADOS ***************/
 
@@ -1680,10 +1675,6 @@ IF(CUATRO_QUESOS.tipoAfiliado(@nroAfiliado) = 1)
                 Cod_Plan = @cod_plan,
                 Estado_Civil = @estadoCivil,
                 CantFamiliaresACargo = @cantFamiliares
-                -- TODO: crear un trigger que valide la cantidad de familiares
-                --que estan dados de alta contra el nuevo valor de la columna CantFamiliaresACargo,
-                --en caso de que el valor de este sea menor, solicitar la baja obligatoria de algun familiar (se da el nro de afiliado),
-                --de lo contrario dejar la cantidad real de familiares a cargo que existen en la BD para mantener la consistencia
                 WHERE Nro_Afiliado = @nroAfiliado
         END
 ELSE

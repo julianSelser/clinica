@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.AppModel.Excepciones;
 using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Profesional
@@ -16,6 +17,7 @@ namespace Clinica_Frba.Abm_de_Profesional
         private Form padre;
         Profesional profesional;
         List<EspecialidadMedica> especialidades;
+        
 
         internal ModificarProfesional(Form padre, Profesional profesional)
         {
@@ -38,11 +40,21 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         private void cargarEspecialidades()
         {
+            int index;
             especialidades = AppProfesional.getEspecialidades();
+            List<EspecialidadMedica> especialidadesDelMedico = AppProfesional.getEspecialidadesMedico(profesional);
             foreach (EspecialidadMedica especialidad in especialidades)
             {
                 especialidadesCheckedListBox.Items.Add(especialidad.descripcion);
-            }    
+                foreach (EspecialidadMedica especialidadDelMedico in especialidadesDelMedico)
+                {
+                    if (especialidadDelMedico.codigo == especialidad.codigo)
+                    {
+                        index = especialidadesCheckedListBox.Items.IndexOf(especialidad.descripcion);
+                        especialidadesCheckedListBox.SetItemChecked(index, true);
+                    }
+                }
+            }
         }
 
         private void validarCampos()
@@ -83,5 +95,54 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             validarCampos();
         }
+
+        private void acceptButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                actualizarAtributosProfesional();
+                List<EspecialidadMedica> listaEspecialidadesNuevas = generarListaEspecialidades();
+                AppProfesional.updateProfesional(profesional, listaEspecialidadesNuevas);
+                MessageBox.Show("La modificación del médico se ha realizado con éxito.\n\nId Médico: " + profesional.id);
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+            catch (UserDefinedException ex)
+            {
+                ErrorManager.messageErrorBox(ex, "Modificación Profesional");
+            }
+        }
+
+        private void actualizarAtributosProfesional()
+        {
+            profesional.direccion = direcBox.Text;
+            profesional.mail = mailBox.Text;
+            profesional.telefono = Convert.ToInt32(telBox.Text);
+        }
+
+        private List<EspecialidadMedica> generarListaEspecialidades()
+        {
+            int cont = 0, cantidadEspecialidades = especialidadesCheckedListBox.CheckedItems.Count;
+            if (cantidadEspecialidades == 0) throw new SinEspecilidadesCheckedException();
+            List<EspecialidadMedica> lista = new List<EspecialidadMedica>();
+
+            while (cont < cantidadEspecialidades)
+            {
+                EspecialidadMedica especialidad = new EspecialidadMedica();
+                especialidad.codigo = getCodigoEspecialidad(especialidadesCheckedListBox.CheckedItems[cont].ToString());
+                lista.Add(especialidad);
+                cont++;
+            }
+            return lista;
+        }
+
+        private int getCodigoEspecialidad(string descripcion)
+        {
+            foreach (EspecialidadMedica elemento in especialidades)
+            {
+                if (elemento.descripcion == descripcion) return elemento.codigo;
+            }
+            throw new Exception("Codigo de especialidad no encontrado");
+        }
+
     }
 }

@@ -12,6 +12,23 @@ namespace Clinica_Frba.AppModel
     //Clase que hace de interfaz con los procedures de profesional
     class AppProfesional : ConectorSQL
     {
+
+        public static List<EspecialidadMedica> getEspecialidadesMedico(Profesional profesional)
+        {
+            DataTable table = traerDataTable("getEspecialidadesMedico", profesional.id);
+            DataRowCollection rows = table.Rows;
+            List<EspecialidadMedica> especialidades = new List<EspecialidadMedica>();
+            int codigo;
+            foreach (DataRow row in rows)
+            {
+                EspecialidadMedica especialidad = new EspecialidadMedica();
+                codigo = Convert.ToInt32(row["Cod_Especialidad"].ToString());
+                especialidad.codigo = codigo;
+                especialidades.Add(especialidad);
+            }
+            return especialidades;
+        }
+      
         public static DataTable traerDataTableMedicos()
         {
             return traerDataTable("getMedicos");
@@ -76,6 +93,23 @@ namespace Clinica_Frba.AppModel
         public static void darBajaProfesional(Profesional profesional)
         {
             ejecutarProcedure("bajaMedico", profesional.id);
+        }
+
+        internal static void updateProfesional(Profesional profesional, List<EspecialidadMedica> listaEspecialidadesNuevas)
+        {
+            updateMedico(profesional);
+            deleteEspecialidades(profesional);
+            darAltaEspecialidadesDeMedico(profesional, listaEspecialidadesNuevas);
+        }
+
+        private static void deleteEspecialidades(Profesional profesional)
+        {
+            ejecutarProcedure("deleteEspecialidades", profesional.id);
+        }
+
+        private static void updateMedico(Profesional profesional)
+        {
+            ejecutarProcedure("updateMedico", profesional.id, profesional.direccion, profesional.telefono, profesional.mail);
         }
     }
 }

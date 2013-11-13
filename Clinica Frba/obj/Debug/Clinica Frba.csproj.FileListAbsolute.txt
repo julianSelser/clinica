@@ -135,3 +135,5 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.ListadoRoles.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.DialogConLabeledTextBox.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Login.ElegirRol.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.ListadoRoles.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Login.ElegirRol.resources
