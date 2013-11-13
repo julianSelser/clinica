@@ -140,6 +140,7 @@
       <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
+    <Compile Include="AppModel\AppLogin.cs" />
     <Compile Include="AppModel\AppProfesional.cs" />
     <Compile Include="AppModel\AppRol.cs" />
     <Compile Include="AppModel\Campo.cs" />
@@ -214,14 +215,22 @@
     <Compile Include="Domain\EspecialidadMedica.cs" />
     <Compile Include="Domain\Funcionalidad.cs" />
     <Compile Include="Domain\ModoAfiliado.cs" />
+    <Compile Include="Domain\Persona.cs" />
     <Compile Include="Domain\PlanMedico.cs" />
     <Compile Include="Domain\Rol.cs" />
     <Compile Include="Domain\Profesional.cs" />
+    <Compile Include="Domain\UsuarioLogeado.cs" />
     <Compile Include="Generar Receta\GenerarReceta.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Generar Receta\GenerarReceta.Designer.cs">
       <DependentUpon>GenerarReceta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\ElegirRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\ElegirRol.Designer.cs">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
     </Compile>
     <Compile Include="PantallaPrincipal.cs">
       <SubType>Form</SubType>
@@ -344,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Listados Estadisticos\ListadosEstadisticos.resx">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\ElegirRol.resx">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

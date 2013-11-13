@@ -7,11 +7,17 @@ namespace Clinica_Frba.Domain
 {
     public class Rol
     {
-        private int id{ get;  set; }
-        private string nombre { get; set; }
-        private bool habilitado { get; set; }
-        private List<Funcionalidad> funcionalidades { get; set; } //declaro la lista de funcionalidades
-    }
+        public int id{ get;  set; }
+        public string nombre { get; set; }
+        public bool habilitado { get; set; }
+        public List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
 
+        public Rol(int id, string nombre, bool habilitado) 
+        {
+            this.id = id;
+            this.nombre = nombre;
+            this.habilitado = habilitado;
+        }
+    }
 }
 
