@@ -127,6 +127,12 @@
     <Compile Include="Abm de Rol\Baja_Rol.Designer.cs">
       <DependentUpon>Baja_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm de Rol\ListadoRoles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm de Rol\ListadoRoles.Designer.cs">
+      <DependentUpon>ListadoRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm de Rol\Modificar_Rol2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\Baja_Rol.resx">
       <DependentUpon>Baja_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm de Rol\ListadoRoles.resx">
+      <DependentUpon>ListadoRoles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\Modificar_Rol2.resx">
       <DependentUpon>Modificar_Rol2.cs</DependentUpon>
