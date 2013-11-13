@@ -38,6 +38,7 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.errorBox = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -118,6 +119,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.nombreBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.buscarButton);
@@ -140,6 +142,13 @@
             this.errorBox.ReadOnly = true;
             this.errorBox.Size = new System.Drawing.Size(645, 39);
             this.errorBox.TabIndex = 11;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(299, 26);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 6;
             // 
             // ListadoProfesionales
             // 
@@ -173,5 +182,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox errorBox;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

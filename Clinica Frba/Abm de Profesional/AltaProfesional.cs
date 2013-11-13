@@ -10,6 +10,8 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.AppModel.Excepciones;
 using Clinica_Frba.Domain;
 
+//Funcionalidad que permite dar de alta a un médico con sus respectivas especialidades
+
 namespace Clinica_Frba.Abm_de_Profesional
 {
     public partial class AltaProfesional : Form
@@ -25,6 +27,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             cargarEspecialidades();
             masculinoRadioButton.Checked = true;
             sexo = 'M';
+            masculinoRadioButton.Checked = true;
             validarCampos();
         }
 
@@ -60,7 +63,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             {
                 EspecialidadMedica especialidad = new EspecialidadMedica();
                 especialidad.codigo = getCodigoEspecialidad(especialidadesCheckedListBox.CheckedItems[cont].ToString());
-                lista.Add(especialidad);
+                lista.Add(especialidad); //agrego las especialidades seleccionadas a una lista para luego relacionarlas con el medico
                 cont++;
             }
             return lista;
@@ -171,6 +174,33 @@ namespace Clinica_Frba.Abm_de_Profesional
         private void matriculaBox_TextChanged(object sender, EventArgs e)
         {
             validarCampos();
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            inicializarCampos();
+        }
+
+        private void inicializarCampos()
+        {
+            sexo = 'M';
+
+            for (int i = 0; i < especialidadesCheckedListBox.Items.Count; i++ )
+            {
+                especialidadesCheckedListBox.SetItemChecked(i, false);
+            }
+
+            nombreBox.Text = "";
+            apellidoBox.Text = "";
+            masculinoRadioButton.Checked = true;
+            direcBox.Text = "";
+            telBox.Text = "";
+            mailBox.Text = "";
+            nroDocBox.Text = "";
+            tipoDocBox.SelectedIndex = -1;
+            fechaNacBox.Text = Globales.getFechaSistema().ToString();
+            matriculaBox.Text = "";
+
         }
 
     }

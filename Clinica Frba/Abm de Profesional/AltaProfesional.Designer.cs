@@ -54,6 +54,7 @@
             this.femeninoRadioButton = new System.Windows.Forms.RadioButton();
             this.errorBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -294,11 +295,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Especialidades Médicas";
             // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(27, 359);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(85, 34);
+            this.limpiarButton.TabIndex = 43;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
+            // 
             // AltaProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(749, 423);
+            this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.femeninoRadioButton);
@@ -360,5 +372,6 @@
         private System.Windows.Forms.RadioButton femeninoRadioButton;
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button limpiarButton;
     }
 }

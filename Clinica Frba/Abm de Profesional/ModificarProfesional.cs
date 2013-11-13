@@ -10,6 +10,8 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.AppModel.Excepciones;
 using Clinica_Frba.Domain;
 
+//Funcionalidad que permite modificar a un profesional en los campos que son factibles de poder ser modificados
+
 namespace Clinica_Frba.Abm_de_Profesional
 {
     public partial class ModificarProfesional : Form
@@ -41,8 +43,8 @@ namespace Clinica_Frba.Abm_de_Profesional
         private void cargarEspecialidades()
         {
             int index;
-            especialidades = AppProfesional.getEspecialidades();
-            List<EspecialidadMedica> especialidadesDelMedico = AppProfesional.getEspecialidadesMedico(profesional);
+            especialidades = AppProfesional.getEspecialidades(); //cargo todas las especialidades
+            List<EspecialidadMedica> especialidadesDelMedico = AppProfesional.getEspecialidadesMedico(profesional); //cargo las que ya tenia
             foreach (EspecialidadMedica especialidad in especialidades)
             {
                 especialidadesCheckedListBox.Items.Add(especialidad.descripcion);
@@ -51,7 +53,7 @@ namespace Clinica_Frba.Abm_de_Profesional
                     if (especialidadDelMedico.codigo == especialidad.codigo)
                     {
                         index = especialidadesCheckedListBox.Items.IndexOf(especialidad.descripcion);
-                        especialidadesCheckedListBox.SetItemChecked(index, true);
+                        especialidadesCheckedListBox.SetItemChecked(index, true); //marco como seleccionada la especialidad que ya tenia
                     }
                 }
             }
