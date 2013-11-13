@@ -29,7 +29,7 @@ namespace Clinica_Frba.Abm_de_Rol
             int index = grillaProfesionales.Columns["Habilitado"].Index;
             return !(bool)fila.Cells[index].Value;
         }
-
+/*
         private void grillaProfesionales_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == grillaProfesionales.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
@@ -44,5 +44,7 @@ namespace Clinica_Frba.Abm_de_Rol
                 else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
             }
         }
+    */
+    
     }
 }
