@@ -44,6 +44,7 @@
             // 
             // rolComboBox
             // 
+            this.rolComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rolComboBox.FormattingEnabled = true;
             this.rolComboBox.Location = new System.Drawing.Point(12, 12);
             this.rolComboBox.Name = "rolComboBox";

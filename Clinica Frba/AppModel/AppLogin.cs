@@ -67,7 +67,7 @@ namespace Clinica_Frba.AppModel
                 if (rol == "Profesional")
                 {
                     UsuarioLogeado.Instance.Persona = new Profesional(Convert.ToInt32((decimal)d["id_medico"]), (string)d["nombre"], (string)d["apellido"]
-                                                                      , (char)d["sexo"], (string)d["tipo_doc"], Convert.ToInt32((decimal)d["nro_doc"])
+                                                                      , '-', (string)d["tipo_doc"], Convert.ToInt32((decimal)d["nro_doc"])
                                                                       , (string)d["direccion"], Convert.ToInt32((decimal)d["telefono"]), (string)d["mail"]
                                                                       , (DateTime)d["fecha_nac"], Convert.ToInt32((decimal)d["nro_matricula"])
                                                                       , (DateTime)d["fecha_atencion_desde"], (DateTime)d["fecha_atencion_hasta"], (bool)d["habilitado"]);
@@ -77,7 +77,7 @@ namespace Clinica_Frba.AppModel
                 else if (rol == "Afiliado")
                 {
                     UsuarioLogeado.Instance.Persona = new Afiliado(Convert.ToInt32(d["Nro_Afiliado"]), (string)d["Nombre"], (string)d["Apellido"]
-                                                                  , (char)d["Sexo"], (string)d["Tipo_Doc"], Convert.ToInt32(d["Nro_Doc"]), (string)d["Direccion"]
+                                                                  , '-', (string)d["Tipo_Doc"], Convert.ToInt32(d["Nro_Doc"]), (string)d["Direccion"]
                                                                   , (string)d["Mail"], Convert.ToInt32(d["Telefono"]), (DateTime)d["Fecha_Nac"], Convert.ToInt32(d["Cod_Plan"])
                                                                   , (string)d["Estado_Civil"], (d["Nro_Titular"].GetType()!=typeof(DBNull))?Convert.ToInt32(d["Nro_Titular"]):0, (d["Nro_Conyuge"].GetType()!=typeof(DBNull))?Convert.ToInt32(d["Nro_Conyuge"]):0
                                                                   , (d["Fecha_Baja"].GetType()!=typeof(DBNull))?(DateTime)d["Fecha_Baja"]:DateTime.Now, Convert.ToInt32(d["Nro_Consulta"]), Convert.ToInt32(d["CantFamiliaresACargo"]));

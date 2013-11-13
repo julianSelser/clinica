@@ -168,6 +168,7 @@
             // 
             // tipoDocSelector
             // 
+            this.tipoDocSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoDocSelector.FormattingEnabled = true;
             this.tipoDocSelector.Items.AddRange(new object[] {
             "DNI",
@@ -177,10 +178,10 @@
             this.tipoDocSelector.Name = "tipoDocSelector";
             this.tipoDocSelector.Size = new System.Drawing.Size(115, 21);
             this.tipoDocSelector.TabIndex = 8;
-            this.tipoDocSelector.Text = "DNI";
             // 
             // tipoUsrSelector
             // 
+            this.tipoUsrSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoUsrSelector.FormattingEnabled = true;
             this.tipoUsrSelector.Items.AddRange(new object[] {
             "Afiliado",
@@ -189,7 +190,6 @@
             this.tipoUsrSelector.Name = "tipoUsrSelector";
             this.tipoUsrSelector.Size = new System.Drawing.Size(115, 21);
             this.tipoUsrSelector.TabIndex = 4;
-            this.tipoUsrSelector.Text = "Profesional";
             this.tipoUsrSelector.SelectedIndexChanged += new System.EventHandler(this.tipoUsrSelector_SelectedIndexChanged);
             // 
             // AdministradorCancelar
