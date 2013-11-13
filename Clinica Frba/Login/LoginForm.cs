@@ -50,6 +50,8 @@ namespace Clinica_Frba.Login
                                     "Consulte con su administrador para volver a habilitarlo.");
                 else if(n_intentos == 5)
                     MessageBox.Show("No existe el usuario ingresado en el sistema");
+                else if(n_intentos == -1)
+                    MessageBox.Show("...error conectando con la base de datos...ojala no seas el que corrige...");
 	        }
         }
 
