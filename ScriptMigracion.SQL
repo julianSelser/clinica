@@ -218,12 +218,12 @@ CREATE TABLE CUATRO_QUESOS.Usuarios_Por_Rol (
 -- Create Primary Key Constraints
 
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT CHK_Estado_Civil
-	CHECK(Estado_Civil = 'Soltero/a' OR
-	 Estado_Civil = 'Divorciado/a' OR
-	 Estado_Civil = 'Viudo/a' OR
-	 Estado_Civil = 'Concubinato' OR
-	 Estado_Civil = 'Casado/a' OR 
-	 Estado_Civil = '-')
+        CHECK(Estado_Civil = 'Soltero/a' OR
+         Estado_Civil = 'Divorciado/a' OR
+         Estado_Civil = 'Viudo/a' OR
+         Estado_Civil = 'Concubinato' OR
+         Estado_Civil = 'Casado/a' OR
+         Estado_Civil = '-')
 ;
 
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT PK_Afiliados
@@ -484,12 +484,12 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Us
 --Create other constraints
 
 --constraint para verificar que la agenda profesional sea de 120 días como máximo
-alter table CUATRO_QUESOS.Medicos add constraint limitarAgendaProfesional 
-		check (datediff(day, fecha_atencion_desde, fecha_atencion_hasta) <= 120)
+alter table CUATRO_QUESOS.Medicos add constraint limitarAgendaProfesional
+                check (datediff(day, fecha_atencion_desde, fecha_atencion_hasta) <= 120)
 
 --constraint para verificar que no se recete más de 3 instancias del mismo medicamento
 alter table CUATRO_QUESOS.Medicamentos_Por_Consulta add constraint verificarCantidadMedicamentoIndividual
-	check (Cantidad <=3)
+        check (Cantidad <=3)
 
 
 /* ****** Migrar datos existentes ******* */
@@ -764,7 +764,7 @@ INSERT INTO CUATRO_QUESOS.Dias_Atencion
         from gd_esquema.Maestra
         where Turno_Fecha is not null
                 and DATENAME(dw, Turno_Fecha) != 'Domingo' --esto falla espectacularmente si la base de datos no está en español
-                and (        (DATENAME(dw, Turno_Fecha) != 'Sábado' --clausula para los días hábiles
+                and ( (DATENAME(dw, Turno_Fecha) != 'Sábado' --clausula para los días hábiles
                                 and datepart(hour, Turno_Fecha) >= 7
                                 and datepart(hour, Turno_Fecha) < 20) --menor a 20 porque si la clínica cierra a las 20, el último turno es a las 19:30
                         or
@@ -1150,7 +1150,7 @@ select (CAST(dia as datetime) + cast(hora as datetime)) as Horario,
                                                 and Turnos.Id_Medico = Medicos.Id_Medico
                                                 and Turnos.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones)) >0 then 'Ocupado'
                         else 'Libre'
-                end as Estado                        
+                end as Estado
 
 
 from CUATRO_QUESOS.Medicos,
@@ -1168,23 +1168,23 @@ create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for up
 as
 if UPDATE(Habilitado)
 begin
-	--los roles son muy pocos, me voy a tomar la libertad de usar un cursor
-	declare @ID numeric(18)
-	declare @Habilitado bit
-	declare curLocal cursor for select ID_Rol, Habilitado from inserted
-	
-	open curLocal
-	fetch CurLocal into @ID, @Habilitado
-	while @@FETCH_STATUS = 0
-	begin
-		if @Habilitado = 0 --uno de los roles se inhabilito
-			delete from CUATRO_QUESOS.Usuarios_Por_Rol where CUATRO_QUESOS.Usuarios_Por_Rol.ID_Rol = @ID	
-			--se lo quito a todos los usuarios que lo tienen	
-	fetch CurLocal into @ID, @Habilitado
-	end
-	
-	close CurLocal
-	deallocate CurLocal
+        --los roles son muy pocos, me voy a tomar la libertad de usar un cursor
+        declare @ID numeric(18)
+        declare @Habilitado bit
+        declare curLocal cursor for select ID_Rol, Habilitado from inserted
+        
+        open curLocal
+        fetch CurLocal into @ID, @Habilitado
+        while @@FETCH_STATUS = 0
+        begin
+                if @Habilitado = 0 --uno de los roles se inhabilito
+                        delete from CUATRO_QUESOS.Usuarios_Por_Rol where CUATRO_QUESOS.Usuarios_Por_Rol.ID_Rol = @ID        
+                        --se lo quito a todos los usuarios que lo tienen        
+        fetch CurLocal into @ID, @Habilitado
+        end
+        
+        close CurLocal
+        deallocate CurLocal
 
 end
 
@@ -1195,9 +1195,9 @@ create trigger CUATRO_QUESOS.revocarUsuario on CUATRO_QUESOS.Usuarios for update
 as
 if UPDATE(Intentos_Fallidos)
 begin
-	--esto SÍ O SÍ se actualiza un registro a la vez. SÉ que inserted tiene una fila
-	if (select Intentos_Fallidos from inserted) > 2
-		update CUATRO_QUESOS.Usuarios set Habilitado = 0 where CUATRO_QUESOS.Usuarios.Username = (select username from inserted)	
+        --esto SÍ O SÍ se actualiza un registro a la vez. SÉ que inserted tiene una fila
+        if (select Intentos_Fallidos from inserted) > 2
+                update CUATRO_QUESOS.Usuarios set Habilitado = 0 where CUATRO_QUESOS.Usuarios.Username = (select username from inserted)        
 
 end
 
@@ -1209,38 +1209,38 @@ as
 if UPDATE(Habilitado)
 
 begin
-	--no se si los médicos se darán de baja de a uno o masivamente... meto cursor nomás
-	declare @ID numeric(18)
-	declare @Habilitado bit
-	declare curLocal cursor for select ID_Medico, Habilitado from inserted
-	
-	open curLocal
-	fetch CurLocal into @ID, @Habilitado
-	while @@FETCH_STATUS = 0
-	begin
-		if @Habilitado = 0 --uno de los médicos se dio de baja
-			--tengo que cancelar sus turnos futuros
-			
-			INSERT INTO CUATRO_QUESOS.Cancelaciones
-			(
-			Nro_Turno,
-			Tipo,
-			Motivo
-			)
-			
-			select Numero as Nro_Turno,
-					'Desvinculación del médico' as Tipo,
-					'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
-			from CUATRO_QUESOS.Turnos as sub
-			where sub.ID_Medico = @ID
-				and sub.Fecha > GETDATE()
-				and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
-			
-	fetch CurLocal into @ID, @Habilitado
-	end
-	
-	close CurLocal
-	deallocate CurLocal
+        --no se si los médicos se darán de baja de a uno o masivamente... meto cursor nomás
+        declare @ID numeric(18)
+        declare @Habilitado bit
+        declare curLocal cursor for select ID_Medico, Habilitado from inserted
+        
+        open curLocal
+        fetch CurLocal into @ID, @Habilitado
+        while @@FETCH_STATUS = 0
+        begin
+                if @Habilitado = 0 --uno de los médicos se dio de baja
+                        --tengo que cancelar sus turnos futuros
+                        
+                        INSERT INTO CUATRO_QUESOS.Cancelaciones
+                        (
+                        Nro_Turno,
+                        Tipo,
+                        Motivo
+                        )
+                        
+                        select Numero as Nro_Turno,
+                                        'Desvinculación del médico' as Tipo,
+                                        'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
+                        from CUATRO_QUESOS.Turnos as sub
+                        where sub.ID_Medico = @ID
+                                and sub.Fecha > GETDATE()
+                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+                        
+        fetch CurLocal into @ID, @Habilitado
+        end
+        
+        close CurLocal
+        deallocate CurLocal
 end
 
 GO
@@ -1250,54 +1250,54 @@ as
 if UPDATE(Fecha_Baja)
 
 begin
-	--no se si los pacientes se darán de baja de a uno o masivamente... meto cursor nomás
-	declare @Nro numeric(18)
-	declare @Fecha_Baja datetime
-	declare curLocal cursor for select Nro_Afiliado, Fecha_Baja from inserted
-	
-	open curLocal
-	fetch CurLocal into @Nro, @Fecha_Baja
-	while @@FETCH_STATUS = 0
-	begin
-		if @Fecha_Baja is not null --uno de los pacientes está dado de baja
-			--tengo que cancelar sus turnos futuros
-			
-			INSERT INTO CUATRO_QUESOS.Cancelaciones
-			(
-			Nro_Turno,
-			Tipo,
-			Motivo
-			)
-			
-			select Numero as Nro_Turno,
-					'Desvinculación del paciente' as Tipo,
-					'El paciente de este turno ya no se atiende en la clínica' as Motivo
-			from CUATRO_QUESOS.Turnos as sub
-			where sub.Nro_Afiliado = @Nro
-				and sub.Fecha > GETDATE()
-				and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
-			
-	fetch CurLocal into @Nro, @Fecha_Baja
-	end
-	
-	close CurLocal
-	deallocate CurLocal
+        --no se si los pacientes se darán de baja de a uno o masivamente... meto cursor nomás
+        declare @Nro numeric(18)
+        declare @Fecha_Baja datetime
+        declare curLocal cursor for select Nro_Afiliado, Fecha_Baja from inserted
+        
+        open curLocal
+        fetch CurLocal into @Nro, @Fecha_Baja
+        while @@FETCH_STATUS = 0
+        begin
+                if @Fecha_Baja is not null --uno de los pacientes está dado de baja
+                        --tengo que cancelar sus turnos futuros
+                        
+                        INSERT INTO CUATRO_QUESOS.Cancelaciones
+                        (
+                        Nro_Turno,
+                        Tipo,
+                        Motivo
+                        )
+                        
+                        select Numero as Nro_Turno,
+                                        'Desvinculación del paciente' as Tipo,
+                                        'El paciente de este turno ya no se atiende en la clínica' as Motivo
+                        from CUATRO_QUESOS.Turnos as sub
+                        where sub.Nro_Afiliado = @Nro
+                                and sub.Fecha > GETDATE()
+                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+                        
+        fetch CurLocal into @Nro, @Fecha_Baja
+        end
+        
+        close CurLocal
+        deallocate CurLocal
 end
 
 GO
 
---trigger para verificar que no se receten más de 5 medicamentos en un mismo bono farmacia	
+--trigger para verificar que no se receten más de 5 medicamentos en un mismo bono farmacia        
 create trigger CUATRO_QUESOS.limitarMedicamentosPorBono on CUATRO_QUESOS.Medicamentos_Por_Consulta for update, insert
 as
 begin
-	if (select top 1 COUNT(*) 
-	from CUATRO_QUESOS.Medicamentos_Por_Consulta
-	group by Nro_Bono_Farmacia 
-	order by 1 desc) > 5 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
-	begin
-		rollback
-		raiserror('Error: no se pueden recetar más de 5 medicamentos usando un mismo bono.', 16, 0)
-	end
+        if (select top 1 COUNT(*)
+        from CUATRO_QUESOS.Medicamentos_Por_Consulta
+        group by Nro_Bono_Farmacia
+        order by 1 desc) > 5 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+        begin
+                rollback
+                raiserror('Error: no se pueden recetar más de 5 medicamentos usando un mismo bono.', 16, 0)
+        end
 end
 
 GO
@@ -1306,14 +1306,14 @@ GO
 create trigger CUATRO_QUESOS.limitarJornadaLaboral on CUATRO_QUESOS.Dias_Atencion for update, insert
 as
 begin
-	if (select top 1 SUM(DATEDIFF(HOUR, hora_desde, hora_hasta)) 
-	from CUATRO_QUESOS.Dias_Atencion 
-	group by ID_Medico 
-	order by 1 desc) > 48 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
-	begin
-		rollback
-		raiserror('Error: un médico no puede trabajar más de 48 horas a la semana.', 16, 0)
-	end
+        if (select top 1 SUM(DATEDIFF(HOUR, hora_desde, hora_hasta))
+        from CUATRO_QUESOS.Dias_Atencion
+        group by ID_Medico
+        order by 1 desc) > 48 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+        begin
+                rollback
+                raiserror('Error: un médico no puede trabajar más de 48 horas a la semana.', 16, 0)
+        end
 end
 
 GO
@@ -1324,13 +1324,13 @@ GO
 create trigger CUATRO_QUESOS.obedecerHorariosClinica on CUATRO_QUESOS.Dias_Atencion for insert, update
 as
 begin
-	if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
-		or
-		((select COUNT(*) from inserted where Nombre_Dia = 'Sábado' and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
-	begin
-		rollback
-		raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)
-	end
+        if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
+                or
+                ((select COUNT(*) from inserted where Nombre_Dia = 'Sábado' and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
+        begin
+                rollback
+                raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)
+        end
 end
 
 GO
@@ -1497,15 +1497,15 @@ GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getConyuge(@nroAfiliadoTitular numeric(18))
 AS
-SELECT Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo', 
-Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
+SELECT Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo',
+Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail',
 Fecha_Nac 'Fecha de Nacimiento', Planes_Medicos.Descripcion 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
-Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo' 
+Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo'
 FROM CUATRO_QUESOS.Afiliados LEFT JOIN CUATRO_QUESOS.Planes_Medicos ON Afiliados.Cod_Plan = Planes_Medicos.Codigo
 WHERE Nro_Conyuge = @nroAfiliadoTitular
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado  --Procedure para dar de alta un afiliado, dependiendo del tipo de afiliado insertara valores distintos y en distintas columnas
+CREATE PROCEDURE CUATRO_QUESOS.darAltaAfiliado --Procedure para dar de alta un afiliado, dependiendo del tipo de afiliado insertara valores distintos y en distintas columnas
 (@Nombre varchar(255),
  @Apellido varchar(255),
  @Sexo char(1) ,
@@ -1593,16 +1593,16 @@ BEGIN
                                 0,
                                 @nroAfiliadoTitular
                                 )
-                        END        
+                        END
 END
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @tipoDoc varchar(3), @nroDoc numeric(18), @nroAfiliadoRaiz numeric(18)
 AS
-SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo', 
-Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail', 
+SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo',
+Tipo_Doc 'Tipo Documento',Nro_Doc 'Nª Documento', Direccion 'Dirección',Telefono 'Teléfono', Mail 'Mail',
 Fecha_Nac 'Fecha de Nacimiento', Planes_Medicos.Descripcion 'Plan Medico', Estado_Civil 'Estado Civil',Nro_Titular 'Nª Afiliado de Titular',
-Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo' 
+Nro_Conyuge 'Nª Afiliado de Conyuge', Fecha_Baja 'Fecha de Baja', Nro_Consulta 'Nª de Consultas Realizadas',CantFamiliaresACargo 'Cantidad de Familiares a Cargo'
 FROM CUATRO_QUESOS.Afiliados LEFT JOIN CUATRO_QUESOS.Planes_Medicos ON Afiliados.Cod_Plan = Planes_Medicos.Codigo
 WHERE Nombre LIKE '%' + @nombre + '%'
 AND Apellido LIKE '%' + @apellido + '%'
@@ -1617,15 +1617,15 @@ CREATE PROCEDURE CUATRO_QUESOS.darBajaAfiliado(@nroAfiliado numeric(18), @fechaS
 AS
 IF(CUATRO_QUESOS.tipoAfiliado(@nroAfiliado) = 1) --si el afiliado a dar de baja es titular, da de baja tambien a su conyuge y a los familiares que tiene a cargo
 BEGIN
-	UPDATE CUATRO_QUESOS.Afiliados
-	SET Fecha_Baja = @fechaSistema
-	WHERE Nro_Afiliado = @nroAfiliado OR Nro_Conyuge = @nroAfiliado OR Nro_Titular = @nroAfiliado
+        UPDATE CUATRO_QUESOS.Afiliados
+        SET Fecha_Baja = @fechaSistema
+        WHERE Nro_Afiliado = @nroAfiliado OR Nro_Conyuge = @nroAfiliado OR Nro_Titular = @nroAfiliado
 END
 ELSE
-BEGIN	-- si es otro tipo de afiliado, le da de baja solamente a el
-	UPDATE CUATRO_QUESOS.Afiliados
-	SET Fecha_Baja = @fechaSistema
-	WHERE Nro_Afiliado = @nroAfiliado
+BEGIN        -- si es otro tipo de afiliado, le da de baja solamente a el
+        UPDATE CUATRO_QUESOS.Afiliados
+        SET Fecha_Baja = @fechaSistema
+        WHERE Nro_Afiliado = @nroAfiliado
 END
 
 GO
@@ -1652,51 +1652,51 @@ CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
 ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
 AS
 BEGIN
-	DECLARE @nroAfiliado numeric(18)
-	SELECT @nroAfiliado = Nro_Afiliado FROM INSERTED
-	
-	IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
-	EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
+        DECLARE @nroAfiliado numeric(18)
+        SELECT @nroAfiliado = Nro_Afiliado FROM INSERTED
+        
+        IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
+        EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
 END
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.updateAfiliado (
-@nroAfiliado numeric(18), 
-@direccion varchar(255), 
-@telefono numeric(18), 
-@mail varchar(255), 
-@cod_plan numeric(18), 
-@estadoCivil varchar(255), 
+@nroAfiliado numeric(18),
+@direccion varchar(255),
+@telefono numeric(18),
+@mail varchar(255),
+@cod_plan numeric(18),
+@estadoCivil varchar(255),
 @cantFamiliares tinyint)
 AS
 BEGIN
 
 IF(CUATRO_QUESOS.tipoAfiliado(@nroAfiliado) = 1)
-	BEGIN
-		UPDATE CUATRO_QUESOS.Afiliados
-		SET Direccion = @direccion, 
-		Telefono = @telefono, 
-		Mail = @mail, 
-		Cod_Plan = @cod_plan, 
-		Estado_Civil = @estadoCivil, 
-		CantFamiliaresACargo = @cantFamiliares 
-		-- TODO: crear un trigger que valide la cantidad de familiares 
-		--que estan dados de alta contra el nuevo valor de la columna CantFamiliaresACargo, 
-		--en caso de que el valor de este sea menor, solicitar la baja obligatoria de algun familiar (se da el nro de afiliado), 
-		--de lo contrario dejar la cantidad real de familiares a cargo que existen en la BD para mantener la consistencia
-		WHERE Nro_Afiliado = @nroAfiliado
-	END
+        BEGIN
+                UPDATE CUATRO_QUESOS.Afiliados
+                SET Direccion = @direccion,
+                Telefono = @telefono,
+                Mail = @mail,
+                Cod_Plan = @cod_plan,
+                Estado_Civil = @estadoCivil,
+                CantFamiliaresACargo = @cantFamiliares
+                -- TODO: crear un trigger que valide la cantidad de familiares
+                --que estan dados de alta contra el nuevo valor de la columna CantFamiliaresACargo,
+                --en caso de que el valor de este sea menor, solicitar la baja obligatoria de algun familiar (se da el nro de afiliado),
+                --de lo contrario dejar la cantidad real de familiares a cargo que existen en la BD para mantener la consistencia
+                WHERE Nro_Afiliado = @nroAfiliado
+        END
 ELSE
-	BEGIN
+        BEGIN
 
-		UPDATE CUATRO_QUESOS.Afiliados
-		SET Direccion = @direccion, 
-		Telefono = @telefono, 
-		Mail = @mail, 
-		Cod_Plan = @cod_plan
-		WHERE Nro_Afiliado = @nroAfiliado
-	
-	END
+                UPDATE CUATRO_QUESOS.Afiliados
+                SET Direccion = @direccion,
+                Telefono = @telefono,
+                Mail = @mail,
+                Cod_Plan = @cod_plan
+                WHERE Nro_Afiliado = @nroAfiliado
+        
+        END
 
 END
 
@@ -1709,7 +1709,7 @@ GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getPlanesMedicos @codigo numeric(18), @descripcion varchar(255),@precioBonoConsulta int, @precioBonoFarmacia int
 AS
-SELECT Codigo, Descripcion, Precio_Bono_Consulta 'Precio Bono Consulta', Precio_Bono_Farmacia 'Precio Bono Farmacia' 
+SELECT Codigo, Descripcion, Precio_Bono_Consulta 'Precio Bono Consulta', Precio_Bono_Farmacia 'Precio Bono Farmacia'
 FROM Planes_Medicos
 WHERE ((Codigo = @codigo AND @codigo > 0) OR (@codigo = 0))
 AND Descripcion LIKE '%' + @descripcion + '%'
@@ -1717,17 +1717,17 @@ AND Precio_Bono_Consulta >= @precioBonoConsulta
 AND Precio_Bono_Farmacia >= @precioBonoFarmacia
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico 
-@nroAfiliado numeric(18), 
-@fecha datetime,  
-@planMedicoAnterior numeric(18), 
+CREATE PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico
+@nroAfiliado numeric(18),
+@fecha datetime,
+@planMedicoAnterior numeric(18),
 @planMedicoNuevo numeric(18),
 @motivo varchar(255)
 
 AS
 BEGIN
-	INSERT INTO CUATRO_QUESOS.Cambios_Plan
-	VALUES (@nroAfiliado, @fecha, @planMedicoAnterior, @planMedicoNuevo, @motivo)
+        INSERT INTO CUATRO_QUESOS.Cambios_Plan
+        VALUES (@nroAfiliado, @fecha, @planMedicoAnterior, @planMedicoNuevo, @motivo)
 END
 GO
 /********** FIN PROCEDURES PLANES MEDICOS ************/
@@ -1748,7 +1748,7 @@ AS
         BEGIN TRAN
                 INSERT INTO CUATRO_QUESOS.Roles (Habilitado)
                 VALUES (1) -- para baja logica
-        COMMIT        
+        COMMIT
 
 go
 
@@ -1770,15 +1770,15 @@ as
         
 go
 
-create procedure CUATRO_QUESOS.altaRol(@nombre varchar(50))        
+create procedure CUATRO_QUESOS.altaRol(@nombre varchar(50))
 --aca el id lo va a autogenerar
 as
         begin
                 insert into CUATRO_QUESOS.Roles(Nombre, Habilitado)
                 values(@nombre, 1)
-        end        
+        end
         
-go        
+go
         
 create procedure CUATRO_QUESOS.getFuncionalidades --no recibe parametros
 as
@@ -1787,7 +1787,7 @@ as
                 FROM CUATRO_QUESOS.Funcionalidades
         end
 
-go        
+go
         
 CREATE PROCEDURE CUATRO_QUESOS.modificarRol(@idRol numeric(18),@nombre varchar(50))
 AS
@@ -1819,44 +1819,44 @@ GO
 -- CÓDIGO DE ABM DE CANCELACIÓN
 
 CREATE TYPE [CUATRO_QUESOS].[TURNOS_MEDICO] AS TABLE(
-	[numero] [numeric](18, 0) NOT NULL,
-	[nombre_paciente] [varchar](255) NOT NULL,
-	[paciente_apellido] [varchar](255) NOT NULL,
-	[fecha] [date] NOT NULL
+        [numero] [numeric](18, 0) NOT NULL,
+        [nombre_paciente] [varchar](255) NOT NULL,
+        [paciente_apellido] [varchar](255) NOT NULL,
+        [fecha] [date] NOT NULL
 )
 GO
 
 CREATE FUNCTION [CUATRO_QUESOS].[getNroAfiliado] (@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDocumento VARCHAR(3))
 RETURNS NUMERIC(18,0)
 BEGIN
-	DECLARE @nro numeric(18)
-	SELECT @nro = Nro_Afiliado
-	FROM CUATRO_QUESOS.Afiliados
-	WHERE Nombre = @Nombre AND Apellido = @Apellido AND Nro_Doc = @Documento AND Tipo_Doc = @TipoDocumento
-	RETURN @nro
+        DECLARE @nro numeric(18)
+        SELECT @nro = Nro_Afiliado
+        FROM CUATRO_QUESOS.Afiliados
+        WHERE Nombre = @Nombre AND Apellido = @Apellido AND Nro_Doc = @Documento AND Tipo_Doc = @TipoDocumento
+        RETURN @nro
 END
 GO
 
-CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255), 
-													@Apellido VARCHAR(255), 
-													@Documento NUMERIC(18,0), 
-													@TipoDoc VARCHAR(3),
-													@DesdeFecha DATE,
-													@HastaFecha DATE)
+CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255),
+                                                                                                        @Apellido VARCHAR(255),
+                                                                                                        @Documento NUMERIC(18,0),
+                                                                                                        @TipoDoc VARCHAR(3),
+                                                                                                        @DesdeFecha DATE,
+                                                                                                        @HastaFecha DATE)
 AS
 declare @ID_Medico numeric(18)
 set @ID_Medico = CUATRO_QUESOS.getIdMedico(@Nombre, @Apellido, @Documento)
 SELECT t.numero, a.nombre AS 'Nombre Paciente', a.apellido AS 'Apellido Paciente', t.fecha
-FROM CUATRO_QUESOS.Turnos t 
+FROM CUATRO_QUESOS.Turnos t
 JOIN CUATRO_QUESOS.Afiliados a
 ON t.nro_afiliado = a.nro_afiliado
 AND t.id_medico = @ID_Medico
-WHERE  t.Numero NOT IN(
-		SELECT c.Nro_Turno
-		FROM CUATRO_QUESOS.Cancelaciones c)
-	AND((fecha >= @DesdeFecha AND fecha <= @HastaFecha)
-	OR (@DesdeFecha IS NULL AND @HastaFecha IS NULL)
-	OR (@DesdeFecha = '' AND @HastaFecha = ''))
+WHERE t.Numero NOT IN(
+                SELECT c.Nro_Turno
+                FROM CUATRO_QUESOS.Cancelaciones c)
+        AND((fecha >= @DesdeFecha AND fecha <= @HastaFecha)
+        OR (@DesdeFecha IS NULL AND @HastaFecha IS NULL)
+        OR (@DesdeFecha = '' AND @HastaFecha = ''))
 GO
 
 CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeAfiliado](@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDoc VARCHAR(3))
@@ -1866,29 +1866,29 @@ SET @nro = (SELECT CUATRO_QUESOS.getNroAfiliado(@Nombre, @Apellido, @Documento, 
 SELECT t.numero, m.nombre AS 'Nombre Médico', m.apellido AS 'Apellido Médico', t.fecha, e.descripcion AS Especialidad
 FROM CUATRO_QUESOS.Medicos m
 JOIN CUATRO_QUESOS.Turnos t
-	ON t.id_medico = m.id_medico
-	AND nro_afiliado = @nro
+        ON t.id_medico = m.id_medico
+        AND nro_afiliado = @nro
 JOIN CUATRO_QUESOS.Especialidades e
-	ON t.cod_especialidad = e.Codigo
-WHERE  t.Numero NOT IN(
-		SELECT c.Nro_Turno
-		FROM CUATRO_QUESOS.Cancelaciones c)
+        ON t.cod_especialidad = e.Codigo
+WHERE t.Numero NOT IN(
+                SELECT c.Nro_Turno
+                FROM CUATRO_QUESOS.Cancelaciones c)
 GO
 
-CREATE PROCEDURE [CUATRO_QUESOS].[cancelarTurno]( @Nro_Turno NUMERIC(18,0), 
-												  @TipoMotivo VARCHAR(255),
-												  @Motivo VARCHAR(255) )
+CREATE PROCEDURE [CUATRO_QUESOS].[cancelarTurno]( @Nro_Turno NUMERIC(18,0),
+                                                                                                 @TipoMotivo VARCHAR(255),
+                                                                                                 @Motivo VARCHAR(255) )
 AS
 INSERT INTO CUATRO_QUESOS.Cancelaciones (Nro_Turno, Tipo, Motivo)
 VALUES (@Nro_Turno, @TipoMotivo, @Motivo)
 GO
 
-CREATE PROCEDURE [CUATRO_QUESOS].[cancelarPeriodo](	@Tabla CUATRO_QUESOS.TURNOS_MEDICO READONLY, 
-												@Motivo VARCHAR(255)		)
+CREATE PROCEDURE [CUATRO_QUESOS].[cancelarPeriodo](        @Tabla CUATRO_QUESOS.TURNOS_MEDICO READONLY,
+                                                                                                @Motivo VARCHAR(255)                )
 AS
-	INSERT INTO CUATRO_QUESOS.Cancelaciones
-	SELECT t.numero, 'No asistencia', @Motivo
-	FROM @Tabla t
+        INSERT INTO CUATRO_QUESOS.Cancelaciones
+        SELECT t.numero, 'No asistencia', @Motivo
+        FROM @Tabla t
 GO
 
 -- FIN ABM DE CANCELACIÓN
@@ -1897,79 +1897,79 @@ GO
 create procedure CUATRO_QUESOS.comprarBonos(@afiliado numeric(18), @cant_farmacia int, @cant_consulta int)
 as
 begin
-	declare @plan numeric(18);
-	declare @precio_consulta numeric(18);
-	declare @precio_farmacia numeric(18);
-	declare @id_compra numeric(18);
-	declare @fecha_fija datetime;
-	
-	select @plan = Cod_Plan, @precio_consulta = Planes_Medicos.Precio_Bono_Consulta, @precio_farmacia = Planes_Medicos.Precio_Bono_Farmacia
-	from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Afiliados.Cod_Plan = Planes_Medicos.Codigo
-	where Afiliados.Nro_Afiliado = @afiliado
-	
-	set @id_compra = (select COUNT(*) from CUATRO_QUESOS.Compra) + 1
-	set @fecha_fija = getdate()
+        declare @plan numeric(18);
+        declare @precio_consulta numeric(18);
+        declare @precio_farmacia numeric(18);
+        declare @id_compra numeric(18);
+        declare @fecha_fija datetime;
+        
+        select @plan = Cod_Plan, @precio_consulta = Planes_Medicos.Precio_Bono_Consulta, @precio_farmacia = Planes_Medicos.Precio_Bono_Farmacia
+        from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Afiliados.Cod_Plan = Planes_Medicos.Codigo
+        where Afiliados.Nro_Afiliado = @afiliado
+        
+        set @id_compra = (select COUNT(*) from CUATRO_QUESOS.Compra) + 1
+        set @fecha_fija = getdate()
 
-	set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
-	insert into CUATRO_QUESOS.Compra(Id_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
-	values (
-			@id_compra,
-			@afiliado,
-			@fecha_fija,
-			@cant_consulta,
-			@cant_farmacia,
-			(@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
-			)
-	set IDENTITY_INSERT CUATRO_QUESOS.Compra OFF	
-	
-	declare @c int;
-	declare @f int;
-	declare @c_base int;
-	declare @f_base int;
-	set @c=0;
-	set @f=0;
-	set @c_base = (select MAX(Numero) from CUATRO_QUESOS.Bonos where Tipo_Bono = 'Consulta') + 1;
-	set @f_base = (select MAX(Numero) from CUATRO_QUESOS.Bonos where Tipo_Bono = 'Farmacia') + 1;
-	
-	while (@c < @cant_consulta)
-	begin
-		insert into CUATRO_QUESOS.Bonos(Numero, Fecha_Impresion, Nro_Afiliado, Cod_Plan, Id_Compra, Tipo_Bono, Fecha_Vencimiento, Nro_Consulta, Nro_Usuario)
-		values
-			(
-			(@c_base+@c),
-			@fecha_fija,
-			@afiliado,
-			@plan,
-			@id_compra,
-			'Consulta',
-			NULL,
-			NULL,
-			NULL
-			)
-			
-		set @c = @c+1
-	end
-	
-			while (@f < @cant_farmacia)
-	begin
-		insert into CUATRO_QUESOS.Bonos(Numero, Fecha_Impresion, Nro_Afiliado, Cod_Plan, Id_Compra, Tipo_Bono, Fecha_Vencimiento, Nro_Consulta, Nro_Usuario)
-		values
-			(
-			(@f_base+@f),
-			@fecha_fija,
-			@afiliado,
-			@plan,
-			@id_compra,
-			'Farmacia',
-			dateadd(day, 60, @fecha_fija),
-			NULL,
-			NULL
-			)
-			
-		set @f = @f+1
-	end	
+        set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
+        insert into CUATRO_QUESOS.Compra(Id_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
+        values (
+                        @id_compra,
+                        @afiliado,
+                        @fecha_fija,
+                        @cant_consulta,
+                        @cant_farmacia,
+                        (@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
+                        )
+        set IDENTITY_INSERT CUATRO_QUESOS.Compra OFF        
+        
+        declare @c int;
+        declare @f int;
+        declare @c_base int;
+        declare @f_base int;
+        set @c=0;
+        set @f=0;
+        set @c_base = (select MAX(Numero) from CUATRO_QUESOS.Bonos where Tipo_Bono = 'Consulta') + 1;
+        set @f_base = (select MAX(Numero) from CUATRO_QUESOS.Bonos where Tipo_Bono = 'Farmacia') + 1;
+        
+        while (@c < @cant_consulta)
+        begin
+                insert into CUATRO_QUESOS.Bonos(Numero, Fecha_Impresion, Nro_Afiliado, Cod_Plan, Id_Compra, Tipo_Bono, Fecha_Vencimiento, Nro_Consulta, Nro_Usuario)
+                values
+                        (
+                        (@c_base+@c),
+                        @fecha_fija,
+                        @afiliado,
+                        @plan,
+                        @id_compra,
+                        'Consulta',
+                        NULL,
+                        NULL,
+                        NULL
+                        )
+                        
+                set @c = @c+1
+        end
+        
+                        while (@f < @cant_farmacia)
+        begin
+                insert into CUATRO_QUESOS.Bonos(Numero, Fecha_Impresion, Nro_Afiliado, Cod_Plan, Id_Compra, Tipo_Bono, Fecha_Vencimiento, Nro_Consulta, Nro_Usuario)
+                values
+                        (
+                        (@f_base+@f),
+                        @fecha_fija,
+                        @afiliado,
+                        @plan,
+                        @id_compra,
+                        'Farmacia',
+                        dateadd(day, 60, @fecha_fija),
+                        NULL,
+                        NULL
+                        )
+                        
+                set @f = @f+1
+        end        
 
-	return (@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
+        return (@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
 
 end
 
@@ -1979,15 +1979,95 @@ GO
 create procedure CUATRO_QUESOS.getDatosParaCompra (@afiliado numeric(18))
 as
 begin
-	select Descripcion, Precio_Bono_Consulta, Precio_Bono_Farmacia
-	from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Cod_Plan = Codigo
-	where Afiliados.Nro_Afiliado = @afiliado and afiliados.Fecha_Baja is null
+        select Descripcion, Precio_Bono_Consulta, Precio_Bono_Farmacia
+        from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Cod_Plan = Codigo
+        where Afiliados.Nro_Afiliado = @afiliado and afiliados.Fecha_Baja is null
 end
 
 GO
 --FIN COMPRA DE BONOS
 
+-- CODIGO DE LOGIN
+CREATE PROCEDURE CUATRO_QUESOS.intentarLogear( @username VARCHAR(20) , @pass BINARY(32) )
+AS
+BEGIN
+	DECLARE @resultado TINYINT
+	
+	IF EXISTS(SELECT * FROM CUATRO_QUESOS.Usuarios WHERE username = @username)
+		BEGIN
+			IF (CUATRO_QUESOS.estaHabilitadoUsuario(@username)) = 1
+				BEGIN
+					IF @pass = CUATRO_QUESOS.getPass(@username)
+						BEGIN
+							UPDATE CUATRO_QUESOS.Usuarios
+							SET Intentos_Fallidos = 0, @resultado = 0
+							WHERE Username = @username
+						END
+					ELSE
+						BEGIN
+							UPDATE CUATRO_QUESOS.Usuarios
+							SET Intentos_Fallidos = Intentos_Fallidos + 1, @resultado = Intentos_Fallidos + 1
+							WHERE Username = @username
+						END
+				END
+			ELSE
+				SET @resultado = 4
+	END
+	ELSE SET @resultado = 5
 
+	RETURN @resultado
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.estaHabilitadoUsuario(@username AS VARCHAR(20)) RETURNS BIT
+AS
+BEGIN
+	RETURN (SELECT Habilitado FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getPass(@username AS VARCHAR(20)) RETURNS BINARY(32)
+AS
+BEGIN
+	RETURN (SELECT pass FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
+END
+GO
+
+
+CREATE PROCEDURE CUATRO_QUESOS.traerRolesDeUsuario(@username VARCHAR(20))
+AS
+BEGIN
+	SELECT r.id_rol, r.Nombre, r.Habilitado
+	FROM CUATRO_QUESOS.Roles r, CUATRO_QUESOS.Usuarios_Por_Rol ur
+	WHERE ur.Username = @username AND ur.id_rol = r.id_rol
+END
+GO
+
+
+CREATE PROCEDURE CUATRO_QUESOS.traerFuncionalidadesDeRol(@rol NUMERIC(18,0))
+AS
+BEGIN
+	SELECT f.id_funcionalidad, f.descripcion
+	FROM CUATRO_QUESOS.Funcionalidades f, CUATRO_QUESOS.Roles_Por_Funcionalidades rf
+	WHERE rf.id_rol = @rol AND rf.id_funcionalidad = f.id_funcionalidad
+END
+GO
+
+
+CREATE PROCEDURE CUATRO_QUESOS.traerDatosUsuario(@username VARCHAR(20), @rol VARCHAR(50))
+AS
+BEGIN
+	IF( @rol = 'Profesional' )
+				SELECT	m.* 
+				FROM CUATRO_QUESOS.Medicos m, CUATRO_QUESOS.Usuarios_Medicos um 
+				WHERE um.username = @username AND um.id_medico = m.id_medico
+	ELSE IF( @rol = 'Afiliado' )	 
+				SELECT a.*
+				FROM CUATRO_QUESOS.Afiliados a, CUATRO_QUESOS.Usuarios_Afiliados ua
+				WHERE ua.username = @username AND ua.nro_afiliado = a.nro_afiliado
+END
+GO
+-- FIN LOGIN
 
 
 

@@ -4,9 +4,16 @@ GO
 BEGIN TRAN
 GO
 
+
+DROP PROCEDURE CUATRO_QUESOS.traerFuncionalidadesDeRol
+DROP PROCEDURE CUATRO_QUESOS.traerRolesDeUsuario
+DROP FUNCTION CUATRO_QUESOS.estaHabilitadoUsuario
+DROP FUNCTION CUATRO_QUESOS.getPass
+DROP PROCEDURE CUATRO_QUESOS.intentarLogear
+DROP PROCEDURE CUATRO_QUESOS.traerDatosUsuario
 DROP PROCEDURE CUATRO_QUESOS.altaMedico_Especialidad
 DROP PROCEDURE CUATRO_QUESOS.getEspecialidades
-DROP PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico 
+DROP PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico
 DROP PROCEDURE CUATRO_QUESOS.getConyuge
 DROP PROCEDURE CUATRO_QUESOS.cantFamiliaresRegistrados
 DROP PROCEDURE CUATRO_QUESOS.getPlanesMedicos
@@ -177,7 +184,7 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_U
 
 -- Drop other constraints
 
-alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional 
+alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional
 ;
 
 alter table CUATRO_QUESOS.Medicamentos_Por_Consulta drop constraint verificarCantidadMedicamentoIndividual
