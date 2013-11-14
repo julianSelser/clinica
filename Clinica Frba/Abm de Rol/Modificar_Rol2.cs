@@ -42,6 +42,29 @@ namespace Clinica_Frba.Abm_de_Rol
         //IMP: el int lo voy a tener que guardar en una variable glogal cuando lo llame de la vista anteior 
         public void cargarFuncionalidades()
         {
+
+            int index;
+            funcionalidades = AppRol.getFuncionalidades(); //cargo todas las especialidades
+            List<Funcionalidad> funcionalidadesDelRol = AppRol.getFuncionalidadesRol(rol); //cargo las que ya tenia
+            foreach (Funcionalidad funcionalidad in funcionalidades)
+            {
+                chkBoxFuncionalidades.Items.Add(funcionalidad.descripcion);
+                foreach (Funcionalidad funcionalidadDelRol in funcionalidadesDelRol)
+                {
+                    if (funcionalidadDelRol.id == funcionalidad.id)
+                    {
+                        index = chkBoxFuncionalidades.Items.IndexOf(funcionalidad.descripcion);
+                        chkBoxFuncionalidades.SetItemChecked(index, true); //marco como seleccionada la especialidad que ya tenia
+                    }
+                }
+            }
+
+
+
+
+
+
+
             chkBoxFuncionalidades.Items.Clear(); //los vacia
             var items = chkBoxFuncionalidades.Items;
             //List<String> funcionalidades = AppRol.getFuncionalidadesRol(/*falta el int*/);

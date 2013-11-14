@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using Clinica_Frba.Domain;
+using Clinica_Frba.AppModel.Excepciones;
 
 namespace Clinica_Frba.AppModel
 {
@@ -21,7 +22,9 @@ namespace Clinica_Frba.AppModel
             ejecutarProcedure("inhabilitarRol", rol.id);
         }
 
-        private static void modificarRol1(int idRol) //carga una vista con los datos apartir de un id, en este caso el nombre y las funcionalidades
+  
+        //MODIFICAR_ROL_1 YA NO VA A ESTAR MAS (en cambio va a haber un listado)
+        /*      private static void modificarRol1(int idRol) //carga una vista con los datos apartir de un id, en este caso el nombre y las funcionalidades
         {
             List<String> listaDeFuncionalidades;
 
@@ -34,7 +37,7 @@ namespace Clinica_Frba.AppModel
             {
                 String nombre = dr["NombreRol"].ToString();
             }
-        }
+        }*/
 
         private static void modificarRol2(string nombre) //modifica los datos
         {
@@ -43,7 +46,7 @@ namespace Clinica_Frba.AppModel
             //va a hacer un insert de todas las nuevas funcionalidades
         }
 
-        private static List<String> getFuncionalidadesRol(int idRol) //modifica los datos
+/*        private static List<String> getFuncionalidadesRol(int idRol) //modifica los datos
         {
             List<String> nombresFuncionalidades = new List<String>();
 
@@ -60,13 +63,64 @@ namespace Clinica_Frba.AppModel
 
             return nombresFuncionalidades;
         
-        }
+        }*/
 
         public static DataTable getDataTableRolesPorId(int idRol)
         {
             DataTable tablaNombre = traerDataTable("getNombreRol", idRol);
             return tablaNombre;
         }    
-    
+
+        //aca empiezo a trabajar con lo de joni ------------------------
+
+        internal static List<Funcionalidad> getFuncionalidades()
+        {
+            DataTable table = traerDataTable("getFuncionalidades");
+            return crearListaFuncionalidades(table);
+        }
+
+
+        private static List<Funcionalidad> crearListaFuncionalidades(DataTable table)
+        {
+            DataRowCollection rows = table.Rows;
+            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+            foreach (DataRow row in rows)
+            {
+                Funcionalidad funcionalidad = crearFuncionalidad(row);
+                funcionalidades.Add(funcionalidad);
+            }
+            return funcionalidades;
+        }
+
+
+        private static Funcionalidad crearFuncionalidad(DataRow row)
+        {
+            int cod = Convert.ToInt32(row["Id_Funcionalidad"].ToString());
+            string descripcion = row["Descripcion"].ToString();
+            Funcionalidad funcionalidad = new Funcionalidad();
+            funcionalidad.id = cod;
+            funcionalidad.descripcion = descripcion;
+            return funcionalidad;
+        }
+
+
+        public static List<Funcionalidad> getFuncionalidadesRol(Rol rol)
+        {
+            DataTable table = traerDataTable("getFuncionalidadesRol", rol.id);
+            DataRowCollection rows = table.Rows;
+            List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+            int id;
+            foreach (DataRow row in rows)
+            {
+                Funcionalidad funcionalidad = new Funcionalidad();
+                id = Convert.ToInt32(row["Id_Funcionalidad"].ToString());
+                funcionalidad.id = id;
+                funcionalidades.Add(funcionalidad);
+            }
+            return funcionalidades;
+        }
+
+
+
     }
 }
