@@ -152,7 +152,6 @@
     <Compile Include="AppModel\Excepciones\SinEspecilidadesCheckedException.cs" />
     <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
     <Compile Include="AppModel\Globales.cs" />
-    <Compile Include="AppModel\IListado.cs" />
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
       <SubType>Form</SubType>
     </Compile>

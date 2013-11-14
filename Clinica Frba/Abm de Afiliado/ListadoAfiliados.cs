@@ -15,7 +15,7 @@ using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
-    public partial class ListadoProfesionales : Form, IListado
+    public partial class ListadoProfesionales : Form
     {
         public Form padre;
         public string funcion;

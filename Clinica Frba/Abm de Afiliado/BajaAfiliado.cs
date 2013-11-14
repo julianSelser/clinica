@@ -35,7 +35,6 @@ namespace Clinica_Frba.Abm_de_Afiliado
         {
             AppAfiliado.darBajaAfiliado(afiliado.nroAfiliado);
             MessageBox.Show("La baja se ha realizado correctamente.");
-            (padre as IListado).cargarGrilla();
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
