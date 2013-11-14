@@ -39,7 +39,6 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Modificar_Rol2.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Alta_Rol.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Modificar_Rol2.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Modificar_Rol.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Compra_de_Bono.CompraBono.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Generar_Receta.GenerarReceta.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Listados_Estadisticos.ListadosEstadisticos.resources
@@ -90,7 +89,6 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.AfiliadoCancelar.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.BaseCancelarAtencion.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.ProfesionalCancelar.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.Habilitar_Rol.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.AdministradorCancelar.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.AfiliadoCancelar.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Cancelar_Atencion.BaseCancelarAtencion.resources

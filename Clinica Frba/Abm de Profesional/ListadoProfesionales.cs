@@ -26,14 +26,18 @@ namespace Clinica_Frba.Abm_de_Profesional
             this.padre = padre;
             this.funcion = funcion;
             cargarGrilla();
-            ocultarColumnas();
+            cargarEspecialidades();
             cargarBotonFuncionalidad();
             validarCampos();
         }
 
-
-        private void ocultarColumnas() //oculto las columnas que no son de interes
+        private void cargarEspecialidades()
         {
+            List<EspecialidadMedica> lista = AppProfesional.getEspecialidades();
+            foreach (EspecialidadMedica especialidad in lista)
+            {
+                comboEspecialidad.Items.Add(especialidad.descripcion);
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -69,6 +73,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             nombreBox.Text = "";
             apellidoBox.Text = "";
             matriculaBox.Text = "";
+            comboEspecialidad.SelectedIndex = -1;
         }
 
         private void cargarBotonFuncionalidad()
@@ -121,6 +126,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             List<CampoAbstracto> campos = new List<CampoAbstracto>();
             campos.Add(new Campo("Nombre", nombreBox.Text, false, Controlador.TipoValidacion.Alfa));
             campos.Add(new Campo("Apellido", apellidoBox.Text, false, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Matricula", matriculaBox.Text, false, Controlador.TipoValidacion.Codigo));
             try
             {
                 Controlador.validarCampos(campos);
@@ -148,5 +154,11 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             validarCampos();
         }
+
+        private void comboEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
     }
 }
