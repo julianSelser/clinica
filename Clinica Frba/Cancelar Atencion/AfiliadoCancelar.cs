@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Cancelar_Atencion
 {
@@ -15,22 +16,18 @@ namespace Clinica_Frba.Cancelar_Atencion
         public AfiliadoCancelar(Form padre): base(padre)
         {
             InitializeComponent();
-            cancelarAtencion.Location = new Point(
-                                        (volver.Location.X + buscar.Location.X)/2,
-                                        cancelarAtencion.Location.Y);
+            cancelarAtencion.Location = buscar.Location;
             cancelarPeriodo.Visible = false;
-            cancelarPeriodo.Enabled = false;
+            buscar.Visible = false;
 
-        }
-
-        override protected bool camposValidos() 
-        {
-            return cadenasBusquedaValidas(nombreTextBox.Text, nroDocTextBox.Text);
+            this.ActualizarGrilla();
         }
 
         override protected DataTable llenarGrilla() 
         {
-            return AppCancelarAtencion.traerTablaPedida(nombreTextBox.Text, "Afiliado", nroDocTextBox.Text, tipoDocSelector.Text, null, null);
+            Persona p = UsuarioLogeado.Instance.Persona;
+
+            return AppCancelarAtencion.traerTurnosAfiliado(p.nombre ,p.apellido, p.nroDoc, p.tipoDoc);
         }
     }
 }
