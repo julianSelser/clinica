@@ -7,16 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Rol
 {
     public partial class Baja_Rol : Form
     {
         private Form padre;
-        public Baja_Rol(Form padre)
+        internal Rol rol;
+
+        public Baja_Rol(Form padre, Rol rol)
         {
             InitializeComponent();
             this.padre = padre;
+            this.rol = rol;
+            this.idBox.Text = rol.id.ToString();
 
         }
 
@@ -27,10 +32,9 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int codRol = Convert.ToInt32(textBox1);//guardo lo que recibo del textbox
-            AppRol.inhabilitarRol(codRol);//llamo a la funcion para darlo de baja
-            AsistenteVistas.volverAPadreYCerrar(padre, this);//vuelvo a la ventana anterior
-            //IMP:tendria que validar, y si no se ingreso ningun rol, mostrar un mensaje
+            //AppRol.darBajaRol(rol);
+            MessageBox.Show("La baja se ha realizado correctamente.");
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
     }
 }

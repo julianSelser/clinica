@@ -18,6 +18,9 @@ namespace Clinica_Frba.Domain
             this.nombre = nombre;
             this.habilitado = habilitado;
         }
+
+        public Rol() { }
+
     }
 }
 

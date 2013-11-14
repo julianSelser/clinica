@@ -36,5 +36,10 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
+
+        private void idBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
