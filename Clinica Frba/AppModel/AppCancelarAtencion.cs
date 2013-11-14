@@ -16,15 +16,15 @@ namespace Clinica_Frba.AppModel
             string nombre = Controlador.separarNombreYApellido(nombreYapellido)[0];
             string apellido = Controlador.separarNombreYApellido(nombreYapellido)[1];
 
-            return (tipoUsr == "Profesional") ? traerDiasDeProfesional(nombre, apellido, nroDoc, tipoDoc, desde, hasta) : traerTurnosAfiliado(nombre, apellido, nroDoc, tipoDoc);
+            return (tipoUsr == "Profesional") ? traerDiasDeProfesional(nombre, apellido, Convert.ToInt32(nroDoc), tipoDoc, desde, hasta) : traerTurnosAfiliado(nombre, apellido, Convert.ToInt32(nroDoc), tipoDoc);
         }
 
-        public static DataTable traerTurnosAfiliado(string nombre, string apellido, string nroDoc, string tipoDoc)
+        public static DataTable traerTurnosAfiliado(string nombre, string apellido, int nroDoc, string tipoDoc)
         {
             return ConectorSQL.traerDataTable("getTurnosDeAfiliado", nombre, apellido, nroDoc, tipoDoc);
         }
 
-        public static DataTable traerDiasDeProfesional(string nombre, string apellido, string nroDoc, string tipoDoc, DateTime? desde, DateTime? hasta)
+        public static DataTable traerDiasDeProfesional(string nombre, string apellido, int nroDoc, string tipoDoc, DateTime? desde, DateTime? hasta)
         {
             //todo este if es un workaround para que ande el conector...si le mando null interpreta que no hay arguementos
             if (desde == null || hasta == null)
