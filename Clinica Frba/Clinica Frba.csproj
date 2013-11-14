@@ -189,6 +189,7 @@
     <Compile Include="Cancelar Atencion\BaseSetearMotivo.Designer.cs">
       <DependentUpon>BaseSetearMotivo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Atencion\FormCancelarFactory.cs" />
     <Compile Include="Cancelar Atencion\ProfesionalCancelar.cs">
       <SubType>Form</SubType>
     </Compile>
