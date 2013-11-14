@@ -19,6 +19,7 @@ namespace Clinica_Frba.Abm_de_Profesional
     {
         public Form padre;
         public string funcion;
+        public List<EspecialidadMedica> listaEspecialidades;
 
         public ListadoProfesionales(Form padre, string funcion)
         {
@@ -33,8 +34,8 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         private void cargarEspecialidades()
         {
-            List<EspecialidadMedica> lista = AppProfesional.getEspecialidades();
-            foreach (EspecialidadMedica especialidad in lista)
+            listaEspecialidades = AppProfesional.getEspecialidades();
+            foreach (EspecialidadMedica especialidad in listaEspecialidades)
             {
                 comboEspecialidad.Items.Add(especialidad.descripcion);
             }
@@ -59,8 +60,23 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         public void cargarGrilla()
         {
-            if(matriculaBox.Text == "")matriculaBox.Text = "0";
-            AsistenteVistas.cargarGrilla(grillaProfesionales, AppProfesional.traerDataTableMedicos(nombreBox.Text, apellidoBox.Text, Convert.ToInt32(matriculaBox.Text)));
+            int matricula = 0;
+            int especialidad = 0;
+            if (matriculaBox.Text != "") matricula = Convert.ToInt32(matriculaBox.Text);
+            if(comboEspecialidad.SelectedIndex != -1)
+            {
+               especialidad = getCodigoEspecialidad(comboEspecialidad.SelectedItem.ToString());
+            }
+            AsistenteVistas.cargarGrilla(grillaProfesionales, AppProfesional.traerDataTableMedicos(nombreBox.Text, apellidoBox.Text, matricula, especialidad));
+        }
+
+        private int getCodigoEspecialidad(string descripcion)
+        {
+            foreach (EspecialidadMedica especialidad in listaEspecialidades)
+            {
+                if (especialidad.descripcion == descripcion) return especialidad.codigo;
+            }
+            throw new Exception("Codigo de especialidad no encontrado");
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
