@@ -1399,7 +1399,7 @@ END
 
 GO
 
-alter PROCEDURE CUATRO_QUESOS.getMedicos @nombre varchar(255), @apellido varchar(255), @matricula numeric(18)
+CREATE PROCEDURE CUATRO_QUESOS.getMedicos @nombre varchar(255), @apellido varchar(255), @matricula numeric(18)
 AS
 SELECT Id_Medico 'ID Medico',
 Nombre 'Nombre', Apellido 'Apellido',
