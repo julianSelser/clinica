@@ -12,11 +12,11 @@ namespace Clinica_Frba.Cancelar_Atencion
 {
     public partial class BaseSetearMotivo : Form
     {
-        protected Form padre;
+        protected BaseCancelarAtencion padre;
 
         public BaseSetearMotivo() { InitializeComponent(); }
 
-        public BaseSetearMotivo(Form padre)
+        public BaseSetearMotivo(BaseCancelarAtencion padre)
         {
             InitializeComponent();
             this.padre = padre;
@@ -32,6 +32,8 @@ namespace Clinica_Frba.Cancelar_Atencion
             if (motivoValido(motivoTextBox.Text))
             {
                 accionarCancelacion();
+
+                padre.ActualizarGrilla();
 
                 AsistenteVistas.volverAPadreYCerrar(padre, this);
             }

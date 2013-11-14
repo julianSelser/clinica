@@ -14,7 +14,7 @@ namespace Clinica_Frba.Cancelar_Atencion
     {
         private DataGridViewSelectedRowCollection seleccion;
 
-        public SetearMotivoCancelacion(Form padre, DataGridViewSelectedRowCollection seleccion): base(padre)
+        public SetearMotivoCancelacion(BaseCancelarAtencion padre, DataGridViewSelectedRowCollection seleccion): base(padre)
         {
             this.seleccion = seleccion;
         }

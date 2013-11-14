@@ -30,16 +30,7 @@ namespace Clinica_Frba.Cancelar_Atencion
 
         protected void buscar_Click(object sender, EventArgs e)
         {
-            if (camposValidos())
-            {
-                grilla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                grilla.DataSource = llenarGrilla();
-
-                grilla.AutoResizeColumns();
-            }
-            else
-                MessageBox.Show( mensajeDeError() , "Error de ingreso" , MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+            this.ActualizarGrilla();
         }
 
         protected void cancelarPeriodo_Click(object sender, EventArgs e)
@@ -70,6 +61,20 @@ namespace Clinica_Frba.Cancelar_Atencion
         virtual protected string mensajeDeError() 
         {
             return "Asegurese de estar ingresando el nombre y el apellido y que el DNI esté completo.";
+        }
+
+        public void ActualizarGrilla()
+        {
+            if (camposValidos())
+            {
+                grilla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                grilla.DataSource = llenarGrilla();
+
+                grilla.AutoResizeColumns();
+            }
+            else
+                MessageBox.Show(mensajeDeError(), "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
         }
 
 

@@ -189,7 +189,8 @@
             this.tipoUsrSelector.Location = new System.Drawing.Point(306, 13);
             this.tipoUsrSelector.Name = "tipoUsrSelector";
             this.tipoUsrSelector.Size = new System.Drawing.Size(115, 21);
-            this.tipoUsrSelector.TabIndex = 4;
+            this.tipoUsrSelector.TabIndex = 0;
+            this.tipoUsrSelector.Tag = "";
             this.tipoUsrSelector.SelectedIndexChanged += new System.EventHandler(this.tipoUsrSelector_SelectedIndexChanged);
             // 
             // AdministradorCancelar

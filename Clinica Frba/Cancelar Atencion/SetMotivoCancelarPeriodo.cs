@@ -16,7 +16,7 @@ namespace Clinica_Frba.Cancelar_Atencion
 
         public SetMotivoCancelarPeriodo() { InitializeComponent(); }
 
-        public SetMotivoCancelarPeriodo(Form padre, DataTable periodo):base(padre)
+        public SetMotivoCancelarPeriodo(BaseCancelarAtencion padre, DataTable periodo):base(padre)
         {
             this.periodo = periodo;
         }
