@@ -32,8 +32,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.chkBoxFuncionalidades = new System.Windows.Forms.CheckedListBox();
-            this.textBoxRol = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.idBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button2
@@ -73,32 +73,33 @@
             this.chkBoxFuncionalidades.Size = new System.Drawing.Size(187, 94);
             this.chkBoxFuncionalidades.TabIndex = 8;
             // 
-            // textBoxRol
-            // 
-            this.textBoxRol.Location = new System.Drawing.Point(133, 20);
-            this.textBoxRol.Name = "textBoxRol";
-            this.textBoxRol.Size = new System.Drawing.Size(108, 20);
-            this.textBoxRol.TabIndex = 7;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(51, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Nombre:";
+            this.label1.Text = "ID Rol:";
+            // 
+            // idBox
+            // 
+            this.idBox.Location = new System.Drawing.Point(97, 20);
+            this.idBox.Name = "idBox";
+            this.idBox.ReadOnly = true;
+            this.idBox.Size = new System.Drawing.Size(67, 20);
+            this.idBox.TabIndex = 35;
             // 
             // Modificar_Rol2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 266);
+            this.Controls.Add(this.idBox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.chkBoxFuncionalidades);
-            this.Controls.Add(this.textBoxRol);
             this.Controls.Add(this.label1);
             this.Name = "Modificar_Rol2";
             this.Text = "Modificar_Rol2";
@@ -113,7 +114,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckedListBox chkBoxFuncionalidades;
-        private System.Windows.Forms.TextBox textBoxRol;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox idBox;
     }
 }

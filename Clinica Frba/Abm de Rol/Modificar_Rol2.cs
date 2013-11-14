@@ -7,20 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.AppModel.Excepciones;
 using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Abm_de_Rol
 {
     public partial class Modificar_Rol2 : Form
     {
-        Rol oldRol;
-
         private Form padre;
-        public Modificar_Rol2(Form padre)
+        Rol rol;
+        List<Funcionalidad> funcionalidades;
+
+        public Modificar_Rol2(Form padre, Rol rol)
         {
             InitializeComponent();
             this.padre = padre;
+            this.rol = rol;
+            cargarCampos();
+            //validarCampos(); //por ahora no valido
+        }
 
+
+        private void cargarCampos()
+        {
+            idBox.Text = rol.id.ToString();
+            cargarFuncionalidades(); //ver si esta bien la logica de esto
         }
 
         private void button2_Click(object sender, EventArgs e)

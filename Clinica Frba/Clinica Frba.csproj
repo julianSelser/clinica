@@ -115,12 +115,6 @@
     <Compile Include="Abm de Rol\Alta_Rol.Designer.cs">
       <DependentUpon>Alta_Rol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Rol\Habilitar_Rol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm de Rol\Habilitar_Rol.Designer.cs">
-      <DependentUpon>Habilitar_Rol.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm de Rol\Baja_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,12 +132,6 @@
     </Compile>
     <Compile Include="Abm de Rol\Modificar_Rol2.Designer.cs">
       <DependentUpon>Modificar_Rol2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm de Rol\Modificar_Rol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm de Rol\Modificar_Rol.Designer.cs">
-      <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
     <Compile Include="AppModel\AppLogin.cs" />
@@ -316,9 +304,6 @@
     <EmbeddedResource Include="Abm de Rol\Alta_Rol.resx">
       <DependentUpon>Alta_Rol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Rol\Habilitar_Rol.resx">
-      <DependentUpon>Habilitar_Rol.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\Baja_Rol.resx">
       <DependentUpon>Baja_Rol.cs</DependentUpon>
     </EmbeddedResource>
@@ -327,9 +312,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Rol\Modificar_Rol2.resx">
       <DependentUpon>Modificar_Rol2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Rol\Modificar_Rol.resx">
-      <DependentUpon>Modificar_Rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AppModel\DialogConLabeledTextBox.resx">
       <DependentUpon>DialogConLabeledTextBox.cs</DependentUpon>

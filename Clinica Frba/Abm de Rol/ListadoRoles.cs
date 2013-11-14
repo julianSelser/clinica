@@ -39,7 +39,7 @@ namespace Clinica_Frba.Abm_de_Rol
                 {
                     Rol rol = crearRol(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this, rol), this);
-                    //if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
+                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
                 }
                 else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
             }
@@ -52,6 +52,11 @@ namespace Clinica_Frba.Abm_de_Rol
             int index = grillaRoles.Columns["ID Rol"].Index;
             rol.id = Convert.ToInt32(grillaRoles.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return rol;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
 

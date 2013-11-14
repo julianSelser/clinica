@@ -32,7 +32,7 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //AppRol.darBajaRol(rol);
+            AppRol.inhabilitarRol(rol);
             MessageBox.Show("La baja se ha realizado correctamente.");
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
