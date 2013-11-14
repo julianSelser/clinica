@@ -121,6 +121,11 @@ namespace Clinica_Frba.AppModel
         }
 
 
+        public static DataTable traerDataTableRoles(string nombre)
+        {
+            return traerDataTable("getRoles", nombre); //traerme todos los roles
+        }
+
 
     }
 }
