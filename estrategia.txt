@@ -139,11 +139,13 @@ por nombre y apellido "contiene", y tambien por nro afiiado raiz, lo cual devuel
 También se tiene un botón limpiar para blanquear los campos. Si el afiliado esta dado de baja, no permite utilizar ninguna
 funcionalidad de baja o modificación, mostrando un dialog con dicha información en caso de que sucediere.
 
--La funcionalidad de baja pide una confirmación del afiliado seleccionado, luego la baja que se realiza es lógica.
+-La funcionalidad de baja pide una confirmación del afiliado seleccionado, luego la baja que se realiza es lógica, asignandole
+al afiliado una fecha de baja en el respectivo campo, utilizando la fecha de sistema del archivo de configuración.
 
 -La funcionalidad de modificación muestra nuevamente la ventana intermedia de petición, dando la posibilidad de dar de alta
 un conyuge o familiar a cargo si no se hizo en el momento luego del alta el afiliado titular. En caso de modificar al afiliado,
-inicia una nueva ventana similar a la de alta, con los campos que pueden ser editados.
+inicia una nueva ventana similar a la de alta, con los campos que pueden ser editados inicializados con los datos que ya tenia
+dicho afiliado almacenados en la base de datos.
 
 
 --ABM Profesional--
