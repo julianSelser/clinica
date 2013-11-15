@@ -1,4 +1,4 @@
-Estrategia:
+﻿Estrategia:
 
 ---Migración de datos---
 
@@ -94,3 +94,65 @@ Los siguientes triggers implementan otros requerimientos del enunciado:
 -cancelarTurnosMedicosDesvinculados cancela todos los turnos de un médico que sea dado de baja.
 
 -cancelarTurnosPacientesDesvinculados cancela todos los turnos de un afiliado que sea dado de baja.
+
+
+--Aplicacion Desktop--
+
+Para la aplicación en C#, inspirados por el patrón de diseño MVC (modelo-vista-controlador),
+se decidió dividir el proyecto en carpetas cada una conteniendo clases separadas por su distinta indole:
+
+-Una carpeta por cada una de las ABM y funcionalidades en especifico con sus elementos de vista
+(AMB de afiliado, ABM de profesional, ABM de rol, Cancelar Atención, Compra de Bono, Generar Receta,
+Listados Estadisticos, Pedir Turno, Registrar Agenda, Registro de Llegada, Registro Resultado Atención)
+
+-Una carpeta Domain, que contiene las clases de los objetos de negocio (profesionales, especialidades, afiliados, etc)
+que son objetos que carecen de comportamiento pero tienen estado, que tienen su utilidad para almacenar en memoria valores
+de variables en sus atributos y poder transaccionarlos entre las vistas para operar, dar de alta, baja, modificar, entre otras cosas.
+
+-Una carpeta AppModel, que contiene las clases de los objetos App, que tienen por responsabilidad ser los data access objects, 
+acceden a la base de datos y traen Data Tables, valores de retorno o ejecutan procedures que hacen insert, delete o update, 
+agrupando cada uno por el ABM u objeto de negocio al que se enfocan y son responsables de gestionar en la persistencia. Estos objetos App
+heredan del conectorSQL a la base de datos, que utiliza el archivo App.config para obtener el string de conexión. Posee metodos para ejecutar 
+procedures o chequear existencias, que luego son especificados en cada App.
+En esta carpeta también se encuentran objetos de uso común entre las vistas para ser reutilizables, como exceptions definidas por usuario,
+una clase Globales que tiene un metodo para obtener la fecha del sistema del archivo de configuración App.config, un
+listado de busqueda de profesionales para el ABM de profesional, pedir turno y registro de llegada, entre otros.
+
+Además se tiene una clase Controlador que se encarga de validar los inputs de los campos, que sean del tipo de dato esperado, o
+validar que los campos obligatorios estén completos, en caso contrario, devuelve una excepción.
+
+--ABM Afiliados--
+
+Para este ABM se creo una pantalla principal que tiene las funcionalidad de alta, baja y modificacion para seleccionar.
+
+-La funcionalidad de alta es una vista con campos a completar requeridos para el alta de un afiliado, 
+un botón de limpiar para blanquear los campos a su valor inicial, en caso de existir un afiliado con los mismos datos
+aparece un dialog emergente con dicha información, en caso de ser correcto se abre un dialog con un feedback que dio de alta
+con el número de afiliado que le fue asignado. Luego si el afiliado tenia conyuge o familiares a cargo, se inicia una nueva ventana
+intermedia que da la posibilidad a dar de alta a dichos potenciales afiliados, esto se puede omitir haciendo click en finalizar.
+
+-La funcionalidad de baja y modificación, ambas reutilizan una vista de listado de afiliados, con sus respectivos datos por columna
+que dependiendo de cual funcionalidad se seleccionó, mapea un boton para cada fila con la funcionalidad especificada 
+para cada afiliado mapeado en la grilla, abriendo una nueva ventana.
+El listado tiene campos que pueden quedar en blanco o no, para poder filtrar de forma combinable. Se puede buscar
+por nombre y apellido "contiene", y tambien por nro afiiado raiz, lo cual devuelve a todo el grupo familiar de un titular.
+También se tiene un botón limpiar para blanquear los campos. Si el afiliado esta dado de baja, no permite utilizar ninguna
+funcionalidad de baja o modificación, mostrando un dialog con dicha información en caso de que sucediere.
+
+-La funcionalidad de baja pide una confirmación del afiliado seleccionado, luego la baja que se realiza es lógica.
+
+-La funcionalidad de modificación muestra nuevamente la ventana intermedia de petición, dando la posibilidad de dar de alta
+un conyuge o familiar a cargo si no se hizo en el momento luego del alta el afiliado titular. En caso de modificar al afiliado,
+inicia una nueva ventana similar a la de alta, con los campos que pueden ser editados.
+
+
+--ABM Profesional--
+
+Para este ABM se creo una pantalla principal que tiene las funcionalidad de alta, baja y modificacion para seleccionar.
+
+Al igual que el ABM de afiliados, la funcionalidad de alta cumple con un comportamiento similar, provee una checkedListBox
+para poder seleccionar las especialidades del médico y luego dar sus respectivas altas en la tabla de especialidades por médico.
+Las funcionalidades de baja y modificación reutilizan una vista de listado de profesionales, que también se reutiliza en la vista 
+de Pedir Turno y Registro de Llegada.
+
+
