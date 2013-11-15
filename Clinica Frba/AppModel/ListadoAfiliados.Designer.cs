@@ -1,4 +1,4 @@
-﻿namespace Clinica_Frba.Abm_de_Afiliado
+﻿namespace Clinica_Frba.AppModel
 {
     partial class ListadoAfiliados
     {

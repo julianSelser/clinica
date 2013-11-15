@@ -91,12 +91,6 @@
     <Compile Include="Abm de Profesional\BajaProfesional.Designer.cs">
       <DependentUpon>BajaProfesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Profesional\ListadoProfesionales.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm de Profesional\ListadoProfesionales.Designer.cs">
-      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm de Profesional\ModificarProfesional.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,7 +146,18 @@
     <Compile Include="AppModel\Excepciones\SinEspecilidadesCheckedException.cs" />
     <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
     <Compile Include="AppModel\Globales.cs" />
-    <Compile Include="AppModel\IListado.cs" />
+    <Compile Include="AppModel\ListadoAfiliados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppModel\ListadoAfiliados.Designer.cs">
+      <DependentUpon>ListadoAfiliados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppModel\ListadoProfesionales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppModel\ListadoProfesionales.Designer.cs">
+      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,9 +297,6 @@
     <EmbeddedResource Include="Abm de Profesional\BajaProfesional.resx">
       <DependentUpon>BajaProfesional.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Profesional\ListadoProfesionales.resx">
-      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm de Profesional\ModificarProfesional.resx">
       <DependentUpon>ModificarProfesional.cs</DependentUpon>
     </EmbeddedResource>
@@ -315,6 +317,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AppModel\DialogConLabeledTextBox.resx">
       <DependentUpon>DialogConLabeledTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppModel\ListadoAfiliados.resx">
+      <DependentUpon>ListadoAfiliados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppModel\ListadoProfesionales.resx">
+      <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\AdministradorCancelar.resx">
       <DependentUpon>AdministradorCancelar.cs</DependentUpon>

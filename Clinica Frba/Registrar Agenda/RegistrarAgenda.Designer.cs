@@ -74,6 +74,7 @@
             this.chkMiercoles = new System.Windows.Forms.CheckBox();
             this.chkMartes = new System.Windows.Forms.CheckBox();
             this.chkLunes = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelSabado.SuspendLayout();
@@ -167,6 +168,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.panelSabado);
             this.groupBox2.Controls.Add(this.panelViernes);
             this.groupBox2.Controls.Add(this.panelJueves);
@@ -882,6 +884,17 @@
             this.chkLunes.UseVisualStyleBackColor = true;
             this.chkLunes.CheckedChanged += new System.EventHandler(this.chkLunes_CheckedChanged);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(27, 203);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(193, 24);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "EN CONSTRUCCION";
+            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -961,5 +974,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboMartesDesde;
         private System.Windows.Forms.ComboBox comboMartesHasta;
+        private System.Windows.Forms.Label label13;
     }
 }

@@ -1354,7 +1354,7 @@ CREATE PROCEDURE CUATRO_QUESOS.altaMedico(
 )
 AS
 
-INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula)
+INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula, Fecha_Atencion_Desde, Fecha_Atencion_Hasta)
 
 VALUES (
 @nombre,
@@ -1366,7 +1366,9 @@ VALUES (
 @telefono,
 @mail,
 @fechaNac,
-@nroMatricula
+@nroMatricula,
+GETDATE(),
+DATEADD(DAY, 30, GETDATE())
 )
 
 GO
@@ -1399,7 +1401,7 @@ END
 
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.getMedicos @nombre varchar(255), @apellido varchar(255), @matricula numeric(18)
+CREATE PROCEDURE CUATRO_QUESOS.getMedicos @nombre varchar(255), @apellido varchar(255), @matricula numeric(18), @codEspecialidad numeric(18)
 AS
 SELECT Id_Medico 'ID Medico',
 Nombre 'Nombre', Apellido 'Apellido',
@@ -1409,13 +1411,13 @@ Telefono 'Telefono', Mail 'Mail', Fecha_Nac 'Fecha Nacimiento',
 Nro_Matricula 'Numero Matricula', Fecha_Atencion_Desde 'Fecha Atencion Desde',
 Fecha_Atencion_Hasta 'Fecha Atencion Hasta', Habilitado 'Habilitado'
 FROM CUATRO_QUESOS.Medicos
-WHERE Nombre LIKE '%' + @nombre + '%' AND
-Apellido LIKE '%' + @Apellido + '%' AND
-((Nro_Matricula = @matricula AND @matricula != 0) OR (@matricula = 0))
+WHERE Nombre LIKE '%' + @nombre + '%' 
+AND Apellido LIKE '%' + @Apellido + '%' 
+AND ((Nro_Matricula = @matricula AND @matricula != 0) OR (@matricula = 0))
+AND Id_Medico IN (SELECT Especialidades_Medicos.Id_Medico FROM CUATRO_QUESOS.Especialidades_Medicos WHERE (Cod_Especialidad = @codEspecialidad AND @codEspecialidad != 0) OR (@codEspecialidad = 0))
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))
-RETURNS NUMERIC
+CREATE PROCEDURE CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))
 AS
 BEGIN
         DECLARE @Id numeric(18)
@@ -1729,6 +1731,16 @@ GO
 
 --procedures abm rol
 
+create procedure CUATRO_QUESOS.getRoles(@nombre varchar(50))
+as
+select Id_Rol 'ID Rol',
+	   Nombre 'Nombre',
+	   Habilitado 'Habilitado'
+from CUATRO_QUESOS.Roles
+where Nombre like '%' + @nombre + '%'
+
+go
+
 CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18))
 AS
         BEGIN TRAN
@@ -1833,14 +1845,14 @@ END
 GO
 
 CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255),
-                                                                                                        @Apellido VARCHAR(255),
-                                                                                                        @Documento NUMERIC(18,0),
-                                                                                                        @TipoDoc VARCHAR(3),
-                                                                                                        @DesdeFecha DATE,
-                                                                                                        @HastaFecha DATE)
+                                                    @Apellido VARCHAR(255),
+                                                    @Documento NUMERIC(18,0),
+                                                    @TipoDoc VARCHAR(3),
+                                                    @DesdeFecha DATE,
+                                                    @HastaFecha DATE)
 AS
 declare @ID_Medico numeric(18)
-set @ID_Medico = CUATRO_QUESOS.getIdMedico(@Nombre, @Apellido, @TipoDoc, @Documento)
+EXEC @ID_Medico = CUATRO_QUESOS.getIdMedico @Nombre, @Apellido, @TipoDoc, @Documento
 SELECT t.numero, a.nombre AS 'Nombre Paciente', a.apellido AS 'Apellido Paciente', t.fecha
 FROM CUATRO_QUESOS.Turnos t
 JOIN CUATRO_QUESOS.Afiliados a

@@ -1,4 +1,4 @@
-Estrategia:
+﻿Estrategia:
 
 ---Migración de datos---
 
@@ -94,3 +94,107 @@ Los siguientes triggers implementan otros requerimientos del enunciado:
 -cancelarTurnosMedicosDesvinculados cancela todos los turnos de un médico que sea dado de baja.
 
 -cancelarTurnosPacientesDesvinculados cancela todos los turnos de un afiliado que sea dado de baja.
+
+
+--Aplicacion Desktop--
+
+Para la aplicación en C#, inspirados por el patrón de diseño MVC (modelo-vista-controlador),
+se decidió dividir el proyecto en carpetas cada una conteniendo clases separadas por su distinta indole:
+
+-Una carpeta por cada una de las ABM y funcionalidades en especifico con sus elementos de vista
+(AMB de afiliado, ABM de profesional, ABM de rol, Cancelar Atención, Compra de Bono, Generar Receta,
+Listados Estadisticos, Pedir Turno, Registrar Agenda, Registro de Llegada, Registro Resultado Atención)
+
+-Una carpeta Domain, que contiene las clases de los objetos de negocio (profesionales, especialidades, afiliados, etc)
+que son objetos que carecen de comportamiento pero tienen estado, que tienen su utilidad para almacenar en memoria valores
+de variables en sus atributos y poder transaccionarlos entre las vistas para operar, dar de alta, baja, modificar, entre otras cosas.
+
+-Una carpeta AppModel, que contiene las clases de los objetos App, que tienen por responsabilidad ser los data access objects, 
+acceden a la base de datos y traen Data Tables, valores de retorno o ejecutan procedures que hacen insert, delete o update, 
+agrupando cada uno por el ABM u objeto de negocio al que se enfocan y son responsables de gestionar en la persistencia. Estos objetos App
+heredan del conectorSQL a la base de datos, que utiliza el archivo App.config para obtener el string de conexión. Posee metodos para ejecutar 
+procedures o chequear existencias, que luego son especificados en cada App.
+En esta carpeta también se encuentran objetos de uso común entre las vistas para ser reutilizables, como exceptions definidas por usuario,
+una clase Globales que tiene un metodo para obtener la fecha del sistema del archivo de configuración App.config, un
+listado de busqueda de profesionales para el ABM de profesional, pedir turno y registro de llegada, entre otros.
+
+Además se tiene una clase Controlador que se encarga de validar los inputs de los campos, que sean del tipo de dato esperado, o
+validar que los campos obligatorios estén completos, en caso contrario, devuelve una excepción.
+
+--ABM Afiliados--
+
+Para este ABM se creo una pantalla principal que tiene las funcionalidad de alta, baja y modificacion para seleccionar.
+
+-La funcionalidad de alta es una vista con campos a completar requeridos para el alta de un afiliado, 
+un botón de limpiar para blanquear los campos a su valor inicial, en caso de existir un afiliado con los mismos datos
+aparece un dialog emergente con dicha información, en caso de ser correcto se abre un dialog con un feedback que dio de alta
+con el número de afiliado que le fue asignado. Luego si el afiliado tenia conyuge o familiares a cargo, se inicia una nueva ventana
+intermedia que da la posibilidad a dar de alta a dichos potenciales afiliados, esto se puede omitir haciendo click en finalizar.
+
+-La funcionalidad de baja y modificación, ambas reutilizan una vista de listado de afiliados, con sus respectivos datos por columna
+que dependiendo de cual funcionalidad se seleccionó, mapea un boton para cada fila con la funcionalidad especificada 
+para cada afiliado mapeado en la grilla, abriendo una nueva ventana.
+El listado tiene campos que pueden quedar en blanco o no, para poder filtrar de forma combinable. Se puede buscar
+por nombre y apellido "contiene", y tambien por nro afiiado raiz, lo cual devuelve a todo el grupo familiar de un titular.
+También se tiene un botón limpiar para blanquear los campos. Si el afiliado esta dado de baja, no permite utilizar ninguna
+funcionalidad de baja o modificación, mostrando un dialog con dicha información en caso de que sucediere.
+
+-La funcionalidad de baja pide una confirmación del afiliado seleccionado, luego la baja que se realiza es lógica, asignandole
+al afiliado una fecha de baja en el respectivo campo, utilizando la fecha de sistema del archivo de configuración.
+
+-La funcionalidad de modificación muestra nuevamente la ventana intermedia de petición, dando la posibilidad de dar de alta
+un conyuge o familiar a cargo si no se hizo en el momento luego del alta el afiliado titular. En caso de modificar al afiliado,
+inicia una nueva ventana similar a la de alta, con los campos que pueden ser editados inicializados con los datos que ya tenia
+dicho afiliado almacenados en la base de datos.
+
+
+--ABM Profesional--
+
+Para este ABM se creo una pantalla principal que tiene las funcionalidad de alta, baja y modificacion para seleccionar.
+
+Al igual que el ABM de afiliados, la funcionalidad de alta cumple con un comportamiento similar, provee una checkedListBox
+para poder seleccionar las especialidades del médico y luego dar sus respectivas altas en la tabla de especialidades por médico.
+Las funcionalidades de baja y modificación reutilizan una vista de listado de profesionales, que también se reutiliza en la vista 
+de Pedir Turno y Registro de Llegada.
+
+
+--Cancelar Atención--
+
+  En esta pantalla principalmente se necesita visualizar una grilla con datos sobre los turnos existentes en la base según el usuario.
+  Aprovechando que el comportamiento es muy parecido salvo cuando además halla que sumar algún criterio a la búsqueda cuando
+se trate de un profesional (elegir un periodo para cancelar) o un administrativo (elegir el afiliado o médico) se usó una clase abstracta base.
+
+  La clase abstracta define en líneas generales que debe haber una grilla y botones, delegando en las subclases que la implementen
+el deber de saber que datos traer y con criterios.
+
+  Hay dos posibilidades para cancelar los turnos mostrados, seleccionando un dia en particular o un periodo (para profesional y administrador),
+debiendose especificar el motivo en un cuadro de texto. Nuevamente las ventanas comparten casi todo sus razgos, en este caso siendo
+visualmente la mismas, variando el comportamiento en algunos parametros; Por eso se vuelve a usar una clase abstracta que define
+en su mayoria los dos casos, introduciendo las subclases las pequeñisimas variaciones de código.
+
+  Adicionalmente se cuenta con una clase que usa el patrón factory para saber cual de las clases instanciar según el usuario
+para alivianar la cantidad de lógica en la pantalla principal.  
+
+
+--Login--
+
+  La aplicación recibe a quien accede al sistema por primera vez con una pantalla que tiene como único botón el que da
+la posibilidad de logearse, que lo llevará a la típica pantalla de ingreso de usuario y contraseña.
+  
+  Luego se consulta la base de datos mediante una función con valores de retorno que indican si el logéo fue exitoso o
+en caso negativo la cantidad de intentos que le quedan vía aplicación. Dicha función incrementa la cantidad de intentos
+hasta que un trigger deshabilita al usuario si llega al máximo, ante un usuario deshabilitado se devuelve el código de error
+correspondiente y se le informa al usuario por pantalla.
+
+  De ser el logéo exitoso se procede a traer los roles del usuario (no se puede traer la persona ya que puede no
+existir en el caso del administrador) y se permite elegir con que rol ingresar. Ahora si, dependiendo del usuario se trae
+de la base todos los datos de la persona con las funcionalidades para su rol, cargándose en un objeto que sigue el patrón singletón.
+
+  Nuevamente en la pantalla principal se puede notar que los botones mostrados son los correspondientes a la funcionalidad
+del rol adecuado, puede observarse el nombre del usuario y se da lo opción de deslogearse. Esto se logra mediante un 
+"FlowLayout" y habilitando o deshabilitando visibilidades correspondientemente, permitiendo a la pantalla expandirse
+para que entren todos sus botones.
+
+
+
+

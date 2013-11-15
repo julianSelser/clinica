@@ -6,14 +6,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using Clinica_Frba.Abm_de_Afiliado;
+using Clinica_Frba.Pedir_Turno;
+using Clinica_Frba.Registro_de_LLegada;
 
 //inicializa una nueva ventana con la lista de afiliados,
 //se puede filtrar por criterios y al seleccionar una fila se comporta distinto
 //segun el tipo de funcionalidad especificada que recibio por parametro
 
-namespace Clinica_Frba.Abm_de_Afiliado
+namespace Clinica_Frba.AppModel
 {
     public partial class ListadoAfiliados : Form
     {
@@ -114,10 +116,17 @@ namespace Clinica_Frba.Abm_de_Afiliado
                     Afiliado afiliado = crearAfiliado(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, this), this);
+                    if (funcion == "Pedir Turno") volverAVistaPedirTurno(afiliado);
                 }
                 else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
             }
             
+        }
+
+        private void volverAVistaPedirTurno(Afiliado afiliado)
+        {
+            (padre as PedirTurno).setearAfiliado(afiliado);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private Afiliado crearAfiliado(int fila)

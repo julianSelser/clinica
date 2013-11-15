@@ -8,17 +8,21 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using Clinica_Frba.Abm_de_Profesional;
+using Clinica_Frba.Registro_de_LLegada;
+using Clinica_Frba.Pedir_Turno;
 
 //inicializa una nueva ventana con la lista de afiliados,
 //se puede filtrar por criterios y al seleccionar una fila se comporta distinto
 //segun el tipo de funcionalidad especificada que recibio por parametro
 
-namespace Clinica_Frba.Abm_de_Profesional
+namespace Clinica_Frba.AppModel
 {
-    public partial class ListadoProfesionales : Form, IListado
+    public partial class ListadoProfesionales : Form
     {
         public Form padre;
         public string funcion;
+        public List<EspecialidadMedica> listaEspecialidades;
 
         public ListadoProfesionales(Form padre, string funcion)
         {
@@ -26,14 +30,18 @@ namespace Clinica_Frba.Abm_de_Profesional
             this.padre = padre;
             this.funcion = funcion;
             cargarGrilla();
-            ocultarColumnas();
+            cargarEspecialidades();
             cargarBotonFuncionalidad();
             validarCampos();
         }
 
-
-        private void ocultarColumnas() //oculto las columnas que no son de interes
+        private void cargarEspecialidades()
         {
+            listaEspecialidades = AppProfesional.getEspecialidades();
+            foreach (EspecialidadMedica especialidad in listaEspecialidades)
+            {
+                comboEspecialidad.Items.Add(especialidad.descripcion);
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -55,8 +63,23 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         public void cargarGrilla()
         {
-            if(matriculaBox.Text == "")matriculaBox.Text = "0";
-            AsistenteVistas.cargarGrilla(grillaProfesionales, AppProfesional.traerDataTableMedicos(nombreBox.Text, apellidoBox.Text, Convert.ToInt32(matriculaBox.Text)));
+            int matricula = 0;
+            int especialidad = 0;
+            if (matriculaBox.Text != "") matricula = Convert.ToInt32(matriculaBox.Text);
+            if(comboEspecialidad.SelectedIndex != -1)
+            {
+               especialidad = getCodigoEspecialidad(comboEspecialidad.SelectedItem.ToString());
+            }
+            AsistenteVistas.cargarGrilla(grillaProfesionales, AppProfesional.traerDataTableMedicos(nombreBox.Text, apellidoBox.Text, matricula, especialidad));
+        }
+
+        private int getCodigoEspecialidad(string descripcion)
+        {
+            foreach (EspecialidadMedica especialidad in listaEspecialidades)
+            {
+                if (especialidad.descripcion == descripcion) return especialidad.codigo;
+            }
+            throw new Exception("Codigo de especialidad no encontrado");
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -69,6 +92,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             nombreBox.Text = "";
             apellidoBox.Text = "";
             matriculaBox.Text = "";
+            comboEspecialidad.SelectedIndex = -1;
         }
 
         private void cargarBotonFuncionalidad()
@@ -88,7 +112,7 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         private void grillaAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaProfesionales.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if (e.ColumnIndex == grillaProfesionales.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaProfesionales.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaProfesionales.Rows[e.RowIndex];
                 if (!estaDadoDeBaja(fila))
@@ -96,6 +120,8 @@ namespace Clinica_Frba.Abm_de_Profesional
                     Profesional profesional = crearProfesional(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaProfesional(this, profesional), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarProfesional(this, profesional), this);
+                    if (funcion == "Pedir Turno") AsistenteVistas.mostrarNuevaVentana(new PedirTurno(this, profesional), this);
+                    if (funcion == "Registrar Llegada") AsistenteVistas.mostrarNuevaVentana(new RegistroLlegada(this, profesional), this);
                 }
                 else MessageBox.Show("El profesional seleccionado se encuentra inhabilitado");
             }
@@ -121,6 +147,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             List<CampoAbstracto> campos = new List<CampoAbstracto>();
             campos.Add(new Campo("Nombre", nombreBox.Text, false, Controlador.TipoValidacion.Alfa));
             campos.Add(new Campo("Apellido", apellidoBox.Text, false, Controlador.TipoValidacion.Alfa));
+            campos.Add(new Campo("Matricula", matriculaBox.Text, false, Controlador.TipoValidacion.Codigo));
             try
             {
                 Controlador.validarCampos(campos);
@@ -148,5 +175,11 @@ namespace Clinica_Frba.Abm_de_Profesional
         {
             validarCampos();
         }
+
+        private void comboEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
     }
 }

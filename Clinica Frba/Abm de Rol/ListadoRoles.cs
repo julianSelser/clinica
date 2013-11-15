@@ -20,9 +20,29 @@ namespace Clinica_Frba.Abm_de_Rol
         {
             InitializeComponent(); //instancia la clase
             this.padre = padre;
-            this.funcion = funcion;
+            this.funcion = funcion; //si es para baja o modificacion
+            cargarGrilla();
+            ocultarColumnas();
+            cargarBotonFuncionalidad();
         }
 
+        public void cargarGrilla()
+        {
+            AsistenteVistas.cargarGrilla(grillaRoles, AppRol.traerDataTableRoles(nombreBox.Text));
+        }
+
+        private void ocultarColumnas() //oculto las columnas que no son de interes
+        {
+        }
+
+        private void cargarBotonFuncionalidad() //esto cargaria el boton en la grilla
+        {
+            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+            col.Text = funcion;
+            col.Name = "Seleccionar";
+            col.UseColumnTextForButtonValue = true;
+            grillaRoles.Columns.Add(col);
+        }
 
         private bool estaDadoDeBaja(DataGridViewRow fila)
         {
@@ -30,7 +50,7 @@ namespace Clinica_Frba.Abm_de_Rol
             return !(bool)fila.Cells[index].Value;
         }
 
-        private void grillaProfesionales_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void grillaRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
             {

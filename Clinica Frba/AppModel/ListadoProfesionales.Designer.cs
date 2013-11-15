@@ -1,4 +1,4 @@
-﻿namespace Clinica_Frba.Abm_de_Profesional
+﻿namespace Clinica_Frba.AppModel
 {
     partial class ListadoProfesionales
     {
@@ -37,16 +37,18 @@
             this.grillaProfesionales = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.errorBox = new System.Windows.Forms.TextBox();
-            this.matriculaBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.matriculaBox = new System.Windows.Forms.TextBox();
+            this.comboEspecialidad = new System.Windows.Forms.ComboBox();
+            this.errorBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(228, 58);
+            this.buscarButton.Location = new System.Drawing.Point(512, 58);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
             this.buscarButton.TabIndex = 0;
@@ -56,7 +58,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(324, 58);
+            this.limpiarButton.Location = new System.Drawing.Point(431, 58);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 1;
@@ -120,8 +122,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.matriculaBox);
+            this.groupBox1.Controls.Add(this.comboEspecialidad);
             this.groupBox1.Controls.Add(this.nombreBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.buscarButton);
@@ -130,36 +134,55 @@
             this.groupBox1.Controls.Add(this.apellidoBox);
             this.groupBox1.Location = new System.Drawing.Point(16, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(421, 100);
+            this.groupBox1.Size = new System.Drawing.Size(614, 100);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda";
             // 
-            // errorBox
+            // label4
             // 
-            this.errorBox.ForeColor = System.Drawing.Color.Red;
-            this.errorBox.Location = new System.Drawing.Point(472, 19);
-            this.errorBox.Multiline = true;
-            this.errorBox.Name = "errorBox";
-            this.errorBox.ReadOnly = true;
-            this.errorBox.Size = new System.Drawing.Size(645, 39);
-            this.errorBox.TabIndex = 11;
-            // 
-            // matriculaBox
-            // 
-            this.matriculaBox.Location = new System.Drawing.Point(299, 23);
-            this.matriculaBox.Name = "matriculaBox";
-            this.matriculaBox.Size = new System.Drawing.Size(100, 20);
-            this.matriculaBox.TabIndex = 6;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(190, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(70, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Especialidad:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(208, 26);
+            this.label3.Location = new System.Drawing.Point(190, 58);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Nro Matrícula:";
+            // 
+            // matriculaBox
+            // 
+            this.matriculaBox.Location = new System.Drawing.Point(285, 55);
+            this.matriculaBox.Name = "matriculaBox";
+            this.matriculaBox.Size = new System.Drawing.Size(115, 20);
+            this.matriculaBox.TabIndex = 6;
+            // 
+            // comboEspecialidad
+            // 
+            this.comboEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboEspecialidad.FormattingEnabled = true;
+            this.comboEspecialidad.Location = new System.Drawing.Point(285, 25);
+            this.comboEspecialidad.Name = "comboEspecialidad";
+            this.comboEspecialidad.Size = new System.Drawing.Size(302, 21);
+            this.comboEspecialidad.TabIndex = 8;
+            this.comboEspecialidad.SelectedIndexChanged += new System.EventHandler(this.comboEspecialidad_SelectedIndexChanged);
+            // 
+            // errorBox
+            // 
+            this.errorBox.ForeColor = System.Drawing.Color.Red;
+            this.errorBox.Location = new System.Drawing.Point(649, 19);
+            this.errorBox.Multiline = true;
+            this.errorBox.Name = "errorBox";
+            this.errorBox.ReadOnly = true;
+            this.errorBox.Size = new System.Drawing.Size(468, 39);
+            this.errorBox.TabIndex = 11;
             // 
             // ListadoProfesionales
             // 
@@ -195,5 +218,7 @@
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.TextBox matriculaBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboEspecialidad;
     }
 }

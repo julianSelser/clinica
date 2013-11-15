@@ -31,7 +31,7 @@
             this.errorBox = new System.Windows.Forms.TextBox();
             this.grillaRoles = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.apellidoBox = new System.Windows.Forms.TextBox();
+            this.nombreBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
@@ -69,25 +69,25 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // apellidoBox
+            // nombreBox
             // 
-            this.apellidoBox.Location = new System.Drawing.Point(64, 58);
-            this.apellidoBox.Name = "apellidoBox";
-            this.apellidoBox.Size = new System.Drawing.Size(100, 20);
-            this.apellidoBox.TabIndex = 5;
+            this.nombreBox.Location = new System.Drawing.Point(87, 58);
+            this.nombreBox.Name = "nombreBox";
+            this.nombreBox.Size = new System.Drawing.Size(100, 20);
+            this.nombreBox.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Rol:";
+            this.label2.Text = "Nombre Rol:";
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(324, 58);
+            this.limpiarButton.Location = new System.Drawing.Point(323, 56);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 1;
@@ -96,7 +96,7 @@
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(228, 58);
+            this.buscarButton.Location = new System.Drawing.Point(228, 56);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
             this.buscarButton.TabIndex = 0;
@@ -108,7 +108,7 @@
             this.groupBox1.Controls.Add(this.buscarButton);
             this.groupBox1.Controls.Add(this.limpiarButton);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.apellidoBox);
+            this.groupBox1.Controls.Add(this.nombreBox);
             this.groupBox1.Location = new System.Drawing.Point(15, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(421, 100);
@@ -140,7 +140,7 @@
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.DataGridView grillaRoles;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.TextBox apellidoBox;
+        private System.Windows.Forms.TextBox nombreBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Button buscarButton;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Compra_de_Bono
 {
@@ -18,6 +19,18 @@ namespace Clinica_Frba.Compra_de_Bono
         {
             InitializeComponent();
             this.padre = padre;
+
+            var usuario = UsuarioLogeado.Instance;
+
+            if (usuario.Rol.nombre.Equals("Afiliado"))
+            {
+                Afiliado paciente = (Afiliado) UsuarioLogeado.Instance.Persona;
+                labNroAfiliado.Text = paciente.nroAfiliado.ToString();
+                llenarCamposConDatosSocio(Convert.ToDecimal(paciente.nroAfiliado.ToString()));
+                botonQuitarAfiliado.Visible = false;
+            }
+        
+        
         }
 
         private void botonRegreso_Click(object sender, EventArgs e)
@@ -72,7 +85,7 @@ namespace Clinica_Frba.Compra_de_Bono
         private void botonBuscarAfiliado_Click(object sender, EventArgs e)
         {
             decimal num_afiliado;
-            DataTable datos_compra;
+            
 
             if (textBox1.Text.Length > 18)
             {
@@ -91,6 +104,16 @@ namespace Clinica_Frba.Compra_de_Bono
                 return;
             }
 
+            labNroAfiliado.Text = textBox1.Text;
+            llenarCamposConDatosSocio(Convert.ToDecimal(textBox1.Text));
+
+        }
+
+
+        private void llenarCamposConDatosSocio(decimal num_afiliado)
+           
+        {
+            DataTable datos_compra;
 
             datos_compra = ConectorSQL.traerDataTable("getDatosParaCompra", num_afiliado);
 
@@ -111,12 +134,9 @@ namespace Clinica_Frba.Compra_de_Bono
             botonBuscarAfiliado.Visible = false;
             botonQuitarAfiliado.Visible = true;
 
-            labNroAfiliado.Text = textBox1.Text;
+            
             labNroAfiliado.Visible = true;
             textBox1.Visible = false;
-
-            
-            
 
         }
 
