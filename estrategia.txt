@@ -158,3 +158,43 @@ Las funcionalidades de baja y modificación reutilizan una vista de listado de p
 de Pedir Turno y Registro de Llegada.
 
 
+--Cancelar Atención--
+
+  En esta pantalla principalmente se necesita visualizar una grilla con datos sobre los turnos existentes en la base según el usuario.
+  Aprovechando que el comportamiento es muy parecido salvo cuando además halla que sumar algún criterio a la búsqueda cuando
+se trate de un profesional (elegir un periodo para cancelar) o un administrativo (elegir el afiliado o médico) se usó una clase abstracta base.
+
+  La clase abstracta define en líneas generales que debe haber una grilla y botones, delegando en las subclases que la implementen
+el deber de saber que datos traer y con criterios.
+
+  Hay dos posibilidades para cancelar los turnos mostrados, seleccionando un dia en particular o un periodo (para profesional y administrador),
+debiendose especificar el motivo en un cuadro de texto. Nuevamente las ventanas comparten casi todo sus razgos, en este caso siendo
+visualmente la mismas, variando el comportamiento en algunos parametros; Por eso se vuelve a usar una clase abstracta que define
+en su mayoria los dos casos, introduciendo las subclases las pequeñisimas variaciones de código.
+
+  Adicionalmente se cuenta con una clase que usa el patrón factory para saber cual de las clases instanciar según el usuario
+para alivianar la cantidad de lógica en la pantalla principal.  
+
+
+--Login--
+
+  La aplicación recibe a quien accede al sistema por primera vez con una pantalla que tiene como único botón el que da
+la posibilidad de logearse, que lo llevará a la típica pantalla de ingreso de usuario y contraseña.
+  
+  Luego se consulta la base de datos mediante una función con valores de retorno que indican si el logéo fue exitoso o
+en caso negativo la cantidad de intentos que le quedan vía aplicación. Dicha función incrementa la cantidad de intentos
+hasta que un trigger deshabilita al usuario si llega al máximo, ante un usuario deshabilitado se devuelve el código de error
+correspondiente y se le informa al usuario por pantalla.
+
+  De ser el logéo exitoso se procede a traer los roles del usuario (no se puede traer la persona ya que puede no
+existir en el caso del administrador) y se permite elegir con que rol ingresar. Ahora si, dependiendo del usuario se trae
+de la base todos los datos de la persona con las funcionalidades para su rol, cargándose en un objeto que sigue el patrón singletón.
+
+  Nuevamente en la pantalla principal se puede notar que los botones mostrados son los correspondientes a la funcionalidad
+del rol adecuado, puede observarse el nombre del usuario y se da lo opción de deslogearse. Esto se logra mediante un 
+"FlowLayout" y habilitando o deshabilitando visibilidades correspondientemente, permitiendo a la pantalla expandirse
+para que entren todos sus botones.
+
+
+
+
