@@ -104,7 +104,7 @@ namespace Clinica_Frba
 
         private void button7_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registro Llegada"), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registrar Llegada"), this);
         }
 
         private void button8_Click(object sender, EventArgs e)

@@ -31,6 +31,7 @@
             this.acceptButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.nroAfiliadoBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // acceptButton
@@ -64,11 +65,20 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "EN CONSTRUCCION";
             // 
+            // nroAfiliadoBox
+            // 
+            this.nroAfiliadoBox.Location = new System.Drawing.Point(105, 25);
+            this.nroAfiliadoBox.Name = "nroAfiliadoBox";
+            this.nroAfiliadoBox.ReadOnly = true;
+            this.nroAfiliadoBox.Size = new System.Drawing.Size(100, 20);
+            this.nroAfiliadoBox.TabIndex = 11;
+            // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 253);
+            this.Controls.Add(this.nroAfiliadoBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.acceptButton);
@@ -84,5 +94,6 @@
         private System.Windows.Forms.Button acceptButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox nroAfiliadoBox;
     }
 }
