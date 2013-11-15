@@ -50,7 +50,7 @@ namespace Clinica_Frba.Abm_de_Rol
             return !(bool)fila.Cells[index].Value;
         }
 
-        private void grillaProfesionales_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void grillaRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
             {
