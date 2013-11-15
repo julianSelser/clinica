@@ -1417,8 +1417,7 @@ AND ((Nro_Matricula = @matricula AND @matricula != 0) OR (@matricula = 0))
 AND Id_Medico IN (SELECT Especialidades_Medicos.Id_Medico FROM CUATRO_QUESOS.Especialidades_Medicos WHERE (Cod_Especialidad = @codEspecialidad AND @codEspecialidad != 0) OR (@codEspecialidad = 0))
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))
-RETURNS NUMERIC
+CREATE PROCEDURE CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))
 AS
 BEGIN
         DECLARE @Id numeric(18)
@@ -1846,14 +1845,14 @@ END
 GO
 
 CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255),
-                                                                                                        @Apellido VARCHAR(255),
-                                                                                                        @Documento NUMERIC(18,0),
-                                                                                                        @TipoDoc VARCHAR(3),
-                                                                                                        @DesdeFecha DATE,
-                                                                                                        @HastaFecha DATE)
+                                                    @Apellido VARCHAR(255),
+                                                    @Documento NUMERIC(18,0),
+                                                    @TipoDoc VARCHAR(3),
+                                                    @DesdeFecha DATE,
+                                                    @HastaFecha DATE)
 AS
 declare @ID_Medico numeric(18)
-set @ID_Medico = CUATRO_QUESOS.getIdMedico(@Nombre, @Apellido, @TipoDoc, @Documento)
+EXEC @ID_Medico = CUATRO_QUESOS.getIdMedico @Nombre, @Apellido, @TipoDoc, @Documento
 SELECT t.numero, a.nombre AS 'Nombre Paciente', a.apellido AS 'Apellido Paciente', t.fecha
 FROM CUATRO_QUESOS.Turnos t
 JOIN CUATRO_QUESOS.Afiliados a
