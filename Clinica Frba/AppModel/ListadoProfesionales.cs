@@ -8,12 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using Clinica_Frba.Abm_de_Profesional;
+using Clinica_Frba.Registro_de_LLegada;
+using Clinica_Frba.Pedir_Turno;
 
 //inicializa una nueva ventana con la lista de afiliados,
 //se puede filtrar por criterios y al seleccionar una fila se comporta distinto
 //segun el tipo de funcionalidad especificada que recibio por parametro
 
-namespace Clinica_Frba.Abm_de_Profesional
+namespace Clinica_Frba.AppModel
 {
     public partial class ListadoProfesionales : Form
     {
@@ -109,7 +112,7 @@ namespace Clinica_Frba.Abm_de_Profesional
 
         private void grillaAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaProfesionales.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if (e.ColumnIndex == grillaProfesionales.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaProfesionales.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaProfesionales.Rows[e.RowIndex];
                 if (!estaDadoDeBaja(fila))
@@ -117,6 +120,8 @@ namespace Clinica_Frba.Abm_de_Profesional
                     Profesional profesional = crearProfesional(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaProfesional(this, profesional), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarProfesional(this, profesional), this);
+                    if (funcion == "Pedir Turno") AsistenteVistas.mostrarNuevaVentana(new PedirTurno(this, profesional), this);
+                    if (funcion == "Registrar Llegada") AsistenteVistas.mostrarNuevaVentana(new RegistroLlegada(this, profesional), this);
                 }
                 else MessageBox.Show("El profesional seleccionado se encuentra inhabilitado");
             }

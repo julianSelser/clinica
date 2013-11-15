@@ -146,10 +146,10 @@
     <Compile Include="AppModel\Excepciones\SinEspecilidadesCheckedException.cs" />
     <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
     <Compile Include="AppModel\Globales.cs" />
-    <Compile Include="Abm de Profesional\ListadoProfesionales.cs">
+    <Compile Include="AppModel\ListadoProfesionales.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm de Profesional\ListadoProfesionales.Designer.cs">
+    <Compile Include="AppModel\ListadoProfesionales.Designer.cs">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
@@ -312,7 +312,7 @@
     <EmbeddedResource Include="AppModel\DialogConLabeledTextBox.resx">
       <DependentUpon>DialogConLabeledTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Profesional\ListadoProfesionales.resx">
+    <EmbeddedResource Include="AppModel\ListadoProfesionales.resx">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\AdministradorCancelar.resx">

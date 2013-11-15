@@ -1,4 +1,4 @@
-﻿namespace Clinica_Frba.Abm_de_Profesional
+﻿namespace Clinica_Frba.AppModel
 {
     partial class ListadoProfesionales
     {
@@ -37,9 +37,9 @@
             this.grillaProfesionales = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.matriculaBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.comboEspecialidad = new System.Windows.Forms.ComboBox();
             this.errorBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaProfesionales)).BeginInit();
@@ -139,6 +139,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(190, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(70, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Especialidad:";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -154,15 +163,6 @@
             this.matriculaBox.Name = "matriculaBox";
             this.matriculaBox.Size = new System.Drawing.Size(115, 20);
             this.matriculaBox.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(190, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Especialidad:";
             // 
             // comboEspecialidad
             // 

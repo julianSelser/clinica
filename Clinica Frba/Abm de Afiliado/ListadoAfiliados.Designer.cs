@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Abm_de_Afiliado
 {
-    partial class ListadoProfesionales
+    partial class ListadoAfiliados
     {
         /// <summary>
         /// Required designer variable.
