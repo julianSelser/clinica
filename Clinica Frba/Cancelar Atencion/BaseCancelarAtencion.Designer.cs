@@ -60,9 +60,14 @@
             // 
             // grilla
             // 
+            this.grilla.AllowUserToAddRows = false;
+            this.grilla.AllowUserToDeleteRows = false;
+            this.grilla.AllowUserToResizeColumns = false;
+            this.grilla.AllowUserToResizeRows = false;
             this.grilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grilla.Location = new System.Drawing.Point(12, 83);
             this.grilla.Name = "grilla";
+            this.grilla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grilla.Size = new System.Drawing.Size(581, 220);
             this.grilla.TabIndex = 8;
             // 
