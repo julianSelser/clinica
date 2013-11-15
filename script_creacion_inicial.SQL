@@ -1354,7 +1354,7 @@ CREATE PROCEDURE CUATRO_QUESOS.altaMedico(
 )
 AS
 
-INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula)
+INSERT INTO CUATRO_QUESOS.Medicos (Nombre, Apellido, Sexo, Tipo_Doc, Nro_Doc, Direccion, Telefono, Mail, Fecha_Nac, Nro_Matricula, Fecha_Atencion_Desde, Fecha_Atencion_Hasta)
 
 VALUES (
 @nombre,
@@ -1366,7 +1366,9 @@ VALUES (
 @telefono,
 @mail,
 @fechaNac,
-@nroMatricula
+@nroMatricula,
+GETDATE(),
+DATEADD(DAY, 30, GETDATE())
 )
 
 GO
