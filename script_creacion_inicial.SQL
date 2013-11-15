@@ -1732,6 +1732,16 @@ GO
 
 --procedures abm rol
 
+create procedure CUATRO_QUESOS.getRoles(@nombre varchar(50))
+as
+select Id_Rol 'ID Rol',
+	   Nombre 'Nombre',
+	   Habilitado 'Habilitado'
+from CUATRO_QUESOS.Roles
+where Nombre like '%' + @nombre + '%'
+
+go
+
 CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18))
 AS
         BEGIN TRAN
