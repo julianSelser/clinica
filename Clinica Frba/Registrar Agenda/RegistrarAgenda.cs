@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Registrar_Agenda
 {
@@ -14,10 +15,22 @@ namespace Clinica_Frba.Registrar_Agenda
     {
         private Form padre;
 
+
         public RegistrarAgenda(Form padre)
         {
+
             InitializeComponent();
             this.padre = padre;
+
+            var usuario = UsuarioLogeado.Instance;
+
+            if (usuario.Rol.nombre.Equals("Profesional"))
+            {
+                Profesional medico = (Profesional) UsuarioLogeado.Instance.Persona;
+                labNroMedico.Text = medico.id.ToString();
+                cargarPantallaConLosDatos(Convert.ToDecimal(medico.id.ToString()));
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -55,11 +68,17 @@ namespace Clinica_Frba.Registrar_Agenda
                 return;
             }
 
+            labNroMedico.Text = textBox1.Text;
+            cargarPantallaConLosDatos(id_medico);
+
+        }
+
+        private void cargarPantallaConLosDatos(decimal id_medico)
+        {
             //visibilidad
             botonBuscarMedico.Visible = false;
             botonQuitarMedico.Visible = true;
 
-            labNroMedico.Text = textBox1.Text;
 
             labNroMedico.Visible = true;
             textBox1.Visible = false;
