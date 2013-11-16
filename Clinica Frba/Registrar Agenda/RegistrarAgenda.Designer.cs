@@ -37,44 +37,61 @@
             this.botonBuscarMedico = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labSaNo = new System.Windows.Forms.Label();
+            this.labViNo = new System.Windows.Forms.Label();
+            this.labJuNo = new System.Windows.Forms.Label();
+            this.labMiNo = new System.Windows.Forms.Label();
+            this.labMaNo = new System.Windows.Forms.Label();
+            this.labLuNo = new System.Windows.Forms.Label();
+            this.labSabado = new System.Windows.Forms.Label();
+            this.labViernes = new System.Windows.Forms.Label();
+            this.labJueves = new System.Windows.Forms.Label();
+            this.labMiercoles = new System.Windows.Forms.Label();
+            this.labMartes = new System.Windows.Forms.Label();
+            this.labLunes = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.panelSabado = new System.Windows.Forms.Panel();
+            this.botModSa = new System.Windows.Forms.Button();
+            this.labSaH = new System.Windows.Forms.Label();
+            this.botDelSa = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
+            this.labSaD = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.comboSabadoDesde = new System.Windows.Forms.ComboBox();
-            this.comboSabadoHasta = new System.Windows.Forms.ComboBox();
             this.panelViernes = new System.Windows.Forms.Panel();
+            this.botModVi = new System.Windows.Forms.Button();
+            this.labViH = new System.Windows.Forms.Label();
+            this.botDelVi = new System.Windows.Forms.Button();
+            this.labViD = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.comboViernesDesde = new System.Windows.Forms.ComboBox();
-            this.comboViernesHasta = new System.Windows.Forms.ComboBox();
             this.panelJueves = new System.Windows.Forms.Panel();
+            this.botModJu = new System.Windows.Forms.Button();
+            this.labJuH = new System.Windows.Forms.Label();
+            this.botDelJu = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.labJuD = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboJuevesDesde = new System.Windows.Forms.ComboBox();
-            this.comboJuevesHasta = new System.Windows.Forms.ComboBox();
             this.panelMiercoles = new System.Windows.Forms.Panel();
+            this.botModMi = new System.Windows.Forms.Button();
+            this.labMiH = new System.Windows.Forms.Label();
+            this.botDelMi = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.labMiD = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboMiercolesDesde = new System.Windows.Forms.ComboBox();
-            this.comboMiercolesHasta = new System.Windows.Forms.ComboBox();
             this.panelMartes = new System.Windows.Forms.Panel();
+            this.botModMa = new System.Windows.Forms.Button();
+            this.labMaH = new System.Windows.Forms.Label();
+            this.botDelMa = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.labMaD = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboMartesDesde = new System.Windows.Forms.ComboBox();
-            this.comboMartesHasta = new System.Windows.Forms.ComboBox();
             this.panelLunes = new System.Windows.Forms.Panel();
+            this.botModLu = new System.Windows.Forms.Button();
+            this.botDelLu = new System.Windows.Forms.Button();
+            this.labLuH = new System.Windows.Forms.Label();
+            this.labLuD = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboLunesDesde = new System.Windows.Forms.ComboBox();
-            this.comboLunesHasta = new System.Windows.Forms.ComboBox();
-            this.botonRestore = new System.Windows.Forms.Button();
-            this.chkSabado = new System.Windows.Forms.CheckBox();
-            this.chkViernes = new System.Windows.Forms.CheckBox();
-            this.chkJueves = new System.Windows.Forms.CheckBox();
-            this.chkMiercoles = new System.Windows.Forms.CheckBox();
-            this.chkMartes = new System.Windows.Forms.CheckBox();
-            this.chkLunes = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelSabado.SuspendLayout();
@@ -97,7 +114,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(297, 349);
+            this.button1.Location = new System.Drawing.Point(381, 349);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -113,7 +130,7 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(368, 56);
+            this.groupBox1.Size = new System.Drawing.Size(458, 56);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos personales";
@@ -168,6 +185,18 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labSaNo);
+            this.groupBox2.Controls.Add(this.labViNo);
+            this.groupBox2.Controls.Add(this.labJuNo);
+            this.groupBox2.Controls.Add(this.labMiNo);
+            this.groupBox2.Controls.Add(this.labMaNo);
+            this.groupBox2.Controls.Add(this.labLuNo);
+            this.groupBox2.Controls.Add(this.labSabado);
+            this.groupBox2.Controls.Add(this.labViernes);
+            this.groupBox2.Controls.Add(this.labJueves);
+            this.groupBox2.Controls.Add(this.labMiercoles);
+            this.groupBox2.Controls.Add(this.labMartes);
+            this.groupBox2.Controls.Add(this.labLunes);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.panelSabado);
             this.groupBox2.Controls.Add(this.panelViernes);
@@ -175,41 +204,192 @@
             this.groupBox2.Controls.Add(this.panelMiercoles);
             this.groupBox2.Controls.Add(this.panelMartes);
             this.groupBox2.Controls.Add(this.panelLunes);
-            this.groupBox2.Controls.Add(this.botonRestore);
-            this.groupBox2.Controls.Add(this.chkSabado);
-            this.groupBox2.Controls.Add(this.chkViernes);
-            this.groupBox2.Controls.Add(this.chkJueves);
-            this.groupBox2.Controls.Add(this.chkMiercoles);
-            this.groupBox2.Controls.Add(this.chkMartes);
-            this.groupBox2.Controls.Add(this.chkLunes);
             this.groupBox2.Location = new System.Drawing.Point(12, 80);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(368, 242);
+            this.groupBox2.Size = new System.Drawing.Size(458, 242);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Días de atención";
             this.groupBox2.Visible = false;
             // 
+            // labSaNo
+            // 
+            this.labSaNo.AutoSize = true;
+            this.labSaNo.Location = new System.Drawing.Point(58, 179);
+            this.labSaNo.Name = "labSaNo";
+            this.labSaNo.Size = new System.Drawing.Size(60, 13);
+            this.labSaNo.TabIndex = 48;
+            this.labSaNo.Text = "no atiende.";
+            // 
+            // labViNo
+            // 
+            this.labViNo.AutoSize = true;
+            this.labViNo.Location = new System.Drawing.Point(58, 149);
+            this.labViNo.Name = "labViNo";
+            this.labViNo.Size = new System.Drawing.Size(60, 13);
+            this.labViNo.TabIndex = 47;
+            this.labViNo.Text = "no atiende.";
+            // 
+            // labJuNo
+            // 
+            this.labJuNo.AutoSize = true;
+            this.labJuNo.Location = new System.Drawing.Point(57, 118);
+            this.labJuNo.Name = "labJuNo";
+            this.labJuNo.Size = new System.Drawing.Size(60, 13);
+            this.labJuNo.TabIndex = 46;
+            this.labJuNo.Text = "no atiende.";
+            // 
+            // labMiNo
+            // 
+            this.labMiNo.AutoSize = true;
+            this.labMiNo.Location = new System.Drawing.Point(68, 87);
+            this.labMiNo.Name = "labMiNo";
+            this.labMiNo.Size = new System.Drawing.Size(60, 13);
+            this.labMiNo.TabIndex = 45;
+            this.labMiNo.Text = "no atiende.";
+            // 
+            // labMaNo
+            // 
+            this.labMaNo.AutoSize = true;
+            this.labMaNo.Location = new System.Drawing.Point(55, 57);
+            this.labMaNo.Name = "labMaNo";
+            this.labMaNo.Size = new System.Drawing.Size(60, 13);
+            this.labMaNo.TabIndex = 44;
+            this.labMaNo.Text = "no atiende.";
+            // 
+            // labLuNo
+            // 
+            this.labLuNo.AutoSize = true;
+            this.labLuNo.Location = new System.Drawing.Point(51, 26);
+            this.labLuNo.Name = "labLuNo";
+            this.labLuNo.Size = new System.Drawing.Size(60, 13);
+            this.labLuNo.TabIndex = 43;
+            this.labLuNo.Text = "no atiende.";
+            // 
+            // labSabado
+            // 
+            this.labSabado.AutoSize = true;
+            this.labSabado.Location = new System.Drawing.Point(18, 179);
+            this.labSabado.Name = "labSabado";
+            this.labSabado.Size = new System.Drawing.Size(44, 13);
+            this.labSabado.TabIndex = 42;
+            this.labSabado.Text = "Sábado";
+            // 
+            // labViernes
+            // 
+            this.labViernes.AutoSize = true;
+            this.labViernes.Location = new System.Drawing.Point(18, 149);
+            this.labViernes.Name = "labViernes";
+            this.labViernes.Size = new System.Drawing.Size(42, 13);
+            this.labViernes.TabIndex = 41;
+            this.labViernes.Text = "Viernes";
+            // 
+            // labJueves
+            // 
+            this.labJueves.AutoSize = true;
+            this.labJueves.Location = new System.Drawing.Point(18, 118);
+            this.labJueves.Name = "labJueves";
+            this.labJueves.Size = new System.Drawing.Size(41, 13);
+            this.labJueves.TabIndex = 40;
+            this.labJueves.Text = "Jueves";
+            // 
+            // labMiercoles
+            // 
+            this.labMiercoles.AutoSize = true;
+            this.labMiercoles.Location = new System.Drawing.Point(18, 87);
+            this.labMiercoles.Name = "labMiercoles";
+            this.labMiercoles.Size = new System.Drawing.Size(52, 13);
+            this.labMiercoles.TabIndex = 39;
+            this.labMiercoles.Text = "Miércoles";
+            // 
+            // labMartes
+            // 
+            this.labMartes.AutoSize = true;
+            this.labMartes.Location = new System.Drawing.Point(18, 57);
+            this.labMartes.Name = "labMartes";
+            this.labMartes.Size = new System.Drawing.Size(39, 13);
+            this.labMartes.TabIndex = 38;
+            this.labMartes.Text = "Martes";
+            // 
+            // labLunes
+            // 
+            this.labLunes.AutoSize = true;
+            this.labLunes.Location = new System.Drawing.Point(18, 26);
+            this.labLunes.Name = "labLunes";
+            this.labLunes.Size = new System.Drawing.Size(36, 13);
+            this.labLunes.TabIndex = 37;
+            this.labLunes.Text = "Lunes";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(37, 206);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(193, 24);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "EN CONSTRUCCION";
+            // 
             // panelSabado
             // 
+            this.panelSabado.Controls.Add(this.botModSa);
+            this.panelSabado.Controls.Add(this.labSaH);
+            this.panelSabado.Controls.Add(this.botDelSa);
             this.panelSabado.Controls.Add(this.label11);
+            this.panelSabado.Controls.Add(this.labSaD);
             this.panelSabado.Controls.Add(this.label12);
-            this.panelSabado.Controls.Add(this.comboSabadoDesde);
-            this.panelSabado.Controls.Add(this.comboSabadoHasta);
-            this.panelSabado.Location = new System.Drawing.Point(117, 167);
+            this.panelSabado.Location = new System.Drawing.Point(144, 172);
             this.panelSabado.Name = "panelSabado";
-            this.panelSabado.Size = new System.Drawing.Size(243, 25);
+            this.panelSabado.Size = new System.Drawing.Size(300, 25);
             this.panelSabado.TabIndex = 36;
             this.panelSabado.Visible = false;
+            // 
+            // botModSa
+            // 
+            this.botModSa.Location = new System.Drawing.Point(237, 3);
+            this.botModSa.Name = "botModSa";
+            this.botModSa.Size = new System.Drawing.Size(60, 19);
+            this.botModSa.TabIndex = 21;
+            this.botModSa.Text = "Modificar";
+            this.botModSa.UseVisualStyleBackColor = true;
+            // 
+            // labSaH
+            // 
+            this.labSaH.AutoSize = true;
+            this.labSaH.Location = new System.Drawing.Point(143, 6);
+            this.labSaH.Name = "labSaH";
+            this.labSaH.Size = new System.Drawing.Size(22, 13);
+            this.labSaH.TabIndex = 19;
+            this.labSaH.Text = "(...)";
+            // 
+            // botDelSa
+            // 
+            this.botDelSa.Location = new System.Drawing.Point(186, 3);
+            this.botDelSa.Name = "botDelSa";
+            this.botDelSa.Size = new System.Drawing.Size(45, 19);
+            this.botDelSa.TabIndex = 20;
+            this.botDelSa.Text = "Quitar";
+            this.botDelSa.UseVisualStyleBackColor = true;
+            this.botDelSa.Click += new System.EventHandler(this.botDelSa_Click);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(124, 6);
+            this.label11.Location = new System.Drawing.Point(99, 6);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 13);
             this.label11.TabIndex = 7;
             this.label11.Text = "Hasta:";
+            // 
+            // labSaD
+            // 
+            this.labSaD.AutoSize = true;
+            this.labSaD.Location = new System.Drawing.Point(53, 6);
+            this.labSaD.Name = "labSaD";
+            this.labSaD.Size = new System.Drawing.Size(22, 13);
+            this.labSaD.TabIndex = 18;
+            this.labSaD.Text = "(...)";
             // 
             // label12
             // 
@@ -220,95 +400,61 @@
             this.label12.TabIndex = 6;
             this.label12.Text = "Desde:";
             // 
-            // comboSabadoDesde
-            // 
-            this.comboSabadoDesde.DisplayMember = "(nignuno)";
-            this.comboSabadoDesde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSabadoDesde.FormattingEnabled = true;
-            this.comboSabadoDesde.Items.AddRange(new object[] {
-            "07:00",
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30"});
-            this.comboSabadoDesde.Location = new System.Drawing.Point(50, 3);
-            this.comboSabadoDesde.Name = "comboSabadoDesde";
-            this.comboSabadoDesde.Size = new System.Drawing.Size(68, 21);
-            this.comboSabadoDesde.TabIndex = 8;
-            // 
-            // comboSabadoHasta
-            // 
-            this.comboSabadoHasta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSabadoHasta.FormattingEnabled = true;
-            this.comboSabadoHasta.Items.AddRange(new object[] {
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00"});
-            this.comboSabadoHasta.Location = new System.Drawing.Point(168, 3);
-            this.comboSabadoHasta.Name = "comboSabadoHasta";
-            this.comboSabadoHasta.Size = new System.Drawing.Size(68, 21);
-            this.comboSabadoHasta.TabIndex = 9;
-            // 
             // panelViernes
             // 
+            this.panelViernes.Controls.Add(this.botModVi);
+            this.panelViernes.Controls.Add(this.labViH);
+            this.panelViernes.Controls.Add(this.botDelVi);
+            this.panelViernes.Controls.Add(this.labViD);
             this.panelViernes.Controls.Add(this.label9);
             this.panelViernes.Controls.Add(this.label10);
-            this.panelViernes.Controls.Add(this.comboViernesDesde);
-            this.panelViernes.Controls.Add(this.comboViernesHasta);
-            this.panelViernes.Location = new System.Drawing.Point(117, 137);
+            this.panelViernes.Location = new System.Drawing.Point(144, 142);
             this.panelViernes.Name = "panelViernes";
-            this.panelViernes.Size = new System.Drawing.Size(243, 25);
+            this.panelViernes.Size = new System.Drawing.Size(300, 25);
             this.panelViernes.TabIndex = 35;
             this.panelViernes.Visible = false;
+            // 
+            // botModVi
+            // 
+            this.botModVi.Location = new System.Drawing.Point(237, 4);
+            this.botModVi.Name = "botModVi";
+            this.botModVi.Size = new System.Drawing.Size(60, 19);
+            this.botModVi.TabIndex = 19;
+            this.botModVi.Text = "Modificar";
+            this.botModVi.UseVisualStyleBackColor = true;
+            // 
+            // labViH
+            // 
+            this.labViH.AutoSize = true;
+            this.labViH.Location = new System.Drawing.Point(143, 6);
+            this.labViH.Name = "labViH";
+            this.labViH.Size = new System.Drawing.Size(22, 13);
+            this.labViH.TabIndex = 17;
+            this.labViH.Text = "(...)";
+            // 
+            // botDelVi
+            // 
+            this.botDelVi.Location = new System.Drawing.Point(186, 4);
+            this.botDelVi.Name = "botDelVi";
+            this.botDelVi.Size = new System.Drawing.Size(45, 19);
+            this.botDelVi.TabIndex = 18;
+            this.botDelVi.Text = "Quitar";
+            this.botDelVi.UseVisualStyleBackColor = true;
+            this.botDelVi.Click += new System.EventHandler(this.botDelVi_Click);
+            // 
+            // labViD
+            // 
+            this.labViD.AutoSize = true;
+            this.labViD.Location = new System.Drawing.Point(53, 6);
+            this.labViD.Name = "labViD";
+            this.labViD.Size = new System.Drawing.Size(22, 13);
+            this.labViD.TabIndex = 16;
+            this.labViD.Text = "(...)";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(124, 6);
+            this.label9.Location = new System.Drawing.Point(99, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(38, 13);
             this.label9.TabIndex = 7;
@@ -323,99 +469,65 @@
             this.label10.TabIndex = 6;
             this.label10.Text = "Desde:";
             // 
-            // comboViernesDesde
-            // 
-            this.comboViernesDesde.DisplayMember = "(nignuno)";
-            this.comboViernesDesde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboViernesDesde.FormattingEnabled = true;
-            this.comboViernesDesde.Items.AddRange(new object[] {
-            "07:00",
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30"});
-            this.comboViernesDesde.Location = new System.Drawing.Point(50, 3);
-            this.comboViernesDesde.Name = "comboViernesDesde";
-            this.comboViernesDesde.Size = new System.Drawing.Size(68, 21);
-            this.comboViernesDesde.TabIndex = 8;
-            // 
-            // comboViernesHasta
-            // 
-            this.comboViernesHasta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboViernesHasta.FormattingEnabled = true;
-            this.comboViernesHasta.Items.AddRange(new object[] {
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00"});
-            this.comboViernesHasta.Location = new System.Drawing.Point(168, 3);
-            this.comboViernesHasta.Name = "comboViernesHasta";
-            this.comboViernesHasta.Size = new System.Drawing.Size(68, 21);
-            this.comboViernesHasta.TabIndex = 9;
-            // 
             // panelJueves
             // 
+            this.panelJueves.Controls.Add(this.botModJu);
+            this.panelJueves.Controls.Add(this.labJuH);
+            this.panelJueves.Controls.Add(this.botDelJu);
             this.panelJueves.Controls.Add(this.label7);
+            this.panelJueves.Controls.Add(this.labJuD);
             this.panelJueves.Controls.Add(this.label8);
-            this.panelJueves.Controls.Add(this.comboJuevesDesde);
-            this.panelJueves.Controls.Add(this.comboJuevesHasta);
-            this.panelJueves.Location = new System.Drawing.Point(117, 106);
+            this.panelJueves.Location = new System.Drawing.Point(144, 111);
             this.panelJueves.Name = "panelJueves";
-            this.panelJueves.Size = new System.Drawing.Size(243, 25);
+            this.panelJueves.Size = new System.Drawing.Size(300, 25);
             this.panelJueves.TabIndex = 34;
             this.panelJueves.Visible = false;
+            // 
+            // botModJu
+            // 
+            this.botModJu.Location = new System.Drawing.Point(237, 3);
+            this.botModJu.Name = "botModJu";
+            this.botModJu.Size = new System.Drawing.Size(60, 19);
+            this.botModJu.TabIndex = 17;
+            this.botModJu.Text = "Modificar";
+            this.botModJu.UseVisualStyleBackColor = true;
+            // 
+            // labJuH
+            // 
+            this.labJuH.AutoSize = true;
+            this.labJuH.Location = new System.Drawing.Point(143, 7);
+            this.labJuH.Name = "labJuH";
+            this.labJuH.Size = new System.Drawing.Size(22, 13);
+            this.labJuH.TabIndex = 15;
+            this.labJuH.Text = "(...)";
+            // 
+            // botDelJu
+            // 
+            this.botDelJu.Location = new System.Drawing.Point(186, 3);
+            this.botDelJu.Name = "botDelJu";
+            this.botDelJu.Size = new System.Drawing.Size(45, 19);
+            this.botDelJu.TabIndex = 16;
+            this.botDelJu.Text = "Quitar";
+            this.botDelJu.UseVisualStyleBackColor = true;
+            this.botDelJu.Click += new System.EventHandler(this.botDelJu_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(124, 6);
+            this.label7.Location = new System.Drawing.Point(99, 7);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 7;
             this.label7.Text = "Hasta:";
+            // 
+            // labJuD
+            // 
+            this.labJuD.AutoSize = true;
+            this.labJuD.Location = new System.Drawing.Point(53, 6);
+            this.labJuD.Name = "labJuD";
+            this.labJuD.Size = new System.Drawing.Size(22, 13);
+            this.labJuD.TabIndex = 14;
+            this.labJuD.Text = "(...)";
             // 
             // label8
             // 
@@ -426,99 +538,65 @@
             this.label8.TabIndex = 6;
             this.label8.Text = "Desde:";
             // 
-            // comboJuevesDesde
-            // 
-            this.comboJuevesDesde.DisplayMember = "(nignuno)";
-            this.comboJuevesDesde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboJuevesDesde.FormattingEnabled = true;
-            this.comboJuevesDesde.Items.AddRange(new object[] {
-            "07:00",
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30"});
-            this.comboJuevesDesde.Location = new System.Drawing.Point(50, 3);
-            this.comboJuevesDesde.Name = "comboJuevesDesde";
-            this.comboJuevesDesde.Size = new System.Drawing.Size(68, 21);
-            this.comboJuevesDesde.TabIndex = 8;
-            // 
-            // comboJuevesHasta
-            // 
-            this.comboJuevesHasta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboJuevesHasta.FormattingEnabled = true;
-            this.comboJuevesHasta.Items.AddRange(new object[] {
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00"});
-            this.comboJuevesHasta.Location = new System.Drawing.Point(168, 3);
-            this.comboJuevesHasta.Name = "comboJuevesHasta";
-            this.comboJuevesHasta.Size = new System.Drawing.Size(68, 21);
-            this.comboJuevesHasta.TabIndex = 9;
-            // 
             // panelMiercoles
             // 
+            this.panelMiercoles.Controls.Add(this.botModMi);
+            this.panelMiercoles.Controls.Add(this.labMiH);
+            this.panelMiercoles.Controls.Add(this.botDelMi);
             this.panelMiercoles.Controls.Add(this.label5);
+            this.panelMiercoles.Controls.Add(this.labMiD);
             this.panelMiercoles.Controls.Add(this.label6);
-            this.panelMiercoles.Controls.Add(this.comboMiercolesDesde);
-            this.panelMiercoles.Controls.Add(this.comboMiercolesHasta);
-            this.panelMiercoles.Location = new System.Drawing.Point(117, 75);
+            this.panelMiercoles.Location = new System.Drawing.Point(144, 80);
             this.panelMiercoles.Name = "panelMiercoles";
-            this.panelMiercoles.Size = new System.Drawing.Size(243, 25);
+            this.panelMiercoles.Size = new System.Drawing.Size(300, 25);
             this.panelMiercoles.TabIndex = 33;
             this.panelMiercoles.Visible = false;
+            // 
+            // botModMi
+            // 
+            this.botModMi.Location = new System.Drawing.Point(237, 3);
+            this.botModMi.Name = "botModMi";
+            this.botModMi.Size = new System.Drawing.Size(60, 19);
+            this.botModMi.TabIndex = 15;
+            this.botModMi.Text = "Modificar";
+            this.botModMi.UseVisualStyleBackColor = true;
+            // 
+            // labMiH
+            // 
+            this.labMiH.AutoSize = true;
+            this.labMiH.Location = new System.Drawing.Point(143, 6);
+            this.labMiH.Name = "labMiH";
+            this.labMiH.Size = new System.Drawing.Size(22, 13);
+            this.labMiH.TabIndex = 13;
+            this.labMiH.Text = "(...)";
+            // 
+            // botDelMi
+            // 
+            this.botDelMi.Location = new System.Drawing.Point(186, 3);
+            this.botDelMi.Name = "botDelMi";
+            this.botDelMi.Size = new System.Drawing.Size(45, 19);
+            this.botDelMi.TabIndex = 14;
+            this.botDelMi.Text = "Quitar";
+            this.botDelMi.UseVisualStyleBackColor = true;
+            this.botDelMi.Click += new System.EventHandler(this.botDelMi_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(124, 6);
+            this.label5.Location = new System.Drawing.Point(99, 6);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "Hasta:";
+            // 
+            // labMiD
+            // 
+            this.labMiD.AutoSize = true;
+            this.labMiD.Location = new System.Drawing.Point(53, 6);
+            this.labMiD.Name = "labMiD";
+            this.labMiD.Size = new System.Drawing.Size(22, 13);
+            this.labMiD.TabIndex = 12;
+            this.labMiD.Text = "(...)";
             // 
             // label6
             // 
@@ -529,99 +607,65 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "Desde:";
             // 
-            // comboMiercolesDesde
-            // 
-            this.comboMiercolesDesde.DisplayMember = "(nignuno)";
-            this.comboMiercolesDesde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMiercolesDesde.FormattingEnabled = true;
-            this.comboMiercolesDesde.Items.AddRange(new object[] {
-            "07:00",
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30"});
-            this.comboMiercolesDesde.Location = new System.Drawing.Point(50, 3);
-            this.comboMiercolesDesde.Name = "comboMiercolesDesde";
-            this.comboMiercolesDesde.Size = new System.Drawing.Size(68, 21);
-            this.comboMiercolesDesde.TabIndex = 8;
-            // 
-            // comboMiercolesHasta
-            // 
-            this.comboMiercolesHasta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMiercolesHasta.FormattingEnabled = true;
-            this.comboMiercolesHasta.Items.AddRange(new object[] {
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00"});
-            this.comboMiercolesHasta.Location = new System.Drawing.Point(168, 3);
-            this.comboMiercolesHasta.Name = "comboMiercolesHasta";
-            this.comboMiercolesHasta.Size = new System.Drawing.Size(68, 21);
-            this.comboMiercolesHasta.TabIndex = 9;
-            // 
             // panelMartes
             // 
+            this.panelMartes.Controls.Add(this.botModMa);
+            this.panelMartes.Controls.Add(this.labMaH);
+            this.panelMartes.Controls.Add(this.botDelMa);
             this.panelMartes.Controls.Add(this.label3);
+            this.panelMartes.Controls.Add(this.labMaD);
             this.panelMartes.Controls.Add(this.label4);
-            this.panelMartes.Controls.Add(this.comboMartesDesde);
-            this.panelMartes.Controls.Add(this.comboMartesHasta);
-            this.panelMartes.Location = new System.Drawing.Point(117, 45);
+            this.panelMartes.Location = new System.Drawing.Point(144, 50);
             this.panelMartes.Name = "panelMartes";
-            this.panelMartes.Size = new System.Drawing.Size(243, 25);
+            this.panelMartes.Size = new System.Drawing.Size(300, 25);
             this.panelMartes.TabIndex = 32;
             this.panelMartes.Visible = false;
+            // 
+            // botModMa
+            // 
+            this.botModMa.Location = new System.Drawing.Point(237, 3);
+            this.botModMa.Name = "botModMa";
+            this.botModMa.Size = new System.Drawing.Size(60, 19);
+            this.botModMa.TabIndex = 13;
+            this.botModMa.Text = "Modificar";
+            this.botModMa.UseVisualStyleBackColor = true;
+            // 
+            // labMaH
+            // 
+            this.labMaH.AutoSize = true;
+            this.labMaH.Location = new System.Drawing.Point(143, 6);
+            this.labMaH.Name = "labMaH";
+            this.labMaH.Size = new System.Drawing.Size(22, 13);
+            this.labMaH.TabIndex = 11;
+            this.labMaH.Text = "(...)";
+            // 
+            // botDelMa
+            // 
+            this.botDelMa.Location = new System.Drawing.Point(186, 3);
+            this.botDelMa.Name = "botDelMa";
+            this.botDelMa.Size = new System.Drawing.Size(45, 19);
+            this.botDelMa.TabIndex = 12;
+            this.botDelMa.Text = "Quitar";
+            this.botDelMa.UseVisualStyleBackColor = true;
+            this.botDelMa.Click += new System.EventHandler(this.botDelMa_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(124, 6);
+            this.label3.Location = new System.Drawing.Point(99, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Hasta:";
+            // 
+            // labMaD
+            // 
+            this.labMaD.AutoSize = true;
+            this.labMaD.Location = new System.Drawing.Point(53, 6);
+            this.labMaD.Name = "labMaD";
+            this.labMaD.Size = new System.Drawing.Size(22, 13);
+            this.labMaD.TabIndex = 10;
+            this.labMaD.Text = "(...)";
             // 
             // label4
             // 
@@ -632,95 +676,61 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Desde:";
             // 
-            // comboMartesDesde
-            // 
-            this.comboMartesDesde.DisplayMember = "(nignuno)";
-            this.comboMartesDesde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMartesDesde.FormattingEnabled = true;
-            this.comboMartesDesde.Items.AddRange(new object[] {
-            "07:00",
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30"});
-            this.comboMartesDesde.Location = new System.Drawing.Point(50, 3);
-            this.comboMartesDesde.Name = "comboMartesDesde";
-            this.comboMartesDesde.Size = new System.Drawing.Size(68, 21);
-            this.comboMartesDesde.TabIndex = 8;
-            // 
-            // comboMartesHasta
-            // 
-            this.comboMartesHasta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMartesHasta.FormattingEnabled = true;
-            this.comboMartesHasta.Items.AddRange(new object[] {
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00"});
-            this.comboMartesHasta.Location = new System.Drawing.Point(168, 3);
-            this.comboMartesHasta.Name = "comboMartesHasta";
-            this.comboMartesHasta.Size = new System.Drawing.Size(68, 21);
-            this.comboMartesHasta.TabIndex = 9;
-            // 
             // panelLunes
             // 
+            this.panelLunes.Controls.Add(this.botModLu);
+            this.panelLunes.Controls.Add(this.botDelLu);
+            this.panelLunes.Controls.Add(this.labLuH);
+            this.panelLunes.Controls.Add(this.labLuD);
             this.panelLunes.Controls.Add(this.label2);
             this.panelLunes.Controls.Add(this.label1);
-            this.panelLunes.Controls.Add(this.comboLunesDesde);
-            this.panelLunes.Controls.Add(this.comboLunesHasta);
-            this.panelLunes.Location = new System.Drawing.Point(117, 14);
+            this.panelLunes.Location = new System.Drawing.Point(144, 19);
             this.panelLunes.Name = "panelLunes";
-            this.panelLunes.Size = new System.Drawing.Size(243, 25);
+            this.panelLunes.Size = new System.Drawing.Size(300, 25);
             this.panelLunes.TabIndex = 31;
             this.panelLunes.Visible = false;
+            // 
+            // botModLu
+            // 
+            this.botModLu.Location = new System.Drawing.Point(237, 3);
+            this.botModLu.Name = "botModLu";
+            this.botModLu.Size = new System.Drawing.Size(60, 19);
+            this.botModLu.TabIndex = 11;
+            this.botModLu.Text = "Modificar";
+            this.botModLu.UseVisualStyleBackColor = true;
+            // 
+            // botDelLu
+            // 
+            this.botDelLu.Location = new System.Drawing.Point(186, 3);
+            this.botDelLu.Name = "botDelLu";
+            this.botDelLu.Size = new System.Drawing.Size(45, 19);
+            this.botDelLu.TabIndex = 10;
+            this.botDelLu.Text = "Quitar";
+            this.botDelLu.UseVisualStyleBackColor = true;
+            this.botDelLu.Click += new System.EventHandler(this.botDelLu_Click);
+            // 
+            // labLuH
+            // 
+            this.labLuH.AutoSize = true;
+            this.labLuH.Location = new System.Drawing.Point(143, 6);
+            this.labLuH.Name = "labLuH";
+            this.labLuH.Size = new System.Drawing.Size(22, 13);
+            this.labLuH.TabIndex = 9;
+            this.labLuH.Text = "(...)";
+            // 
+            // labLuD
+            // 
+            this.labLuD.AutoSize = true;
+            this.labLuD.Location = new System.Drawing.Point(53, 6);
+            this.labLuD.Name = "labLuD";
+            this.labLuD.Size = new System.Drawing.Size(22, 13);
+            this.labLuD.TabIndex = 8;
+            this.labLuD.Text = "(...)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(124, 6);
+            this.label2.Location = new System.Drawing.Point(99, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 7;
@@ -735,171 +745,11 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Desde:";
             // 
-            // comboLunesDesde
-            // 
-            this.comboLunesDesde.DisplayMember = "(nignuno)";
-            this.comboLunesDesde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboLunesDesde.FormattingEnabled = true;
-            this.comboLunesDesde.Items.AddRange(new object[] {
-            "07:00",
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30"});
-            this.comboLunesDesde.Location = new System.Drawing.Point(50, 3);
-            this.comboLunesDesde.Name = "comboLunesDesde";
-            this.comboLunesDesde.Size = new System.Drawing.Size(68, 21);
-            this.comboLunesDesde.TabIndex = 8;
-            // 
-            // comboLunesHasta
-            // 
-            this.comboLunesHasta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboLunesHasta.FormattingEnabled = true;
-            this.comboLunesHasta.Items.AddRange(new object[] {
-            "07:30",
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00"});
-            this.comboLunesHasta.Location = new System.Drawing.Point(168, 3);
-            this.comboLunesHasta.Name = "comboLunesHasta";
-            this.comboLunesHasta.Size = new System.Drawing.Size(68, 21);
-            this.comboLunesHasta.TabIndex = 9;
-            // 
-            // botonRestore
-            // 
-            this.botonRestore.Location = new System.Drawing.Point(275, 206);
-            this.botonRestore.Name = "botonRestore";
-            this.botonRestore.Size = new System.Drawing.Size(78, 21);
-            this.botonRestore.TabIndex = 13;
-            this.botonRestore.Text = "Restablecer";
-            this.botonRestore.UseVisualStyleBackColor = true;
-            this.botonRestore.Click += new System.EventHandler(this.botonRestore_Click);
-            // 
-            // chkSabado
-            // 
-            this.chkSabado.AutoSize = true;
-            this.chkSabado.Location = new System.Drawing.Point(13, 172);
-            this.chkSabado.Name = "chkSabado";
-            this.chkSabado.Size = new System.Drawing.Size(63, 17);
-            this.chkSabado.TabIndex = 5;
-            this.chkSabado.Text = "Sábado";
-            this.chkSabado.UseVisualStyleBackColor = true;
-            this.chkSabado.CheckStateChanged += new System.EventHandler(this.chkSabado_CheckedChanged);
-            // 
-            // chkViernes
-            // 
-            this.chkViernes.AutoSize = true;
-            this.chkViernes.Location = new System.Drawing.Point(13, 142);
-            this.chkViernes.Name = "chkViernes";
-            this.chkViernes.Size = new System.Drawing.Size(61, 17);
-            this.chkViernes.TabIndex = 4;
-            this.chkViernes.Text = "Viernes";
-            this.chkViernes.UseVisualStyleBackColor = true;
-            this.chkViernes.CheckedChanged += new System.EventHandler(this.chkViernes_CheckedChanged);
-            // 
-            // chkJueves
-            // 
-            this.chkJueves.AutoSize = true;
-            this.chkJueves.Location = new System.Drawing.Point(13, 111);
-            this.chkJueves.Name = "chkJueves";
-            this.chkJueves.Size = new System.Drawing.Size(60, 17);
-            this.chkJueves.TabIndex = 3;
-            this.chkJueves.Text = "Jueves";
-            this.chkJueves.UseVisualStyleBackColor = true;
-            this.chkJueves.CheckedChanged += new System.EventHandler(this.chkJueves_CheckedChanged);
-            // 
-            // chkMiercoles
-            // 
-            this.chkMiercoles.AutoSize = true;
-            this.chkMiercoles.Location = new System.Drawing.Point(13, 80);
-            this.chkMiercoles.Name = "chkMiercoles";
-            this.chkMiercoles.Size = new System.Drawing.Size(71, 17);
-            this.chkMiercoles.TabIndex = 2;
-            this.chkMiercoles.Text = "Miércoles";
-            this.chkMiercoles.UseVisualStyleBackColor = true;
-            this.chkMiercoles.CheckedChanged += new System.EventHandler(this.chkMiercoles_CheckedChanged);
-            // 
-            // chkMartes
-            // 
-            this.chkMartes.AutoSize = true;
-            this.chkMartes.Location = new System.Drawing.Point(13, 50);
-            this.chkMartes.Name = "chkMartes";
-            this.chkMartes.Size = new System.Drawing.Size(58, 17);
-            this.chkMartes.TabIndex = 1;
-            this.chkMartes.Text = "Martes";
-            this.chkMartes.UseVisualStyleBackColor = true;
-            this.chkMartes.CheckedChanged += new System.EventHandler(this.chkMartes_CheckedChanged);
-            // 
-            // chkLunes
-            // 
-            this.chkLunes.AutoSize = true;
-            this.chkLunes.Location = new System.Drawing.Point(13, 19);
-            this.chkLunes.Name = "chkLunes";
-            this.chkLunes.Size = new System.Drawing.Size(55, 17);
-            this.chkLunes.TabIndex = 0;
-            this.chkLunes.Text = "Lunes";
-            this.chkLunes.UseVisualStyleBackColor = true;
-            this.chkLunes.CheckedChanged += new System.EventHandler(this.chkLunes_CheckedChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(27, 203);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(193, 24);
-            this.label13.TabIndex = 14;
-            this.label13.Text = "EN CONSTRUCCION";
-            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 384);
+            this.ClientSize = new System.Drawing.Size(484, 384);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
@@ -937,43 +787,60 @@
         private System.Windows.Forms.Button botonBuscarMedico;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox chkSabado;
-        private System.Windows.Forms.CheckBox chkViernes;
-        private System.Windows.Forms.CheckBox chkJueves;
-        private System.Windows.Forms.CheckBox chkMiercoles;
-        private System.Windows.Forms.CheckBox chkMartes;
-        private System.Windows.Forms.CheckBox chkLunes;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboLunesDesde;
-        private System.Windows.Forms.ComboBox comboLunesHasta;
-        private System.Windows.Forms.Button botonRestore;
         private System.Windows.Forms.Panel panelLunes;
         private System.Windows.Forms.Panel panelSabado;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboSabadoDesde;
-        private System.Windows.Forms.ComboBox comboSabadoHasta;
         private System.Windows.Forms.Panel panelViernes;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox comboViernesDesde;
-        private System.Windows.Forms.ComboBox comboViernesHasta;
         private System.Windows.Forms.Panel panelJueves;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboJuevesDesde;
-        private System.Windows.Forms.ComboBox comboJuevesHasta;
         private System.Windows.Forms.Panel panelMiercoles;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboMiercolesDesde;
-        private System.Windows.Forms.ComboBox comboMiercolesHasta;
         private System.Windows.Forms.Panel panelMartes;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboMartesDesde;
-        private System.Windows.Forms.ComboBox comboMartesHasta;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labSabado;
+        private System.Windows.Forms.Label labViernes;
+        private System.Windows.Forms.Label labJueves;
+        private System.Windows.Forms.Label labMiercoles;
+        private System.Windows.Forms.Label labMartes;
+        private System.Windows.Forms.Label labLunes;
+        private System.Windows.Forms.Label labSaH;
+        private System.Windows.Forms.Label labSaD;
+        private System.Windows.Forms.Label labViH;
+        private System.Windows.Forms.Label labViD;
+        private System.Windows.Forms.Label labJuH;
+        private System.Windows.Forms.Label labJuD;
+        private System.Windows.Forms.Label labMiH;
+        private System.Windows.Forms.Label labMiD;
+        private System.Windows.Forms.Label labMaH;
+        private System.Windows.Forms.Label labMaD;
+        private System.Windows.Forms.Label labLuH;
+        private System.Windows.Forms.Label labLuD;
+        private System.Windows.Forms.Label labSaNo;
+        private System.Windows.Forms.Label labViNo;
+        private System.Windows.Forms.Label labJuNo;
+        private System.Windows.Forms.Label labMiNo;
+        private System.Windows.Forms.Label labMaNo;
+        private System.Windows.Forms.Label labLuNo;
+        private System.Windows.Forms.Button botModSa;
+        private System.Windows.Forms.Button botDelSa;
+        private System.Windows.Forms.Button botModVi;
+        private System.Windows.Forms.Button botDelVi;
+        private System.Windows.Forms.Button botModJu;
+        private System.Windows.Forms.Button botDelJu;
+        private System.Windows.Forms.Button botModMi;
+        private System.Windows.Forms.Button botDelMi;
+        private System.Windows.Forms.Button botModMa;
+        private System.Windows.Forms.Button botDelMa;
+        private System.Windows.Forms.Button botModLu;
+        private System.Windows.Forms.Button botDelLu;
     }
 }

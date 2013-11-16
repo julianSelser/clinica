@@ -1336,6 +1336,24 @@ end
 GO
 
 
+--trigger para cancelar los turnos de un día de atención cuando se elimina ese día
+create trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado on CUATRO_QUESOS.Dias_Atencion for delete
+as
+begin
+	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
+	
+	(select Numero as Nro_Turno,
+		  'Cambio de agenda' as Tipo,
+		  'El médico a cargo de este turno cambió sus horarios y ya no atiende este día'
+	from CUATRO_QUESOS.Turnos inner join deleted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = deleted.Id_Medico)
+	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
+		and Fecha > GETDATE())
+
+end
+
+GO
+
+
 --CREATE PROCEDURES
 
 --procedures medicos
@@ -2165,6 +2183,38 @@ END
 END
 GO
 /******* FIN PROCEDURES REGISTRO DE LLEGADA ********/
+
+/* ****** PROCEDURES REGISTRAR AGENDA ****** */
+
+create procedure CUATRO_QUESOS.verifyMedico(@ID numeric(18)) --verifica la existencia de un médico
+as
+begin
+	if (select COUNT(*) from CUATRO_QUESOS.Medicos where ID_Medico = @ID) > 0
+	begin
+		return @ID
+	end
+	return 0
+end
+
+GO
+
+create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18))
+as
+begin
+	select Nombre_Dia, Hora_Desde, Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Id_Medico = @Id_Medico
+end
+
+GO
+
+create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @nombre_dia varchar(10))
+as
+begin
+	delete from CUATRO_QUESOS.Dias_Atencion
+	where Id_Medico = @id_medico and Nombre_Dia = @nombre_dia
+end
+
+GO
+/* ***** FIN PROCEDURES REGISTRAR AGENDA ***** */
 
 
 IF @@ERROR != 0 ROLLBACK
