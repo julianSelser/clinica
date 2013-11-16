@@ -4,6 +4,9 @@ GO
 BEGIN TRAN
 GO
 
+DROP PROCEDURE CUATRO_QUESOS.registrarLlegada 
+DROP PROCEDURE CUATRO_QUESOS.getBonoConsultaRegistroLlegada
+DROP PROCEDURE CUATRO_QUESOS.getTurnosAfiliadoMedicoRegistroLlegada
 DROP PROCEDURE CUATRO_QUESOS.deleteEspecialidades
 DROP PROCEDURE CUATRO_QUESOS.getEspecialidadesMedico
 DROP PROCEDURE CUATRO_QUESOS.traerFuncionalidadesDeRol
@@ -51,6 +54,7 @@ drop procedure CUATRO_QUESOS.getDatosParaCompra
 drop procedure CUATRO_QUESOS.comprarBonos
 DROP TYPE CUATRO_QUESOS.TURNOS_MEDICO
 
+DROP TRIGGER CUATRO_QUESOS.tr_up_after_consulta
 DROP TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
 drop trigger CUATRO_QUESOS.quitarRolInhabilitado
 drop trigger CUATRO_QUESOS.revocarUsuario

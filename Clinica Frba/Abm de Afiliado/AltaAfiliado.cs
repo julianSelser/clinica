@@ -83,7 +83,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             campos.Add(new Campo("Dirección", direccion.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Teléfono", telefono.Text, true, Controlador.TipoValidacion.Codigo));
             campos.Add(new Campo("Plan Médico", planMedico.Text, true, Controlador.TipoValidacion.Alfanumerico));
-            campos.Add(new Campo("Mail", mail.Text, false, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Mail", mail.Text, false, Controlador.TipoValidacion.Email));
             if(modo != "Familiar")campos.Add(new Campo("Estado Civil", estadoCivil.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Cantidad de familiares a cargo", cantFamiliares.Text, false, Controlador.TipoValidacion.Codigo));
             try

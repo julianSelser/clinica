@@ -10,9 +10,13 @@ namespace Clinica_Frba
 {
     class Controlador
     {
-        private static Regex alfa = new Regex("[a-zA-Z]");
+        private static Regex email = new Regex(
+            @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" 
+            + "@" 
+            + @"((([\-\w]+\.)+[a-záéíóúñA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+        private static Regex alfa = new Regex("[A-Za-záéíóúñ]");
         private static Regex alfanumerico = new Regex("[a-zA-Z0-9]");
-        public enum TipoValidacion { Alfa, Alfanumerico, Dinero, Codigo };
+        public enum TipoValidacion { Email, Alfa, Alfanumerico, Dinero, Codigo };
         public static void validarCampos(List<CampoAbstracto> campos)
         {
             string mensajeError = "";
@@ -38,6 +42,9 @@ namespace Clinica_Frba
             {
                 switch (campo.tipoVal)
                 {
+                    case TipoValidacion.Email:
+                        if (!stringEmailValido(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe contener caracteres válidos para un e-mail." + Environment.NewLine); }
+                        break;
                     case TipoValidacion.Alfa:
                         if (!stringAlfa(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe ser solo letras." + Environment.NewLine); }
                         break;
@@ -54,6 +61,11 @@ namespace Clinica_Frba
                 }
 
             }
+        }
+
+        private static bool stringEmailValido(string mail)
+        {
+            return email.IsMatch(mail);
         }
 
         public static Boolean stringAlfa(string unString)

@@ -128,8 +128,8 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.ListadoRoles.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Login.ElegirRol.resources
 C:\Users\Julio\Desktop\GestionTP\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Rol.ListadoRoles.resources
-C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Afiliado.ListadoAfiliados.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.ListadoProfesionales.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Abm_de_Afiliado.ListadoAfiliados.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.ListadoProfesionales.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.ListadoAfiliados.resources
+C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registro_de_LLegada.ElegirBonoConsulta.resources

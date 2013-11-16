@@ -93,7 +93,7 @@ namespace Clinica_Frba.AppModel
         private void cargarBotonFuncionalidad()
         {
             DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = funcion;
+            col.Text = "Seleccionar Afiliado";
             col.Name = "Seleccionar";
             col.UseColumnTextForButtonValue = true;
             grillaAfiliados.Columns.Add(col);
@@ -108,7 +108,7 @@ namespace Clinica_Frba.AppModel
 
         private void grillaAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaAfiliados.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if (e.ColumnIndex == grillaAfiliados.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaAfiliados.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaAfiliados.Rows[e.RowIndex];
                 if (!estaDadoDeBaja(fila))
@@ -117,10 +117,17 @@ namespace Clinica_Frba.AppModel
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, this), this);
                     if (funcion == "Pedir Turno") volverAVistaPedirTurno(afiliado);
+                    if (funcion == "Registrar Llegada") volvarAVistaRegistroLlegada(afiliado);
                 }
                 else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
             }
             
+        }
+
+        private void volvarAVistaRegistroLlegada(Afiliado afiliado)
+        {
+            (padre as RegistroLlegada).setearAfiliado(afiliado);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private void volverAVistaPedirTurno(Afiliado afiliado)

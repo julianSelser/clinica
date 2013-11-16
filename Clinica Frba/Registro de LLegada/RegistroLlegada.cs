@@ -9,18 +9,62 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad utilizada por un administrativo para registrar la llegada de un
+//paciente a la clínica y efectivizar su turno con un especialista para convertirse en una
+//consulta médica.
+//En caso de llegar un segundo mas tarde de la hora estipulada del turno, la atencion se cancela.
+
 namespace Clinica_Frba.Registro_de_LLegada
 {
     public partial class RegistroLlegada : Form
     {
-        private Form padre;
+        public Form padre;
         Profesional profesional;
+        Afiliado afiliado;
 
-        internal RegistroLlegada(Form padre, Profesional profesional)
+        internal RegistroLlegada(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
-            this.profesional = profesional;
+            afiliado = new Afiliado();
+            afiliado.nroAfiliado = 0;
+            validarCampos();
+        }
+
+        private void validarCampos()
+        {
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Afiliado", nroAfiliadoBox.Text, false, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Profesional", profesionalBox.Text, true, Controlador.TipoValidacion.Codigo));
+            try
+            {
+                Controlador.validarCampos(campos);
+                cargarGrilla();
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion validacion)
+            {
+                errorBox.Text = validacion.mensaje;
+                grillaTurnos.DataSource = null;
+            }
+        }
+
+        private void cargarGrilla()
+        {
+            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarLlegada.traerTurnosAfiliadoMedico(afiliado, profesional));
+            cargarBotonFuncionalidad();
+        }
+
+        private void cargarBotonFuncionalidad()
+        {
+            if (afiliado.nroAfiliado != 0 && !grillaTurnos.Columns.Contains("Seleccionar"))
+            {
+                DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+                col.Text = "Registrar Llegada";
+                col.Name = "Seleccionar";
+                col.UseColumnTextForButtonValue = true;
+                grillaTurnos.Columns.Add(col);
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -28,11 +72,63 @@ namespace Clinica_Frba.Registro_de_LLegada
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void acceptButton_Click(object sender, EventArgs e)
+        internal void setearAfiliado(Afiliado afiliado)
         {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            this.afiliado = afiliado;
+            nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
         }
 
+        internal void setearProfesional(Profesional profesional)
+        {
+            this.profesional = profesional;
+            profesionalBox.Text = profesional.id.ToString();
+        }
+
+        private void selectAfiliadoButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "Registrar Llegada"), this);
+            validarCampos();
+        }
+
+        private void selectProfesionalButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registrar Llegada"), this);
+            validarCampos();
+        }
+
+        private void profesionalBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void nroAfiliadoBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void grillaTurnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(afiliado.nroAfiliado != 0)
+            {
+                if (e.ColumnIndex == grillaTurnos.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaTurnos.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
+                {
+                    Turno turno = armarTurno(e.RowIndex);
+                    AsistenteVistas.mostrarNuevaVentana(new ElegirBonoConsulta(this, turno), this);
+                }
+            }
+        }
+
+        private Turno armarTurno(int fila)
+        {
+            Turno turno = new Turno();
+            int index = grillaTurnos.Columns["Nro. de Turno"].Index;
+            turno.numero = Convert.ToInt32(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            turno.nroAfiliado = afiliado.nroAfiliado;
+            turno.idMedico = profesional.id;
+            index = grillaTurnos.Columns["Fecha de Turno"].Index;
+            turno.fecha = Convert.ToDateTime(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            return turno;
+        }
 
     }
 }

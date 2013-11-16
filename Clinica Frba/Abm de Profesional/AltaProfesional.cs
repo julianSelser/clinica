@@ -120,7 +120,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             campos.Add(new Campo("Numero Documento", nroDocBox.Text, true, Controlador.TipoValidacion.Codigo));
             campos.Add(new Campo("Dirección", direcBox.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Teléfono", telBox.Text, true, Controlador.TipoValidacion.Codigo));
-            campos.Add(new Campo("Mail", mailBox.Text, false, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Mail", mailBox.Text, false, Controlador.TipoValidacion.Email));
             campos.Add(new Campo("Número Matricula", matriculaBox.Text, true, Controlador.TipoValidacion.Codigo));
 
             try

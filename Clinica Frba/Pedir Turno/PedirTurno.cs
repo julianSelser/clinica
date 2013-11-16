@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+
+//Funcionalidad que permite dar de alta un turno por parte del afiliado con el profesional que desea atenderse
+
 namespace Clinica_Frba.Pedir_Turno
 {
     public partial class PedirTurno : Form
@@ -17,15 +20,14 @@ namespace Clinica_Frba.Pedir_Turno
         Profesional profesional;
         Afiliado afiliado;
 
-        internal PedirTurno(Form padre, Profesional profesional)
+        internal PedirTurno(Form padre)
         {
             InitializeComponent();
             this.padre = padre;
-            this.profesional = profesional;
-            if (UsuarioLogeado.Instance.Rol.nombre == "Afiliado") setearAfiliado(UsuarioLogeado.Instance.Persona as Afiliado);
-            else
+            if (UsuarioLogeado.Instance.Rol.nombre == "Afiliado")
             {
-                new ListadoAfiliados(this, "Pedir Turno").ShowDialog();
+                setearAfiliado(UsuarioLogeado.Instance.Persona as Afiliado);
+                selectAfiliadoButton.Visible = false;
             }
         }
 
@@ -44,6 +46,22 @@ namespace Clinica_Frba.Pedir_Turno
         {
             this.afiliado = afiliado;
             nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
+        }
+
+        internal void setearProfesional(Profesional profesional)
+        {
+            this.profesional = profesional;
+            profesionalBox.Text = profesional.id.ToString();
+        }
+
+        private void selectAfiliadoButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "Pedir Turno"), this);
+        }
+
+        private void selectProfesionalButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Pedir Turno"), this);
         }
     }
 }

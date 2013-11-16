@@ -74,7 +74,7 @@ namespace Clinica_Frba
 
         private void button5_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Pedir Turno"), this);
+            AsistenteVistas.mostrarNuevaVentana(new PedirTurno(this), this);
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace Clinica_Frba
 
         private void button7_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registrar Llegada"), this);
+            AsistenteVistas.mostrarNuevaVentana(new RegistroLlegada(this), this);
         }
 
         private void button8_Click(object sender, EventArgs e)

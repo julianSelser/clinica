@@ -61,12 +61,6 @@
     <Compile Include="Abm de Afiliado\BajaAfiliado.Designer.cs">
       <DependentUpon>BajaAfiliado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm de Afiliado\ListadoAfiliados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm de Afiliado\ListadoAfiliados.Designer.cs">
-      <DependentUpon>ListadoAfiliados.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm de Afiliado\ModificarAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +124,7 @@
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
     <Compile Include="AppModel\AppLogin.cs" />
     <Compile Include="AppModel\AppProfesional.cs" />
+    <Compile Include="AppModel\AppRegistrarLlegada.cs" />
     <Compile Include="AppModel\AppRol.cs" />
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\AppAfiliado.cs" />
@@ -212,6 +207,9 @@
     <Compile Include="AppModel\Excepciones\ExcepcionValidacion.cs" />
     <Compile Include="AppModel\AsistenteVistas.cs" />
     <Compile Include="Domain\Afiliado.cs" />
+    <Compile Include="Domain\Bono.cs" />
+    <Compile Include="Domain\BonoConsulta.cs" />
+    <Compile Include="Domain\BonoFarmacia.cs" />
     <Compile Include="Domain\EspecialidadMedica.cs" />
     <Compile Include="Domain\Funcionalidad.cs" />
     <Compile Include="Domain\ModoAfiliado.cs" />
@@ -219,6 +217,7 @@
     <Compile Include="Domain\PlanMedico.cs" />
     <Compile Include="Domain\Rol.cs" />
     <Compile Include="Domain\Profesional.cs" />
+    <Compile Include="Domain\Turno.cs" />
     <Compile Include="Domain\UsuarioLogeado.cs" />
     <Compile Include="Generar Receta\GenerarReceta.cs">
       <SubType>Form</SubType>
@@ -278,9 +277,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Afiliado\BajaAfiliado.resx">
       <DependentUpon>BajaAfiliado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm de Afiliado\ListadoAfiliados.resx">
-      <DependentUpon>ListadoAfiliados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm de Afiliado\ModificarAfiliado.resx">
       <DependentUpon>ModificarAfiliado.cs</DependentUpon>
@@ -374,6 +370,9 @@
     <EmbeddedResource Include="Registrar Agenda\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro de LLegada\ElegirBonoConsulta.resx">
+      <DependentUpon>ElegirBonoConsulta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registro de LLegada\RegistroLlegada.resx">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </EmbeddedResource>
@@ -398,6 +397,12 @@
     </Compile>
     <Compile Include="Registrar Agenda\RegistrarAgenda.Designer.cs">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro de LLegada\ElegirBonoConsulta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de LLegada\ElegirBonoConsulta.Designer.cs">
+      <DependentUpon>ElegirBonoConsulta.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro de LLegada\RegistroLlegada.cs">
       <SubType>Form</SubType>
