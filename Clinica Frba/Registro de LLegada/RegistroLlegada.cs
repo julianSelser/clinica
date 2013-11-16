@@ -52,16 +52,19 @@ namespace Clinica_Frba.Registro_de_LLegada
         private void cargarGrilla()
         {
             AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarLlegada.traerTurnosAfiliadoMedico(afiliado, profesional));
-
+            cargarBotonFuncionalidad();
         }
 
         private void cargarBotonFuncionalidad()
         {
-            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = "Registrar Llegada";
-            col.Name = "Seleccionar";
-            col.UseColumnTextForButtonValue = true;
-            grillaTurnos.Columns.Add(col);
+            if (afiliado.nroAfiliado != 0 && !grillaTurnos.Columns.Contains("Seleccionar"))
+            {
+                DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+                col.Text = "Registrar Llegada";
+                col.Name = "Seleccionar";
+                col.UseColumnTextForButtonValue = true;
+                grillaTurnos.Columns.Add(col);
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -101,6 +104,15 @@ namespace Clinica_Frba.Registro_de_LLegada
         private void nroAfiliadoBox_TextChanged(object sender, EventArgs e)
         {
             validarCampos();
+        }
+
+        private void grillaTurnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == grillaTurnos.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            {
+                Turno turno = new Turno();
+                AsistenteVistas.mostrarNuevaVentana(new ElegirBonoConsulta(this, turno), this);
+            }
         }
 
     }

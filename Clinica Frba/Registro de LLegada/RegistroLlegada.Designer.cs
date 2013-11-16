@@ -151,6 +151,7 @@
             this.grillaTurnos.Name = "grillaTurnos";
             this.grillaTurnos.Size = new System.Drawing.Size(625, 322);
             this.grillaTurnos.TabIndex = 25;
+            this.grillaTurnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellContentClick);
             // 
             // RegistroLlegada
             // 

@@ -15,5 +15,15 @@ namespace Clinica_Frba.AppModel
         {
             return traerDataTable("getTurnosAfiliadoMedicoRegistroLlegada", afiliado.nroAfiliado, profesional.id, Globales.getFechaSistema());
         }
+
+        internal static DataTable traerBonos(Turno turno)
+        {
+            return traerDataTable("getBonoConsultaRegistroLlegada", turno.nroAfiliado);
+        }
+
+        internal static void registrarLlegada(Turno turno, BonoConsulta bono)
+        {
+            ejecutarProcedure("registrarLlegada", turno.nroAfiliado, bono.numero);
+        }
     }
 }
