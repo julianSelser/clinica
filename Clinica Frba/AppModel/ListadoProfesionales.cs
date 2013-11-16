@@ -98,7 +98,7 @@ namespace Clinica_Frba.AppModel
         private void cargarBotonFuncionalidad()
         {
             DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = funcion;
+            col.Text = "Seleccionar Profesional";
             col.Name = "Seleccionar";
             col.UseColumnTextForButtonValue = true;
             grillaProfesionales.Columns.Add(col);

@@ -137,6 +137,7 @@
             this.grillaTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaTurnos.Location = new System.Drawing.Point(12, 130);
             this.grillaTurnos.Name = "grillaTurnos";
+            this.grillaTurnos.ReadOnly = true;
             this.grillaTurnos.Size = new System.Drawing.Size(646, 322);
             this.grillaTurnos.TabIndex = 25;
             this.grillaTurnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellContentClick);

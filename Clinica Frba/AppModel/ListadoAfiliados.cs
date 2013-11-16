@@ -93,7 +93,7 @@ namespace Clinica_Frba.AppModel
         private void cargarBotonFuncionalidad()
         {
             DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = funcion;
+            col.Text = "Seleccionar Afiliado";
             col.Name = "Seleccionar";
             col.UseColumnTextForButtonValue = true;
             grillaAfiliados.Columns.Add(col);

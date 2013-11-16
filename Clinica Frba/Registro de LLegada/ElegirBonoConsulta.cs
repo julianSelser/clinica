@@ -49,7 +49,7 @@ namespace Clinica_Frba.Registro_de_LLegada
 
         private void grillaBonos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaBonos.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if (e.ColumnIndex == grillaBonos.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaBonos.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaBonos.Rows[e.RowIndex];
                 BonoConsulta bono = armarBonoConsulta(e.RowIndex);

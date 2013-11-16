@@ -105,6 +105,7 @@
             this.grillaProfesionales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaProfesionales.Location = new System.Drawing.Point(16, 119);
             this.grillaProfesionales.Name = "grillaProfesionales";
+            this.grillaProfesionales.ReadOnly = true;
             this.grillaProfesionales.RowTemplate.ReadOnly = true;
             this.grillaProfesionales.Size = new System.Drawing.Size(1101, 313);
             this.grillaProfesionales.TabIndex = 6;

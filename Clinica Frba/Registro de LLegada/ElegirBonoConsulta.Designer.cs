@@ -43,6 +43,7 @@
             this.grillaBonos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaBonos.Location = new System.Drawing.Point(13, 88);
             this.grillaBonos.Name = "grillaBonos";
+            this.grillaBonos.ReadOnly = true;
             this.grillaBonos.Size = new System.Drawing.Size(544, 273);
             this.grillaBonos.TabIndex = 0;
             this.grillaBonos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaBonos_CellContentClick);
