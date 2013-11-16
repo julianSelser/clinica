@@ -120,12 +120,24 @@ namespace Clinica_Frba.AppModel
                     Profesional profesional = crearProfesional(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaProfesional(this, profesional), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new ModificarProfesional(this, profesional), this);
-                    if (funcion == "Pedir Turno") AsistenteVistas.mostrarNuevaVentana(new PedirTurno(this, profesional), this);
-                    if (funcion == "Registrar Llegada") AsistenteVistas.mostrarNuevaVentana(new RegistroLlegada(this, profesional), this);
+                    if (funcion == "Pedir Turno") volverAVistaPedirTurno(profesional);
+                    if (funcion == "Registrar Llegada") volvarAVistaRegistroLlegada(profesional);
                 }
                 else MessageBox.Show("El profesional seleccionado se encuentra inhabilitado");
             }
             
+        }
+
+        private void volvarAVistaRegistroLlegada(Profesional profesional)
+        {
+            (padre as RegistroLlegada).setearProfesional(profesional);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void volverAVistaPedirTurno(Profesional profesional)
+        {
+            (padre as PedirTurno).setearProfesional(profesional);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private Profesional crearProfesional(int fila)

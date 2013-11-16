@@ -117,10 +117,17 @@ namespace Clinica_Frba.AppModel
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, this), this);
                     if (funcion == "Pedir Turno") volverAVistaPedirTurno(afiliado);
+                    if (funcion == "Registrar Llegada") volvarAVistaRegistroLlegada(afiliado);
                 }
                 else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
             }
             
+        }
+
+        private void volvarAVistaRegistroLlegada(Afiliado afiliado)
+        {
+            (padre as RegistroLlegada).setearAfiliado(afiliado);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private void volverAVistaPedirTurno(Afiliado afiliado)
