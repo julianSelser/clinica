@@ -2114,6 +2114,55 @@ WHERE Afiliados.Nro_Afiliado = @nroAfiliado
 AND Bonos.Nro_Usuario IS NULL
 AND Bonos.Nro_Consulta IS NULL
 GO
+
+CREATE PROCEDURE CUATRO_QUESOS.registrarLlegada 
+@numeroAfiliado numeric(18), @numeroBono numeric(18), @numeroTurno numeric(18), @fechaAtencion datetime, @fechaLlegada datetime
+AS
+BEGIN
+
+--Inserto en consultas una vez registrada la llegada
+INSERT INTO CUATRO_QUESOS.Consultas(Enfermedades, Fecha_Atencion, Fecha_Llegada, Nro_Bono_Consulta, Nro_Turno, Sintomas, Tipo_Bono)
+VALUES('no registrado aún', @fechaAtencion, @fechaLlegada, @numeroBono, @numeroTurno, 'no registrado aún', 'Consulta') --dejo sintomas y enfermedades como no registrado aún, luego esto se completara en el registro de resultados
+
+UPDATE CUATRO_QUESOS.Bonos --Actualizo el bono que utilize para la consulta
+SET Bonos.Nro_Usuario = @numeroAfiliado, Bonos.Nro_Consulta = 
+( --busco el numero de la consulta recientemente insertada
+SELECT Consultas.Id_Consulta FROM CUATRO_QUESOS.Consultas 
+WHERE Consultas.Nro_Bono_Consulta = @numeroBono 
+AND Consultas.Nro_Turno = @numeroTurno
+)
+WHERE Bonos.Tipo_Bono = 'Consulta' 
+AND Bonos.Numero = @numeroBono 
+
+END
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_up_after_consulta --disparador para actualizar los datos del afiliado
+ON CUATRO_QUESOS.Bonos AFTER UPDATE
+AS
+BEGIN
+IF(UPDATE(Nro_Consulta))
+	BEGIN
+	DECLARE @numeroAfiliado numeric(18)
+
+	DECLARE cursorBonos CURSOR FOR
+	SELECT Nro_Usuario FROM INSERTED
+
+	OPEN cursorBonos
+	FETCH cursorBonos INTO @numeroAfiliado
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Afiliados
+	SET Afiliados.Nro_Consulta = Afiliados.Nro_Consulta + 1 --actualizo el nro de consultas hechas por el afiliado
+	WHERE Afiliados.Nro_Afiliado = @numeroAfiliado
+	FETCH cursorBonos INTO @numeroAfiliado
+	END
+	CLOSE cursorBonos
+	DEALLOCATE cursorBonos
+END
+END
+GO
 /******* FIN PROCEDURES REGISTRO DE LLEGADA ********/
 
 
