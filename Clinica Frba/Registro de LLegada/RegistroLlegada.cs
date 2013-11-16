@@ -18,7 +18,7 @@ namespace Clinica_Frba.Registro_de_LLegada
 {
     public partial class RegistroLlegada : Form
     {
-        private Form padre;
+        public Form padre;
         Profesional profesional;
         Afiliado afiliado;
 
@@ -110,9 +110,21 @@ namespace Clinica_Frba.Registro_de_LLegada
         {
             if (e.ColumnIndex == grillaTurnos.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
             {
-                Turno turno = new Turno();
+                Turno turno = armarTurno(e.RowIndex);
                 AsistenteVistas.mostrarNuevaVentana(new ElegirBonoConsulta(this, turno), this);
             }
+        }
+
+        private Turno armarTurno(int fila)
+        {
+            Turno turno = new Turno();
+            int index = grillaTurnos.Columns["Nro. de Turno"].Index;
+            turno.numero = Convert.ToInt32(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            turno.nroAfiliado = afiliado.nroAfiliado;
+            turno.idMedico = profesional.id;
+            index = grillaTurnos.Columns["Fecha de Turno"].Index;
+            turno.fecha = Convert.ToDateTime(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            return turno;
         }
 
     }

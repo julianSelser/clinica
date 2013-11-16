@@ -33,23 +33,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nroAfiliadoBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.profesionalBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaBonos)).BeginInit();
             this.SuspendLayout();
             // 
             // grillaBonos
             // 
             this.grillaBonos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaBonos.Location = new System.Drawing.Point(12, 88);
+            this.grillaBonos.Location = new System.Drawing.Point(13, 88);
             this.grillaBonos.Name = "grillaBonos";
-            this.grillaBonos.Size = new System.Drawing.Size(474, 273);
+            this.grillaBonos.Size = new System.Drawing.Size(544, 273);
             this.grillaBonos.TabIndex = 0;
             this.grillaBonos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaBonos_CellContentClick);
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(411, 367);
+            this.cancelButton.Location = new System.Drawing.Point(473, 367);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(84, 31);
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancelar";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -82,11 +84,30 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Seleccione un bono para consulta";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(219, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Id Médico:";
+            // 
+            // profesionalBox
+            // 
+            this.profesionalBox.Location = new System.Drawing.Point(289, 19);
+            this.profesionalBox.Name = "profesionalBox";
+            this.profesionalBox.ReadOnly = true;
+            this.profesionalBox.Size = new System.Drawing.Size(100, 20);
+            this.profesionalBox.TabIndex = 6;
+            // 
             // ElegirBonoConsulta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 400);
+            this.ClientSize = new System.Drawing.Size(571, 410);
+            this.Controls.Add(this.profesionalBox);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nroAfiliadoBox);
             this.Controls.Add(this.label1);
@@ -107,5 +128,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox nroAfiliadoBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox profesionalBox;
     }
 }

@@ -2095,7 +2095,9 @@ GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getBonoConsultaRegistroLlegada @nroAfiliado numeric(18)
 AS
-SELECT * FROM CUATRO_QUESOS.Bonos 
+SELECT Bonos.Numero 'Nro. de Bono', Bonos.Cod_Plan 'Codigo de Plan', 
+Bonos.Fecha_Impresion 'Fecha de Impresión', Bonos.Nro_Afiliado 'Nro. Afiliado Comprador'
+FROM CUATRO_QUESOS.Bonos 
 WHERE Bonos.Tipo_Bono = 'Consulta' 
 AND EXISTS (
 SELECT * FROM CUATRO_QUESOS.Afiliados 

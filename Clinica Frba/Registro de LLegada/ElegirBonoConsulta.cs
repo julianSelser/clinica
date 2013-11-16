@@ -22,6 +22,8 @@ namespace Clinica_Frba.Registro_de_LLegada
             InitializeComponent();
             this.padre = padre;
             this.turno = turno;
+            this.nroAfiliadoBox.Text = turno.nroAfiliado.ToString();
+            this.profesionalBox.Text = turno.idMedico.ToString();
             cargarGrilla();
             cargarBotonFuncionalidad();
         }
@@ -34,7 +36,7 @@ namespace Clinica_Frba.Registro_de_LLegada
         private void cargarBotonFuncionalidad()
         {
             DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = "Registrar Llegada";
+            col.Text = "Elegir Bono";
             col.Name = "Seleccionar";
             col.UseColumnTextForButtonValue = true;
             grillaBonos.Columns.Add(col);
@@ -51,13 +53,17 @@ namespace Clinica_Frba.Registro_de_LLegada
             {
                 DataGridViewRow fila = grillaBonos.Rows[e.RowIndex];
                 BonoConsulta bono = armarBonoConsulta();
-                AppRegistrarLlegada.registrarLlegada(turno, bono);
+               // AppRegistrarLlegada.registrarLlegada(turno, bono);
+                MessageBox.Show("Se ha registrado la llegada correctamente.");
+                AsistenteVistas.volverAPadreYCerrar((padre as RegistroLlegada).padre, this);
             }
         }
 
         private BonoConsulta armarBonoConsulta()
         {
-            throw new NotImplementedException();
+            BonoConsulta bono = new BonoConsulta();
+            bono.nroUsuario = turno.nroAfiliado;
+            return bono;
         }
     }
 }

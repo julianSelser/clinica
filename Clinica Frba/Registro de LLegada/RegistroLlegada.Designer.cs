@@ -141,7 +141,7 @@
             this.errorBox.Multiline = true;
             this.errorBox.Name = "errorBox";
             this.errorBox.ReadOnly = true;
-            this.errorBox.Size = new System.Drawing.Size(282, 39);
+            this.errorBox.Size = new System.Drawing.Size(303, 39);
             this.errorBox.TabIndex = 24;
             // 
             // grillaTurnos
@@ -149,7 +149,7 @@
             this.grillaTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaTurnos.Location = new System.Drawing.Point(12, 130);
             this.grillaTurnos.Name = "grillaTurnos";
-            this.grillaTurnos.Size = new System.Drawing.Size(625, 322);
+            this.grillaTurnos.Size = new System.Drawing.Size(646, 322);
             this.grillaTurnos.TabIndex = 25;
             this.grillaTurnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellContentClick);
             // 
@@ -157,7 +157,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 507);
+            this.ClientSize = new System.Drawing.Size(670, 502);
             this.Controls.Add(this.grillaTurnos);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox);
