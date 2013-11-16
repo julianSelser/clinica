@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.cancelButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.selectProfesionalButton = new System.Windows.Forms.Button();
             this.selectAfiliadoButton = new System.Windows.Forms.Button();
             this.profesionalBox = new System.Windows.Forms.TextBox();
@@ -52,17 +51,6 @@
             this.cancelButton.Text = "Cancelar";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(381, 72);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(193, 24);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "EN CONSTRUCCION";
             // 
             // selectProfesionalButton
             // 
@@ -161,7 +149,6 @@
             this.Controls.Add(this.grillaTurnos);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
             this.Name = "RegistroLlegada";
             this.Text = "Registro de Llegada";
@@ -176,7 +163,6 @@
         #endregion
 
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button selectProfesionalButton;
         private System.Windows.Forms.Button selectAfiliadoButton;
         private System.Windows.Forms.TextBox profesionalBox;
