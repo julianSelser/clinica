@@ -142,7 +142,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             campos.Add(new Campo("Dirección", direcBox.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Teléfono", telBox.Text, true, Controlador.TipoValidacion.Codigo));
             campos.Add(new Campo("Plan Médico", planMedicoBox.Text, true, Controlador.TipoValidacion.Alfanumerico));
-            campos.Add(new Campo("Mail", mailBox.Text, false, Controlador.TipoValidacion.Alfanumerico));
+            campos.Add(new Campo("Mail", mailBox.Text, false, Controlador.TipoValidacion.Email));
             campos.Add(new Campo("Estado Civil", estadoCivilBox.Text, true, Controlador.TipoValidacion.Alfanumerico));
             campos.Add(new Campo("Cantidad de familiares a cargo", cantFamiliaresBox.Text, false, Controlador.TipoValidacion.Codigo));
             try
