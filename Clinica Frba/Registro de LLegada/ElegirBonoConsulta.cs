@@ -52,17 +52,19 @@ namespace Clinica_Frba.Registro_de_LLegada
             if (e.ColumnIndex == grillaBonos.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaBonos.Rows[e.RowIndex];
-                BonoConsulta bono = armarBonoConsulta();
-               // AppRegistrarLlegada.registrarLlegada(turno, bono);
+                BonoConsulta bono = armarBonoConsulta(e.RowIndex);
+                AppRegistrarLlegada.registrarLlegada(turno, bono);
                 MessageBox.Show("Se ha registrado la llegada correctamente.");
                 AsistenteVistas.volverAPadreYCerrar((padre as RegistroLlegada).padre, this);
             }
         }
 
-        private BonoConsulta armarBonoConsulta()
+        private BonoConsulta armarBonoConsulta(int fila)
         {
             BonoConsulta bono = new BonoConsulta();
             bono.nroUsuario = turno.nroAfiliado;
+            int index = grillaBonos.Columns["Nro. de Bono"].Index;
+            bono.numero = Convert.ToInt32(grillaBonos.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return bono;
         }
     }

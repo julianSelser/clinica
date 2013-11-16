@@ -23,7 +23,7 @@ namespace Clinica_Frba.AppModel
 
         internal static void registrarLlegada(Turno turno, BonoConsulta bono)
         {
-            ejecutarProcedure("registrarLlegada", turno.nroAfiliado, bono.numero);
+            ejecutarProcedure("registrarLlegada", bono.nroUsuario, bono.numero, turno.numero, turno.fecha, Globales.getFechaSistema());
         }
     }
 }

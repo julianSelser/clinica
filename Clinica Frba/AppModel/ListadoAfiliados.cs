@@ -108,7 +108,7 @@ namespace Clinica_Frba.AppModel
 
         private void grillaAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaAfiliados.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if (e.ColumnIndex == grillaAfiliados.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaAfiliados.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaAfiliados.Rows[e.RowIndex];
                 if (!estaDadoDeBaja(fila))

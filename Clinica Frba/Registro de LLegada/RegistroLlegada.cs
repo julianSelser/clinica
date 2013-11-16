@@ -108,10 +108,13 @@ namespace Clinica_Frba.Registro_de_LLegada
 
         private void grillaTurnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaTurnos.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if(afiliado.nroAfiliado != 0)
             {
-                Turno turno = armarTurno(e.RowIndex);
-                AsistenteVistas.mostrarNuevaVentana(new ElegirBonoConsulta(this, turno), this);
+                if (e.ColumnIndex == grillaTurnos.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaTurnos.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
+                {
+                    Turno turno = armarTurno(e.RowIndex);
+                    AsistenteVistas.mostrarNuevaVentana(new ElegirBonoConsulta(this, turno), this);
+                }
             }
         }
 

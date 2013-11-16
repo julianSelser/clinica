@@ -2085,12 +2085,13 @@ Especialidades.Descripcion 'Especialidad', Turnos.Numero 'Nro. de Turno', Turnos
 FROM CUATRO_QUESOS.Turnos JOIN CUATRO_QUESOS.Afiliados ON Turnos.Nro_Afiliado = Afiliados.Nro_Afiliado
 JOIN CUATRO_QUESOS.Medicos ON Medicos.Id_Medico = Turnos.Id_Medico
 JOIN CUATRO_QUESOS.Especialidades ON Especialidades.Codigo = Turnos.Cod_Especialidad
-WHERE Turnos.Id_Medico = @id_profesional 
+WHERE Turnos.Id_Medico = @id_profesional
 AND ((Turnos.Nro_Afiliado = @nroAfiliado AND @nroAfiliado != 0) OR (@nroAfiliado = 0) )
 AND Turnos.Fecha >= @fechaSistema
 AND DAY(Turnos.Fecha) = DAY(@fechaSistema)
 AND MONTH(Turnos.Fecha) = MONTH(@fechaSistema)
 AND YEAR(Turnos.Fecha) = YEAR(@fechaSistema)
+AND Turnos.Numero NOT IN (SELECT Consultas.Nro_Turno FROM CUATRO_QUESOS.Consultas)
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getBonoConsultaRegistroLlegada @nroAfiliado numeric(18)
@@ -2118,7 +2119,7 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.registrarLlegada 
 @numeroAfiliado numeric(18), @numeroBono numeric(18), @numeroTurno numeric(18), @fechaAtencion datetime, @fechaLlegada datetime
 AS
-BEGIN
+BEGIN TRAN
 
 --Inserto en consultas una vez registrada la llegada
 INSERT INTO CUATRO_QUESOS.Consultas(Enfermedades, Fecha_Atencion, Fecha_Llegada, Nro_Bono_Consulta, Nro_Turno, Sintomas, Tipo_Bono)
@@ -2134,7 +2135,7 @@ AND Consultas.Nro_Turno = @numeroTurno
 WHERE Bonos.Tipo_Bono = 'Consulta' 
 AND Bonos.Numero = @numeroBono 
 
-END
+COMMIT
 GO
 
 CREATE TRIGGER CUATRO_QUESOS.tr_up_after_consulta --disparador para actualizar los datos del afiliado
