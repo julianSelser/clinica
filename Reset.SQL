@@ -4,6 +4,8 @@ GO
 BEGIN TRAN
 GO
 
+DROP PROCEDURE CUATRO_QUESOS.getBonoConsultaRegistroLlegada
+DROP PROCEDURE CUATRO_QUESOS.getTurnosAfiliadoMedicoRegistroLlegada
 DROP PROCEDURE CUATRO_QUESOS.deleteEspecialidades
 DROP PROCEDURE CUATRO_QUESOS.getEspecialidadesMedico
 DROP PROCEDURE CUATRO_QUESOS.traerFuncionalidadesDeRol

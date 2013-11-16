@@ -130,6 +130,7 @@
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
     <Compile Include="AppModel\AppLogin.cs" />
     <Compile Include="AppModel\AppProfesional.cs" />
+    <Compile Include="AppModel\AppRegistrarLlegada.cs" />
     <Compile Include="AppModel\AppRol.cs" />
     <Compile Include="AppModel\Campo.cs" />
     <Compile Include="AppModel\AppAfiliado.cs" />

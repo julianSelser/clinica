@@ -9,7 +9,9 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
-//Funcionalidad que permite registrar la llegada de un afiliado a la clinica para validar su turno para atencion medica.
+//Funcionalidad utilizada por un administrativo para registrar la llegada de un
+//paciente a la clínica y efectivizar su turno con un especialista para convertirse en una
+//consulta médica.
 //En caso de llegar un segundo mas tarde de la hora estipulada del turno, la atencion se cancela.
 
 namespace Clinica_Frba.Registro_de_LLegada
@@ -24,14 +26,45 @@ namespace Clinica_Frba.Registro_de_LLegada
         {
             InitializeComponent();
             this.padre = padre;
+            afiliado = new Afiliado();
+            afiliado.nroAfiliado = 0;
+            validarCampos();
+        }
+
+        private void validarCampos()
+        {
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Afiliado", nroAfiliadoBox.Text, false, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Profesional", profesionalBox.Text, true, Controlador.TipoValidacion.Codigo));
+            try
+            {
+                Controlador.validarCampos(campos);
+                cargarGrilla();
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion validacion)
+            {
+                errorBox.Text = validacion.mensaje;
+                grillaTurnos.DataSource = null;
+            }
+        }
+
+        private void cargarGrilla()
+        {
+            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarLlegada.traerTurnosAfiliadoMedico(afiliado, profesional));
+
+        }
+
+        private void cargarBotonFuncionalidad()
+        {
+            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+            col.Text = "Registrar Llegada";
+            col.Name = "Seleccionar";
+            col.UseColumnTextForButtonValue = true;
+            grillaTurnos.Columns.Add(col);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
-        }
-
-        private void acceptButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
@@ -51,11 +84,24 @@ namespace Clinica_Frba.Registro_de_LLegada
         private void selectAfiliadoButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "Registrar Llegada"), this);
+            validarCampos();
         }
 
         private void selectProfesionalButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registrar Llegada"), this);
+            validarCampos();
         }
+
+        private void profesionalBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void nroAfiliadoBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
     }
 }

@@ -2076,7 +2076,43 @@ END
 GO
 -- FIN LOGIN
 
+/********* PROCEDURES REGISTRO DE LLEGADA *********/
 
+CREATE PROCEDURE CUATRO_QUESOS.getTurnosAfiliadoMedicoRegistroLlegada @nroAfiliado numeric(18), @id_profesional numeric(18), @fechaSistema datetime
+AS
+SELECT Afiliados.Nombre+' '+ Afiliados.Apellido 'Afiliado', Medicos.Nombre+' '+Medicos.Apellido 'Médico', 
+Especialidades.Descripcion 'Especialidad', Turnos.Numero 'Nro. de Turno', Turnos.Fecha 'Fecha de Turno'
+FROM CUATRO_QUESOS.Turnos JOIN CUATRO_QUESOS.Afiliados ON Turnos.Nro_Afiliado = Afiliados.Nro_Afiliado
+JOIN CUATRO_QUESOS.Medicos ON Medicos.Id_Medico = Turnos.Id_Medico
+JOIN CUATRO_QUESOS.Especialidades ON Especialidades.Codigo = Turnos.Cod_Especialidad
+WHERE Turnos.Id_Medico = @id_profesional 
+AND ((Turnos.Nro_Afiliado = @nroAfiliado AND @nroAfiliado != 0) OR (@nroAfiliado = 0) )
+AND Turnos.Fecha >= @fechaSistema
+AND DAY(Turnos.Fecha) = DAY(@fechaSistema)
+AND MONTH(Turnos.Fecha) = MONTH(@fechaSistema)
+AND YEAR(Turnos.Fecha) = YEAR(@fechaSistema)
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.getBonoConsultaRegistroLlegada @nroAfiliado numeric(18)
+AS
+SELECT * FROM CUATRO_QUESOS.Bonos 
+WHERE Bonos.Tipo_Bono = 'Consulta' 
+AND EXISTS (
+SELECT * FROM CUATRO_QUESOS.Afiliados 
+WHERE Afiliados.Nro_Afiliado = @nroAfiliado 
+AND( Bonos.Nro_Afiliado = Afiliados.Nro_Afiliado 
+OR Bonos.Nro_Afiliado =  Afiliados.Nro_Conyuge
+OR Bonos.Nro_Afiliado = Afiliados.Nro_Titular) 
+)
+AND Bonos.Cod_Plan IN (
+SELECT Afiliados.Cod_Plan 
+FROM CUATRO_QUESOS.Afiliados 
+WHERE Afiliados.Nro_Afiliado = @nroAfiliado
+) 
+AND Bonos.Nro_Usuario IS NULL
+AND Bonos.Nro_Consulta IS NULL
+GO
+/******* FIN PROCEDURES REGISTRO DE LLEGADA ********/
 
 
 IF @@ERROR != 0 ROLLBACK
