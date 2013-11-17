@@ -248,6 +248,35 @@ namespace Clinica_Frba.Registrar_Agenda
             AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Sábado", labSaD.Text, labSaH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
         }
 
+        private void botAddDia_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new AgregarDia(this, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+
+        public bool validarRangoHorario(string desde, string hasta)
+        //esto lo pongo acá porque lo van a necesitar dos de los subforms
+        {
+            int hsdesde;
+            int hshasta;
+            int mindesde;
+            int minhasta;
+
+            hsdesde = Convert.ToInt16(desde.Substring(0, 2));
+            hshasta = Convert.ToInt16(hasta.Substring(0, 2));
+
+            mindesde = Convert.ToInt16(desde.Substring(3, 2));
+            minhasta = Convert.ToInt16(hasta.Substring(3, 2));
+
+            if (hsdesde > hshasta) return false;
+            if (hsdesde == hshasta)
+            {
+                if (mindesde < minhasta) return true;
+                else return false;
+            }
+
+            return true;
+        }
 
     }
 }

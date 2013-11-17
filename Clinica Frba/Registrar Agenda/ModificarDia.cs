@@ -53,28 +53,7 @@ namespace Clinica_Frba.Registrar_Agenda
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private bool validarRangoHorario(string desde, string hasta)
-        {
-            int hsdesde;
-            int hshasta;
-            int mindesde;
-            int minhasta;
-
-            hsdesde = Convert.ToInt16(desde.Substring(0, 2));
-            hshasta = Convert.ToInt16(hasta.Substring(0, 2));
-
-            mindesde = Convert.ToInt16(desde.Substring(3, 2));
-            minhasta = Convert.ToInt16(hasta.Substring(3, 2));
-
-            if (hsdesde > hshasta) return false;
-            if (hsdesde == hshasta)
-            {
-                if (mindesde < minhasta) return true;
-                else return false;
-            }
-
-            return true;
-        }
+        
 
         private void botAceptar_Click(object sender, EventArgs e)
         {
@@ -94,7 +73,7 @@ namespace Clinica_Frba.Registrar_Agenda
             }
            
             
-            if (!(validarRangoHorario(arg_desde, arg_hasta)))
+            if (!(((RegistrarAgenda) padre).validarRangoHorario(arg_desde, arg_hasta)))
             {
                 MessageBox.Show("Debe ingresar un rango horario válido.", "Error");
                 return;

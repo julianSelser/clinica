@@ -92,6 +92,7 @@
             this.labLuD = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.botAddDia = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelSabado.SuspendLayout();
@@ -128,6 +129,7 @@
             this.groupBox1.Controls.Add(this.labNroMedico);
             this.groupBox1.Controls.Add(this.botonBuscarMedico);
             this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(458, 56);
@@ -185,6 +187,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.botAddDia);
             this.groupBox2.Controls.Add(this.labSaNo);
             this.groupBox2.Controls.Add(this.labViNo);
             this.groupBox2.Controls.Add(this.labJuNo);
@@ -197,7 +200,6 @@
             this.groupBox2.Controls.Add(this.labMiercoles);
             this.groupBox2.Controls.Add(this.labMartes);
             this.groupBox2.Controls.Add(this.labLunes);
-            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.panelSabado);
             this.groupBox2.Controls.Add(this.panelViernes);
             this.groupBox2.Controls.Add(this.panelJueves);
@@ -325,7 +327,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(37, 206);
+            this.label13.Location = new System.Drawing.Point(230, 19);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(193, 24);
             this.label13.TabIndex = 14;
@@ -751,6 +753,16 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Desde:";
             // 
+            // botAddDia
+            // 
+            this.botAddDia.Location = new System.Drawing.Point(21, 204);
+            this.botAddDia.Name = "botAddDia";
+            this.botAddDia.Size = new System.Drawing.Size(75, 23);
+            this.botAddDia.TabIndex = 49;
+            this.botAddDia.Text = "Agregar día";
+            this.botAddDia.UseVisualStyleBackColor = true;
+            this.botAddDia.Click += new System.EventHandler(this.botAddDia_Click);
+            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -848,5 +860,6 @@
         private System.Windows.Forms.Button botDelMa;
         private System.Windows.Forms.Button botModLu;
         private System.Windows.Forms.Button botDelLu;
+        private System.Windows.Forms.Button botAddDia;
     }
 }
