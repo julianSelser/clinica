@@ -196,10 +196,10 @@
     <Compile Include="Cancelar Atencion\SetMotivoCancelarPeriodo.Designer.cs">
       <DependentUpon>SetMotivoCancelarPeriodo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Compra de Bono\CompraBono.cs">
+    <Compile Include="Compra de Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Domain\Compra de Bono\CompraBono.Designer.cs">
+    <Compile Include="Compra de Bono\CompraBono.Designer.cs">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlador.cs" />
@@ -341,7 +341,7 @@
     <EmbeddedResource Include="Cancelar Atencion\SetMotivoCancelarPeriodo.resx">
       <DependentUpon>SetMotivoCancelarPeriodo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Domain\Compra de Bono\CompraBono.resx">
+    <EmbeddedResource Include="Compra de Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Receta\GenerarReceta.resx">
