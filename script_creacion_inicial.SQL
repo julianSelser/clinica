@@ -1353,6 +1353,28 @@ end
 
 GO
 
+--trigger para cancelar los turnos en cierta hora del día, cuando el médico ya no atiende a esa hora
+create trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora on CUATRO_QUESOS.Dias_Atencion for update
+as
+--sé que la aplicación sólo cambia un día de atención a la vez (por medio de un stored procedure)
+begin
+
+	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
+	
+	(select Numero as Nro_Turno,
+		  'Cambio de agenda' as Tipo,
+		  'El médico a cargo de este turno cambió sus horarios y ya no atiende a esta hora'
+	from CUATRO_QUESOS.Turnos inner join inserted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = inserted.Id_Medico)
+	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
+		and Fecha > GETDATE()
+		and (inserted.Hora_Desde > CAST(Turnos.Fecha as time) or inserted.Hora_Hasta < CAST((DATEADD(minute, 30, Turnos.Fecha)) as time)))
+
+end
+
+
+
+GO
+
 
 --CREATE PROCEDURES
 
@@ -2211,6 +2233,64 @@ as
 begin
 	delete from CUATRO_QUESOS.Dias_Atencion
 	where Id_Medico = @id_medico and Nombre_Dia = @nombre_dia
+end
+
+GO
+
+
+create procedure CUATRO_QUESOS.modificarDiaAtencion(@Id_Medico numeric(18), @nombre_dia varchar(10), @str_desde char(5), @str_hasta char(5))
+as
+begin
+	declare @desde time;
+	declare @hasta time;
+	
+	set @desde = CONVERT(time, @str_desde);
+	set @hasta = CONVERT(time, @str_hasta);
+	
+	/*if @desde >= @hasta --hay que verificar que no sea un intervalo de longitud 0 o negativo
+	begin
+		raiserror('Error: el intervalo especificado es inválido.', 16, 0);
+		return;
+	end*/ --esto sería genial verificarlo directamente desde la aplicación, así tengo un solo tipo de error viniendo desde la base
+	
+	
+	--acá no verifico nada más
+	--la aplicación desktop sólo va a mandar ciertos valores de una selección acotada
+	--estos valores corresponden a los horarios válidos de cada día (07:00 a 20:00 para días de semana, 10:00 a 15:00 para sábados)
+	--entonces no hace falta verificar que los horarios solicitados caigan dentro de los horarios de la clínica (igual hay un trigger para verificar eso)
+	--tampoco verifico que el día ya esté (que se updatee algo) porque la aplicación no ofrece modificar días que no hay
+	
+	update CUATRO_QUESOS.Dias_Atencion set Hora_Desde = @desde, Hora_Hasta = @hasta
+	where Nombre_Dia = @nombre_dia and Id_Medico = @Id_Medico
+	
+end
+
+GO
+
+create procedure CUATRO_QUESOS.agregarDiaAtencion(@Id_Medico numeric(18), @nombre_dia varchar(10), @str_desde char(5), @str_hasta char(5))
+as
+begin
+	declare @desde time;
+	declare @hasta time;
+	
+	set @desde = CONVERT(time, @str_desde);
+	set @hasta = CONVERT(time, @str_hasta);
+	
+	/*if @desde >= @hasta --hay que verificar que no sea un intervalo de longitud 0 o negativo
+	begin
+		raiserror('Error: el intervalo especificado es inválido.', 16, 0);
+		return;
+	end*/ --esto sería genial verificarlo directamente desde la aplicación, así tengo un solo tipo de error viniendo desde la base
+	
+	--acá no verifico nada más
+	--la aplicación desktop sólo va a mandar ciertos valores de una selección acotada
+	--estos valores corresponden a los horarios válidos de cada día (07:00 a 20:00 para días de semana, 10:00 a 15:00 para sábados)
+	--entonces no hace falta verificar que los horarios solicitados caigan dentro de los horarios de la clínica
+	--tampoco verifico que el día no se repita porque eso va a saltar por PK (también lo puedo chequear desde la aplicación
+	
+	insert into CUATRO_QUESOS.Dias_Atencion(Id_Medico, Nombre_Dia, Hora_Desde, Hora_Hasta)
+	values(@Id_Medico, @nombre_dia, @desde, @hasta)
+
 end
 
 GO

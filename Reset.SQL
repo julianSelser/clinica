@@ -5,6 +5,8 @@ BEGIN TRAN
 GO
 
 
+drop procedure CUATRO_QUESOS.modificarDiaAtencion
+drop procedure CUATRO_QUESOS.agregarDiaAtencion
 drop procedure CUATRO_QUESOS.verifyMedico
 drop procedure CUATRO_QUESOS.getDiasAtencion
 drop procedure CUATRO_QUESOS.quitarDiaAtencion
@@ -68,6 +70,7 @@ drop trigger CUATRO_QUESOS.limitarJornadaLaboral
 drop trigger CUATRO_QUESOS.obedecerHorariosClinica
 drop trigger CUATRO_QUESOS.limitarMedicamentosPorBono
 drop trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado
+drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora
 
 
 -- Drop Foreign Key Constraints
