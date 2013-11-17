@@ -353,6 +353,7 @@
             this.botModSa.TabIndex = 21;
             this.botModSa.Text = "Modificar";
             this.botModSa.UseVisualStyleBackColor = true;
+            this.botModSa.Click += new System.EventHandler(this.botModSa_Click);
             // 
             // labSaH
             // 
@@ -422,6 +423,7 @@
             this.botModVi.TabIndex = 19;
             this.botModVi.Text = "Modificar";
             this.botModVi.UseVisualStyleBackColor = true;
+            this.botModVi.Click += new System.EventHandler(this.botModVi_Click);
             // 
             // labViH
             // 
@@ -491,6 +493,7 @@
             this.botModJu.TabIndex = 17;
             this.botModJu.Text = "Modificar";
             this.botModJu.UseVisualStyleBackColor = true;
+            this.botModJu.Click += new System.EventHandler(this.botModJu_Click);
             // 
             // labJuH
             // 
@@ -560,6 +563,7 @@
             this.botModMi.TabIndex = 15;
             this.botModMi.Text = "Modificar";
             this.botModMi.UseVisualStyleBackColor = true;
+            this.botModMi.Click += new System.EventHandler(this.botModMi_Click);
             // 
             // labMiH
             // 
@@ -629,6 +633,7 @@
             this.botModMa.TabIndex = 13;
             this.botModMa.Text = "Modificar";
             this.botModMa.UseVisualStyleBackColor = true;
+            this.botModMa.Click += new System.EventHandler(this.botModMa_Click);
             // 
             // labMaH
             // 
@@ -698,6 +703,7 @@
             this.botModLu.TabIndex = 11;
             this.botModLu.Text = "Modificar";
             this.botModLu.UseVisualStyleBackColor = true;
+            this.botModLu.Click += new System.EventHandler(this.botModLu_Click);
             // 
             // botDelLu
             // 

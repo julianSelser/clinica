@@ -196,10 +196,10 @@
     <Compile Include="Cancelar Atencion\SetMotivoCancelarPeriodo.Designer.cs">
       <DependentUpon>SetMotivoCancelarPeriodo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra de Bono\CompraBono.cs">
+    <Compile Include="Domain\Compra de Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra de Bono\CompraBono.Designer.cs">
+    <Compile Include="Domain\Compra de Bono\CompraBono.Designer.cs">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlador.cs" />
@@ -341,7 +341,7 @@
     <EmbeddedResource Include="Cancelar Atencion\SetMotivoCancelarPeriodo.resx">
       <DependentUpon>SetMotivoCancelarPeriodo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Compra de Bono\CompraBono.resx">
+    <EmbeddedResource Include="Domain\Compra de Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Receta\GenerarReceta.resx">
@@ -367,6 +367,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Agenda\ModificarDia.resx">
+      <DependentUpon>ModificarDia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registrar Agenda\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
@@ -391,6 +394,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Registrar Agenda\ModificarDia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Agenda\ModificarDia.Designer.cs">
+      <DependentUpon>ModificarDia.cs</DependentUpon>
     </Compile>
     <Compile Include="Registrar Agenda\RegistrarAgenda.cs">
       <SubType>Form</SubType>

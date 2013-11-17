@@ -36,6 +36,12 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
+        private void RegistrarAgenda_Load(object sender, EventArgs e)
+        {
+            if (labNroMedico.Visible) poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
+        }
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
@@ -93,7 +99,8 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
-        private void poblarDiasAtencion(decimal id_medico)
+        //público porque las subventanitas que saltan también tienen que actualizar estos datos
+        public void poblarDiasAtencion(decimal id_medico)
         {
             DataTable dias_atencion;
 
@@ -162,7 +169,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
         private void confirmarQuitarDia(string nombre_dia)
         {
-            if (MessageBox.Show("¿Está seguro? Todos sus turnos para ese día serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está seguro? Todos sus turnos para ese día de la semana serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {                
                 ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
                 poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
@@ -207,6 +214,40 @@ namespace Clinica_Frba.Registrar_Agenda
         {
             confirmarQuitarDia("Sábado");
         }
+
+  
+       
+
+        private void botModLu_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Lunes", labLuD.Text, labLuH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModMa_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Martes", labMaD.Text, labMaH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModMi_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Miércoles", labMiD.Text, labMiH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModJu_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Jueves", labJuD.Text, labJuH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModVi_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Viernes", labViD.Text, labViH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModSa_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Sábado", labSaD.Text, labSaH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
 
     }
 }
