@@ -29,7 +29,10 @@ namespace Clinica_Frba.Registrar_Agenda
                 Profesional medico = (Profesional) UsuarioLogeado.Instance.Persona;
                 labNroMedico.Text = medico.id.ToString();
                 cargarPantallaConLosDatos(Convert.ToDecimal(medico.id.ToString()));
+                botonQuitarMedico.Visible = false;
             }
+
+            
 
         }
 
@@ -96,40 +99,49 @@ namespace Clinica_Frba.Registrar_Agenda
 
             dias_atencion = ConectorSQL.traerDataTable("getDiasAtencion", id_medico);
 
+            panelLunes.Visible = panelMartes.Visible = panelMiercoles.Visible = panelJueves.Visible = panelViernes.Visible = panelSabado.Visible = false;
+            labLuNo.Visible = labMaNo.Visible = labMiNo.Visible = labJuNo.Visible = labViNo.Visible = labSaNo.Visible = true;
+
             foreach (DataRow dia in dias_atencion.Rows)
             {
                 switch (dia["Nombre_Dia"].ToString())
                 {
 
                     case "Lunes":
-                        chkLunes.Checked = true;
-                        comboLunesDesde.SelectedItem = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
-                        comboLunesHasta.SelectedItem = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
+                        labLuNo.Visible = false;
+                        panelLunes.Visible = true;
+                        labLuD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
+                        labLuH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         break;
                     case "Martes":
-                        chkMartes.Checked = true;
-                        comboMartesDesde.SelectedItem = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
-                        comboMartesHasta.SelectedItem = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
+                        labMaNo.Visible = false;
+                        panelMartes.Visible = true;
+                        labMaD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
+                        labMaH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         break;
                     case "Miércoles":
-                        comboMiercolesDesde.SelectedItem = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
-                        comboMiercolesHasta.SelectedItem = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
-                        chkMiercoles.Checked = true;
+                        panelMiercoles.Visible = true;
+                        labMiD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
+                        labMiH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
+                        labMiNo.Visible = false;
                         break;
                     case "Jueves":
-                        comboJuevesDesde.SelectedItem = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
-                        comboJuevesHasta.SelectedItem = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
-                        chkJueves.Checked = true;
+                        panelJueves.Visible = true;
+                        labJuD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
+                        labJuH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
+                        labJuNo.Visible = false;
                         break;
                     case "Viernes":
-                        comboViernesDesde.SelectedItem = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
-                        comboViernesHasta.SelectedItem = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
-                        chkViernes.Checked = true;
+                        panelViernes.Visible = true;
+                        labViD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
+                        labViH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
+                        labViNo.Visible = false;
                         break;
                     case "Sábado":
-                        comboSabadoDesde.SelectedItem = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
-                        comboSabadoHasta.SelectedItem = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
-                        chkSabado.Checked = true;
+                        panelSabado.Visible = true;
+                        labSaD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
+                        labSaH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
+                        labSaNo.Visible = false;
                         break;
                 }
             }
@@ -148,42 +160,53 @@ namespace Clinica_Frba.Registrar_Agenda
             groupBox2.Visible = false;
         }
 
+        private void confirmarQuitarDia(string nombre_dia)
+        {
+            if (MessageBox.Show("¿Está seguro? Todos sus turnos para ese día serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {                
+                ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
+                poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
+                MessageBox.Show("Se quitó el día de atención.", "Éxito");
+            }
+
+        }
+
+
+
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void botonRestore_Click(object sender, EventArgs e)
+        private void botDelLu_Click(object sender, EventArgs e)
         {
-            decimal ID_Medico;
-            ID_Medico = Convert.ToDecimal(labNroMedico.Text);
-            poblarDiasAtencion(ID_Medico);
+            confirmarQuitarDia("Lunes");
         }
 
-        private void chkLunes_CheckedChanged(object sender, EventArgs e)
+        private void botDelMa_Click(object sender, EventArgs e)
         {
-            panelLunes.Visible = this.chkLunes.Checked;
+            confirmarQuitarDia("Martes");
         }
-        private void chkMartes_CheckedChanged(object sender, EventArgs e)
+
+        private void botDelMi_Click(object sender, EventArgs e)
         {
-            panelMartes.Visible = this.chkMartes.Checked;
+            confirmarQuitarDia("Miércoles");
         }
-        private void chkMiercoles_CheckedChanged(object sender, EventArgs e)
+
+        private void botDelJu_Click(object sender, EventArgs e)
         {
-            panelMiercoles.Visible = this.chkMiercoles.Checked;
+            confirmarQuitarDia("Jueves");
         }
-        private void chkJueves_CheckedChanged(object sender, EventArgs e)
+
+        private void botDelVi_Click(object sender, EventArgs e)
         {
-            panelJueves.Visible = this.chkJueves.Checked;
+            confirmarQuitarDia("Viernes");
         }
-        private void chkViernes_CheckedChanged(object sender, EventArgs e)
+
+        private void botDelSa_Click(object sender, EventArgs e)
         {
-            panelViernes.Visible = this.chkViernes.Checked;
+            confirmarQuitarDia("Sábado");
         }
-        private void chkSabado_CheckedChanged(object sender, EventArgs e)
-        {
-            panelSabado.Visible = this.chkSabado.Checked;
-        }
-      
+
     }
 }
