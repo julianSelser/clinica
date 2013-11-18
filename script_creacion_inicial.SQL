@@ -1801,8 +1801,9 @@ go
 CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18))
 AS
         BEGIN TRAN
-                INSERT INTO CUATRO_QUESOS.Roles (Habilitado)
-                VALUES (0) -- para baja logica
+				UPDATE CUATRO_QUESOS.Roles 
+                SET Habilitado = 0
+                where Id_Rol = @rol
         COMMIT
         
 go

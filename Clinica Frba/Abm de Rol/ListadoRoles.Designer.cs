@@ -58,6 +58,7 @@
             this.grillaRoles.RowTemplate.ReadOnly = true;
             this.grillaRoles.Size = new System.Drawing.Size(1101, 313);
             this.grillaRoles.TabIndex = 12;
+            this.grillaRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaRoles_CellContentClick_1);
             // 
             // cancelButton
             // 
@@ -93,6 +94,7 @@
             this.limpiarButton.TabIndex = 1;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // buscarButton
             // 
@@ -102,6 +104,7 @@
             this.buscarButton.TabIndex = 0;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // groupBox1
             // 
