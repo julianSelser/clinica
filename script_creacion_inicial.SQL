@@ -1371,7 +1371,24 @@ begin
 
 end
 
+GO
 
+--trigger para cancelar los turnos que caen fuera de un nuevo período de atención
+create trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda on CUATRO_QUESOS.Medicos for update
+--sé que la aplicación sólo cambia un médico a la vez (por medio de un stored procedure)
+as
+begin
+	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
+	
+	(select Numero as Nro_Turno,
+		  'Cambio de agenda' as Tipo,
+		  'El médico a cargo de este turno cambió su agenda y ya no atiende este día'
+	from CUATRO_QUESOS.Turnos inner join inserted on (Turnos.Id_medico = inserted.Id_Medico)
+	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
+		and Fecha > GETDATE()
+		and (inserted.Fecha_Atencion_Desde > Turnos.Fecha or inserted.Fecha_Atencion_Hasta < Turnos.Fecha))
+
+end
 
 GO
 
@@ -2291,6 +2308,24 @@ begin
 	insert into CUATRO_QUESOS.Dias_Atencion(Id_Medico, Nombre_Dia, Hora_Desde, Hora_Hasta)
 	values(@Id_Medico, @nombre_dia, @desde, @hasta)
 
+end
+
+GO
+
+create procedure CUATRO_QUESOS.getFechasParaMedico(@id_medico numeric(18))
+as
+begin
+	select Nombre, Apellido, Fecha_Atencion_Desde, Fecha_Atencion_Hasta from cuatro_quesos.medicos where Id_Medico = @id_medico
+end
+
+GO
+
+
+create procedure CUATRO_QUESOS.updateFechasMedico(@id_medico numeric(18), @desde datetime, @hasta datetime)
+as
+begin
+	update CUATRO_QUESOS.Medicos set Fecha_Atencion_Desde = @desde, Fecha_Atencion_Hasta = @hasta
+	where Id_Medico = @id_medico
 end
 
 GO
