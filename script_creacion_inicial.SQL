@@ -2228,7 +2228,7 @@ GO
 create procedure CUATRO_QUESOS.verifyMedico(@ID numeric(18)) --verifica la existencia de un médico
 as
 begin
-	if (select COUNT(*) from CUATRO_QUESOS.Medicos where ID_Medico = @ID) > 0
+	if (select COUNT(*) from CUATRO_QUESOS.Medicos where ID_Medico = @ID and Habilitado = 1) > 0
 	begin
 		return @ID
 	end
