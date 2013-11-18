@@ -43,11 +43,11 @@
             // errorBox
             // 
             this.errorBox.ForeColor = System.Drawing.Color.Red;
-            this.errorBox.Location = new System.Drawing.Point(15, 12);
+            this.errorBox.Location = new System.Drawing.Point(471, 35);
             this.errorBox.Multiline = true;
             this.errorBox.Name = "errorBox";
             this.errorBox.ReadOnly = true;
-            this.errorBox.Size = new System.Drawing.Size(436, 39);
+            this.errorBox.Size = new System.Drawing.Size(645, 39);
             this.errorBox.TabIndex = 14;
             // 
             // grillaRoles
@@ -56,13 +56,12 @@
             this.grillaRoles.Location = new System.Drawing.Point(15, 135);
             this.grillaRoles.Name = "grillaRoles";
             this.grillaRoles.RowTemplate.ReadOnly = true;
-            this.grillaRoles.Size = new System.Drawing.Size(436, 235);
+            this.grillaRoles.Size = new System.Drawing.Size(1101, 313);
             this.grillaRoles.TabIndex = 12;
-            this.grillaRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaRoles_CellContentClick);
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(360, 376);
+            this.cancelButton.Location = new System.Drawing.Point(1025, 459);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(91, 25);
             this.cancelButton.TabIndex = 15;
@@ -72,7 +71,7 @@
             // 
             // nombreBox
             // 
-            this.nombreBox.Location = new System.Drawing.Point(89, 30);
+            this.nombreBox.Location = new System.Drawing.Point(87, 58);
             this.nombreBox.Name = "nombreBox";
             this.nombreBox.Size = new System.Drawing.Size(100, 20);
             this.nombreBox.TabIndex = 5;
@@ -80,7 +79,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 33);
+            this.label2.Location = new System.Drawing.Point(15, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 3;
@@ -88,7 +87,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(325, 28);
+            this.limpiarButton.Location = new System.Drawing.Point(323, 56);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 1;
@@ -97,7 +96,7 @@
             // 
             // buscarButton
             // 
-            this.buscarButton.Location = new System.Drawing.Point(230, 28);
+            this.buscarButton.Location = new System.Drawing.Point(228, 56);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
             this.buscarButton.TabIndex = 0;
@@ -110,9 +109,9 @@
             this.groupBox1.Controls.Add(this.limpiarButton);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.nombreBox);
-            this.groupBox1.Location = new System.Drawing.Point(15, 59);
+            this.groupBox1.Location = new System.Drawing.Point(15, 28);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(436, 69);
+            this.groupBox1.Size = new System.Drawing.Size(421, 100);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda";
@@ -121,13 +120,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 412);
+            this.ClientSize = new System.Drawing.Size(1131, 496);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grillaRoles);
             this.Name = "ListadoRoles";
-            this.Text = "Listado Roles";
+            this.Text = "ListadoRoles";
             ((System.ComponentModel.ISupportInitialize)(this.grillaRoles)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
