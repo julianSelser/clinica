@@ -278,5 +278,10 @@ namespace Clinica_Frba.Registrar_Agenda
             return true;
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new CargarPeriodo(this, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
     }
 }

@@ -234,7 +234,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AgregarDia";
-            this.Text = "AgregarDia";
+            this.Text = "Agregar día de atención";
             this.Load += new System.EventHandler(this.AgregarDia_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
