@@ -1828,6 +1828,14 @@ BEGIN
 END
 
 go
+
+CREATE PROCEDURE CUATRO_QUESOS.altaRol_Funcionalidad ( @codFuncionalidad numeric(18), @Id numeric(18) )
+AS
+INSERT INTO CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Funcionalidad, Id_Rol)
+VALUES (@codFuncionalidad, @Id)
+
+go
+
 create procedure CUATRO_QUESOS.addFuncionalidadARol(@rol numeric(18), @funcionalidad numeric(18)) --me refiero a los id
 as
         begin
@@ -1859,7 +1867,7 @@ go
 create procedure CUATRO_QUESOS.getFuncionalidades --no recibe parametros
 as
         begin
-                SELECT Descripcion 'Funcionalidad'
+                SELECT Id_Funcionalidad 'Id_Funcionalidad', Descripcion 'Descripcion'
                 FROM CUATRO_QUESOS.Funcionalidades
         end
 
@@ -1886,7 +1894,7 @@ GO
 create procedure CUATRO_QUESOS.getFuncionalidadesRol(@idRol numeric(18)) --no recibe parametros
 as
         begin
-                SELECT f.Descripcion 'Funcionalidad'
+                SELECT rf.Id_Funcionalidad 'Id_Funcionalidad'
                 FROM CUATRO_QUESOS.Roles r, CUATRO_QUESOS.Funcionalidades f, CUATRO_QUESOS.Roles_Por_Funcionalidades rf
                 WHERE r.Id_Rol = @idRol and r.Id_Rol = rf.Id_Rol and f.Id_Funcionalidad = rf.Id_Funcionalidad
         end
