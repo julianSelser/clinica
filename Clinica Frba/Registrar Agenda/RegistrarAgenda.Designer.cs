@@ -34,7 +34,6 @@
             this.labNroMedico = new System.Windows.Forms.Label();
             this.botonBuscarMedico = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.botAddDia = new System.Windows.Forms.Button();
             this.labSaNo = new System.Windows.Forms.Label();
@@ -93,6 +92,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.labNombreMedico = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelSabado.SuspendLayout();
@@ -105,12 +105,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labNombreMedico);
             this.groupBox1.Controls.Add(this.botonQuitarMedico);
             this.groupBox1.Controls.Add(this.labMedico);
             this.groupBox1.Controls.Add(this.labNroMedico);
             this.groupBox1.Controls.Add(this.botonBuscarMedico);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(458, 56);
@@ -165,17 +165,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(41, 20);
             this.textBox1.TabIndex = 10;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(230, 19);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(193, 24);
-            this.label13.TabIndex = 14;
-            this.label13.Text = "EN CONSTRUCCION";
             // 
             // groupBox2
             // 
@@ -765,6 +754,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // labNombreMedico
+            // 
+            this.labNombreMedico.AutoSize = true;
+            this.labNombreMedico.Location = new System.Drawing.Point(220, 25);
+            this.labNombreMedico.Name = "labNombreMedico";
+            this.labNombreMedico.Size = new System.Drawing.Size(22, 13);
+            this.labNombreMedico.TabIndex = 13;
+            this.labNombreMedico.Text = "(...)";
+            this.labNombreMedico.Visible = false;
+            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -822,7 +821,6 @@
         private System.Windows.Forms.Panel panelMartes;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labSabado;
         private System.Windows.Forms.Label labViernes;
         private System.Windows.Forms.Label labJueves;
@@ -862,5 +860,6 @@
         private System.Windows.Forms.Button botAddDia;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labNombreMedico;
     }
 }

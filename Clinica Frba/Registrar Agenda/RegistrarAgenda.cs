@@ -109,6 +109,9 @@ namespace Clinica_Frba.Registrar_Agenda
             panelLunes.Visible = panelMartes.Visible = panelMiercoles.Visible = panelJueves.Visible = panelViernes.Visible = panelSabado.Visible = false;
             labLuNo.Visible = labMaNo.Visible = labMiNo.Visible = labJuNo.Visible = labViNo.Visible = labSaNo.Visible = true;
 
+            labNombreMedico.Visible = true;
+            labNombreMedico.Text = dias_atencion.Rows[0]["Nombre"].ToString() + " " + dias_atencion.Rows[0]["Apellido"].ToString();
+
             foreach (DataRow dia in dias_atencion.Rows)
             {
                 switch (dia["Nombre_Dia"].ToString())
@@ -162,7 +165,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
             labNroMedico.Text = textBox1.Text;
 
-            labNroMedico.Visible = false;
+            labNombreMedico.Visible = labNroMedico.Visible = false;
             textBox1.Visible = true;
             groupBox2.Visible = false;
         }
