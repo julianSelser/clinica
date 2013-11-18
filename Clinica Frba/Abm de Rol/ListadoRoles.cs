@@ -22,17 +22,12 @@ namespace Clinica_Frba.Abm_de_Rol
             this.padre = padre;
             this.funcion = funcion; //si es para baja o modificacion
             cargarGrilla();
-            ocultarColumnas();
             cargarBotonFuncionalidad();
         }
 
         public void cargarGrilla()
         {
             AsistenteVistas.cargarGrilla(grillaRoles, AppRol.traerDataTableRoles(nombreBox.Text));
-        }
-
-        private void ocultarColumnas() //oculto las columnas que no son de interes
-        {
         }
 
         private void cargarBotonFuncionalidad() //esto cargaria el boton en la grilla
@@ -52,7 +47,7 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void grillaRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
+            if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaRoles.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaRoles.Rows[e.RowIndex];
                 if (!estaDadoDeBaja(fila))
@@ -78,8 +73,6 @@ namespace Clinica_Frba.Abm_de_Rol
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
-
-
 
     }
 }
