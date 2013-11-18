@@ -79,6 +79,21 @@ namespace Clinica_Frba.Abm_de_Rol
             throw new Exception("Id de funcionalidad no encontrado");
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            inicializarCampos();
+        }
+
+        private void inicializarCampos()
+        {
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i, false);
+            }
+
+            textBox1.Text = "";
+        }
+
 
     }
 }
