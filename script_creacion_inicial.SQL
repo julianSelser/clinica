@@ -1817,6 +1817,17 @@ AS
 
 go
 
+CREATE PROCEDURE CUATRO_QUESOS.getIdRol(@nombre varchar(50))
+AS
+BEGIN
+        DECLARE @Id numeric(18,0)
+        SELECT @Id = Id_Rol
+        FROM CUATRO_QUESOS.Roles
+        WHERE Nombre = @nombre
+        RETURN @Id
+END
+
+go
 create procedure CUATRO_QUESOS.addFuncionalidadARol(@rol numeric(18), @funcionalidad numeric(18)) --me refiero a los id
 as
         begin

@@ -127,5 +127,31 @@ namespace Clinica_Frba.AppModel
         }
 
 
+        internal static void darAltaRol(Rol rol, List<Funcionalidad> funcionalidades)
+        {
+            rol.id = darAltaRol(rol);
+            darAltaFuncionalidadesDeRol(rol, funcionalidades);
+        }
+
+        private static int darAltaRol(Rol rol)
+        {
+            if (buscarRol(rol) > 0) throw new RolYaExisteException(rol);
+            ejecutarProcedure("altaRol", rol.nombre);
+            return buscarRol(rol);
+        }
+
+        private static int buscarRol(Rol rol)
+        {
+            return ejecutarProcedureWithReturnValue("getIdRol", rol.nombre);
+        }
+
+        private static void darAltaFuncionalidadesDeRol(Rol rol, List<Funcionalidad> funcionalidades)
+        {
+            foreach (Funcionalidad funcionalidad in funcionalidades)
+            {
+                ejecutarProcedure("altaRol_Funcionalidad", funcionalidad.id, rol.id);
+            }
+        }
+
     }
 }
