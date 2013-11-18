@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.botonQuitarMedico = new System.Windows.Forms.Button();
             this.labMedico = new System.Windows.Forms.Label();
@@ -37,6 +35,7 @@
             this.botonBuscarMedico = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.botAddDia = new System.Windows.Forms.Button();
             this.labSaNo = new System.Windows.Forms.Label();
             this.labViNo = new System.Windows.Forms.Label();
             this.labJuNo = new System.Windows.Forms.Label();
@@ -49,7 +48,6 @@
             this.labMiercoles = new System.Windows.Forms.Label();
             this.labMartes = new System.Windows.Forms.Label();
             this.labLunes = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.panelSabado = new System.Windows.Forms.Panel();
             this.botModSa = new System.Windows.Forms.Button();
             this.labSaH = new System.Windows.Forms.Label();
@@ -92,6 +90,9 @@
             this.labLuD = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.labNombreMedico = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelSabado.SuspendLayout();
@@ -102,27 +103,9 @@
             this.panelLunes.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(17, 349);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(381, 349);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Aceptar";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labNombreMedico);
             this.groupBox1.Controls.Add(this.botonQuitarMedico);
             this.groupBox1.Controls.Add(this.labMedico);
             this.groupBox1.Controls.Add(this.labNroMedico);
@@ -185,6 +168,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.botAddDia);
             this.groupBox2.Controls.Add(this.labSaNo);
             this.groupBox2.Controls.Add(this.labViNo);
             this.groupBox2.Controls.Add(this.labJuNo);
@@ -197,7 +182,6 @@
             this.groupBox2.Controls.Add(this.labMiercoles);
             this.groupBox2.Controls.Add(this.labMartes);
             this.groupBox2.Controls.Add(this.labLunes);
-            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.panelSabado);
             this.groupBox2.Controls.Add(this.panelViernes);
             this.groupBox2.Controls.Add(this.panelJueves);
@@ -211,6 +195,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Días de atención";
             this.groupBox2.Visible = false;
+            // 
+            // botAddDia
+            // 
+            this.botAddDia.Location = new System.Drawing.Point(21, 204);
+            this.botAddDia.Name = "botAddDia";
+            this.botAddDia.Size = new System.Drawing.Size(75, 23);
+            this.botAddDia.TabIndex = 49;
+            this.botAddDia.Text = "Agregar día";
+            this.botAddDia.UseVisualStyleBackColor = true;
+            this.botAddDia.Click += new System.EventHandler(this.botAddDia_Click);
             // 
             // labSaNo
             // 
@@ -320,17 +314,6 @@
             this.labLunes.TabIndex = 37;
             this.labLunes.Text = "Lunes";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(37, 206);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(193, 24);
-            this.label13.TabIndex = 14;
-            this.label13.Text = "EN CONSTRUCCION";
-            // 
             // panelSabado
             // 
             this.panelSabado.Controls.Add(this.botModSa);
@@ -353,6 +336,7 @@
             this.botModSa.TabIndex = 21;
             this.botModSa.Text = "Modificar";
             this.botModSa.UseVisualStyleBackColor = true;
+            this.botModSa.Click += new System.EventHandler(this.botModSa_Click);
             // 
             // labSaH
             // 
@@ -422,6 +406,7 @@
             this.botModVi.TabIndex = 19;
             this.botModVi.Text = "Modificar";
             this.botModVi.UseVisualStyleBackColor = true;
+            this.botModVi.Click += new System.EventHandler(this.botModVi_Click);
             // 
             // labViH
             // 
@@ -491,6 +476,7 @@
             this.botModJu.TabIndex = 17;
             this.botModJu.Text = "Modificar";
             this.botModJu.UseVisualStyleBackColor = true;
+            this.botModJu.Click += new System.EventHandler(this.botModJu_Click);
             // 
             // labJuH
             // 
@@ -560,6 +546,7 @@
             this.botModMi.TabIndex = 15;
             this.botModMi.Text = "Modificar";
             this.botModMi.UseVisualStyleBackColor = true;
+            this.botModMi.Click += new System.EventHandler(this.botModMi_Click);
             // 
             // labMiH
             // 
@@ -629,6 +616,7 @@
             this.botModMa.TabIndex = 13;
             this.botModMa.Text = "Modificar";
             this.botModMa.UseVisualStyleBackColor = true;
+            this.botModMa.Click += new System.EventHandler(this.botModMa_Click);
             // 
             // labMaH
             // 
@@ -698,6 +686,7 @@
             this.botModLu.TabIndex = 11;
             this.botModLu.Text = "Modificar";
             this.botModLu.UseVisualStyleBackColor = true;
+            this.botModLu.Click += new System.EventHandler(this.botModLu_Click);
             // 
             // botDelLu
             // 
@@ -745,6 +734,36 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Desde:";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(351, 203);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(93, 23);
+            this.button3.TabIndex = 50;
+            this.button3.Text = "Cargar período";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(381, 349);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Volver";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // labNombreMedico
+            // 
+            this.labNombreMedico.AutoSize = true;
+            this.labNombreMedico.Location = new System.Drawing.Point(220, 25);
+            this.labNombreMedico.Name = "labNombreMedico";
+            this.labNombreMedico.Size = new System.Drawing.Size(22, 13);
+            this.labNombreMedico.TabIndex = 13;
+            this.labNombreMedico.Text = "(...)";
+            this.labNombreMedico.Visible = false;
+            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -753,7 +772,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Name = "RegistrarAgenda";
             this.Text = "Registrar Agenda";
             this.groupBox1.ResumeLayout(false);
@@ -778,8 +796,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button botonQuitarMedico;
         private System.Windows.Forms.Label labMedico;
@@ -805,7 +821,6 @@
         private System.Windows.Forms.Panel panelMartes;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labSabado;
         private System.Windows.Forms.Label labViernes;
         private System.Windows.Forms.Label labJueves;
@@ -842,5 +857,9 @@
         private System.Windows.Forms.Button botDelMa;
         private System.Windows.Forms.Button botModLu;
         private System.Windows.Forms.Button botDelLu;
+        private System.Windows.Forms.Button botAddDia;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label labNombreMedico;
     }
 }

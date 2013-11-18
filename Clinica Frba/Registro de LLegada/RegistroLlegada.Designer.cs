@@ -38,6 +38,7 @@
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.errorBox = new System.Windows.Forms.TextBox();
             this.grillaTurnos = new System.Windows.Forms.DataGridView();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).BeginInit();
             this.SuspendLayout();
@@ -142,11 +143,22 @@
             this.grillaTurnos.TabIndex = 25;
             this.grillaTurnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellContentClick);
             // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(583, 89);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(75, 23);
+            this.limpiarButton.TabIndex = 26;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
+            // 
             // RegistroLlegada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(670, 502);
+            this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.grillaTurnos);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox);
@@ -173,5 +185,6 @@
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.DataGridView grillaTurnos;
+        private System.Windows.Forms.Button limpiarButton;
     }
 }

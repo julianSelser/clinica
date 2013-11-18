@@ -13,6 +13,9 @@ using Clinica_Frba.Domain;
 //paciente a la clínica y efectivizar su turno con un especialista para convertirse en una
 //consulta médica.
 //En caso de llegar un segundo mas tarde de la hora estipulada del turno, la atencion se cancela.
+//La grilla debe mostrar solo para cuando:
+//-se selecciona un profesional, muestra todos los turnos del dia que tiene el profesional
+//-se selecciona un profesional y afiliado, para confirmar el turno entre profesional y afiliado en el dia
 
 namespace Clinica_Frba.Registro_de_LLegada
 {
@@ -128,6 +131,22 @@ namespace Clinica_Frba.Registro_de_LLegada
             index = grillaTurnos.Columns["Fecha de Turno"].Index;
             turno.fecha = Convert.ToDateTime(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return turno;
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            inicializarCampos();
+        }
+
+        private void inicializarCampos()
+        {
+            nroAfiliadoBox.Clear();
+            profesionalBox.Clear();
+            profesional = null;
+            afiliado.nroAfiliado = 0;
+            grillaTurnos.DataSource = null;
+            grillaTurnos.Columns.Clear();
+            validarCampos();
         }
 
     }

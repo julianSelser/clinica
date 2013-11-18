@@ -36,6 +36,12 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
+        private void RegistrarAgenda_Load(object sender, EventArgs e)
+        {
+            if (labNroMedico.Visible) poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
+        }
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
@@ -93,7 +99,8 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
-        private void poblarDiasAtencion(decimal id_medico)
+        //público porque las subventanitas que saltan también tienen que actualizar estos datos
+        public void poblarDiasAtencion(decimal id_medico)
         {
             DataTable dias_atencion;
 
@@ -101,6 +108,9 @@ namespace Clinica_Frba.Registrar_Agenda
 
             panelLunes.Visible = panelMartes.Visible = panelMiercoles.Visible = panelJueves.Visible = panelViernes.Visible = panelSabado.Visible = false;
             labLuNo.Visible = labMaNo.Visible = labMiNo.Visible = labJuNo.Visible = labViNo.Visible = labSaNo.Visible = true;
+
+            labNombreMedico.Visible = true;
+            labNombreMedico.Text = dias_atencion.Rows[0]["Nombre"].ToString() + " " + dias_atencion.Rows[0]["Apellido"].ToString();
 
             foreach (DataRow dia in dias_atencion.Rows)
             {
@@ -155,14 +165,14 @@ namespace Clinica_Frba.Registrar_Agenda
 
             labNroMedico.Text = textBox1.Text;
 
-            labNroMedico.Visible = false;
+            labNombreMedico.Visible = labNroMedico.Visible = false;
             textBox1.Visible = true;
             groupBox2.Visible = false;
         }
 
         private void confirmarQuitarDia(string nombre_dia)
         {
-            if (MessageBox.Show("¿Está seguro? Todos sus turnos para ese día serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está seguro? Todos sus turnos para ese día de la semana serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {                
                 ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
                 poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
@@ -206,6 +216,74 @@ namespace Clinica_Frba.Registrar_Agenda
         private void botDelSa_Click(object sender, EventArgs e)
         {
             confirmarQuitarDia("Sábado");
+        }
+
+  
+       
+
+        private void botModLu_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Lunes", labLuD.Text, labLuH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModMa_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Martes", labMaD.Text, labMaH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModMi_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Miércoles", labMiD.Text, labMiH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModJu_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Jueves", labJuD.Text, labJuH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModVi_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Viernes", labViD.Text, labViH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botModSa_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Sábado", labSaD.Text, labSaH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        private void botAddDia_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new AgregarDia(this, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+
+        public bool validarRangoHorario(string desde, string hasta)
+        //esto lo pongo acá porque lo van a necesitar dos de los subforms
+        {
+            int hsdesde;
+            int hshasta;
+            int mindesde;
+            int minhasta;
+
+            hsdesde = Convert.ToInt16(desde.Substring(0, 2));
+            hshasta = Convert.ToInt16(hasta.Substring(0, 2));
+
+            mindesde = Convert.ToInt16(desde.Substring(3, 2));
+            minhasta = Convert.ToInt16(hasta.Substring(3, 2));
+
+            if (hsdesde > hshasta) return false;
+            if (hsdesde == hshasta)
+            {
+                if (mindesde < minhasta) return true;
+                else return false;
+            }
+
+            return true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new CargarPeriodo(this, Convert.ToDecimal(labNroMedico.Text)), this);
         }
 
     }
