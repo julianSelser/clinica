@@ -2351,6 +2351,150 @@ end
 GO
 /* ***** FIN PROCEDURES REGISTRAR AGENDA ***** */
 
+-- LISTADOS ESTADISTICOS --
+
+
+
+CREATE FUNCTION CUATRO_QUESOS.getPrinicipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME
+AS
+BEGIN
+	RETURN ( CAST( CONVERT(VARCHAR(8), @ANIO*10000 + @MES*100 + 1) AS DATETIME) )
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME
+AS
+BEGIN
+	RETURN DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,@PrincipioMes)+1,0))
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado(@ANIO INT, @MES INT)
+AS
+BEGIN
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @FinalMES	  DATETIME = CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)	
+	
+	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(B.Numero) DESC) RANKING,  A.nombre + ' ' +  A.apellido + '  cant: ' + CONVERT(VARCHAR(255), COUNT(*)) ESTADISTICA
+	FROM CUATRO_QUESOS.Afiliados A, CUATRO_QUESOS.Bonos B
+	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Tipo_Bono = 'Farmacia'
+		  AND B.Fecha_Vencimiento BETWEEN @PrincipioMES AND @FinalMES 
+		  AND B.Fecha_Vencimiento < GETDATE()
+		  AND B.Nro_Usuario	IS NULL
+	GROUP BY A.nombre, A.apellido
+	ORDER BY COUNT(B.Numero) DESC
+END
+GO
+
+
+CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas(@ANIO INT, @MES INT)
+AS
+BEGIN
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @FinalMES	  DATETIME = CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)	
+	
+	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(DISTINCT( B.Numero ))DESC), E.Descripcion + '  cant: ' + CONVERT(VARCHAR(255), COUNT(DISTINCT(B.Numero)))  
+	FROM CUATRO_QUESOS.Medicamentos_por_consulta MC, CUATRO_QUESOS.Turnos T, CUATRO_QUESOS.Consultas C, CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Especialidades E
+	WHERE C.Nro_Turno = T.Numero AND T.Cod_Especialidad = E.Codigo AND MC.ID_Consulta = C.ID_Consulta AND MC.Nro_Bono_Farmacia = B.Numero
+		AND T.Fecha BETWEEN @PrincipioMES AND @FinalMES
+	GROUP BY E.Descripcion
+	ORDER BY COUNT(DISTINCT( B.Numero )) DESC
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasCancelaciones (@ANIO INT, @MES INT)
+AS
+BEGIN
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @FinalMES	  DATETIME = CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
+
+	SELECT TOP 5  ROW_NUMBER() OVER (ORDER BY COUNT(E.Descripcion) DESC) RANKING, E.Descripcion + '   cant: ' + CONVERT(VARCHAR(255),COUNT(E.Descripcion)) AS ESTADISTICAS
+	FROM CUATRO_QUESOS.Especialidades E, CUATRO_QUESOS.Turnos T, CUATRO_QUESOS.Cancelaciones C
+	WHERE C.Nro_Turno = T.Numero AND T.COD_Especialidad = E.Codigo
+		AND T.fecha	BETWEEN @PrincipioMES AND @FinalMES	
+	GROUP BY E.Descripcion
+	ORDER BY COUNT(E.Descripcion) DESC
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.bonosPorTerceros(@ANIO INT, @MES INT)
+AS
+BEGIN
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @FinalMES	  DATETIME = CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
+	
+	SELECT TOP 10 COUNT(B.numero), A.nombre, A.apellido
+	FROM CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Afiliados A
+	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario
+		AND B.Fecha_Impresion BETWEEN @PrincipioMES AND @FinalMES
+	GROUP BY A.nombre, A.apellido
+	ORDER BY COUNT(B.numero) DESC
+END
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.elegirListado(@ID_Listado INT , @ANIO INT, @MES INT)
+AS
+BEGIN
+	IF @ID_Listado = 0
+		EXEC CUATRO_QUESOS.especialidadesConMasCancelaciones @ANIO, @MES
+	ELSE IF @ID_Listado = 1
+		EXEC CUATRO_QUESOS.bonosVencidosPorAfiliado @ANIO, @MES
+	ELSE IF @ID_Listado = 2
+		EXEC CUATRO_QUESOS.especialidadesConMasRecetas @ANIO, @MES
+	ELSE IF @ID_Listado = 3
+		EXEC CUATRO_QUESOS.bonosPorTerceros @ANIO, @MES		
+END
+GO
+
+
+CREATE PROCEDURE CUATRO_QUESOS.getListadoEstadistico(@Semestre VARCHAR(20), @ID_Listado INT, @ANIO INT)
+AS
+BEGIN
+	DECLARE @T1 TABLE (POS INT, EST VARCHAR(50))
+	DECLARE @T2 TABLE (POS INT, EST VARCHAR(50))
+	DECLARE @T3 TABLE (POS INT, EST VARCHAR(50))
+	DECLARE @T4 TABLE (POS INT, EST VARCHAR(50))
+	DECLARE @T5 TABLE (POS INT, EST VARCHAR(50))
+	DECLARE @T6 TABLE (POS INT, EST VARCHAR(50))
+	
+	IF (@Semestre = '1er semestre')
+		BEGIN
+			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 1
+			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 2
+			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 3
+			INSERT INTO @T4 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 4
+			INSERT INTO @T5 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 5
+			INSERT INTO @T6 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 6
+			
+			SELECT A.EST ENERO, B.EST FEBRERO, C.EST MARZO, D.EST ABRIL, E.EST MAYO, F.EST JUNIO
+			FROM @T1 A FULL JOIN @T2 B ON A.POS = B.POS
+			FULL JOIN @T3 C ON A.POS = C.POS 
+			FULL JOIN @T4 D ON A.POS = D.POS
+			FULL JOIN @T5 E ON A.POS = E.POS 
+			FULL JOIN @T6 F	ON A.POS = F.POS
+		END
+
+	IF (@Semestre = '2do semestre')
+		BEGIN
+			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 7
+			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 8
+			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 9
+			INSERT INTO @T4 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 10
+			INSERT INTO @T5 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 11
+			INSERT INTO @T6 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 12
+			
+			SELECT A.EST JULIO, B.EST AGOSTO, C.EST SEPTIEMBRE, D.EST OCTUBRE, E.EST NOVIEMBRE, F.EST DICIEMBRE
+			FROM @T1 A FULL JOIN @T2 B ON A.POS = B.POS
+			FULL JOIN @T3 C ON A.POS = C.POS 
+			FULL JOIN @T4 D ON A.POS = D.POS
+			FULL JOIN @T5 E ON A.POS = E.POS 
+			FULL JOIN @T6 F	ON A.POS = F.POS
+		END
+END
+GO
+
+-- FIN LISTADOS ESTADISTICOS--
+
 
 IF @@ERROR != 0 ROLLBACK
 

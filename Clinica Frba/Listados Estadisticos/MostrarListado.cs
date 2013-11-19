@@ -10,22 +10,21 @@ using Clinica_Frba.AppModel;
 
 namespace Clinica_Frba.Listados_Estadisticos
 {
-    public partial class ListadosEstadisticos : Form
+    public partial class MostrarListado : Form
     {
         private Form padre;
 
-        public ListadosEstadisticos(Form padre)
+        public MostrarListado(Form padre, int listadoID, string tipoListado, string semestre, string anio)
         {
             InitializeComponent();
             this.padre = padre;
+
+            info.Text = tipoListado;
+
+            grilla.DataSource = ConectorSQL.traerDataTable("getListadoEstadistico", semestre, listadoID, anio);
         }
 
-        private void aceptar_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.mostrarNuevaVentana(new MostrarListado(this, listadoSelector.SelectedIndex, listadoSelector.Text, semestreSelector.Text, anioPicker.Text), this);
-        }
-
-        private void cancelar_Click(object sender, EventArgs e)
+        private void volver_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }

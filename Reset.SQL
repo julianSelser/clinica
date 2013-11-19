@@ -4,6 +4,15 @@ GO
 BEGIN TRAN
 GO
 
+
+DROP FUNCTION CUATRO_QUESOS.getFinalDeMes
+DROP FUNCTION CUATRO_QUESOS.getPrinicipioDeMes
+DROP PROCEDURE CUATRO_QUESOS.especialidadesConMasCancelaciones
+DROP PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado 
+DROP PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas
+DROP PROCEDURE CUATRO_QUESOS.elegirListado
+DROP PROCEDURE CUATRO_QUESOS.getListadoEstadistico
+DROP PROCEDURE CUATRO_QUESOS.bonosPorTerceros
 drop procedure CUATRO_QUESOS.getFechasParaMedico
 drop procedure CUATRO_QUESOS.updateFechasMedico
 drop procedure CUATRO_QUESOS.modificarDiaAtencion

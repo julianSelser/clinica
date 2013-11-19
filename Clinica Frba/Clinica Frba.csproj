@@ -226,6 +226,12 @@
     <Compile Include="Generar Receta\GenerarReceta.Designer.cs">
       <DependentUpon>GenerarReceta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listados Estadisticos\MostrarListado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados Estadisticos\MostrarListado.Designer.cs">
+      <DependentUpon>MostrarListado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\ElegirRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -350,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Listados Estadisticos\ListadosEstadisticos.resx">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados Estadisticos\MostrarListado.resx">
+      <DependentUpon>MostrarListado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\ElegirRol.resx">
       <DependentUpon>ElegirRol.cs</DependentUpon>
