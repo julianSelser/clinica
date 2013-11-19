@@ -144,3 +144,5 @@ C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.R
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registrar_Agenda.VerAgenda.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registrar_Agenda.ModificarDia.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registro_Resultado_Atencion.RegistrarDiagnostico.resources
+C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Listados_Estadisticos.MostrarListado.resources
+C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registro_Resultado_Atencion.RegistrarDiagnostico.resources

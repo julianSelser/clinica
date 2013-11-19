@@ -58,23 +58,6 @@ namespace Clinica_Frba.Abm_de_Rol
                     }
                 }
             }
-
-
-
-
-
-
-
-            chkBoxFuncionalidades.Items.Clear(); //los vacia
-            var items = chkBoxFuncionalidades.Items;
-            //List<String> funcionalidades = AppRol.getFuncionalidadesRol(/*falta el int*/);
-            //List<Funcionalidad> funcionalidadesHabilitadas = oldRol.getFuncionalidades();
-
-            // (Funcionalidad func in funcionalidades)
-            //{
-            //    items.Add(func, func.estaEnLista(funcionalidadesHabilitadas));
-            //}
-
         }
 
         private void button1_Click(object sender, EventArgs e)
