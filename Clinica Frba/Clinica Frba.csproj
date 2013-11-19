@@ -211,6 +211,7 @@
     <Compile Include="Domain\Bono.cs" />
     <Compile Include="Domain\BonoConsulta.cs" />
     <Compile Include="Domain\BonoFarmacia.cs" />
+    <Compile Include="Domain\ConsultaMedica.cs" />
     <Compile Include="Domain\EspecialidadMedica.cs" />
     <Compile Include="Domain\Funcionalidad.cs" />
     <Compile Include="Domain\ModoAfiliado.cs" />
@@ -398,6 +399,9 @@
     <EmbeddedResource Include="Registro de LLegada\RegistroLlegada.resx">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado Atencion\RegistrarDiagnostico.resx">
+      <DependentUpon>RegistrarDiagnostico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado Atencion\RegistroResultadoAtencion.resx">
       <DependentUpon>RegistroResultadoAtencion.cs</DependentUpon>
     </EmbeddedResource>
@@ -455,6 +459,12 @@
     </Compile>
     <Compile Include="Registro de LLegada\RegistroLlegada.Designer.cs">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Resultado Atencion\RegistrarDiagnostico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Resultado Atencion\RegistrarDiagnostico.Designer.cs">
+      <DependentUpon>RegistrarDiagnostico.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado Atencion\RegistroResultadoAtencion.cs">
       <SubType>Form</SubType>

@@ -30,19 +30,19 @@
         {
             this.cancelButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grillaTurnos = new System.Windows.Forms.DataGridView();
             this.fechaAtencionPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.nroAfiliadoBox = new System.Windows.Forms.TextBox();
-            this.selectAfiliadoButton = new System.Windows.Forms.Button();
             this.selectProfesionalButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.profesionalBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nroAfiliadoBox = new System.Windows.Forms.TextBox();
+            this.selectAfiliadoButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.errorBox = new System.Windows.Forms.TextBox();
             this.limpiarButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,13 +67,14 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "EN CONSTRUCCION";
             // 
-            // dataGridView1
+            // grillaTurnos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 181);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(715, 202);
-            this.dataGridView1.TabIndex = 13;
+            this.grillaTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaTurnos.Location = new System.Drawing.Point(12, 181);
+            this.grillaTurnos.Name = "grillaTurnos";
+            this.grillaTurnos.Size = new System.Drawing.Size(715, 202);
+            this.grillaTurnos.TabIndex = 13;
+            this.grillaTurnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellContentClick);
             // 
             // fechaAtencionPicker
             // 
@@ -81,6 +82,7 @@
             this.fechaAtencionPicker.Name = "fechaAtencionPicker";
             this.fechaAtencionPicker.Size = new System.Drawing.Size(200, 20);
             this.fechaAtencionPicker.TabIndex = 14;
+            this.fechaAtencionPicker.ValueChanged += new System.EventHandler(this.fechaAtencionPicker_ValueChanged);
             // 
             // groupBox1
             // 
@@ -98,41 +100,6 @@
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Consulta";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 122);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Fecha de Atención:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 37);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Afiliado:";
-            // 
-            // nroAfiliadoBox
-            // 
-            this.nroAfiliadoBox.Location = new System.Drawing.Point(73, 34);
-            this.nroAfiliadoBox.Name = "nroAfiliadoBox";
-            this.nroAfiliadoBox.ReadOnly = true;
-            this.nroAfiliadoBox.Size = new System.Drawing.Size(100, 20);
-            this.nroAfiliadoBox.TabIndex = 22;
-            // 
-            // selectAfiliadoButton
-            // 
-            this.selectAfiliadoButton.Location = new System.Drawing.Point(190, 32);
-            this.selectAfiliadoButton.Name = "selectAfiliadoButton";
-            this.selectAfiliadoButton.Size = new System.Drawing.Size(131, 23);
-            this.selectAfiliadoButton.TabIndex = 24;
-            this.selectAfiliadoButton.Text = "Seleccionar Afiliado";
-            this.selectAfiliadoButton.UseVisualStyleBackColor = true;
             // 
             // selectProfesionalButton
             // 
@@ -159,6 +126,43 @@
             this.profesionalBox.ReadOnly = true;
             this.profesionalBox.Size = new System.Drawing.Size(100, 20);
             this.profesionalBox.TabIndex = 26;
+            this.profesionalBox.TextChanged += new System.EventHandler(this.profesionalBox_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 37);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Afiliado:";
+            // 
+            // nroAfiliadoBox
+            // 
+            this.nroAfiliadoBox.Location = new System.Drawing.Point(73, 34);
+            this.nroAfiliadoBox.Name = "nroAfiliadoBox";
+            this.nroAfiliadoBox.ReadOnly = true;
+            this.nroAfiliadoBox.Size = new System.Drawing.Size(100, 20);
+            this.nroAfiliadoBox.TabIndex = 22;
+            this.nroAfiliadoBox.TextChanged += new System.EventHandler(this.nroAfiliadoBox_TextChanged);
+            // 
+            // selectAfiliadoButton
+            // 
+            this.selectAfiliadoButton.Location = new System.Drawing.Point(190, 32);
+            this.selectAfiliadoButton.Name = "selectAfiliadoButton";
+            this.selectAfiliadoButton.Size = new System.Drawing.Size(131, 23);
+            this.selectAfiliadoButton.TabIndex = 24;
+            this.selectAfiliadoButton.Text = "Seleccionar Afiliado";
+            this.selectAfiliadoButton.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 122);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Fecha de Atención:";
             // 
             // errorBox
             // 
@@ -177,6 +181,7 @@
             this.limpiarButton.TabIndex = 27;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // RegistroResultadoAtencion
             // 
@@ -186,12 +191,12 @@
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.grillaTurnos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
             this.Name = "RegistroResultadoAtencion";
             this.Text = "Registro Resultado de Atención";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -203,7 +208,7 @@
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView grillaTurnos;
         private System.Windows.Forms.DateTimePicker fechaAtencionPicker;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
