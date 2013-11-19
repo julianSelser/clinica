@@ -22,7 +22,6 @@ namespace Clinica_Frba.Abm_de_Rol
             this.padre = padre;
             this.funcion = funcion; //si es para baja o modificacion
             cargarGrilla();
-            ocultarColumnas();
             cargarBotonFuncionalidad();
         }
 
@@ -31,14 +30,10 @@ namespace Clinica_Frba.Abm_de_Rol
             AsistenteVistas.cargarGrilla(grillaRoles, AppRol.traerDataTableRoles(nombreBox.Text));
         }
 
-        private void ocultarColumnas() //oculto las columnas que no son de interes
-        {
-        }
-
         private void cargarBotonFuncionalidad() //esto cargaria el boton en la grilla
         {
             DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = funcion;
+            col.Text = "Seleccionar Rol";
             col.Name = "Seleccionar";
             col.UseColumnTextForButtonValue = true;
             grillaRoles.Columns.Add(col);
@@ -48,21 +43,6 @@ namespace Clinica_Frba.Abm_de_Rol
         {
             int index = grillaRoles.Columns["Habilitado"].Index;
             return !(bool)fila.Cells[index].Value;
-        }
-
-        private void grillaRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0) //Para que la accion de click sea valida solo sobre el boton
-            {
-                DataGridViewRow fila = grillaRoles.Rows[e.RowIndex];
-                if (!estaDadoDeBaja(fila))
-                {
-                    Rol rol = crearRol(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
-                    if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this, rol), this);
-                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
-                }
-                else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
-            }
         }
 
 
@@ -77,6 +57,31 @@ namespace Clinica_Frba.Abm_de_Rol
         private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            nombreBox.Text = "";
+        }
+
+        private void grillaRoles_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaRoles.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
+            {
+                DataGridViewRow fila = grillaRoles.Rows[e.RowIndex];
+                if (!estaDadoDeBaja(fila))
+                {
+                    Rol rol = crearRol(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
+                    if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this, rol), this);
+                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
+                }
+                else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
+            }
+        }
+
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            cargarGrilla();
         }
 
 

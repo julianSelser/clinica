@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="AppModel\ErrorManager.cs" />
     <Compile Include="AppModel\Excepciones\AfiliadoYaExisteException.cs" />
+    <Compile Include="AppModel\Excepciones\RolYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\MedicoYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\SinEspecilidadesCheckedException.cs" />
     <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
