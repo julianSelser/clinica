@@ -54,7 +54,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private void cargarGrilla()
         {
-            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultadosAtencion.traerConsultas(afiliado, profesional, fechaAtencionPicker));
+            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text)));
             cargarBotonFuncionalidad();
         }
 
@@ -123,7 +123,8 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private ConsultaMedica armarConsultaMedica(int fila)
         {
-            throw new NotImplementedException();
+            ConsultaMedica consulta = new ConsultaMedica();
+            return consulta;
         }
 
     }

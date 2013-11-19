@@ -16,7 +16,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         Form padre;
         ConsultaMedica consulta;
 
-        public RegistrarDiagnostico(Form padre, ConsultaMedica consulta)
+        internal RegistrarDiagnostico(Form padre, ConsultaMedica consulta)
         {
             InitializeComponent();
             nroTurnoBox.Text = consulta.idTurno.ToString();
@@ -55,6 +55,16 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         {
             sintomasBox.Clear();
             enfermedadesBox.Clear();
+        }
+
+        private void sintomasBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void enfermedadesBox_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
         }
 
     }
