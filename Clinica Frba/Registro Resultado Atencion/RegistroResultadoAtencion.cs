@@ -124,7 +124,20 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         private ConsultaMedica armarConsultaMedica(int fila)
         {
             ConsultaMedica consulta = new ConsultaMedica();
+            consulta.idTurno = 0;
             return consulta;
+        }
+
+        private void selectAfiliadoButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoAfiliados(this, "Registrar Resultado"), this);
+            validarCampos();
+        }
+
+        private void selectProfesionalButton_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registrar Resultado"), this);
+            validarCampos();
         }
 
     }

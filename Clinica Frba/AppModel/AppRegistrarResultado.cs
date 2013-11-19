@@ -14,9 +14,9 @@ namespace Clinica_Frba.AppModel
             return traerDataTable("getConsultasMedicas", afiliado.nroAfiliado, profesional.id, fechaAtencion);
         }
 
-        internal static void registrarResultado(Turno turno, BonoConsulta bono)
+        internal static void registrarResultado(ConsultaMedica consulta)
         {
-            ejecutarProcedure("registrarLlegada", bono.nroUsuario, bono.numero, turno.numero, turno.fecha, Globales.getFechaSistema());
+            ejecutarProcedure("registrarResultadoAtencion", consulta.idTurno, consulta.sintomas, consulta.enfermedades);
         }
     }
 }

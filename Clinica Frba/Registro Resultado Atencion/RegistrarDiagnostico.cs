@@ -19,6 +19,8 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         internal RegistrarDiagnostico(Form padre, ConsultaMedica consulta)
         {
             InitializeComponent();
+            this.padre = padre;
+            this.consulta = consulta;
             nroTurnoBox.Text = consulta.idTurno.ToString();
             validarCampos();
         }

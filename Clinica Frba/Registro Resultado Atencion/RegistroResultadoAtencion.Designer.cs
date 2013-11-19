@@ -109,6 +109,7 @@
             this.selectProfesionalButton.TabIndex = 27;
             this.selectProfesionalButton.Text = "Seleccionar profesional";
             this.selectProfesionalButton.UseVisualStyleBackColor = true;
+            this.selectProfesionalButton.Click += new System.EventHandler(this.selectProfesionalButton_Click);
             // 
             // label4
             // 
@@ -154,6 +155,7 @@
             this.selectAfiliadoButton.TabIndex = 24;
             this.selectAfiliadoButton.Text = "Seleccionar Afiliado";
             this.selectAfiliadoButton.UseVisualStyleBackColor = true;
+            this.selectAfiliadoButton.Click += new System.EventHandler(this.selectAfiliadoButton_Click);
             // 
             // label2
             // 
