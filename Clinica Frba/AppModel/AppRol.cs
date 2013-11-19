@@ -27,7 +27,7 @@ namespace Clinica_Frba.AppModel
 
         private static void deleteFuncionalidades(Rol rol)
         {
-            ejecutarProcedure("deleteFuncionalidades", rol.id);
+            ejecutarProcedure("sacarTodaFuncionalidadARol", rol.id);
         }
 
         public static DataTable getDataTableRolesPorId(int idRol)
