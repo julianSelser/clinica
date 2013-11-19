@@ -21,6 +21,7 @@ namespace Clinica_Frba.Abm_de_Rol
             InitializeComponent();
             this.padre = padre;
             cargarFuncionalidades();
+            validarCampos();
 
         }
 
@@ -94,6 +95,29 @@ namespace Clinica_Frba.Abm_de_Rol
             textBox1.Text = "";
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+
+        private void validarCampos()
+        {
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Nombre", textBox1.Text, true, Controlador.TipoValidacion.Alfa));
+
+            try
+            {
+                Controlador.validarCampos(campos);
+                button1.Enabled = true;
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion validacion)
+            {
+                errorBox.Text = validacion.mensaje;
+                button1.Enabled = false;
+            }
+        }
 
     }
 }
