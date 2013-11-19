@@ -141,6 +141,7 @@
     <Compile Include="AppModel\Excepciones\RolYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\MedicoYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\SinEspecilidadesCheckedException.cs" />
+    <Compile Include="AppModel\Excepciones\SinFuncionalidadesCheckedException.cs" />
     <Compile Include="AppModel\Excepciones\UserDefinedException.cs" />
     <Compile Include="AppModel\Globales.cs" />
     <Compile Include="AppModel\ListadoAfiliados.cs">

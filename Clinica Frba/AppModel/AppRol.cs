@@ -11,59 +11,24 @@ namespace Clinica_Frba.AppModel
 {
     class AppRol : ConectorSQL
     {
-        /*
-        private static void habilitarRol(int idRol)
-        {
-            ejecutarProcedure("habilitarRol", idRol);
-        }
-        */
+
         public static void inhabilitarRol(Rol rol) //para dar de baja
         {
             ejecutarProcedure("inhabilitarRol", rol.id);
         }
 
-  
-        //MODIFICAR_ROL_1 YA NO VA A ESTAR MAS (en cambio va a haber un listado)
-        /*      private static void modificarRol1(int idRol) //carga una vista con los datos apartir de un id, en este caso el nombre y las funcionalidades
+
+        internal static void updateRol(Rol rol, List<Funcionalidad> listaFuncionalidadesNuevas)
         {
-            List<String> listaDeFuncionalidades;
-
-            listaDeFuncionalidades = getFuncionalidadesRol(idRol);
-
-            DataTable tablaNombre = traerDataTable("getNombreRol", idRol);
-            DataRowCollection rowNombre = tablaNombre.Rows;
-
-            foreach (DataRow dr in rowNombre) //lo hago por mas que la lista tenga un solo valor
-            {
-                String nombre = dr["NombreRol"].ToString();
-            }
-        }*/
-
-        private static void modificarRol2(string nombre) //modifica los datos
-        {
-            //va a setear el nuevo nombre
-            //va a hacer un delet de todas las anteriores funcionalidades de ese id
-            //va a hacer un insert de todas las nuevas funcionalidades
+            //por el momento modificar los campos propios del rol no hace falta, solo la relacion entre este y sus funcionalidades
+            deleteFuncionalidades(rol);
+            darAltaFuncionalidadesDeRol(rol, listaFuncionalidadesNuevas);
         }
 
-/*        private static List<String> getFuncionalidadesRol(int idRol) //modifica los datos
+        private static void deleteFuncionalidades(Rol rol)
         {
-            List<String> nombresFuncionalidades = new List<String>();
-
-            DataTable listaF = traerDataTable("getFuncionalidadesRol", idRol);
-
-            DataRowCollection rowFuncionalidad = listaF.Rows; //hace una lista de filas atravez de la tabla
-
-            foreach (DataRow dr in rowFuncionalidad) //para cada elemento de la lista
-            {
-                String nombre = dr["Descripcion"].ToString(); //seteo el cambo descripcion de esa fila
-                nombresFuncionalidades.Add(nombre);
-            }
-            //hasta aca mete los nombres de la tabla de funcionalidades en una lista
-
-            return nombresFuncionalidades;
-        
-        }*/
+            ejecutarProcedure("deleteFuncionalidades", rol.id);
+        }
 
         public static DataTable getDataTableRolesPorId(int idRol)
         {

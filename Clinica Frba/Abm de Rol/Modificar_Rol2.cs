@@ -62,7 +62,37 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            List<Funcionalidad> listaFuncionalidadesNuevas = generarListaFuncionalidades();
+            AppRol.updateRol(rol, listaFuncionalidadesNuevas);
+            MessageBox.Show("La modificación del rol se ha realizado con éxito.\n\nId Rol: " + rol.id);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
+
+        private List<Funcionalidad> generarListaFuncionalidades()
+        {
+            int cont = 0, cantidadFuncionalidades = chkBoxFuncionalidades.CheckedItems.Count;
+            if (cantidadFuncionalidades == 0) throw new SinFuncionalidadesCheckedException();
+            List<Funcionalidad> lista = new List<Funcionalidad>();
+
+            while (cont < cantidadFuncionalidades)
+            {
+                Funcionalidad funcionalidad = new Funcionalidad();
+                funcionalidad.id = getCodigoFuncionalidad(chkBoxFuncionalidades.CheckedItems[cont].ToString());
+                lista.Add(funcionalidad);
+                cont++;
+            }
+            return lista;
+        }
+
+
+        private int getCodigoFuncionalidad(string descripcion)
+        {
+            foreach (Funcionalidad elemento in funcionalidades)
+            {
+                if (elemento.descripcion == descripcion) return elemento.id;
+            }
+            throw new Exception("Codigo de funcionalidad no encontrado");
+        }
+
     }
 }
