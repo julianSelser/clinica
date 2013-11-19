@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
+using Clinica_Frba.Domain;
 
 namespace Clinica_Frba.Registro_Resultado_Atencion
 {
@@ -18,11 +19,16 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         {
             InitializeComponent();
             this.padre = padre;
+            if (UsuarioLogeado.Instance.Rol.nombre == "Profesional")
+            {
+                profesionalBox.Text = (UsuarioLogeado.Instance.Persona as Profesional).id.ToString();
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
+
     }
 }
