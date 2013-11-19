@@ -2512,7 +2512,9 @@ JOIN CUATRO_QUESOS.Afiliados ON Turnos.Nro_Afiliado = Afiliados.Nro_Afiliado
 JOIN CUATRO_QUESOS.Medicos ON Turnos.Id_Medico = Medicos.Id_Medico
 WHERE ((Turnos.Nro_Afiliado = @nroAfiliado AND @nroAfiliado != 0) OR (@nroAfiliado = 0))
 AND Turnos.Id_Medico = @idMedico
-AND Consultas.Fecha_Atencion = @fechaAtencion
+AND DAY(Consultas.Fecha_Atencion) = DAY(@fechaAtencion)
+AND MONTH(Consultas.Fecha_Atencion) = MONTH(@fechaAtencion)
+AND YEAR(Consultas.Fecha_Atencion) = YEAR(@fechaAtencion)
 GO
 
 /****************** FIN PROCEDURES RESULTADOS ATENCION MEDICA *****************/

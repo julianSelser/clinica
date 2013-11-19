@@ -50,7 +50,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            AsistenteVistas.volverAPadreYCerrar((padre as RegistroResultadoAtencion).padre, this);
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)

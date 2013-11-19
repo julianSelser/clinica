@@ -16,7 +16,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 {
     public partial class RegistroResultadoAtencion : Form
     {
-        private Form padre;
+        public Form padre;
         Profesional profesional;
         Afiliado afiliado;
 
@@ -65,7 +65,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
             if (afiliado.nroAfiliado != 0 && !grillaTurnos.Columns.Contains("Seleccionar"))
             {
                 DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-                col.Text = "Registrar Resultados";
+                col.Text = "Resultados";
                 col.Name = "Seleccionar";
                 col.UseColumnTextForButtonValue = true;
                 grillaTurnos.Columns.Add(col);
