@@ -10,6 +10,7 @@ using Clinica_Frba.Domain;
 using Clinica_Frba.Abm_de_Afiliado;
 using Clinica_Frba.Pedir_Turno;
 using Clinica_Frba.Registro_de_LLegada;
+using Clinica_Frba.Registro_Resultado_Atencion;
 
 //inicializa una nueva ventana con la lista de afiliados,
 //se puede filtrar por criterios y al seleccionar una fila se comporta distinto
@@ -114,14 +115,36 @@ namespace Clinica_Frba.AppModel
                 if (!estaDadoDeBaja(fila))
                 {
                     Afiliado afiliado = crearAfiliado(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
-                    if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
-                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, this), this);
-                    if (funcion == "Pedir Turno") volverAVistaPedirTurno(afiliado);
-                    if (funcion == "Registrar Llegada") volvarAVistaRegistroLlegada(afiliado);
+                    switch (funcion)
+                    {
+                        case "Baja":
+                            AsistenteVistas.mostrarNuevaVentana(new BajaAfiliado(this, afiliado), this);
+                            break;
+                        case "Modificar":
+                            AsistenteVistas.mostrarNuevaVentana(new PeticionAccion(afiliado, this), this);
+                            break;
+                        case "Pedir Turno":
+                            volverAVistaPedirTurno(afiliado);
+                            break;
+                        case "Registrar Llegada":
+                            volvarAVistaRegistroLlegada(afiliado);
+                            break;
+                        case "Registrar Resultado":
+                            volverAVistaRegistrarResultado(afiliado);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 else MessageBox.Show("El afiliado seleccionado se encuentra dado de baja");
             }
             
+        }
+
+        private void volverAVistaRegistrarResultado(Afiliado afiliado)
+        {
+            (padre as RegistroResultadoAtencion).setearAfiliado(afiliado);
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private void volvarAVistaRegistroLlegada(Afiliado afiliado)
