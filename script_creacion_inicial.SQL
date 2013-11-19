@@ -2495,6 +2495,27 @@ GO
 
 -- FIN LISTADOS ESTADISTICOS--
 
+/****************** PROCEDURES RESULTADOS ATENCION MEDICA*****************/
+
+CREATE PROCEDURE CUATRO_QUESOS.getConsultasMedicas @nroAfiliado numeric(18), @idMedico numeric(18), @fechaAtencion DateTime
+AS
+SELECT Afiliados.Nombre+' '+Afiliados.Apellido 'Afiliado',
+Medicos.Nombre+' '+Medicos.Apellido 'Médico',
+Turnos.Numero 'Nro. de Turno',
+Consultas.Id_Consulta 'Nro. de Consulta',
+Consultas.Sintomas 'Síntomas',
+Consultas.Enfermedades 'Enfermedades',
+Consultas.Fecha_Atencion 'Fecha de Atención',
+Consultas.Fecha_Llegada 'Fecha de Llegada'
+FROM CUATRO_QUESOS.Consultas JOIN CUATRO_QUESOS.Turnos ON Consultas.Nro_Turno = Turnos.Numero
+JOIN CUATRO_QUESOS.Afiliados ON Turnos.Nro_Afiliado = Afiliados.Nro_Afiliado
+JOIN CUATRO_QUESOS.Medicos ON Turnos.Id_Medico = Medicos.Id_Medico
+WHERE ((Turnos.Nro_Afiliado = @nroAfiliado AND @nroAfiliado != 0) OR (@nroAfiliado = 0))
+AND Turnos.Id_Medico = @idMedico
+AND Consultas.Fecha_Atencion = @fechaAtencion
+GO
+
+/****************** FIN PROCEDURES RESULTADOS ATENCION MEDICA *****************/
 
 IF @@ERROR != 0 ROLLBACK
 

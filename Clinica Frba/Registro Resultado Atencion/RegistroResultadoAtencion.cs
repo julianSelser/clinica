@@ -31,13 +31,15 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
                 selectProfesionalButton.Hide();
                 profesional = (UsuarioLogeado.Instance.Persona as Profesional);
             }
+            afiliado = new Afiliado();
+            afiliado.nroAfiliado = 0;
             validarCampos();
         }
 
         private void validarCampos()
         {
             List<CampoAbstracto> campos = new List<CampoAbstracto>();
-            campos.Add(new Campo("Afiliado", nroAfiliadoBox.Text, true, Controlador.TipoValidacion.Codigo));
+            campos.Add(new Campo("Afiliado", nroAfiliadoBox.Text, false, Controlador.TipoValidacion.Codigo));
             campos.Add(new Campo("Profesional", profesionalBox.Text, true, Controlador.TipoValidacion.Codigo));
             try
             {
@@ -89,9 +91,22 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private void limpiarButton_Click(object sender, EventArgs e)
         {
-            nroAfiliadoBox.Clear();
-            if (UsuarioLogeado.Instance.Rol.nombre != "Profesional") profesionalBox.Clear();
+            inicializarCampos();
+        }
+
+        private void inicializarCampos()
+        {
             fechaAtencionPicker.Text = Globales.getFechaSistema().ToString();
+            nroAfiliadoBox.Clear();
+            if (UsuarioLogeado.Instance.Rol.nombre != "Profesional")
+            {
+                profesionalBox.Clear();
+                profesional = null;
+            }
+            afiliado.nroAfiliado = 0;
+            grillaTurnos.DataSource = null;
+            grillaTurnos.Columns.Clear();
+            validarCampos();
         }
 
         private void nroAfiliadoBox_TextChanged(object sender, EventArgs e)
@@ -124,7 +139,6 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         private ConsultaMedica armarConsultaMedica(int fila)
         {
             ConsultaMedica consulta = new ConsultaMedica();
-            consulta.idTurno = 0;
             return consulta;
         }
 

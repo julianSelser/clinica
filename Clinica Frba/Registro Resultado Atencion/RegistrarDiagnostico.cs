@@ -21,7 +21,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
             InitializeComponent();
             this.padre = padre;
             this.consulta = consulta;
-            nroTurnoBox.Text = consulta.idTurno.ToString();
+            nroTurnoBox.Text = consulta.idConsulta.ToString();
             validarCampos();
         }
 

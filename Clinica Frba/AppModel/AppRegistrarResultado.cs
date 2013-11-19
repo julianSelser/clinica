@@ -16,7 +16,7 @@ namespace Clinica_Frba.AppModel
 
         internal static void registrarResultado(ConsultaMedica consulta)
         {
-            ejecutarProcedure("registrarResultadoAtencion", consulta.idTurno, consulta.sintomas, consulta.enfermedades);
+            ejecutarProcedure("registrarResultadoAtencion", consulta.idConsulta, consulta.sintomas, consulta.enfermedades);
         }
     }
 }
