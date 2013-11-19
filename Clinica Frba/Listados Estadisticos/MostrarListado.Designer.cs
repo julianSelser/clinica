@@ -55,6 +55,7 @@
             this.grilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grilla.Location = new System.Drawing.Point(12, 12);
             this.grilla.Name = "grilla";
+            this.grilla.RowHeadersVisible = false;
             this.grilla.RowHeadersWidth = 46;
             this.grilla.Size = new System.Drawing.Size(1274, 147);
             this.grilla.TabIndex = 8;

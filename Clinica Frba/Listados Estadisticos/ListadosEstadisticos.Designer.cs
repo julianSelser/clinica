@@ -91,7 +91,7 @@
             this.semestreSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.semestreSelector.FormattingEnabled = true;
             this.semestreSelector.Items.AddRange(new object[] {
-            "1er  semestre",
+            "1er semestre",
             "2do semestre"});
             this.semestreSelector.Location = new System.Drawing.Point(66, 50);
             this.semestreSelector.Name = "semestreSelector";
