@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.cancelButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.grillaTurnos = new System.Windows.Forms.DataGridView();
             this.fechaAtencionPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -42,13 +41,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.errorBox = new System.Windows.Forms.TextBox();
             this.limpiarButton = new System.Windows.Forms.Button();
+            this.checkConsultaSinResultado = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grillaTurnos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(652, 400);
+            this.cancelButton.Location = new System.Drawing.Point(653, 421);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 11;
@@ -56,23 +56,12 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(448, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(193, 24);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "EN CONSTRUCCION";
-            // 
             // grillaTurnos
             // 
             this.grillaTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaTurnos.Location = new System.Drawing.Point(12, 181);
+            this.grillaTurnos.Location = new System.Drawing.Point(25, 188);
             this.grillaTurnos.Name = "grillaTurnos";
-            this.grillaTurnos.Size = new System.Drawing.Size(715, 202);
+            this.grillaTurnos.Size = new System.Drawing.Size(702, 227);
             this.grillaTurnos.TabIndex = 13;
             this.grillaTurnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaTurnos_CellContentClick);
             // 
@@ -86,6 +75,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.errorBox);
+            this.groupBox1.Controls.Add(this.limpiarButton);
+            this.groupBox1.Controls.Add(this.checkConsultaSinResultado);
             this.groupBox1.Controls.Add(this.selectProfesionalButton);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.profesionalBox);
@@ -96,7 +88,7 @@
             this.groupBox1.Controls.Add(this.fechaAtencionPicker);
             this.groupBox1.Location = new System.Drawing.Point(25, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(338, 162);
+            this.groupBox1.Size = new System.Drawing.Size(702, 159);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Consulta";
@@ -168,7 +160,7 @@
             // 
             // errorBox
             // 
-            this.errorBox.Location = new System.Drawing.Point(393, 24);
+            this.errorBox.Location = new System.Drawing.Point(353, 32);
             this.errorBox.Multiline = true;
             this.errorBox.Name = "errorBox";
             this.errorBox.ReadOnly = true;
@@ -177,7 +169,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(652, 136);
+            this.limpiarButton.Location = new System.Drawing.Point(612, 119);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 27;
@@ -185,16 +177,24 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
+            // checkConsultaSinResultado
+            // 
+            this.checkConsultaSinResultado.AutoSize = true;
+            this.checkConsultaSinResultado.Location = new System.Drawing.Point(353, 81);
+            this.checkConsultaSinResultado.Name = "checkConsultaSinResultado";
+            this.checkConsultaSinResultado.Size = new System.Drawing.Size(134, 17);
+            this.checkConsultaSinResultado.TabIndex = 29;
+            this.checkConsultaSinResultado.Text = "Consultas sin resultado";
+            this.checkConsultaSinResultado.UseVisualStyleBackColor = true;
+            this.checkConsultaSinResultado.CheckedChanged += new System.EventHandler(this.checkConsultaSinResultado_CheckedChanged);
+            // 
             // RegistroResultadoAtencion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(739, 435);
-            this.Controls.Add(this.limpiarButton);
-            this.Controls.Add(this.errorBox);
+            this.ClientSize = new System.Drawing.Size(740, 453);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grillaTurnos);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
             this.Name = "RegistroResultadoAtencion";
             this.Text = "Registro Resultado de Atención";
@@ -202,14 +202,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView grillaTurnos;
         private System.Windows.Forms.DateTimePicker fechaAtencionPicker;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -222,5 +220,6 @@
         private System.Windows.Forms.TextBox profesionalBox;
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.Button limpiarButton;
+        private System.Windows.Forms.CheckBox checkConsultaSinResultado;
     }
 }

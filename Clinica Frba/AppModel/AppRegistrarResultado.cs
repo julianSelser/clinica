@@ -9,14 +9,14 @@ namespace Clinica_Frba.AppModel
 {
     internal class AppRegistrarResultado : ConectorSQL
     {
-        public static DataTable traerConsultas(Afiliado afiliado, Profesional profesional, DateTime fechaAtencion)
+        public static DataTable traerConsultas(Afiliado afiliado, Profesional profesional, DateTime fechaAtencion, bool sinResultado)
         {
-            return traerDataTable("getConsultasMedicas", afiliado.nroAfiliado, profesional.id, fechaAtencion);
+            return traerDataTable("getConsultasMedicas", afiliado.nroAfiliado, profesional.id, fechaAtencion, sinResultado);
         }
 
         internal static void registrarResultado(ConsultaMedica consulta)
         {
-            ejecutarProcedure("registrarResultadoAtencion", consulta.idConsulta, consulta.sintomas, consulta.enfermedades);
+            ejecutarProcedure("updateConsultaMedica", consulta.idConsulta, consulta.sintomas, consulta.enfermedades);
         }
     }
 }

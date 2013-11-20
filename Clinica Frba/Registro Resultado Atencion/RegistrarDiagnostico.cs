@@ -9,6 +9,11 @@ using System.Windows.Forms;
 using Clinica_Frba.Domain;
 using Clinica_Frba.AppModel;
 
+//Parte de la funcionalidad de registrar el resultado de atencion
+//Permite hacer modificaciones del diagnostico si se desea, en este caso, carga en los textbox
+//el diagnostico que ya tenian anteriormente.
+//Si no fue registrado nada todavia, los campos estaran en blanco
+
 namespace Clinica_Frba.Registro_Resultado_Atencion
 {
     public partial class RegistrarDiagnostico : Form
@@ -22,6 +27,8 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
             this.padre = padre;
             this.consulta = consulta;
             nroTurnoBox.Text = consulta.idConsulta.ToString();
+            if (consulta.enfermedades != "no registrado aún") enfermedadesBox.Text = consulta.enfermedades; //si los campos ya tenian un diagnostico previo, permite editarlos, cargando primero lo que ya tenian en el textbox
+            if (consulta.sintomas != "no registrado aún") sintomasBox.Text = consulta.sintomas;
             validarCampos();
         }
 
@@ -50,6 +57,10 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
+            consulta.enfermedades = enfermedadesBox.Text.ToString();
+            consulta.sintomas = sintomasBox.Text.ToString();
+            AppRegistrarResultado.registrarResultado(consulta);
+            MessageBox.Show("El registro de resultado de atención se ha realizado con éxito");
             AsistenteVistas.volverAPadreYCerrar((padre as RegistroResultadoAtencion).padre, this);
         }
 
