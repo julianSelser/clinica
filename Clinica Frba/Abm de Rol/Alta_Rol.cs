@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using Clinica_Frba.AppModel.Excepciones;
 
 namespace Clinica_Frba.Abm_de_Rol
 {
@@ -41,11 +42,18 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Rol rol = crearRol();
-            List<Funcionalidad> listaFuncionalidades = generarListaFuncionalidades();
-            AppRol.darAltaRol(rol, listaFuncionalidades);
-            MessageBox.Show("El alta del rol se ha realizado con éxito.\n\nDetalle:\nId: " + rol.id);
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            try
+            {
+                Rol rol = crearRol();
+                List<Funcionalidad> listaFuncionalidades = generarListaFuncionalidades();
+                AppRol.darAltaRol(rol, listaFuncionalidades);
+                MessageBox.Show("El alta del rol se ha realizado con éxito.\n\nDetalle:\nId: " + rol.id + "\nRol: " + rol.nombre);
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+            catch (UserDefinedException ex)
+            {
+                ErrorManager.messageErrorBox(ex, "Alta Rol");
+            }
         }
 
         private Rol crearRol()
