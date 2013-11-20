@@ -51,6 +51,8 @@ namespace Clinica_Frba.Abm_de_Rol
             Rol rol = new Rol();
             int index = grillaRoles.Columns["ID Rol"].Index;
             rol.id = Convert.ToInt32(grillaRoles.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            index = grillaRoles.Columns["Nombre"].Index;
+            rol.nombre = grillaRoles.Rows.SharedRow(fila).Cells[index].Value.ToString();
             return rol;
         }
 

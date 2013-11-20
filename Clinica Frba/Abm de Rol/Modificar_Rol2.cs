@@ -31,6 +31,7 @@ namespace Clinica_Frba.Abm_de_Rol
         private void cargarCampos()
         {
             idBox.Text = rol.id.ToString();
+            textBox1.Text = rol.nombre;
             cargarFuncionalidades(); //ver si esta bien la logica de esto
         }
 
@@ -106,6 +107,7 @@ namespace Clinica_Frba.Abm_de_Rol
             }
             throw new Exception("Codigo de funcionalidad no encontrado");
         }
+
 
     }
 }
