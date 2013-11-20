@@ -788,7 +788,15 @@ where Afiliados.Cod_Plan = Planes_Medicos.Codigo
 --busco el precio del bono farmacia, y lo multiplico por la cantidad comprada
 
 
-
+--asigno a cada bono su ID compra (que acabo de generar)
+update CUATRO_QUESOS.Bonos
+set ID_Compra = (select Id_Compra --ahora que generé las compras, asigno los ID de compra a cada bono
+				from CUATRO_QUESOS.Compra
+				where Compra.Fecha = Bonos.Fecha_Impresion --pudimos verificar que para todos los registros existentes, estas dos fechas coinciden
+															--entonces suponemos que un bono se genera y se imprime al momento de comprarse
+					and Compra.Nro_Afiliado = Bonos.Nro_Afiliado) --estos dos campos del where son los que usamos para agrupar las compras
+																  --por lo tanto, aunque no son PK, al momento de la migración sirven para identificar unívocamente a una fila
+																  --justamente en base a ellos se generó la PK autonumérica
 
 --Días de atención
 
