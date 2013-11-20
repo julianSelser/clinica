@@ -129,7 +129,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grillaRoles);
             this.Name = "ListadoRoles";
-            this.Text = "ListadoRoles";
+            this.Text = "Listado de Roles";
             ((System.ComponentModel.ISupportInitialize)(this.grillaRoles)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

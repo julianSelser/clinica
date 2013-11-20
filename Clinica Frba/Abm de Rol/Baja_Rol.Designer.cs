@@ -81,7 +81,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Name = "Baja_Rol";
-            this.Text = "Baja_Rol";
+            this.Text = "Baja Rol";
             this.ResumeLayout(false);
             this.PerformLayout();
 

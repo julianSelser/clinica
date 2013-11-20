@@ -144,7 +144,7 @@
             this.Controls.Add(this.chkBoxFuncionalidades);
             this.Controls.Add(this.label1);
             this.Name = "Modificar_Rol2";
-            this.Text = "Modificar_Rol2";
+            this.Text = "Modificar Rol";
             this.ResumeLayout(false);
             this.PerformLayout();
 

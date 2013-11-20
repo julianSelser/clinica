@@ -125,7 +125,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "Alta_Rol";
-            this.Text = "Alta_Rol";
+            this.Text = "Alta Rol";
             this.ResumeLayout(false);
             this.PerformLayout();
 
