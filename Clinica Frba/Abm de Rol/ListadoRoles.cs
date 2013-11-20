@@ -53,6 +53,8 @@ namespace Clinica_Frba.Abm_de_Rol
             rol.id = Convert.ToInt32(grillaRoles.Rows.SharedRow(fila).Cells[index].Value.ToString());
             index = grillaRoles.Columns["Nombre"].Index;
             rol.nombre = grillaRoles.Rows.SharedRow(fila).Cells[index].Value.ToString();
+            index = grillaRoles.Columns["Habilitado"].Index;
+            rol.habilitado = Convert.ToBoolean(grillaRoles.Rows.SharedRow(fila).Cells[index].Value.ToString());
             return rol;
         }
 
@@ -71,13 +73,13 @@ namespace Clinica_Frba.Abm_de_Rol
             if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaRoles.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaRoles.Rows[e.RowIndex];
-                if (!estaDadoDeBaja(fila))
-                {
+  //              if (!estaDadoDeBaja(fila)) //ESTA VALIDACION NO ES NECESARIA, PORQUE SE TIENEN QUE PODER VOLVER A HABILITAR LOS INHABILITADOS
+  //              {
                     Rol rol = crearRol(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
                     if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this, rol), this);
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
-                }
-                else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
+ //               }
+ //               else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
             }
         }
 

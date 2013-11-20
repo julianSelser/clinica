@@ -17,6 +17,10 @@ namespace Clinica_Frba.AppModel
             ejecutarProcedure("inhabilitarRol", rol.id);
         }
 
+        public static void habilitarRol(Rol rol) //para dar de baja
+        {
+            ejecutarProcedure("habilitarRol", rol.id);
+        }
 
         internal static void updateRol(Rol rol, List<Funcionalidad> listaFuncionalidadesNuevas)
         {

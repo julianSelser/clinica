@@ -109,6 +109,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 37;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // errorBox
             // 
@@ -127,6 +128,7 @@
             this.button3.TabIndex = 39;
             this.button3.Text = "Habilitar Rol";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Modificar_Rol2
             // 

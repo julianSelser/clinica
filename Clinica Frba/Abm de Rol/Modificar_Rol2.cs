@@ -23,10 +23,15 @@ namespace Clinica_Frba.Abm_de_Rol
             InitializeComponent();
             this.padre = padre;
             this.rol = rol;
+            validarHabilitado();
             cargarCampos();
-            //validarCampos(); //por ahora no valido
+            validarCampos();
         }
 
+        private void validarHabilitado() 
+        {
+            if (rol.habilitado == true) button3.Enabled = false;
+        }
 
         private void cargarCampos()
         {
@@ -108,6 +113,37 @@ namespace Clinica_Frba.Abm_de_Rol
             throw new Exception("Codigo de funcionalidad no encontrado");
         }
 
+
+        private void validarCampos()
+        {
+            List<CampoAbstracto> campos = new List<CampoAbstracto>();
+            campos.Add(new Campo("Nombre", textBox1.Text, true, Controlador.TipoValidacion.Alfa));
+
+            try
+            {
+                Controlador.validarCampos(campos);
+                button1.Enabled = true;
+                errorBox.Text = "";
+            }
+            catch (ExcepcionValidacion validacion)
+            {
+                errorBox.Text = validacion.mensaje;
+                button1.Enabled = false;
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            rol.habilitado = true;
+            AppRol.habilitarRol(rol);
+            button3.Enabled = false;
+            MessageBox.Show("El rol a sido habilitado.\n\nId Rol: " + rol.id);
+        }
 
     }
 }
