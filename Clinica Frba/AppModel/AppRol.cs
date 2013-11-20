@@ -20,7 +20,7 @@ namespace Clinica_Frba.AppModel
 
         internal static void updateRol(Rol rol, List<Funcionalidad> listaFuncionalidadesNuevas)
         {
-            //por el momento modificar los campos propios del rol no hace falta, solo la relacion entre este y sus funcionalidades
+            updateNombreRol(rol);
             deleteFuncionalidades(rol);
             darAltaFuncionalidadesDeRol(rol, listaFuncionalidadesNuevas);
         }
@@ -118,5 +118,9 @@ namespace Clinica_Frba.AppModel
             }
         }
 
+        private static void updateNombreRol(Rol rol)
+        {
+            ejecutarProcedure("modificarRol", rol.id, rol.nombre);
+        }
     }
 }

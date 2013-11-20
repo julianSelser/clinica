@@ -64,6 +64,7 @@ namespace Clinica_Frba.Abm_de_Rol
         {
             try
             {
+                actualizarNombreRol();
                 List<Funcionalidad> listaFuncionalidadesNuevas = generarListaFuncionalidades();
                 AppRol.updateRol(rol, listaFuncionalidadesNuevas);
                 MessageBox.Show("La modificación del rol se ha realizado con éxito.\n\nId Rol: " + rol.id);
@@ -73,6 +74,11 @@ namespace Clinica_Frba.Abm_de_Rol
             {
                 ErrorManager.messageErrorBox(ex, "Modificación Rol");
             }
+        }
+
+        private void actualizarNombreRol()
+        {
+            rol.nombre = textBox1.Text;
         }
 
         private List<Funcionalidad> generarListaFuncionalidades()
