@@ -56,7 +56,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private void cargarGrilla()
         {
-            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text)));
+            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text), checkConsultaSinResultado.Checked ));
             cargarBotonFuncionalidad();
         }
 
@@ -77,13 +77,13 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        internal void setearAfiliado(Afiliado afiliado)
+        internal void setearAfiliado(Afiliado afiliado) //metodos utilizados por otra vista de grilla para setear el atributo afiliado
         {
             this.afiliado = afiliado;
             nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
         }
 
-        internal void setearProfesional(Profesional profesional)
+        internal void setearProfesional(Profesional profesional) //metodos utilizados por otra vista de grilla para setear el atributo profesional
         {
             this.profesional = profesional;
             profesionalBox.Text = profesional.id.ToString();
@@ -139,6 +139,12 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         private ConsultaMedica armarConsultaMedica(int fila)
         {
             ConsultaMedica consulta = new ConsultaMedica();
+            int index = grillaTurnos.Columns["Nro. de consulta"].Index;
+            consulta.idConsulta = Convert.ToInt32(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString()); //el valor de la celda es un objeto, lo paso a string primero y despues lo convierto a int
+            index = grillaTurnos.Columns["Enfermedades"].Index;
+            consulta.enfermedades = grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString();
+            index = grillaTurnos.Columns["Síntomas"].Index;
+            consulta.sintomas = grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString();
             return consulta;
         }
 
@@ -151,6 +157,11 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
         private void selectProfesionalButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Registrar Resultado"), this);
+            validarCampos();
+        }
+
+        private void checkConsultaSinResultado_CheckedChanged(object sender, EventArgs e)
+        {
             validarCampos();
         }
 
