@@ -62,10 +62,17 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            List<Funcionalidad> listaFuncionalidadesNuevas = generarListaFuncionalidades();
-            AppRol.updateRol(rol, listaFuncionalidadesNuevas);
-            MessageBox.Show("La modificación del rol se ha realizado con éxito.\n\nId Rol: " + rol.id);
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            try
+            {
+                List<Funcionalidad> listaFuncionalidadesNuevas = generarListaFuncionalidades();
+                AppRol.updateRol(rol, listaFuncionalidadesNuevas);
+                MessageBox.Show("La modificación del rol se ha realizado con éxito.\n\nId Rol: " + rol.id);
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+            catch (UserDefinedException ex)
+            {
+                ErrorManager.messageErrorBox(ex, "Modificación Rol");
+            }
         }
 
         private List<Funcionalidad> generarListaFuncionalidades()

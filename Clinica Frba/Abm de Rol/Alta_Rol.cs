@@ -66,6 +66,7 @@ namespace Clinica_Frba.Abm_de_Rol
         private List<Funcionalidad> generarListaFuncionalidades()
         {
             int cont = 0, cantidadFuncionalidades = checkedListBox1.CheckedItems.Count;
+            if (cantidadFuncionalidades == 0) throw new SinFuncionalidadesCheckedException();
             List<Funcionalidad> lista = new List<Funcionalidad>();
 
             while (cont < cantidadFuncionalidades)
