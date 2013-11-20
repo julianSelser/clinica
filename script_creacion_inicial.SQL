@@ -744,6 +744,51 @@ where Bono_Farmacia_Numero is not null
 
 /* *************FIN INSERCION DE BONOS*************** */
 
+--Compras de bonos
+
+set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
+
+insert into CUATRO_QUESOS.Compra(ID_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
+select ROW_NUMBER() over (order by compra_bono_fecha asc, paciente_dni asc) as ID_Compra,
+	(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI) as Nro_Afiliado,
+	Compra_Bono_Fecha as Fecha,
+	(select COUNT(*) 
+	from gd_esquema.Maestra as SUB 
+	where SUB.Compra_Bono_Fecha = Main.Compra_Bono_Fecha and MAIN.Paciente_Dni = SUB.Paciente_Dni and Bono_Consulta_Numero is not null)
+		as Cantidad_Comprada_Consulta,
+	(select COUNT(*) 
+	from gd_esquema.Maestra as SUB 
+	where SUB.Compra_Bono_Fecha = Main.Compra_Bono_Fecha and MAIN.Paciente_Dni = SUB.Paciente_Dni and Bono_Farmacia_Numero is not null)
+		as Cantidad_Comprada_Farmacia,
+	0 as Monto --esto como temporal para migrar porque no admite valores null (y tiene sentido que no los admita)
+				--el tema es que no voy a calcular el monto ahora porque necesito las cantidades que acabo de calcular
+				--y si quisiera hacerlo ahora tengo que volver a hacer esos select
+				--en la proxima instrucción voy a estar completando este campo
+	 
+from gd_esquema.Maestra as MAIN where Compra_Bono_Fecha is not null group by Paciente_Dni, Compra_Bono_Fecha
+
+set IDENTITY_INSERT CUATRO_QUESOS.Compra OFF
+
+
+--ahora completo el monto
+update CUATRO_QUESOS.Compra
+set Monto = 
+
+(select Precio_Bono_Consulta 
+from CUATRO_QUESOS.Planes_Medicos, CUATRO_QUESOS.Afiliados 
+where Afiliados.Cod_Plan = Planes_Medicos.Codigo
+	and Afiliados.Nro_Afiliado = Compra.Nro_Afiliado) * Cantidad_Comprada_Consulta
+--busco el precio del bono consulta, y lo multiplico por la cantidad comprada
++ --y lo sumo a...
+
+(select Precio_Bono_Farmacia 
+from CUATRO_QUESOS.Planes_Medicos, CUATRO_QUESOS.Afiliados 
+where Afiliados.Cod_Plan = Planes_Medicos.Codigo
+	and Afiliados.Nro_Afiliado = Compra.Nro_Afiliado) * Cantidad_Comprada_Farmacia
+--busco el precio del bono farmacia, y lo multiplico por la cantidad comprada
+
+
+
 
 --Días de atención
 
