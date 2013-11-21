@@ -129,7 +129,7 @@ CREATE TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta (
         Id_Consulta numeric(18) NOT NULL,
         Id_Medicamento numeric(18) NOT NULL,
         Nro_Bono_Farmacia numeric(18) NOT NULL,
-        Cantidad smallint NOT NULL,
+        Cantidad varchar(255) NOT NULL, --Segun el enunciado debe ser la cantidad en numero seguido la cantidad en letras, puede ir de 1 a 3
         Tipo_Bono varchar(255)
 )
 ;
@@ -983,7 +983,7 @@ INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
         select (select sub1.ID_Consulta from CUATRO_QUESOS.Consultas as sub1 where principal.Turno_Numero = sub1.Nro_Turno) as ID_Consulta,
                 (select sub2.ID_Medicamento from CUATRO_QUESOS.Medicamentos as sub2 where Bono_Farmacia_Medicamento =sub2.Descripcion) as Medicamento,
                 Bono_Farmacia_Numero as Nro_Bono_Farmacia,
-                1 as Cantidad, --asumo que sólo se receto una instancia del medicamento que aparece en la maestra
+                '1 (UNO)' as Cantidad, --asumo que sólo se receto una instancia del medicamento que aparece en la maestra
                 'Farmacia' as Tipo_Bono
                 
         from gd_esquema.Maestra as principal
