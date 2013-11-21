@@ -37,7 +37,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(361, 265);
+            this.cancelButton.Location = new System.Drawing.Point(358, 268);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 8;
@@ -65,7 +65,7 @@
             // grillaBonosFarmacia
             // 
             this.grillaBonosFarmacia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaBonosFarmacia.Location = new System.Drawing.Point(22, 62);
+            this.grillaBonosFarmacia.Location = new System.Drawing.Point(19, 62);
             this.grillaBonosFarmacia.Name = "grillaBonosFarmacia";
             this.grillaBonosFarmacia.Size = new System.Drawing.Size(414, 197);
             this.grillaBonosFarmacia.TabIndex = 13;

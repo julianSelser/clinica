@@ -67,5 +67,11 @@ namespace Clinica_Frba.Generar_Receta
         {
             this.afiliado = afiliado;
         }
+
+        internal void setearBonoFarmacia(BonoFarmacia bonoFarmacia)
+        {
+            this.bono = bonoFarmacia;
+            bonoBox.Text = bonoFarmacia.numero.ToString();
+        }
     }
 }

@@ -46,14 +46,22 @@ namespace Clinica_Frba.Generar_Receta
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void grillaBonos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void grillaBonosFarmacia_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == grillaBonosFarmacia.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaBonosFarmacia.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
+            {
+                BonoFarmacia bonoFarmacia = armarBonoFarmacia(e.RowIndex);
+                (padre as GenerarReceta).setearBonoFarmacia(bonoFarmacia);
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+        }
 
+        private BonoFarmacia armarBonoFarmacia(int fila)
+        {
+            bono = new BonoFarmacia();
+            int index = grillaBonosFarmacia.Columns["Nro. de Bono"].Index;
+            bono.numero = Convert.ToInt32(grillaBonosFarmacia.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            return bono;
         }
     }
 }
