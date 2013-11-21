@@ -124,6 +124,7 @@
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
     <Compile Include="AppModel\AppLogin.cs" />
     <Compile Include="AppModel\AppProfesional.cs" />
+    <Compile Include="AppModel\AppReceta.cs" />
     <Compile Include="AppModel\AppRegistrarLlegada.cs" />
     <Compile Include="AppModel\AppRegistrarResultado.cs" />
     <Compile Include="AppModel\AppRol.cs" />
@@ -155,6 +156,12 @@
     </Compile>
     <Compile Include="AppModel\ListadoProfesionales.Designer.cs">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppModel\ListadoConsultas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppModel\ListadoConsultas.Designer.cs">
+      <DependentUpon>ListadoConsultas.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar Atencion\AdministradorCancelar.cs">
       <SubType>Form</SubType>
@@ -223,6 +230,12 @@
     <Compile Include="Domain\Profesional.cs" />
     <Compile Include="Domain\Turno.cs" />
     <Compile Include="Domain\UsuarioLogeado.cs" />
+    <Compile Include="Generar Receta\ElegirBonoFarmacia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Receta\ElegirBonoFarmacia.Designer.cs">
+      <DependentUpon>ElegirBonoFarmacia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Generar Receta\GenerarReceta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +343,9 @@
     <EmbeddedResource Include="AppModel\ListadoProfesionales.resx">
       <DependentUpon>ListadoProfesionales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AppModel\ListadoConsultas.resx">
+      <DependentUpon>ListadoConsultas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\AdministradorCancelar.resx">
       <DependentUpon>AdministradorCancelar.cs</DependentUpon>
     </EmbeddedResource>
@@ -353,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra de Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Receta\ElegirBonoFarmacia.resx">
+      <DependentUpon>ElegirBonoFarmacia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Receta\GenerarReceta.resx">
       <DependentUpon>GenerarReceta.cs</DependentUpon>
@@ -403,9 +422,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado Atencion\RegistrarDiagnostico.resx">
       <DependentUpon>RegistrarDiagnostico.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Registro Resultado Atencion\RegistroResultadoAtencion.resx">
-      <DependentUpon>RegistroResultadoAtencion.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -467,12 +483,6 @@
     </Compile>
     <Compile Include="Registro Resultado Atencion\RegistrarDiagnostico.Designer.cs">
       <DependentUpon>RegistrarDiagnostico.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registro Resultado Atencion\RegistroResultadoAtencion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro Resultado Atencion\RegistroResultadoAtencion.Designer.cs">
-      <DependentUpon>RegistroResultadoAtencion.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

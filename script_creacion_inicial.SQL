@@ -2551,7 +2551,7 @@ GO
 
 /****************** PROCEDURES RESULTADOS ATENCION MEDICA*****************/
 
-CREATE PROCEDURE CUATRO_QUESOS.getConsultasMedicas @nroAfiliado numeric(18), @idMedico numeric(18), @fechaAtencion DateTime, @sinResultado bit
+CREATE PROCEDURE CUATRO_QUESOS.getConsultasMedicas @nroAfiliado numeric(18), @idMedico numeric(18), @fechaAtencion DateTime, @sinResultado bit, @soloConResultado bit
 AS
 SELECT Afiliados.Nombre+' '+Afiliados.Apellido 'Afiliado',
 Medicos.Nombre+' '+Medicos.Apellido 'Médico',
@@ -2570,6 +2570,7 @@ AND DAY(Consultas.Fecha_Atencion) = DAY(@fechaAtencion)
 AND MONTH(Consultas.Fecha_Atencion) = MONTH(@fechaAtencion)
 AND YEAR(Consultas.Fecha_Atencion) = YEAR(@fechaAtencion)
 AND ((@sinResultado = 1 AND (Consultas.Sintomas = 'no registrado aún' OR Consultas.Enfermedades = 'no registrado aún')) OR (@sinResultado = 0))
+AND ((@soloConResultado = 1 AND Consultas.Enfermedades != 'no registrado aún')OR(@soloConResultado = 0))
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.updateConsultaMedica @idConsulta numeric(18), @sintomas varchar(255), @enfermedades varchar(255)

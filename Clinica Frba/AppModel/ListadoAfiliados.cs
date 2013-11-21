@@ -10,7 +10,6 @@ using Clinica_Frba.Domain;
 using Clinica_Frba.Abm_de_Afiliado;
 using Clinica_Frba.Pedir_Turno;
 using Clinica_Frba.Registro_de_LLegada;
-using Clinica_Frba.Registro_Resultado_Atencion;
 
 //inicializa una nueva ventana con la lista de afiliados,
 //se puede filtrar por criterios y al seleccionar una fila se comporta distinto
@@ -143,7 +142,7 @@ namespace Clinica_Frba.AppModel
 
         private void volverAVistaRegistrarResultado(Afiliado afiliado)
         {
-            (padre as RegistroResultadoAtencion).setearAfiliado(afiliado);
+            (padre as ListadoConsultas).setearAfiliado(afiliado);
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 

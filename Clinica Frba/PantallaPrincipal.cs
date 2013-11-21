@@ -109,7 +109,7 @@ namespace Clinica_Frba
 
         private void button8_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new RegistroResultadoAtencion(this), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoConsultas(this, "Resultados"), this);
         }
 
         public void habilitarFuncionalidades() 

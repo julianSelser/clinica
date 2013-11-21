@@ -8,19 +8,22 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using Clinica_Frba.Generar_Receta;
+using Clinica_Frba.Registro_Resultado_Atencion;
 
-//Funcionalidad que permite registrar el diagnostico de la atencion medica por parte del profesional
-//una vez realizada la misma, ingresa sintomas y enfermedades del mismo si las hubiere
+//Listado que muestra las consultas para un profesional determinado.
+//Depende del string de funcion con la que se inicialize puede ser utilizado para registrar el resultado de una atención o generar una receta.
 
-namespace Clinica_Frba.Registro_Resultado_Atencion
+namespace Clinica_Frba.AppModel
 {
-    public partial class RegistroResultadoAtencion : Form
+    public partial class ListadoConsultas : Form
     {
         public Form padre;
         Profesional profesional;
         Afiliado afiliado;
+        string funcion;
 
-        public RegistroResultadoAtencion(Form padre)
+        public ListadoConsultas(Form padre, string funcion)
         {
             InitializeComponent();
             this.padre = padre;
@@ -33,6 +36,11 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
             }
             afiliado = new Afiliado();
             afiliado.nroAfiliado = 0;
+            this.funcion = funcion;
+            if (funcion == "Generar Receta")
+            {
+                checkConsultaSinResultado.Hide();
+            }
             validarCampos();
         }
 
@@ -56,7 +64,14 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
 
         private void cargarGrilla()
         {
-            AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text), checkConsultaSinResultado.Checked ));
+            if (funcion == "Generar Receta")
+            {
+                AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultasConResultados(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text)));
+            }
+            else
+            {
+                AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text), checkConsultaSinResultado.Checked));
+            }
             cargarBotonFuncionalidad();
         }
 
@@ -65,7 +80,7 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
             if (afiliado.nroAfiliado != 0 && !grillaTurnos.Columns.Contains("Seleccionar"))
             {
                 DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-                col.Text = "Resultados";
+                col.Text = funcion;
                 col.Name = "Seleccionar";
                 col.UseColumnTextForButtonValue = true;
                 grillaTurnos.Columns.Add(col);
@@ -131,9 +146,25 @@ namespace Clinica_Frba.Registro_Resultado_Atencion
                 if (e.ColumnIndex == grillaTurnos.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaTurnos.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
                 {
                     ConsultaMedica consulta = armarConsultaMedica(e.RowIndex);
-                    AsistenteVistas.mostrarNuevaVentana(new RegistrarDiagnostico(this, consulta), this);
+                    switch (funcion)
+                    {
+                        case "Generar Receta":
+                            setearGenerarReceta(consulta);
+                            AsistenteVistas.volverAPadreYCerrar(padre, this);
+                            break;
+                        default:
+                            AsistenteVistas.mostrarNuevaVentana(new RegistrarDiagnostico(this, consulta), this);
+                            break;
+                    }
+                    
                 }
             }
+        }
+
+        private void setearGenerarReceta(ConsultaMedica consulta)
+        {
+            (padre as GenerarReceta).setearConsulta(consulta);
+            (padre as GenerarReceta).setearAfiliado(afiliado);
         }
 
         private ConsultaMedica armarConsultaMedica(int fila)

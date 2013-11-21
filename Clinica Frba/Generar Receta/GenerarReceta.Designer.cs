@@ -64,6 +64,7 @@
             this.cancelButton.TabIndex = 7;
             this.cancelButton.Text = "Cancelar";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // aceptarButton
             // 
@@ -73,6 +74,7 @@
             this.aceptarButton.TabIndex = 6;
             this.aceptarButton.Text = "Aceptar";
             this.aceptarButton.UseVisualStyleBackColor = true;
+            this.aceptarButton.Click += new System.EventHandler(this.aceptarButton_Click);
             // 
             // consultaBox
             // 
@@ -81,6 +83,7 @@
             this.consultaBox.ReadOnly = true;
             this.consultaBox.Size = new System.Drawing.Size(72, 20);
             this.consultaBox.TabIndex = 8;
+            this.consultaBox.TextChanged += new System.EventHandler(this.consultaBox_TextChanged);
             // 
             // label1
             // 
@@ -199,7 +202,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(18, 34);
+            this.label3.Location = new System.Drawing.Point(13, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 22;
@@ -291,6 +294,7 @@
             this.selectConsultaButton.TabIndex = 28;
             this.selectConsultaButton.Text = "Seleccionar Consulta";
             this.selectConsultaButton.UseVisualStyleBackColor = true;
+            this.selectConsultaButton.Click += new System.EventHandler(this.selectConsultaButton_Click);
             // 
             // selecBonoButton
             // 
@@ -300,6 +304,7 @@
             this.selecBonoButton.TabIndex = 29;
             this.selecBonoButton.Text = "Seleccionar Bono";
             this.selecBonoButton.UseVisualStyleBackColor = true;
+            this.selecBonoButton.Click += new System.EventHandler(this.selecBonoButton_Click);
             // 
             // GenerarReceta
             // 

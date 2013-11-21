@@ -11,12 +11,17 @@ namespace Clinica_Frba.AppModel
     {
         public static DataTable traerConsultas(Afiliado afiliado, Profesional profesional, DateTime fechaAtencion, bool sinResultado)
         {
-            return traerDataTable("getConsultasMedicas", afiliado.nroAfiliado, profesional.id, fechaAtencion, sinResultado);
+            return traerDataTable("getConsultasMedicas", afiliado.nroAfiliado, profesional.id, fechaAtencion, sinResultado, false);
         }
 
         internal static void registrarResultado(ConsultaMedica consulta)
         {
             ejecutarProcedure("updateConsultaMedica", consulta.idConsulta, consulta.sintomas, consulta.enfermedades);
+        }
+
+        internal static DataTable traerConsultasConResultados(Afiliado afiliado, Profesional profesional, DateTime fechaAtencion)
+        {
+            return traerDataTable("getConsultasMedicas", afiliado.nroAfiliado, profesional.id, fechaAtencion, false, true);
         }
     }
 }

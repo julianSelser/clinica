@@ -1,6 +1,6 @@
-﻿namespace Clinica_Frba.Registro_Resultado_Atencion
+﻿namespace Clinica_Frba.AppModel
 {
-    partial class RegistroResultadoAtencion
+    partial class ListadoConsultas
     {
         /// <summary>
         /// Required designer variable.
