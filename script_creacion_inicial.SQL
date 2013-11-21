@@ -2582,6 +2582,33 @@ GO
 
 /****************** FIN PROCEDURES RESULTADOS ATENCION MEDICA *****************/
 
+/*************** PROCEDURES GENERAR RECETA *****************************/
+
+CREATE PROCEDURE CUATRO_QUESOS.getBonosFarmacia @nroAfiliado numeric(18), @fecha datetime
+AS
+SELECT Bonos.Numero 'Nro. de Bono', Bonos.Cod_Plan 'Codigo de Plan', 
+Bonos.Fecha_Impresion 'Fecha de Impresión', Bonos.Fecha_Vencimiento 'Fecha de Vencimiento',
+Bonos.Nro_Afiliado 'Nro. Afiliado Comprador'
+FROM CUATRO_QUESOS.Bonos 
+WHERE Bonos.Tipo_Bono = 'Farmacia' 
+AND EXISTS (
+SELECT * FROM CUATRO_QUESOS.Afiliados 
+WHERE Afiliados.Nro_Afiliado = @nroAfiliado 
+AND( Bonos.Nro_Afiliado = Afiliados.Nro_Afiliado 
+OR Bonos.Nro_Afiliado =  Afiliados.Nro_Conyuge
+OR Bonos.Nro_Afiliado = Afiliados.Nro_Titular) 
+)
+AND Bonos.Cod_Plan IN (
+SELECT Afiliados.Cod_Plan 
+FROM CUATRO_QUESOS.Afiliados 
+WHERE Afiliados.Nro_Afiliado = @nroAfiliado
+) 
+AND Bonos.Nro_Usuario IS NULL
+AND Bonos.Fecha_Vencimiento >= @fecha
+GO
+
+/*************** FIN PROCEDURE GENERAR RECETA****************************/
+
 IF @@ERROR != 0 ROLLBACK
 
 COMMIT

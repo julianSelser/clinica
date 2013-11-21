@@ -11,7 +11,7 @@ namespace Clinica_Frba.AppModel
     {
         internal static DataTable traerBonosFarmacia(Afiliado afiliado)
         {
-            throw new NotImplementedException();
+            return traerDataTable("getBonosFarmacia", afiliado.nroAfiliado, Globales.getFechaSistema());
         }
     }
 }
