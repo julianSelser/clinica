@@ -2607,6 +2607,12 @@ AND Bonos.Nro_Usuario IS NULL
 AND Bonos.Fecha_Vencimiento >= @fecha
 GO
 
+CREATE PROCEDURE CUATRO_QUESOS.traerMedicamentos
+AS
+SELECT Medicamentos.Id_Medicamento 'Nro. Medicamento', Medicamentos.Descripcion 'Nombre Medicamento'
+FROM CUATRO_QUESOS.Medicamentos
+GO
+
 /*************** FIN PROCEDURE GENERAR RECETA****************************/
 
 IF @@ERROR != 0 ROLLBACK
