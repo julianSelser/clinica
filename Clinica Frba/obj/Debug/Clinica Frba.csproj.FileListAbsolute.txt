@@ -57,7 +57,6 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Pedir_Turno.PedirTurno.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registrar_Agenda.RegistrarAgenda.resources
 C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registro_de_LLegada.RegistroLlegada.resources
-C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Registro_Resultado_Atencion.RegistroResultadoAtencion.resources
 C:\Users\Julio\Desktop\GestionTP\Clinica Frba\bin\Debug\Clinica Frba.exe
 C:\Users\Julio\Desktop\GestionTP\Clinica Frba\bin\Debug\Clinica Frba.pdb
 C:\Users\Julio\Desktop\GestionTP\Clinica Frba\obj\Debug\ResolveAssemblyReference.cache
@@ -148,3 +147,6 @@ C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.ListadoConsultas.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Generar_Receta.ElegirBonoFarmacia.resources
 C:\Users\Jonathan\Documents\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Generar_Receta.SeleccionarMedicamento.resources
+C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.AppModel.ListadoConsultas.resources
+C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Generar_Receta.ElegirBonoFarmacia.resources
+C:\Documents and Settings\Usuario\Mis documentos\GitHub\clinica\Clinica Frba\obj\Debug\Clinica_Frba.Generar_Receta.SeleccionarMedicamento.resources

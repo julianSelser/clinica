@@ -57,6 +57,7 @@
             // motivoTextBox
             // 
             this.motivoTextBox.Location = new System.Drawing.Point(20, 47);
+            this.motivoTextBox.MaxLength = 255;
             this.motivoTextBox.Multiline = true;
             this.motivoTextBox.Name = "motivoTextBox";
             this.motivoTextBox.Size = new System.Drawing.Size(245, 107);
