@@ -13,5 +13,10 @@ namespace Clinica_Frba.AppModel
         {
             return traerDataTable("getBonosFarmacia", afiliado.nroAfiliado, Globales.getFechaSistema());
         }
+
+        internal static DataTable traerMedicamentos(Medicamento medicamento)
+        {
+            return traerDataTable("traerMedicamentos", medicamento.nroMedicamento, medicamento.descripcion);
+        }
     }
 }

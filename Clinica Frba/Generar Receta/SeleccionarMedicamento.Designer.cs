@@ -37,6 +37,7 @@
             this.descripcionBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.nroMedicamentoBox = new System.Windows.Forms.TextBox();
+            this.buscarButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grillaMedicamentos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -46,12 +47,13 @@
             this.grillaMedicamentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaMedicamentos.Location = new System.Drawing.Point(12, 147);
             this.grillaMedicamentos.Name = "grillaMedicamentos";
-            this.grillaMedicamentos.Size = new System.Drawing.Size(516, 227);
+            this.grillaMedicamentos.Size = new System.Drawing.Size(655, 227);
             this.grillaMedicamentos.TabIndex = 14;
+            this.grillaMedicamentos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaMedicamentos_CellContentClick);
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(453, 380);
+            this.cancelButton.Location = new System.Drawing.Point(592, 380);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 15;
@@ -61,6 +63,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buscarButton);
             this.groupBox1.Controls.Add(this.errorBox);
             this.groupBox1.Controls.Add(this.limpiarButton);
             this.groupBox1.Controls.Add(this.label4);
@@ -69,14 +72,14 @@
             this.groupBox1.Controls.Add(this.nroMedicamentoBox);
             this.groupBox1.Location = new System.Drawing.Point(12, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(516, 115);
+            this.groupBox1.Size = new System.Drawing.Size(655, 115);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Medicamento";
             // 
             // errorBox
             // 
-            this.errorBox.Location = new System.Drawing.Point(239, 27);
+            this.errorBox.Location = new System.Drawing.Point(364, 24);
             this.errorBox.Multiline = true;
             this.errorBox.Name = "errorBox";
             this.errorBox.ReadOnly = true;
@@ -85,7 +88,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(427, 78);
+            this.limpiarButton.Location = new System.Drawing.Point(460, 78);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 27;
@@ -106,9 +109,9 @@
             // 
             this.descripcionBox.Location = new System.Drawing.Point(121, 62);
             this.descripcionBox.Name = "descripcionBox";
-            this.descripcionBox.ReadOnly = true;
-            this.descripcionBox.Size = new System.Drawing.Size(100, 20);
+            this.descripcionBox.Size = new System.Drawing.Size(204, 20);
             this.descripcionBox.TabIndex = 26;
+            this.descripcionBox.TextChanged += new System.EventHandler(this.descripcionBox_TextChanged);
             // 
             // label3
             // 
@@ -123,15 +126,25 @@
             // 
             this.nroMedicamentoBox.Location = new System.Drawing.Point(121, 27);
             this.nroMedicamentoBox.Name = "nroMedicamentoBox";
-            this.nroMedicamentoBox.ReadOnly = true;
-            this.nroMedicamentoBox.Size = new System.Drawing.Size(100, 20);
+            this.nroMedicamentoBox.Size = new System.Drawing.Size(204, 20);
             this.nroMedicamentoBox.TabIndex = 22;
+            this.nroMedicamentoBox.TextChanged += new System.EventHandler(this.nroMedicamentoBox_TextChanged);
+            // 
+            // buscarButton
+            // 
+            this.buscarButton.Location = new System.Drawing.Point(552, 78);
+            this.buscarButton.Name = "buscarButton";
+            this.buscarButton.Size = new System.Drawing.Size(75, 23);
+            this.buscarButton.TabIndex = 28;
+            this.buscarButton.Text = "Buscar";
+            this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // SeleccionarMedicamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(541, 412);
+            this.ClientSize = new System.Drawing.Size(679, 412);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.grillaMedicamentos);
@@ -155,5 +168,6 @@
         private System.Windows.Forms.TextBox descripcionBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox nroMedicamentoBox;
+        private System.Windows.Forms.Button buscarButton;
     }
 }

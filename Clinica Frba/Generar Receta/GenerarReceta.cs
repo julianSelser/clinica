@@ -17,6 +17,7 @@ namespace Clinica_Frba.Generar_Receta
         ConsultaMedica consulta;
         Afiliado afiliado;
         BonoFarmacia bono;
+        public Medicamento medicamento_aux { get; set; }
 
         public GenerarReceta(Form padre)
         {
@@ -88,8 +89,8 @@ namespace Clinica_Frba.Generar_Receta
         private void setearMedicamento(TextBox medicamentoBox)
         {
             Medicamento medicamento = new Medicamento();
-            AsistenteVistas.mostrarNuevaVentana(new SeleccionarMedicamento(this, medicamento), this);
-            medicamentoBox.Text = medicamento.descripcion;
+            (new SeleccionarMedicamento(this, medicamento)).ShowDialog();
+            medicamentoBox.Text = medicamento_aux.descripcion;
         }
 
         private void medicamentoBox2_TextChanged(object sender, EventArgs e)

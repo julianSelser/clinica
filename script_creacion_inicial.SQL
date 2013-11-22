@@ -2602,10 +2602,12 @@ AND Bonos.Nro_Usuario IS NULL
 AND Bonos.Fecha_Vencimiento >= @fecha
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.traerMedicamentos
+CREATE PROCEDURE CUATRO_QUESOS.traerMedicamentos @nroMedicamento numeric(18), @descripcion varchar(255)
 AS
-SELECT Medicamentos.Id_Medicamento 'Nro. Medicamento', Medicamentos.Descripcion 'Nombre Medicamento'
+SELECT Medicamentos.Id_Medicamento 'Nro. Medicamento', Medicamentos.Descripcion 'Descripcion Medicamento'
 FROM CUATRO_QUESOS.Medicamentos
+WHERE ((Medicamentos.Id_medicamento = @nroMedicamento AND @nroMedicamento >= 0)OR(@nroMedicamento < 0))
+AND Medicamentos.Descripcion LIKE '%'+ @descripcion + '%'
 GO
 
 /*************** FIN PROCEDURE GENERAR RECETA****************************/
