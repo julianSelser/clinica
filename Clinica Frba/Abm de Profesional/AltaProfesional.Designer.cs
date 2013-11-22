@@ -70,6 +70,7 @@
             // nombreBox
             // 
             this.nombreBox.Location = new System.Drawing.Point(136, 68);
+            this.nombreBox.MaxLength = 255;
             this.nombreBox.Name = "nombreBox";
             this.nombreBox.Size = new System.Drawing.Size(203, 20);
             this.nombreBox.TabIndex = 1;
@@ -87,6 +88,7 @@
             // apellidoBox
             // 
             this.apellidoBox.Location = new System.Drawing.Point(136, 94);
+            this.apellidoBox.MaxLength = 255;
             this.apellidoBox.Name = "apellidoBox";
             this.apellidoBox.Size = new System.Drawing.Size(203, 20);
             this.apellidoBox.TabIndex = 3;
@@ -127,6 +129,7 @@
             // nroDocBox
             // 
             this.nroDocBox.Location = new System.Drawing.Point(136, 154);
+            this.nroDocBox.MaxLength = 10;
             this.nroDocBox.Name = "nroDocBox";
             this.nroDocBox.Size = new System.Drawing.Size(203, 20);
             this.nroDocBox.TabIndex = 7;
@@ -144,6 +147,7 @@
             // direcBox
             // 
             this.direcBox.Location = new System.Drawing.Point(136, 181);
+            this.direcBox.MaxLength = 255;
             this.direcBox.Name = "direcBox";
             this.direcBox.Size = new System.Drawing.Size(203, 20);
             this.direcBox.TabIndex = 9;
@@ -161,6 +165,7 @@
             // telBox
             // 
             this.telBox.Location = new System.Drawing.Point(136, 208);
+            this.telBox.MaxLength = 10;
             this.telBox.Name = "telBox";
             this.telBox.Size = new System.Drawing.Size(203, 20);
             this.telBox.TabIndex = 11;
@@ -205,6 +210,7 @@
             // mailBox
             // 
             this.mailBox.Location = new System.Drawing.Point(136, 232);
+            this.mailBox.MaxLength = 255;
             this.mailBox.Name = "mailBox";
             this.mailBox.Size = new System.Drawing.Size(203, 20);
             this.mailBox.TabIndex = 21;
@@ -213,6 +219,7 @@
             // matriculaBox
             // 
             this.matriculaBox.Location = new System.Drawing.Point(139, 313);
+            this.matriculaBox.MaxLength = 10;
             this.matriculaBox.Name = "matriculaBox";
             this.matriculaBox.Size = new System.Drawing.Size(200, 20);
             this.matriculaBox.TabIndex = 23;

@@ -82,6 +82,7 @@
             // mail
             // 
             this.mail.Location = new System.Drawing.Point(397, 101);
+            this.mail.MaxLength = 255;
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(163, 20);
             this.mail.TabIndex = 125;
@@ -144,6 +145,7 @@
             // telefono
             // 
             this.telefono.Location = new System.Drawing.Point(145, 215);
+            this.telefono.MaxLength = 10;
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(100, 20);
             this.telefono.TabIndex = 115;
@@ -161,6 +163,7 @@
             // direccion
             // 
             this.direccion.Location = new System.Drawing.Point(145, 188);
+            this.direccion.MaxLength = 255;
             this.direccion.Name = "direccion";
             this.direccion.Size = new System.Drawing.Size(100, 20);
             this.direccion.TabIndex = 113;
@@ -178,6 +181,7 @@
             // nroDoc
             // 
             this.nroDoc.Location = new System.Drawing.Point(145, 161);
+            this.nroDoc.MaxLength = 10;
             this.nroDoc.Name = "nroDoc";
             this.nroDoc.Size = new System.Drawing.Size(100, 20);
             this.nroDoc.TabIndex = 111;
@@ -201,6 +205,7 @@
             "LE",
             "LC"});
             this.tipoDoc.Location = new System.Drawing.Point(145, 129);
+            this.tipoDoc.MaxLength = 3;
             this.tipoDoc.Name = "tipoDoc";
             this.tipoDoc.Size = new System.Drawing.Size(100, 21);
             this.tipoDoc.TabIndex = 109;
@@ -218,6 +223,7 @@
             // apellido
             // 
             this.apellido.Location = new System.Drawing.Point(145, 101);
+            this.apellido.MaxLength = 255;
             this.apellido.Name = "apellido";
             this.apellido.Size = new System.Drawing.Size(100, 20);
             this.apellido.TabIndex = 107;
@@ -235,6 +241,7 @@
             // nombre
             // 
             this.nombre.Location = new System.Drawing.Point(145, 75);
+            this.nombre.MaxLength = 255;
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(100, 20);
             this.nombre.TabIndex = 105;
@@ -268,6 +275,7 @@
             // cantFamiliares
             // 
             this.cantFamiliares.Location = new System.Drawing.Point(513, 193);
+            this.cantFamiliares.MaxLength = 2;
             this.cantFamiliares.Name = "cantFamiliares";
             this.cantFamiliares.Size = new System.Drawing.Size(47, 20);
             this.cantFamiliares.TabIndex = 140;

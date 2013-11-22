@@ -60,6 +60,7 @@
             // cantFamiliaresBox
             // 
             this.cantFamiliaresBox.Location = new System.Drawing.Point(548, 131);
+            this.cantFamiliaresBox.MaxLength = 2;
             this.cantFamiliaresBox.Name = "cantFamiliaresBox";
             this.cantFamiliaresBox.Size = new System.Drawing.Size(47, 20);
             this.cantFamiliaresBox.TabIndex = 169;
@@ -104,6 +105,7 @@
             // mailBox
             // 
             this.mailBox.Location = new System.Drawing.Point(99, 165);
+            this.mailBox.MaxLength = 255;
             this.mailBox.Name = "mailBox";
             this.mailBox.Size = new System.Drawing.Size(229, 20);
             this.mailBox.TabIndex = 165;
@@ -148,6 +150,7 @@
             // telBox
             // 
             this.telBox.Location = new System.Drawing.Point(99, 134);
+            this.telBox.MaxLength = 10;
             this.telBox.Name = "telBox";
             this.telBox.Size = new System.Drawing.Size(229, 20);
             this.telBox.TabIndex = 158;
@@ -165,6 +168,7 @@
             // direcBox
             // 
             this.direcBox.Location = new System.Drawing.Point(99, 104);
+            this.direcBox.MaxLength = 255;
             this.direcBox.Name = "direcBox";
             this.direcBox.Size = new System.Drawing.Size(229, 20);
             this.direcBox.TabIndex = 156;

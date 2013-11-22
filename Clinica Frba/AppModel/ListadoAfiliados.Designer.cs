@@ -85,6 +85,7 @@
             // nombreBox
             // 
             this.nombreBox.Location = new System.Drawing.Point(64, 26);
+            this.nombreBox.MaxLength = 255;
             this.nombreBox.Name = "nombreBox";
             this.nombreBox.Size = new System.Drawing.Size(100, 20);
             this.nombreBox.TabIndex = 4;
@@ -93,6 +94,7 @@
             // apellidoBox
             // 
             this.apellidoBox.Location = new System.Drawing.Point(64, 58);
+            this.apellidoBox.MaxLength = 255;
             this.apellidoBox.Name = "apellidoBox";
             this.apellidoBox.Size = new System.Drawing.Size(100, 20);
             this.apellidoBox.TabIndex = 5;
@@ -111,6 +113,7 @@
             // nroAfiliadoRaizBox
             // 
             this.nroAfiliadoRaizBox.Location = new System.Drawing.Point(299, 26);
+            this.nroAfiliadoRaizBox.MaxLength = 10;
             this.nroAfiliadoRaizBox.Name = "nroAfiliadoRaizBox";
             this.nroAfiliadoRaizBox.Size = new System.Drawing.Size(100, 20);
             this.nroAfiliadoRaizBox.TabIndex = 7;

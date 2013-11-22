@@ -55,6 +55,7 @@
             // direcBox
             // 
             this.direcBox.Location = new System.Drawing.Point(99, 129);
+            this.direcBox.MaxLength = 255;
             this.direcBox.Name = "direcBox";
             this.direcBox.Size = new System.Drawing.Size(174, 20);
             this.direcBox.TabIndex = 9;
@@ -72,6 +73,7 @@
             // telBox
             // 
             this.telBox.Location = new System.Drawing.Point(99, 170);
+            this.telBox.MaxLength = 10;
             this.telBox.Name = "telBox";
             this.telBox.Size = new System.Drawing.Size(174, 20);
             this.telBox.TabIndex = 11;
@@ -89,6 +91,7 @@
             // mailBox
             // 
             this.mailBox.Location = new System.Drawing.Point(99, 209);
+            this.mailBox.MaxLength = 255;
             this.mailBox.Name = "mailBox";
             this.mailBox.Size = new System.Drawing.Size(174, 20);
             this.mailBox.TabIndex = 21;
