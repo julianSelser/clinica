@@ -218,9 +218,6 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_U
 alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional
 ;
 
-alter table CUATRO_QUESOS.Medicamentos_Por_Consulta drop constraint verificarCantidadMedicamentoIndividual
-;
-
 -- Drop Tables, Stored Procedures and Views
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Afiliados') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)

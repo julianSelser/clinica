@@ -23,7 +23,7 @@ namespace Clinica_Frba.AppModel
         {
             foreach(Medicamento medicamento in medicamentosDeLaReceta)
             {
-                ejecutarProcedure("registrarReceta", afiliado.nroAfiliado, consulta.idConsulta, bono.numero, medicamento.nroMedicamento, medicamento.cantidad);
+                ejecutarProcedure("registrarReceta", afiliado.nroAfiliado, consulta.idConsulta, bono.numero, medicamento.nroMedicamento, medicamento.cantidad, Globales.getFechaSistema());
             }
         }
     }

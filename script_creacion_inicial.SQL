@@ -36,6 +36,7 @@ CREATE TABLE CUATRO_QUESOS.Bonos (
         Id_Compra numeric(18),
         Tipo_Bono varchar(255) NOT NULL,
         Fecha_Vencimiento datetime,
+        Fecha_Prescripcion_Medica datetime DEFAULT NULL, 
         Nro_Consulta int,
         Nro_Usuario numeric(18)
 )
@@ -2615,7 +2616,8 @@ CREATE PROCEDURE CUATRO_QUESOS.registrarReceta
 @idConsulta numeric(18), 
 @nroBonoFarmacia numeric(18),
 @idMedicamento numeric(18), 
-@cantidad int
+@cantidad int,
+@fecha datetime
 AS
 BEGIN TRAN
 INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta(Id_Consulta, Id_Medicamento, Nro_Bono_Farmacia, Cantidad, Tipo_Bono)
@@ -2628,7 +2630,7 @@ VALUES (
 )
 
 UPDATE CUATRO_QUESOS.Bonos
-SET Bonos.Nro_Usuario = @nroAfiliado
+SET Bonos.Nro_Usuario = @nroAfiliado, Fecha_Prescripcion_Medica = @fecha
 WHERE Bonos.Nro_Usuario IS NULL 
 AND Bonos.Tipo_Bono = 'Farmacia' 
 AND Bonos.Numero = @nroBonoFarmacia
