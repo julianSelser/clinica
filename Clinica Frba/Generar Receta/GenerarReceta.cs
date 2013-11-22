@@ -72,17 +72,18 @@ namespace Clinica_Frba.Generar_Receta
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
-                List<Medicamento> medicamentosEnNull = new List<Medicamento>(); ;
-                foreach (Medicamento medicamento in medicamentosDeLaReceta)
-                {
-                    if (medicamento.cantidad == 0) medicamentosEnNull.Add(medicamento);
-                }
-                foreach (Medicamento medicamentoEnNull in medicamentosEnNull)
-                {
-                    medicamentosDeLaReceta.Remove(medicamentoEnNull);
-                }
-                AppReceta.registrarReceta(afiliado, consulta, bono, medicamentosDeLaReceta); //genero la receta y la persisto
-                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            List<Medicamento> medicamentosEnNull = new List<Medicamento>(); ;
+            foreach (Medicamento medicamento in medicamentosDeLaReceta)
+            {
+                if (medicamento.cantidad == 0) medicamentosEnNull.Add(medicamento);
+            }
+            foreach (Medicamento medicamentoEnNull in medicamentosEnNull)
+            {
+                medicamentosDeLaReceta.Remove(medicamentoEnNull);
+            }
+            AppReceta.registrarReceta(afiliado, consulta, bono, medicamentosDeLaReceta); //genero la receta y la persisto
+            MessageBox.Show("La receta médica se ha generado con éxito.");
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private void consultaBox_TextChanged(object sender, EventArgs e)
