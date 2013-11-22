@@ -30,6 +30,10 @@
         {
             this.SuspendLayout();
             // 
+            // motivoTextBox
+            // 
+            this.motivoTextBox.MaxLength = 255;
+            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(28, 20);

@@ -128,6 +128,7 @@
             // nroDocTextBox
             // 
             this.nroDocTextBox.Location = new System.Drawing.Point(93, 39);
+            this.nroDocTextBox.MaxLength = 10;
             this.nroDocTextBox.Name = "nroDocTextBox";
             this.nroDocTextBox.Size = new System.Drawing.Size(106, 20);
             this.nroDocTextBox.TabIndex = 13;
@@ -135,6 +136,7 @@
             // nombreTextBox
             // 
             this.nombreTextBox.Location = new System.Drawing.Point(93, 15);
+            this.nombreTextBox.MaxLength = 255;
             this.nombreTextBox.Name = "nombreTextBox";
             this.nombreTextBox.Size = new System.Drawing.Size(106, 20);
             this.nombreTextBox.TabIndex = 12;

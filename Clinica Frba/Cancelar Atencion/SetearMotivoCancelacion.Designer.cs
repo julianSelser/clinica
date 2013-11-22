@@ -30,6 +30,10 @@
         {
             this.SuspendLayout();
             // 
+            // motivoTextBox
+            // 
+            this.motivoTextBox.MaxLength = 255;
+            // 
             // SetearMotivoCancelacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
