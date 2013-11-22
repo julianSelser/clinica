@@ -223,6 +223,7 @@
     <Compile Include="Domain\ConsultaMedica.cs" />
     <Compile Include="Domain\EspecialidadMedica.cs" />
     <Compile Include="Domain\Funcionalidad.cs" />
+    <Compile Include="Domain\Medicamento.cs" />
     <Compile Include="Domain\ModoAfiliado.cs" />
     <Compile Include="Domain\Persona.cs" />
     <Compile Include="Domain\PlanMedico.cs" />
@@ -241,6 +242,12 @@
     </Compile>
     <Compile Include="Generar Receta\GenerarReceta.Designer.cs">
       <DependentUpon>GenerarReceta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Receta\SeleccionarMedicamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Receta\SeleccionarMedicamento.Designer.cs">
+      <DependentUpon>SeleccionarMedicamento.cs</DependentUpon>
     </Compile>
     <Compile Include="Listados Estadisticos\MostrarListado.cs">
       <SubType>Form</SubType>
@@ -375,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Receta\GenerarReceta.resx">
       <DependentUpon>GenerarReceta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Receta\SeleccionarMedicamento.resx">
+      <DependentUpon>SeleccionarMedicamento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listados Estadisticos\ListadosEstadisticos.resx">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>

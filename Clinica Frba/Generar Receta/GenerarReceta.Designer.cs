@@ -39,6 +39,16 @@
             this.limpiarButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.selecMedicamento5 = new System.Windows.Forms.Button();
+            this.selecMedicamento4 = new System.Windows.Forms.Button();
+            this.selecMedicamento3 = new System.Windows.Forms.Button();
+            this.selecMedicamento2 = new System.Windows.Forms.Button();
+            this.selecMedicamento1 = new System.Windows.Forms.Button();
+            this.medicamentoBox5 = new System.Windows.Forms.TextBox();
+            this.medicamentoBox4 = new System.Windows.Forms.TextBox();
+            this.medicamentoBox3 = new System.Windows.Forms.TextBox();
+            this.medicamentoBox2 = new System.Windows.Forms.TextBox();
+            this.medicamentoBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboCantidad1 = new System.Windows.Forms.ComboBox();
@@ -47,16 +57,6 @@
             this.comboCantidad3 = new System.Windows.Forms.ComboBox();
             this.comboCantidad2 = new System.Windows.Forms.ComboBox();
             this.errorBox = new System.Windows.Forms.TextBox();
-            this.medicamentoBox1 = new System.Windows.Forms.TextBox();
-            this.medicamentoBox2 = new System.Windows.Forms.TextBox();
-            this.medicamentoBox3 = new System.Windows.Forms.TextBox();
-            this.medicamentoBox4 = new System.Windows.Forms.TextBox();
-            this.medicamentoBox5 = new System.Windows.Forms.TextBox();
-            this.selecMedicamento1 = new System.Windows.Forms.Button();
-            this.selecMedicamento2 = new System.Windows.Forms.Button();
-            this.selecMedicamento3 = new System.Windows.Forms.Button();
-            this.selecMedicamento4 = new System.Windows.Forms.Button();
-            this.selecMedicamento5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -151,6 +151,7 @@
             this.limpiarButton.TabIndex = 27;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // label2
             // 
@@ -187,6 +188,101 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Receta";
             // 
+            // selecMedicamento5
+            // 
+            this.selecMedicamento5.Location = new System.Drawing.Point(261, 166);
+            this.selecMedicamento5.Name = "selecMedicamento5";
+            this.selecMedicamento5.Size = new System.Drawing.Size(142, 23);
+            this.selecMedicamento5.TabIndex = 41;
+            this.selecMedicamento5.Text = "Seleccionar Medicamento";
+            this.selecMedicamento5.UseVisualStyleBackColor = true;
+            this.selecMedicamento5.Click += new System.EventHandler(this.selecMedicamento5_Click);
+            // 
+            // selecMedicamento4
+            // 
+            this.selecMedicamento4.Location = new System.Drawing.Point(261, 139);
+            this.selecMedicamento4.Name = "selecMedicamento4";
+            this.selecMedicamento4.Size = new System.Drawing.Size(142, 23);
+            this.selecMedicamento4.TabIndex = 40;
+            this.selecMedicamento4.Text = "Seleccionar Medicamento";
+            this.selecMedicamento4.UseVisualStyleBackColor = true;
+            this.selecMedicamento4.Click += new System.EventHandler(this.selecMedicamento4_Click);
+            // 
+            // selecMedicamento3
+            // 
+            this.selecMedicamento3.Location = new System.Drawing.Point(261, 115);
+            this.selecMedicamento3.Name = "selecMedicamento3";
+            this.selecMedicamento3.Size = new System.Drawing.Size(142, 23);
+            this.selecMedicamento3.TabIndex = 39;
+            this.selecMedicamento3.Text = "Seleccionar Medicamento";
+            this.selecMedicamento3.UseVisualStyleBackColor = true;
+            this.selecMedicamento3.Click += new System.EventHandler(this.selecMedicamento3_Click);
+            // 
+            // selecMedicamento2
+            // 
+            this.selecMedicamento2.Location = new System.Drawing.Point(261, 90);
+            this.selecMedicamento2.Name = "selecMedicamento2";
+            this.selecMedicamento2.Size = new System.Drawing.Size(142, 23);
+            this.selecMedicamento2.TabIndex = 38;
+            this.selecMedicamento2.Text = "Seleccionar Medicamento";
+            this.selecMedicamento2.UseVisualStyleBackColor = true;
+            this.selecMedicamento2.Click += new System.EventHandler(this.selecMedicamento2_Click);
+            // 
+            // selecMedicamento1
+            // 
+            this.selecMedicamento1.Location = new System.Drawing.Point(261, 61);
+            this.selecMedicamento1.Name = "selecMedicamento1";
+            this.selecMedicamento1.Size = new System.Drawing.Size(142, 23);
+            this.selecMedicamento1.TabIndex = 37;
+            this.selecMedicamento1.Text = "Seleccionar Medicamento";
+            this.selecMedicamento1.UseVisualStyleBackColor = true;
+            this.selecMedicamento1.Click += new System.EventHandler(this.selecMedicamento1_Click);
+            // 
+            // medicamentoBox5
+            // 
+            this.medicamentoBox5.Location = new System.Drawing.Point(16, 168);
+            this.medicamentoBox5.Name = "medicamentoBox5";
+            this.medicamentoBox5.ReadOnly = true;
+            this.medicamentoBox5.Size = new System.Drawing.Size(239, 20);
+            this.medicamentoBox5.TabIndex = 36;
+            this.medicamentoBox5.TextChanged += new System.EventHandler(this.medicamentoBox5_TextChanged);
+            // 
+            // medicamentoBox4
+            // 
+            this.medicamentoBox4.Location = new System.Drawing.Point(16, 142);
+            this.medicamentoBox4.Name = "medicamentoBox4";
+            this.medicamentoBox4.ReadOnly = true;
+            this.medicamentoBox4.Size = new System.Drawing.Size(239, 20);
+            this.medicamentoBox4.TabIndex = 35;
+            this.medicamentoBox4.TextChanged += new System.EventHandler(this.medicamentoBox4_TextChanged);
+            // 
+            // medicamentoBox3
+            // 
+            this.medicamentoBox3.Location = new System.Drawing.Point(16, 116);
+            this.medicamentoBox3.Name = "medicamentoBox3";
+            this.medicamentoBox3.ReadOnly = true;
+            this.medicamentoBox3.Size = new System.Drawing.Size(239, 20);
+            this.medicamentoBox3.TabIndex = 34;
+            this.medicamentoBox3.TextChanged += new System.EventHandler(this.medicamentoBox3_TextChanged);
+            // 
+            // medicamentoBox2
+            // 
+            this.medicamentoBox2.Location = new System.Drawing.Point(16, 89);
+            this.medicamentoBox2.Name = "medicamentoBox2";
+            this.medicamentoBox2.ReadOnly = true;
+            this.medicamentoBox2.Size = new System.Drawing.Size(239, 20);
+            this.medicamentoBox2.TabIndex = 33;
+            this.medicamentoBox2.TextChanged += new System.EventHandler(this.medicamentoBox2_TextChanged);
+            // 
+            // medicamentoBox1
+            // 
+            this.medicamentoBox1.Location = new System.Drawing.Point(16, 62);
+            this.medicamentoBox1.Name = "medicamentoBox1";
+            this.medicamentoBox1.ReadOnly = true;
+            this.medicamentoBox1.Size = new System.Drawing.Size(239, 20);
+            this.medicamentoBox1.TabIndex = 32;
+            this.medicamentoBox1.TextChanged += new System.EventHandler(this.medicamentoBox1_TextChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -218,6 +314,7 @@
             this.comboCantidad1.Name = "comboCantidad1";
             this.comboCantidad1.Size = new System.Drawing.Size(37, 21);
             this.comboCantidad1.TabIndex = 15;
+            this.comboCantidad1.SelectedIndexChanged += new System.EventHandler(this.comboCantidad1_SelectedIndexChanged);
             // 
             // comboCantidad5
             // 
@@ -230,6 +327,7 @@
             this.comboCantidad5.Name = "comboCantidad5";
             this.comboCantidad5.Size = new System.Drawing.Size(37, 21);
             this.comboCantidad5.TabIndex = 30;
+            this.comboCantidad5.SelectedIndexChanged += new System.EventHandler(this.comboCantidad5_SelectedIndexChanged);
             // 
             // comboCantidad4
             // 
@@ -242,6 +340,7 @@
             this.comboCantidad4.Name = "comboCantidad4";
             this.comboCantidad4.Size = new System.Drawing.Size(37, 21);
             this.comboCantidad4.TabIndex = 29;
+            this.comboCantidad4.SelectedIndexChanged += new System.EventHandler(this.comboCantidad4_SelectedIndexChanged);
             // 
             // comboCantidad3
             // 
@@ -254,6 +353,7 @@
             this.comboCantidad3.Name = "comboCantidad3";
             this.comboCantidad3.Size = new System.Drawing.Size(37, 21);
             this.comboCantidad3.TabIndex = 28;
+            this.comboCantidad3.SelectedIndexChanged += new System.EventHandler(this.comboCantidad3_SelectedIndexChanged);
             // 
             // comboCantidad2
             // 
@@ -266,6 +366,7 @@
             this.comboCantidad2.Name = "comboCantidad2";
             this.comboCantidad2.Size = new System.Drawing.Size(37, 21);
             this.comboCantidad2.TabIndex = 27;
+            this.comboCantidad2.SelectedIndexChanged += new System.EventHandler(this.comboCantidad2_SelectedIndexChanged);
             // 
             // errorBox
             // 
@@ -275,91 +376,6 @@
             this.errorBox.ReadOnly = true;
             this.errorBox.Size = new System.Drawing.Size(479, 39);
             this.errorBox.TabIndex = 26;
-            // 
-            // medicamentoBox1
-            // 
-            this.medicamentoBox1.Location = new System.Drawing.Point(16, 62);
-            this.medicamentoBox1.Name = "medicamentoBox1";
-            this.medicamentoBox1.ReadOnly = true;
-            this.medicamentoBox1.Size = new System.Drawing.Size(239, 20);
-            this.medicamentoBox1.TabIndex = 32;
-            // 
-            // medicamentoBox2
-            // 
-            this.medicamentoBox2.Location = new System.Drawing.Point(16, 89);
-            this.medicamentoBox2.Name = "medicamentoBox2";
-            this.medicamentoBox2.ReadOnly = true;
-            this.medicamentoBox2.Size = new System.Drawing.Size(239, 20);
-            this.medicamentoBox2.TabIndex = 33;
-            // 
-            // medicamentoBox3
-            // 
-            this.medicamentoBox3.Location = new System.Drawing.Point(16, 116);
-            this.medicamentoBox3.Name = "medicamentoBox3";
-            this.medicamentoBox3.ReadOnly = true;
-            this.medicamentoBox3.Size = new System.Drawing.Size(239, 20);
-            this.medicamentoBox3.TabIndex = 34;
-            // 
-            // medicamentoBox4
-            // 
-            this.medicamentoBox4.Location = new System.Drawing.Point(16, 142);
-            this.medicamentoBox4.Name = "medicamentoBox4";
-            this.medicamentoBox4.ReadOnly = true;
-            this.medicamentoBox4.Size = new System.Drawing.Size(239, 20);
-            this.medicamentoBox4.TabIndex = 35;
-            // 
-            // medicamentoBox5
-            // 
-            this.medicamentoBox5.Location = new System.Drawing.Point(16, 168);
-            this.medicamentoBox5.Name = "medicamentoBox5";
-            this.medicamentoBox5.ReadOnly = true;
-            this.medicamentoBox5.Size = new System.Drawing.Size(239, 20);
-            this.medicamentoBox5.TabIndex = 36;
-            // 
-            // selecMedicamento1
-            // 
-            this.selecMedicamento1.Location = new System.Drawing.Point(261, 61);
-            this.selecMedicamento1.Name = "selecMedicamento1";
-            this.selecMedicamento1.Size = new System.Drawing.Size(142, 23);
-            this.selecMedicamento1.TabIndex = 37;
-            this.selecMedicamento1.Text = "Seleccionar Medicamento";
-            this.selecMedicamento1.UseVisualStyleBackColor = true;
-            // 
-            // selecMedicamento2
-            // 
-            this.selecMedicamento2.Location = new System.Drawing.Point(261, 90);
-            this.selecMedicamento2.Name = "selecMedicamento2";
-            this.selecMedicamento2.Size = new System.Drawing.Size(142, 23);
-            this.selecMedicamento2.TabIndex = 38;
-            this.selecMedicamento2.Text = "Seleccionar Medicamento";
-            this.selecMedicamento2.UseVisualStyleBackColor = true;
-            // 
-            // selecMedicamento3
-            // 
-            this.selecMedicamento3.Location = new System.Drawing.Point(261, 115);
-            this.selecMedicamento3.Name = "selecMedicamento3";
-            this.selecMedicamento3.Size = new System.Drawing.Size(142, 23);
-            this.selecMedicamento3.TabIndex = 39;
-            this.selecMedicamento3.Text = "Seleccionar Medicamento";
-            this.selecMedicamento3.UseVisualStyleBackColor = true;
-            // 
-            // selecMedicamento4
-            // 
-            this.selecMedicamento4.Location = new System.Drawing.Point(261, 139);
-            this.selecMedicamento4.Name = "selecMedicamento4";
-            this.selecMedicamento4.Size = new System.Drawing.Size(142, 23);
-            this.selecMedicamento4.TabIndex = 40;
-            this.selecMedicamento4.Text = "Seleccionar Medicamento";
-            this.selecMedicamento4.UseVisualStyleBackColor = true;
-            // 
-            // selecMedicamento5
-            // 
-            this.selecMedicamento5.Location = new System.Drawing.Point(261, 166);
-            this.selecMedicamento5.Name = "selecMedicamento5";
-            this.selecMedicamento5.Size = new System.Drawing.Size(142, 23);
-            this.selecMedicamento5.TabIndex = 41;
-            this.selecMedicamento5.Text = "Seleccionar Medicamento";
-            this.selecMedicamento5.UseVisualStyleBackColor = true;
             // 
             // GenerarReceta
             // 
