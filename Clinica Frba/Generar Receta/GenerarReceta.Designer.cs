@@ -106,7 +106,6 @@
             this.bonoBox.ReadOnly = true;
             this.bonoBox.Size = new System.Drawing.Size(72, 20);
             this.bonoBox.TabIndex = 20;
-            this.bonoBox.TextChanged += new System.EventHandler(this.bonoBox_TextChanged);
             // 
             // groupBox1
             // 

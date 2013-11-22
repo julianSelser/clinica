@@ -9,18 +9,18 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
-//Esta vista permite seleccionar un medicamento, filtrando por nro de medicamento o descripcion contiene
-
 namespace Clinica_Frba.Generar_Receta
 {
     public partial class SeleccionarMedicamento : Form
     {
         Form padre;
+        Medicamento medicamentoReceta;
 
-        public SeleccionarMedicamento(Form padre)
+        public SeleccionarMedicamento(Form padre, Medicamento medicamentoReceta)
         {
             InitializeComponent();
             this.padre = padre;
+            this.medicamentoReceta = medicamentoReceta;
             cargarGrilla();
             cargarBotonFuncionalidad();
         }

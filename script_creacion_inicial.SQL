@@ -2610,32 +2610,6 @@ WHERE ((Medicamentos.Id_medicamento = @nroMedicamento AND @nroMedicamento >= 0)O
 AND Medicamentos.Descripcion LIKE '%'+ @descripcion + '%'
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.registrarReceta 
-@nroAfiliado numeric(18),
-@idConsulta numeric(18), 
-@nroBonoFarmacia numeric(18),
-@idMedicamento numeric(18), 
-@cantidad int
-AS
-BEGIN TRAN
-INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta(Id_Consulta, Id_Medicamento, Nro_Bono_Farmacia, Cantidad, Tipo_Bono)
-VALUES (
-@idConsulta, 
-@idMedicamento, 
-@nroBonoFarmacia, 
-(CASE WHEN @cantidad = 1 THEN '1 (UNO)' WHEN @cantidad = 2 THEN '2 (DOS)' ELSE '3 (TRES)' END),
-'Farmacia'
-)
-
-UPDATE CUATRO_QUESOS.Bonos
-SET Bonos.Nro_Usuario = @nroAfiliado
-WHERE Bonos.Nro_Usuario IS NULL 
-AND Bonos.Tipo_Bono = 'Farmacia' 
-AND Bonos.Numero = @nroBonoFarmacia
-
-COMMIT
-GO
-
 /*************** FIN PROCEDURE GENERAR RECETA****************************/
 
 IF @@ERROR != 0 ROLLBACK

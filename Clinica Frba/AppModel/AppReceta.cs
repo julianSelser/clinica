@@ -18,13 +18,5 @@ namespace Clinica_Frba.AppModel
         {
             return traerDataTable("traerMedicamentos", medicamento.nroMedicamento, medicamento.descripcion);
         }
-
-        internal static void registrarReceta(Afiliado afiliado, ConsultaMedica consulta, BonoFarmacia bono, List<Medicamento> medicamentosDeLaReceta)
-        {
-            foreach(Medicamento medicamento in medicamentosDeLaReceta)
-            {
-                ejecutarProcedure("registrarReceta", afiliado.nroAfiliado, consulta.idConsulta, bono.numero, medicamento.nroMedicamento, medicamento.cantidad);
-            }
-        }
     }
 }
