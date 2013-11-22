@@ -129,8 +129,8 @@ CREATE TABLE CUATRO_QUESOS.Medicamentos_Por_Consulta (
         Id_Consulta numeric(18) NOT NULL,
         Id_Medicamento numeric(18) NOT NULL,
         Nro_Bono_Farmacia numeric(18) NOT NULL,
-        Cantidad varchar(255) NOT NULL, --Segun el enunciado debe ser la cantidad en numero seguido la cantidad en letras, puede ir de 1 a 3
-        Tipo_Bono varchar(255)
+        Cantidad varchar(255) NOT NULL CHECK(Cantidad = '1 (UNO)' OR Cantidad = '2 (DOS)' OR Cantidad = '3 (TRES)'), --Segun el enunciado debe ser la cantidad en numero seguido la cantidad en letras, puede ir de 1 a 3
+        Tipo_Bono varchar(255),
 )
 ;
 
@@ -486,11 +486,6 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Us
 --constraint para verificar que la agenda profesional sea de 120 días como máximo
 alter table CUATRO_QUESOS.Medicos add constraint limitarAgendaProfesional
                 check (datediff(day, fecha_atencion_desde, fecha_atencion_hasta) <= 120)
-
---constraint para verificar que no se recete más de 3 instancias del mismo medicamento
-alter table CUATRO_QUESOS.Medicamentos_Por_Consulta add constraint verificarCantidadMedicamentoIndividual
-        check (Cantidad <=3)
-
 
 /* ****** Migrar datos existentes ******* */
 
