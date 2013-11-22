@@ -39,6 +39,7 @@
             // usrNameTextBox
             // 
             this.usrNameTextBox.Location = new System.Drawing.Point(98, 21);
+            this.usrNameTextBox.MaxLength = 255;
             this.usrNameTextBox.Name = "usrNameTextBox";
             this.usrNameTextBox.Size = new System.Drawing.Size(160, 20);
             this.usrNameTextBox.TabIndex = 0;
@@ -46,6 +47,7 @@
             // passTextBox
             // 
             this.passTextBox.Location = new System.Drawing.Point(98, 47);
+            this.passTextBox.MaxLength = 255;
             this.passTextBox.Name = "passTextBox";
             this.passTextBox.Size = new System.Drawing.Size(160, 20);
             this.passTextBox.TabIndex = 1;

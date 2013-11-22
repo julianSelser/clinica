@@ -31,13 +31,13 @@
             this.grillaMedicamentos = new System.Windows.Forms.DataGridView();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buscarButton = new System.Windows.Forms.Button();
             this.errorBox = new System.Windows.Forms.TextBox();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.descripcionBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.nroMedicamentoBox = new System.Windows.Forms.TextBox();
-            this.buscarButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grillaMedicamentos)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +77,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Medicamento";
             // 
+            // buscarButton
+            // 
+            this.buscarButton.Location = new System.Drawing.Point(552, 78);
+            this.buscarButton.Name = "buscarButton";
+            this.buscarButton.Size = new System.Drawing.Size(75, 23);
+            this.buscarButton.TabIndex = 28;
+            this.buscarButton.Text = "Buscar";
+            this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
+            // 
             // errorBox
             // 
             this.errorBox.Location = new System.Drawing.Point(364, 24);
@@ -108,6 +118,7 @@
             // descripcionBox
             // 
             this.descripcionBox.Location = new System.Drawing.Point(121, 62);
+            this.descripcionBox.MaxLength = 255;
             this.descripcionBox.Name = "descripcionBox";
             this.descripcionBox.Size = new System.Drawing.Size(204, 20);
             this.descripcionBox.TabIndex = 26;
@@ -125,20 +136,11 @@
             // nroMedicamentoBox
             // 
             this.nroMedicamentoBox.Location = new System.Drawing.Point(121, 27);
+            this.nroMedicamentoBox.MaxLength = 10;
             this.nroMedicamentoBox.Name = "nroMedicamentoBox";
             this.nroMedicamentoBox.Size = new System.Drawing.Size(204, 20);
             this.nroMedicamentoBox.TabIndex = 22;
             this.nroMedicamentoBox.TextChanged += new System.EventHandler(this.nroMedicamentoBox_TextChanged);
-            // 
-            // buscarButton
-            // 
-            this.buscarButton.Location = new System.Drawing.Point(552, 78);
-            this.buscarButton.Name = "buscarButton";
-            this.buscarButton.Size = new System.Drawing.Size(75, 23);
-            this.buscarButton.TabIndex = 28;
-            this.buscarButton.Text = "Buscar";
-            this.buscarButton.UseVisualStyleBackColor = true;
-            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // SeleccionarMedicamento
             // 
