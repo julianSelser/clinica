@@ -139,6 +139,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(68, 23);
+            this.textBox1.MaxLength = 18;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(94, 20);
             this.textBox1.TabIndex = 10;
@@ -225,7 +226,7 @@
             // textCantBonosConsulta
             // 
             this.textCantBonosConsulta.Location = new System.Drawing.Point(228, 161);
-            this.textCantBonosConsulta.MaxLength = 3;
+            this.textCantBonosConsulta.MaxLength = 4;
             this.textCantBonosConsulta.Name = "textCantBonosConsulta";
             this.textCantBonosConsulta.Size = new System.Drawing.Size(38, 20);
             this.textCantBonosConsulta.TabIndex = 15;
@@ -233,7 +234,7 @@
             // textCantBonosFarmacia
             // 
             this.textCantBonosFarmacia.Location = new System.Drawing.Point(228, 197);
-            this.textCantBonosFarmacia.MaxLength = 3;
+            this.textCantBonosFarmacia.MaxLength = 4;
             this.textCantBonosFarmacia.Name = "textCantBonosFarmacia";
             this.textCantBonosFarmacia.Size = new System.Drawing.Size(38, 20);
             this.textCantBonosFarmacia.TabIndex = 16;
