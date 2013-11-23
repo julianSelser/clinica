@@ -19,9 +19,9 @@ namespace Clinica_Frba.Generar_Receta
     public partial class GenerarReceta : Form
     {
         private Form padre;
-        ConsultaMedica consulta;
-        Afiliado afiliado;
-        BonoFarmacia bono;
+        ConsultaMedica consulta { get; set; }
+        Afiliado afiliado { get; set; }
+        BonoFarmacia bono { get; set; }
         public Medicamento medicamento_aux { get; set; }
         List<Medicamento> medicamentosDeLaReceta { get; set; }
 
@@ -83,7 +83,20 @@ namespace Clinica_Frba.Generar_Receta
             }
             AppReceta.registrarReceta(afiliado, consulta, bono, medicamentosDeLaReceta); //genero la receta y la persisto
             MessageBox.Show("La receta médica se ha generado con éxito.");
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            DialogResult resultado = MessageBox.Show("¿Desea recetar más medicamentos para la consulta?", "Confirmar", MessageBoxButtons.OKCancel); //si se desea recetar mas medicamentos porque son mas de 5, se ejecuta otra vez la funcionalidad con los mismos datos
+            if (resultado == DialogResult.OK)
+            {
+                GenerarReceta ventanaGenerarReceta = new GenerarReceta(padre);
+                AsistenteVistas.mostrarNuevaVentana(ventanaGenerarReceta, this);
+                ventanaGenerarReceta.setearAfiliado(afiliado);
+                ventanaGenerarReceta.setearConsulta(consulta);
+                this.Close();
+            }
+            else
+            {
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+            
         }
 
         private void consultaBox_TextChanged(object sender, EventArgs e)
