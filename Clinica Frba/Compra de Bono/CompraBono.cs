@@ -55,12 +55,18 @@ namespace Clinica_Frba.Compra_de_Bono
 
             try
             {
-                cant_consulta = Convert.ToInt16(textCantBonosConsulta.Text);
-                cant_farmacia = Convert.ToInt16(textCantBonosFarmacia.Text);
+                cant_consulta = Convert.ToUInt16(textCantBonosConsulta.Text);
+                cant_farmacia = Convert.ToUInt16(textCantBonosFarmacia.Text);
             }
             catch
             {
                 MessageBox.Show("Por favor ingrese cantidades válidas de bonos", "Error");
+                return;
+            }
+
+            if(cant_consulta== 0 && cant_farmacia == 0)
+            {
+                MessageBox.Show("Debe comprar al menos un bono", "Información");
                 return;
             }
 
@@ -86,13 +92,6 @@ namespace Clinica_Frba.Compra_de_Bono
         {
             decimal num_afiliado;
             
-
-            if (textBox1.Text.Length > 18)
-            {
-                MessageBox.Show("Debe ingresar un número de afiliado válido.", "Error");
-                return;
-            }
-
             try
             {
                 Convert.ToUInt64(textBox1.Text); //esto me asegura que no me pongan cosas raras
