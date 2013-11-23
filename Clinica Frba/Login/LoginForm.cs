@@ -41,7 +41,9 @@ namespace Clinica_Frba.Login
             }
             else
 	        {
-                if(n_intentos < 3) 
+                if (n_intentos == -1)
+                    MessageBox.Show("...error conectando con la base de datos...");
+                else if(n_intentos < 3) 
                     MessageBox.Show("Contraseña erronea. Le quedan " + ( 3 - n_intentos ) + " intentos." );
                 else if(n_intentos == 3)
                     MessageBox.Show("Contraseña erronea. Se procederá a deshabilitar su usuario por seguridad." );
@@ -50,8 +52,6 @@ namespace Clinica_Frba.Login
                                     "Consulte con su administrador para volver a habilitarlo.");
                 else if(n_intentos == 5)
                     MessageBox.Show("No existe el usuario ingresado en el sistema");
-                else if(n_intentos == -1)
-                    MessageBox.Show("...error conectando con la base de datos...ojala no seas el que corrige...");
 	        }
         }
 
