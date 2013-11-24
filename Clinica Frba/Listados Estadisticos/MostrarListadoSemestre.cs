@@ -21,9 +21,9 @@ namespace Clinica_Frba.Listados_Estadisticos
 
             info.Text = tipoListado;
 
-            int mes =  semestre == "1er semestre"? 1 : 7 ;
+            int mes =  semestre == "1er semestre"? 1 /* enero */ : 7 /* julio */;
 
-            grilla.DataSource = ConectorSQL.traerDataTable("elegirListado", listadoID, anio, mes, mes + 5);
+            grilla.DataSource = ConectorSQL.traerDataTable("elegirListado", listadoID, anio, mes, mes + 5, Globales.getFechaSistema());
         }
 
         private void volver_Click(object sender, EventArgs e)

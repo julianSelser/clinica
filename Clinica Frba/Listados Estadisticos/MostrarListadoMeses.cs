@@ -20,8 +20,8 @@ namespace Clinica_Frba.Listados_Estadisticos
             this.padre = padre;
 
             info.Text = tipoListado;
-
-            grilla.DataSource = ConectorSQL.traerDataTable("getListadoEstadistico", semestre, listadoID, anio);
+            
+            grilla.DataSource = ConectorSQL.traerDataTable("getListadoEstadistico", semestre, listadoID, anio, Globales.getFechaSistema());
         }
 
         private void volver_Click(object sender, EventArgs e)
