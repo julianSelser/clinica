@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Listados_Estadisticos
 {
-    partial class MostrarListado
+    partial class MostrarListadoMeses
     {
         /// <summary>
         /// Required designer variable.
@@ -52,6 +52,8 @@
             this.grilla.AllowUserToResizeRows = false;
             this.grilla.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grilla.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grilla.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.grilla.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.grilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grilla.Location = new System.Drawing.Point(12, 12);
             this.grilla.Name = "grilla";
@@ -69,7 +71,7 @@
             this.info.TabIndex = 9;
             this.info.Text = "info de listado";
             // 
-            // MostrarListado
+            // MostrarListadoMeses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -77,7 +79,7 @@
             this.Controls.Add(this.info);
             this.Controls.Add(this.grilla);
             this.Controls.Add(this.volver);
-            this.Name = "MostrarListado";
+            this.Name = "MostrarListadoMeses";
             this.Text = "Mostrar Listado";
             ((System.ComponentModel.ISupportInitialize)(this.grilla)).EndInit();
             this.ResumeLayout(false);

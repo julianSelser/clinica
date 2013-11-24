@@ -28,36 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cancelar = new System.Windows.Forms.Button();
-            this.aceptar = new System.Windows.Forms.Button();
+            this.volver = new System.Windows.Forms.Button();
+            this.meses = new System.Windows.Forms.Button();
             this.anioPicker = new System.Windows.Forms.DateTimePicker();
             this.listadoSelector = new System.Windows.Forms.ComboBox();
             this.semestreSelector = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.semestre = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // cancelar
+            // volver
             // 
-            this.cancelar.Location = new System.Drawing.Point(251, 106);
-            this.cancelar.Name = "cancelar";
-            this.cancelar.Size = new System.Drawing.Size(75, 23);
-            this.cancelar.TabIndex = 9;
-            this.cancelar.Text = "Cancelar";
-            this.cancelar.UseVisualStyleBackColor = true;
-            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
+            this.volver.Location = new System.Drawing.Point(251, 106);
+            this.volver.Name = "volver";
+            this.volver.Size = new System.Drawing.Size(75, 23);
+            this.volver.TabIndex = 9;
+            this.volver.Text = "volver";
+            this.volver.UseVisualStyleBackColor = true;
+            this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
-            // aceptar
+            // meses
             // 
-            this.aceptar.Location = new System.Drawing.Point(169, 106);
-            this.aceptar.Name = "aceptar";
-            this.aceptar.Size = new System.Drawing.Size(75, 23);
-            this.aceptar.TabIndex = 8;
-            this.aceptar.Text = "Aceptar";
-            this.aceptar.UseVisualStyleBackColor = true;
-            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
+            this.meses.Location = new System.Drawing.Point(169, 106);
+            this.meses.Name = "meses";
+            this.meses.Size = new System.Drawing.Size(75, 23);
+            this.meses.TabIndex = 8;
+            this.meses.Text = "meses";
+            this.meses.UseVisualStyleBackColor = true;
+            this.meses.Click += new System.EventHandler(this.meses_Click);
             // 
             // anioPicker
             // 
@@ -130,13 +131,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "tipo de listado";
             // 
+            // semestre
+            // 
+            this.semestre.Location = new System.Drawing.Point(88, 106);
+            this.semestre.Name = "semestre";
+            this.semestre.Size = new System.Drawing.Size(75, 23);
+            this.semestre.TabIndex = 16;
+            this.semestre.Text = "semestre";
+            this.semestre.UseVisualStyleBackColor = true;
+            this.semestre.Click += new System.EventHandler(this.semestre_Click);
+            // 
             // ListadosEstadisticos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 143);
-            this.Controls.Add(this.cancelar);
-            this.Controls.Add(this.aceptar);
+            this.Controls.Add(this.semestre);
+            this.Controls.Add(this.volver);
+            this.Controls.Add(this.meses);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListadosEstadisticos";
             this.Text = "Listados Estadísticos";
@@ -148,13 +160,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Button cancelar;
-        private System.Windows.Forms.Button aceptar;
+        private System.Windows.Forms.Button volver;
+        private System.Windows.Forms.Button meses;
         private System.Windows.Forms.DateTimePicker anioPicker;
         private System.Windows.Forms.ComboBox listadoSelector;
         private System.Windows.Forms.ComboBox semestreSelector;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button semestre;
     }
 }

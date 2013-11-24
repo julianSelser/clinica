@@ -18,14 +18,22 @@ namespace Clinica_Frba.Listados_Estadisticos
         {
             InitializeComponent();
             this.padre = padre;
+
+            listadoSelector.SelectedIndex = 0;
+            semestreSelector.SelectedIndex = 0;
         }
 
-        private void aceptar_Click(object sender, EventArgs e)
+        private void meses_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new MostrarListado(this, listadoSelector.SelectedIndex, listadoSelector.Text, semestreSelector.Text, anioPicker.Text), this);
+            AsistenteVistas.mostrarNuevaVentana(new MostrarListadoMeses(this, listadoSelector.SelectedIndex, listadoSelector.Text, semestreSelector.Text, anioPicker.Text), this);
         }
 
-        private void cancelar_Click(object sender, EventArgs e)
+        private void semestre_Click(object sender, EventArgs e)
+        {
+            AsistenteVistas.mostrarNuevaVentana(new MostrarListadoSemestre(this, listadoSelector.SelectedIndex, listadoSelector.Text, semestreSelector.Text, anioPicker.Text), this);
+        }
+
+        private void volver_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }

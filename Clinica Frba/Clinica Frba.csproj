@@ -249,11 +249,17 @@
     <Compile Include="Generar Receta\SeleccionarMedicamento.Designer.cs">
       <DependentUpon>SeleccionarMedicamento.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados Estadisticos\MostrarListado.cs">
+    <Compile Include="Listados Estadisticos\MostrarListadoSemestre.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados Estadisticos\MostrarListado.Designer.cs">
-      <DependentUpon>MostrarListado.cs</DependentUpon>
+    <Compile Include="Listados Estadisticos\MostrarListadoSemestre.Designer.cs">
+      <DependentUpon>MostrarListadoSemestre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados Estadisticos\MostrarListadoMeses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados Estadisticos\MostrarListadoMeses.Designer.cs">
+      <DependentUpon>MostrarListadoMeses.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\ElegirRol.cs">
       <SubType>Form</SubType>
@@ -386,11 +392,14 @@
     <EmbeddedResource Include="Generar Receta\SeleccionarMedicamento.resx">
       <DependentUpon>SeleccionarMedicamento.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Listados Estadisticos\MostrarListadoSemestre.resx">
+      <DependentUpon>MostrarListadoSemestre.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Listados Estadisticos\ListadosEstadisticos.resx">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Listados Estadisticos\MostrarListado.resx">
-      <DependentUpon>MostrarListado.cs</DependentUpon>
+    <EmbeddedResource Include="Listados Estadisticos\MostrarListadoMeses.resx">
+      <DependentUpon>MostrarListadoMeses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\ElegirRol.resx">
       <DependentUpon>ElegirRol.cs</DependentUpon>
