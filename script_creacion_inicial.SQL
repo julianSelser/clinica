@@ -2447,7 +2447,7 @@ BEGIN
 											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @FINMES))
 											END
 	
-	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(DISTINCT( B.Numero ))DESC), E.Descripcion + '  cant: ' + CONVERT(VARCHAR(255), COUNT(DISTINCT(B.Numero)))  
+	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(DISTINCT( B.Numero ))DESC) RANKING, E.Descripcion + '  cant: ' + CONVERT(VARCHAR(255), COUNT(DISTINCT(B.Numero))) ESTADISTICA  
 	FROM CUATRO_QUESOS.Medicamentos_por_consulta MC, CUATRO_QUESOS.Turnos T, CUATRO_QUESOS.Consultas C, CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Especialidades E
 	WHERE C.Nro_Turno = T.Numero AND T.Cod_Especialidad = E.Codigo AND MC.ID_Consulta = C.ID_Consulta AND MC.Nro_Bono_Farmacia = B.Numero
 		AND T.Fecha BETWEEN @PrincipioMES AND @FinalMES
@@ -2481,7 +2481,7 @@ BEGIN
 											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @FINMES))
 											END
 	
-	SELECT TOP 10 COUNT(B.numero), A.nombre, A.apellido
+	SELECT TOP 10 ROW_NUMBER() OVER (ORDER BY COUNT(B.numero) DESC) RANKING, A.nombre + ' ' +  A.apellido + '   cant: ' + CONVERT(VARCHAR(255),COUNT(B.numero)) AS ESTADISTICAS
 	FROM CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Afiliados A
 	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario
 		AND B.Fecha_Impresion BETWEEN @PrincipioMES AND @FinalMES
@@ -2490,17 +2490,17 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.elegirListado(@ID_Listado INT , @ANIO INT, @MES INT)
+CREATE PROCEDURE CUATRO_QUESOS.elegirListado(@ID_Listado INT , @ANIO INT, @MES INT, @MESFIN INT = -1)
 AS
 BEGIN
 	IF @ID_Listado = 0
-		EXEC CUATRO_QUESOS.especialidadesConMasCancelaciones @ANIO, @MES
+		EXEC CUATRO_QUESOS.especialidadesConMasCancelaciones @ANIO, @MES, @MESFIN
 	ELSE IF @ID_Listado = 1
-		EXEC CUATRO_QUESOS.bonosVencidosPorAfiliado @ANIO, @MES
+		EXEC CUATRO_QUESOS.bonosVencidosPorAfiliado @ANIO, @MES, @MESFIN
 	ELSE IF @ID_Listado = 2
-		EXEC CUATRO_QUESOS.especialidadesConMasRecetas @ANIO, @MES
+		EXEC CUATRO_QUESOS.especialidadesConMasRecetas @ANIO, @MES, @MESFIN
 	ELSE IF @ID_Listado = 3
-		EXEC CUATRO_QUESOS.bonosPorTerceros @ANIO, @MES		
+		EXEC CUATRO_QUESOS.bonosPorTerceros @ANIO, @MES, @MESFIN	
 END
 GO
 
