@@ -131,6 +131,7 @@
             this.Controls.Add(this.grillaRoles);
             this.Name = "ListadoRoles";
             this.Text = "Listado de Roles";
+            this.Activated += new System.EventHandler(this.ListadoRoles_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.grillaRoles)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -45,6 +45,10 @@ namespace Clinica_Frba.Abm_de_Rol
             return !(bool)fila.Cells[index].Value;
         }
 
+        private void ListadoRoles_Activated(object sender, EventArgs e)
+        {
+            cargarGrilla();
+        }
 
         private Rol crearRol(int fila)
         {
