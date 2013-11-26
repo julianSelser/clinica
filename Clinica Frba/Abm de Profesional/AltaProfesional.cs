@@ -198,7 +198,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             mailBox.Text = "";
             nroDocBox.Text = "";
             tipoDocBox.SelectedIndex = -1;
-            fechaNacBox.Text = Globales.getFechaSistema().ToString();
+            fechaNacBox.Value = Convert.ToDateTime(Globales.getFechaSistema().ToShortDateString());
             matriculaBox.Text = "";
 
         }
