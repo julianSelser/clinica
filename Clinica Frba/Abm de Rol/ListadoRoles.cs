@@ -77,13 +77,21 @@ namespace Clinica_Frba.Abm_de_Rol
             if (e.ColumnIndex == grillaRoles.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaRoles.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
             {
                 DataGridViewRow fila = grillaRoles.Rows[e.RowIndex];
-  //              if (!estaDadoDeBaja(fila)) //ESTA VALIDACION NO ES NECESARIA, PORQUE SE TIENEN QUE PODER VOLVER A HABILITAR LOS INHABILITADOS
-  //              {
+
                     Rol rol = crearRol(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
-                    if (funcion == "Baja") AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this, rol), this);
+                    if (funcion == "Baja")
+                    {
+                        if (!estaDadoDeBaja(fila))
+                        {
+                            AsistenteVistas.mostrarNuevaVentana(new Baja_Rol(this, rol), this);
+                        }
+                        else 
+                        {
+                            MessageBox.Show("El Rol seleccionado ya se encuentra inhabilitado");
+                        }
+                    }
                     if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
- //               }
- //               else MessageBox.Show("El Rol seleccionado se encuentra inhabilitado");
+                    //en modificar no muestro la ventana de error si esta dado de baja, porque se puede volver a habilitar
             }
         }
 
