@@ -129,19 +129,12 @@ namespace Clinica_Frba.Generar_Receta
             
         }
 
-        private void medicamentoBox2_TextChanged(object sender, EventArgs e)
-        {
-            if (medicamentoBox2.Text == "") comboCantidad2.Enabled = false;
-            else comboCantidad2.Enabled = true;
-            validarCampos();
-        }
-
         private void validarCampos() //habilita el boton de aceptar para generar la receta si se valida que esten las precondiciones OK
         {
             if (noExistenMedicamentosIguales()) aceptarButton.Enabled = false;
             else
             {
-                if (consultaBox.Text != "" && bonoBox.Text != "" && existeAlMenosUnMedicamentoConCantidad())
+                if (consultaBox.Text != "" && bonoBox.Text != "" && existeAlMenosUnMedicamentoConCantidad() && todosLosMedicamentosTienenCantidad())
                 {
                     aceptarButton.Enabled = true;
                 }
@@ -150,6 +143,22 @@ namespace Clinica_Frba.Generar_Receta
                     aceptarButton.Enabled = false;
                 }
             }
+        }
+
+        private bool todosLosMedicamentosTienenCantidad() //valido si todos los medicamentos tienen su respectiva cantidad
+        {
+            List<ComboBox> combos = new List<ComboBox>();
+            combos.Add(comboCantidad1);
+            combos.Add(comboCantidad2);
+            combos.Add(comboCantidad3);
+            combos.Add(comboCantidad4);
+            combos.Add(comboCantidad5);
+
+            foreach(ComboBox combo in combos){
+                if (combo.Enabled && combo.SelectedIndex == -1) return false;
+            }
+
+            return true;
         }
 
         private bool noExistenMedicamentosIguales() //valida que no haya mas de un mismo medicamento recetado
@@ -174,11 +183,7 @@ namespace Clinica_Frba.Generar_Receta
 
         private bool existeAlMenosUnMedicamentoConCantidad() //validacion que permite generar una receta solo si existe al menos un medicamento con cantidad especificada
         {
-            return (medicamentoBox1.Text != "" && comboCantidad1.SelectedIndex != -1) ||
-                    (medicamentoBox2.Text != "" && comboCantidad2.SelectedIndex != -1) ||
-                    (medicamentoBox3.Text != "" && comboCantidad3.SelectedIndex != -1) ||
-                    (medicamentoBox4.Text != "" && comboCantidad4.SelectedIndex != -1) ||
-                    (medicamentoBox5.Text != "" && comboCantidad5.SelectedIndex != -1);
+            return (medicamentoBox1.Text != "" && comboCantidad1.SelectedIndex != -1);
         }
 
         private void comboCantidad1_SelectedIndexChanged(object sender, EventArgs e)
@@ -192,7 +197,7 @@ namespace Clinica_Frba.Generar_Receta
 
         private void comboCantidad2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboCantidad1.SelectedIndex != -1)
+            if (comboCantidad2.SelectedIndex != -1)
             {
                 setearCantidadMedicamento(Convert.ToInt32(comboCantidad2.Text), 1);
                 validarCampos();
@@ -201,7 +206,7 @@ namespace Clinica_Frba.Generar_Receta
 
         private void comboCantidad3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboCantidad1.SelectedIndex != -1)
+            if (comboCantidad3.SelectedIndex != -1)
             {
                 setearCantidadMedicamento(Convert.ToInt32(comboCantidad3.Text), 2);
                 validarCampos();
@@ -210,7 +215,7 @@ namespace Clinica_Frba.Generar_Receta
 
         private void comboCantidad4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboCantidad1.SelectedIndex != -1)
+            if (comboCantidad4.SelectedIndex != -1)
             {
                 setearCantidadMedicamento(Convert.ToInt32(comboCantidad4.Text), 3);
                 validarCampos();
@@ -219,7 +224,7 @@ namespace Clinica_Frba.Generar_Receta
 
         private void comboCantidad5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboCantidad1.SelectedIndex != -1)
+            if (comboCantidad5.SelectedIndex != -1)
             {
                 setearCantidadMedicamento(Convert.ToInt32(comboCantidad5.Text), 4);
                 validarCampos();
@@ -228,28 +233,55 @@ namespace Clinica_Frba.Generar_Receta
 
         private void medicamentoBox1_TextChanged(object sender, EventArgs e)
         {
-            if (medicamentoBox1.Text == "") comboCantidad2.Enabled = false;
+            if (medicamentoBox1.Text == "")
+            {
+                comboCantidad1.Enabled = false;
+                comboCantidad1.SelectedIndex = -1;
+            }
             else comboCantidad1.Enabled = true;
+            validarCampos();
+        }
+
+        private void medicamentoBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (medicamentoBox2.Text == "")
+            {
+                comboCantidad2.Enabled = false;
+                comboCantidad2.SelectedIndex = -1;
+            }
+            else comboCantidad2.Enabled = true;
             validarCampos();
         }
 
         private void medicamentoBox3_TextChanged(object sender, EventArgs e)
         {
-            if (medicamentoBox3.Text == "") comboCantidad2.Enabled = false;
+            if (medicamentoBox3.Text == "")
+            {
+                comboCantidad3.Enabled = false;
+                comboCantidad3.SelectedIndex = -1;
+            }
             else comboCantidad3.Enabled = true;
             validarCampos();
         }
 
         private void medicamentoBox4_TextChanged(object sender, EventArgs e)
         {
-            if (medicamentoBox4.Text == "") comboCantidad2.Enabled = false;
+            if (medicamentoBox4.Text == "")
+            {
+                comboCantidad4.Enabled = false;
+                comboCantidad4.SelectedIndex = -1;
+            }
             else comboCantidad4.Enabled = true;
             validarCampos();
         }
 
         private void medicamentoBox5_TextChanged(object sender, EventArgs e)
         {
-            if (medicamentoBox5.Text == "") comboCantidad2.Enabled = false;
+            if (medicamentoBox5.Text == "")
+            {
+                comboCantidad5.Enabled = false;
+                comboCantidad5.SelectedIndex = -1;
+            }
             else comboCantidad5.Enabled = true;
             validarCampos();
         }
@@ -292,6 +324,12 @@ namespace Clinica_Frba.Generar_Receta
         {
             consultaBox.Text = "";
             bonoBox.Text = "";
+            selecBonoButton.Enabled = false;
+            inicializarMedicamentos();
+        }
+
+        private void inicializarMedicamentos()
+        {
             medicamentoBox1.Text = "";
             medicamentoBox2.Text = "";
             medicamentoBox3.Text = "";
@@ -302,7 +340,6 @@ namespace Clinica_Frba.Generar_Receta
             comboCantidad3.SelectedIndex = -1;
             comboCantidad4.SelectedIndex = -1;
             comboCantidad5.SelectedIndex = -1;
-            selecBonoButton.Enabled = false;
             aceptarButton.Enabled = false;
             comboCantidad1.Enabled = false;
             comboCantidad2.Enabled = false;
@@ -320,6 +357,12 @@ namespace Clinica_Frba.Generar_Receta
         {
             medicamentosDeLaReceta[index].cantidad = cantidad;
         }
+
+        private void limpiarMedicamentosButton_Click(object sender, EventArgs e)
+        {
+            inicializarMedicamentos();
+        }
+
 
     }
 }
