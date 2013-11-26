@@ -14,7 +14,7 @@ namespace Clinica_Frba
             @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*" 
             + "@" 
             + @"((([\-\w]+\.)+[a-záéíóúñA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
-        private static Regex alfa = new Regex("[A-Za-záéíóúñ]");
+        private static Regex alfa = new Regex("[A-Za-záéíóúñ ]");
         private static Regex alfanumerico = new Regex("[a-zA-Z0-9]");
         public enum TipoValidacion { Email, Alfa, Alfanumerico, Dinero, Codigo };
         public static void validarCampos(List<CampoAbstracto> campos)
