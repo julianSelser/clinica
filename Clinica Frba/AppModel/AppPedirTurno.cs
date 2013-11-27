@@ -53,5 +53,10 @@ namespace Clinica_Frba.AppModel
         {
             return Convert.ToDateTime(row["Horarios Disponibles"].ToString());
         }
+
+        internal static void generarTurno(Afiliado afiliado, Profesional profesional, EspecialidadMedica especialidadTurno, DateTime timeslot)
+        {
+            ejecutarProcedure("generarTurno", afiliado.nroAfiliado, profesional.id, especialidadTurno.codigo, timeslot);
+        }
     }
 }

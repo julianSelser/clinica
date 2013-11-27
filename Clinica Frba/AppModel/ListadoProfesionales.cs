@@ -127,7 +127,15 @@ namespace Clinica_Frba.AppModel
                             AsistenteVistas.mostrarNuevaVentana(new ModificarProfesional(this, profesional), this);
                             break;
                         case "Pedir Turno":
-                            volverAVistaPedirTurno(profesional);
+                            if (comboEspecialidad.SelectedIndex != -1)
+                            {
+                                EspecialidadMedica especialidad = crearEspecialidad();
+                                volverAVistaPedirTurno(profesional, especialidad);
+                            }
+                            else
+                            {
+                                MessageBox.Show("ERROR: Debe especificar una especialidad", "Pedir Turno", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                             break;
                         case "Registrar Llegada":
                             volvarAVistaRegistroLlegada(profesional);
@@ -145,6 +153,22 @@ namespace Clinica_Frba.AppModel
             
         }
 
+        private EspecialidadMedica crearEspecialidad()
+        {
+            try
+            {
+                EspecialidadMedica especialidad = new EspecialidadMedica();
+                especialidad.codigo = getCodigoEspecialidad(comboEspecialidad.Text);
+                especialidad.descripcion = comboEspecialidad.Text;
+                return especialidad;
+            }
+            catch(Exception ex)
+            {
+                ErrorManager.fatalError(padre, this, ex);
+                return null;
+            }
+        }
+
         private void volverAVistaRegistrarResultado(Profesional profesional)
         {
             (padre as ListadoConsultas).setearProfesional(profesional);
@@ -157,9 +181,9 @@ namespace Clinica_Frba.AppModel
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
-        private void volverAVistaPedirTurno(Profesional profesional)
+        private void volverAVistaPedirTurno(Profesional profesional, EspecialidadMedica especialidad)
         {
-            (padre as PedirTurno).setearProfesional(profesional);
+            (padre as PedirTurno).setearProfesional(profesional, especialidad);
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
@@ -213,6 +237,7 @@ namespace Clinica_Frba.AppModel
 
         private void comboEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cargarGrilla();
             validarCampos();
         }
 

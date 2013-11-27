@@ -19,8 +19,7 @@ namespace Clinica_Frba.Pedir_Turno
         Form padre;
         Profesional profesional;
         Afiliado afiliado;
-        List<DateTime> fechas;
-        List<DateTime> horarios;
+        EspecialidadMedica especialidadTurno;
 
         internal PedirTurno(Form padre)
         {
@@ -31,6 +30,7 @@ namespace Clinica_Frba.Pedir_Turno
                 setearAfiliado(UsuarioLogeado.Instance.Persona as Afiliado);
                 selectAfiliadoButton.Visible = false;
             }
+            aceptarButton.Enabled = false;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -46,10 +46,12 @@ namespace Clinica_Frba.Pedir_Turno
             validarCampos();
         }
 
-        internal void setearProfesional(Profesional profesional)
+        internal void setearProfesional(Profesional profesional, EspecialidadMedica especialidad)
         {
             this.profesional = profesional;
             profesionalBox.Text = profesional.id.ToString();
+            this.especialidadTurno = especialidad;
+            especialidadBox.Text = especialidad.descripcion;
             validarCampos();
         }
 
@@ -65,15 +67,32 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void validarCampos()
         {
-            if(nroAfiliadoBox.Text != "" && profesionalBox.Text != "")
+            if (nroAfiliadoBox.Text != "" && profesionalBox.Text != "")
             {
                 cargarComboFecha();
+            }
+            else
+            {
+                comboFechas.Enabled = false;
+                comboFechas.Items.Clear();
+                comboTimeslots.Enabled = false;
+                comboTimeslots.Items.Clear();
+                aceptarButton.Enabled = false;
+            }
+
+            if (comboTimeslots.SelectedIndex != -1)
+            {
+                aceptarButton.Enabled = true;
+            }
+            else
+            {
+                aceptarButton.Enabled = false;
             }
         }
 
         private void cargarComboFecha()
         {
-            fechas = AppPedirTurno.traerFechasAgenda(profesional);
+            List<DateTime> fechas = AppPedirTurno.traerFechasAgenda(profesional);
             foreach (DateTime fecha in fechas)
             {
                 comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
@@ -94,11 +113,21 @@ namespace Clinica_Frba.Pedir_Turno
             comboFechas.Items.Clear();
             comboTimeslots.Enabled = false;
             comboTimeslots.Items.Clear();
+            aceptarButton.Enabled = false;
         }
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
-            //AppPedirTurno.generarTurno();
+            DateTime fecha_horario = crearFechaHorario();
+            AppPedirTurno.generarTurno(afiliado, profesional, especialidadTurno, fecha_horario);
+            MessageBox.Show("El turno se generó correctamente\n\nNro. Afiliado: "+afiliado.nroAfiliado+"\nId Medico: "+profesional.id+"\nEspecialidad: "+especialidadTurno.descripcion+"\nFecha y Horario: "+fecha_horario.ToString("dd/MM/yy HH:mm"));
+        }
+
+        private DateTime crearFechaHorario()
+        {
+            DateTime fecha = Convert.ToDateTime(comboFechas.Text);
+            DateTime horario = Convert.ToDateTime(comboTimeslots.Text);
+            return new DateTime(fecha.Year, fecha.Month, fecha.Day, horario.Hour, horario.Minute, 0);
         }
 
         private void comboFechas_SelectedIndexChanged(object sender, EventArgs e)
@@ -114,6 +143,11 @@ namespace Clinica_Frba.Pedir_Turno
                 comboTimeslots.Items.Add(horario.ToString("HH:mm"));
             }
             comboTimeslots.Enabled = true;
+        }
+
+        private void comboTimeslots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
         }
 
     }
