@@ -70,7 +70,7 @@ namespace Clinica_Frba.AppModel
                                                                       , '-', (string)d["tipo_doc"], Convert.ToInt32((decimal)d["nro_doc"])
                                                                       , (string)d["direccion"], Convert.ToInt32((decimal)d["telefono"]), (string)d["mail"]
                                                                       , (DateTime)d["fecha_nac"], Convert.ToInt32((decimal)d["nro_matricula"])
-                                                                      , (DateTime)d["fecha_atencion_desde"], (DateTime)d["fecha_atencion_hasta"], (bool)d["habilitado"]);
+                                                                      ,(bool)d["habilitado"]);
 
 
                 }

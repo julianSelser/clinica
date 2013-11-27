@@ -8,12 +8,10 @@ namespace Clinica_Frba.Domain
     class Profesional : Persona
     {
         public int nroMatricula { get; set; }
-        public DateTime fechaAtencionHasta { get; set; }
-        public DateTime fechaAtencionDesde { get; set; }
         public bool habilitado { get; set; }
         public int id { get; set; }
 
-        public Profesional(int _id, string _nombre, string _apellido, char _sexo, string _tipoDoc, int _nroDoc, string _direccion, int _telefono, string _mail, DateTime _fechaNac, int _nroMatricula, DateTime _fechaAtencionDesde, DateTime _fechaAtencionHasta, bool _habilitado)
+        public Profesional(int _id, string _nombre, string _apellido, char _sexo, string _tipoDoc, int _nroDoc, string _direccion, int _telefono, string _mail, DateTime _fechaNac, int _nroMatricula, bool _habilitado)
         {
             this.id = _id;
             this.nombre = _nombre;
@@ -26,8 +24,6 @@ namespace Clinica_Frba.Domain
             this.mail = _mail;
             this.fechaNac = _fechaNac;
             this.nroMatricula = _nroMatricula;
-            this.fechaAtencionHasta = _fechaAtencionHasta;
-            this.fechaAtencionDesde = _fechaAtencionDesde;
             this.habilitado = _habilitado;
         }
 

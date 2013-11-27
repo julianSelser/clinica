@@ -22,6 +22,9 @@ namespace Clinica_Frba.Registrar_Agenda
             InitializeComponent();
             this.padre = padre;
 
+
+            //antes que nada, me fijo si quien está logueado es un médico
+            //si es así, traigo sus datos directamente, y no muestro el botón de "quitar"
             var usuario = UsuarioLogeado.Instance;
 
             if (usuario.Rol.nombre.Equals("Profesional"))
@@ -48,6 +51,7 @@ namespace Clinica_Frba.Registrar_Agenda
         }
 
         private void botonBuscarMedico_Click(object sender, EventArgs e)
+        //este método es para cuando el administrativo apreta el botón para elegir el médico por ID
         {
             //declaraciones
             decimal id_medico;
@@ -62,8 +66,8 @@ namespace Clinica_Frba.Registrar_Agenda
 
             try
             {
-                Convert.ToUInt64(textBox1.Text); // esto me asegura que no me pongan cosas raras
-                id_medico = Convert.ToDecimal(textBox1.Text);
+                Convert.ToUInt64(textBox1.Text); // esto me asegura que me pongan un string de números sin cosas raras
+                id_medico = Convert.ToDecimal(textBox1.Text); //y acá lo paso a decimal para que funcione con el numeric de sql
             }
             catch
             {
@@ -71,12 +75,14 @@ namespace Clinica_Frba.Registrar_Agenda
                 return;
             }
 
+            //con todo validado, voy a la base y busco a ese médico
             if (ConectorSQL.ejecutarProcedureWithReturnValue("verifyMedico", id_medico) == 0)
             {
                 MessageBox.Show("No se encontró tal médico.", "Error");
                 return;
             }
 
+            //si lo encuentro, dejo fijo el ID que ingresé y muestro los datos del médico
             labNroMedico.Text = textBox1.Text;
             cargarPantallaConLosDatos(id_medico);
 
@@ -88,8 +94,12 @@ namespace Clinica_Frba.Registrar_Agenda
 
             //visibilidad
             botonBuscarMedico.Visible = false;
-            botonQuitarMedico.Visible = true;
 
+            if (UsuarioLogeado.Instance.Rol.nombre.ToString() == "Administrativo")
+            {
+                botonQuitarMedico.Visible = true;
+                //esto sólo quiero que sea posible para el admin
+            }
 
             labNroMedico.Visible = true;
             textBox1.Visible = false;
@@ -109,8 +119,10 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
-        //público porque las subventanitas que saltan también tienen que actualizar estos datos
+        
         public int poblarDiasAtencion(decimal id_medico)
+        //este método agarra el ID del médico y muestra todos los controles necesarios para modificar sus días de atención, así como el botón de agregar día y el de quitar día
+        //devuelve -1 si ese médico ya tiene agenda registrada, por lo que no deberían ofrecerse estas opciones
         {
             DataTable dias_atencion;
             DataTable datos_medico;
@@ -178,6 +190,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
 
         private void botonQuitarMedico_Click(object sender, EventArgs e)
+        //método para cuando un admin quiere cambiar de médico, esconde todo lo específico y muestra lo necesario para buscar uno nuevo
         {
             botonBuscarMedico.Visible = true;
             botonQuitarMedico.Visible = false;
@@ -192,10 +205,10 @@ namespace Clinica_Frba.Registrar_Agenda
 
         private void confirmarQuitarDia(string nombre_dia)
         //esto se llama confirmar pero no pide confirmación de nada, es para evitar un refactor
+        //quita el día de atención
         {
             ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
             poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
-            
 
         }
 
@@ -206,6 +219,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
+        //estos mapean cada botoncito al método de quitar día, con el parámetro apropiado
         private void botDelLu_Click(object sender, EventArgs e)
         {
             confirmarQuitarDia("Lunes");
@@ -236,9 +250,9 @@ namespace Clinica_Frba.Registrar_Agenda
             confirmarQuitarDia("Sábado");
         }
 
-  
-       
 
+
+        //estos hacen aparecer, para cada botoncito, la ventana de modificar día, con el parámetro apropiado
         private void botModLu_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new ModificarDia(this, "Lunes", labLuD.Text, labLuH.Text, Convert.ToDecimal(labNroMedico.Text)), this);
@@ -276,7 +290,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
 
         public bool validarRangoHorario(string desde, string hasta)
-        //esto lo pongo acá porque lo van a necesitar dos de los subforms
+        //toma dos strings en formato HH:MM y devuelve true si es un rango válido (longitud positiva)
         {
             int hsdesde;
             int hshasta;
@@ -300,6 +314,7 @@ namespace Clinica_Frba.Registrar_Agenda
         }
 
         private void button3_Click(object sender, EventArgs e)
+            //me lleva a la ventana de cargar período
         {
             AsistenteVistas.mostrarNuevaVentana(new CargarPeriodo(this, Convert.ToDecimal(labNroMedico.Text)), this);
         }
