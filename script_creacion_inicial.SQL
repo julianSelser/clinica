@@ -2750,6 +2750,10 @@ AS
 SELECT CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 'Fechas Disponibles'
 FROM CUATRO_QUESOS.Agendas_Medicos
 WHERE Id_Medico = @idMedico AND Nro_Turno IS NULL
+GROUP BY CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 
+ORDER BY YEAR(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC,
+MONTH(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC,
+DAY(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC
 GO
 
 /**************** FIN PROCEDURES PEDIR TURNO ********************/

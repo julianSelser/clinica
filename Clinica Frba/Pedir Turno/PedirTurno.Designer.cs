@@ -175,6 +175,7 @@
             this.comboFechas.Name = "comboFechas";
             this.comboFechas.Size = new System.Drawing.Size(111, 21);
             this.comboFechas.TabIndex = 30;
+            this.comboFechas.SelectedIndexChanged += new System.EventHandler(this.comboFechas_SelectedIndexChanged);
             // 
             // aceptarButton
             // 
