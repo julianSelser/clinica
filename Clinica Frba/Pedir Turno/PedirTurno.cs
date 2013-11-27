@@ -29,6 +29,16 @@ namespace Clinica_Frba.Pedir_Turno
                 setearAfiliado(UsuarioLogeado.Instance.Persona as Afiliado);
                 selectAfiliadoButton.Visible = false;
             }
+            cargarBotonFuncionalidad();
+        }
+
+        private void cargarBotonFuncionalidad()
+        {
+            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+            col.Text = "Seleccionar Fecha";
+            col.Name = "Seleccionar";
+            col.UseColumnTextForButtonValue = true;
+            grillaFechas.Columns.Add(col);
         }
 
         private void acceptButton_Click(object sender, EventArgs e)
@@ -46,12 +56,14 @@ namespace Clinica_Frba.Pedir_Turno
         {
             this.afiliado = afiliado;
             nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
+            validarCampos();
         }
 
         internal void setearProfesional(Profesional profesional)
         {
             this.profesional = profesional;
             profesionalBox.Text = profesional.id.ToString();
+            validarCampos();
         }
 
         private void selectAfiliadoButton_Click(object sender, EventArgs e)
@@ -63,5 +75,46 @@ namespace Clinica_Frba.Pedir_Turno
         {
             AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Pedir Turno"), this);
         }
+
+        private void validarCampos()
+        {
+            if(nroAfiliadoBox.Text != "" && profesionalBox.Text != "")
+            {
+               cargarGrilla();
+            }
+        }
+
+        private void cargarGrilla()
+        {
+            AsistenteVistas.cargarGrilla(grillaFechas, AppPedirTurno.traerFechasAgenda(profesional));
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            if (UsuarioLogeado.Instance.Rol.nombre != "Afiliado")
+            {
+                nroAfiliadoBox.Text = "";
+                afiliado = null;
+            }
+            profesionalBox.Text = "";
+            profesional = null;
+            grillaFechas.DataSource = null;
+        }
+
+        private void grillaFechas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == grillaFechas.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaFechas.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
+            {
+
+                DateTime fechaAgenda = crearFecha(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
+                AsistenteVistas.mostrarNuevaVentana(new SeleccionarTimeslot(this, profesional, fechaAgenda),this);
+            }
+        }
+
+        private DateTime crearFecha(int fila)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

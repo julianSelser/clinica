@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
     <Compile Include="AppModel\AppLogin.cs" />
+    <Compile Include="AppModel\AppPedirTurno.cs" />
     <Compile Include="AppModel\AppProfesional.cs" />
     <Compile Include="AppModel\AppReceta.cs" />
     <Compile Include="AppModel\AppRegistrarLlegada.cs" />
@@ -303,6 +304,12 @@
     <Compile Include="Listados Estadisticos\ListadosEstadisticos.Designer.cs">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pedir Turno\SeleccionarTimeslot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedir Turno\SeleccionarTimeslot.Designer.cs">
+      <DependentUpon>SeleccionarTimeslot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Abm de Afiliado\ABM_Afiliado.resx">
@@ -412,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\PedirTurno.resx">
       <DependentUpon>PedirTurno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\SeleccionarTimeslot.resx">
+      <DependentUpon>SeleccionarTimeslot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

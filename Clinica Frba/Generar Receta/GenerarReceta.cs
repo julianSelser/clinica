@@ -145,7 +145,7 @@ namespace Clinica_Frba.Generar_Receta
             }
         }
 
-        private bool todosLosMedicamentosTienenCantidadYExisteAlMenosUno() //valido si todos los medicamentos tienen su respectiva cantidad
+        private bool todosLosMedicamentosTienenCantidad() //valido si todos los medicamentos tienen su respectiva cantidad
         {
             List<ComboBox> combos = new List<ComboBox>();
             combos.Add(comboCantidad1);
