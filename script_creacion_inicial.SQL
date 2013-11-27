@@ -2338,15 +2338,12 @@ GO
 
 create procedure CUATRO_QUESOS.getNYAMedico (@ID numeric(18)) --trae nombre y apellido, y averigua si registró agenda
 as
-begin
-	select Nombre, 
-		Apellido, 
+	select Nombre 'Nombre', 
+		Apellido 'Apellido', 
 		case when (Fecha_Atencion_Desde is null or Fecha_Atencion_Hasta is null) then 'N'
 			else 'S'
-		end as Tiene_Agenda
+		end 'Tiene_Agenda'
 	from CUATRO_QUESOS.Medicos where ID_Medico = @ID
-end
-
 GO
 
 create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18))
