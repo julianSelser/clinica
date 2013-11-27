@@ -2054,6 +2054,32 @@ AS
         FROM @Tabla t
 GO
 
+CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
+ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18)
+DECLARE cursorTurno CURSOR FOR
+SELECT Nro_Turno FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = NULL
+	WHERE Nro_Turno = @nroTurno
+
+	FETCH cursorTurno INTO @nroTurno
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
 -- FIN ABM DE CANCELACIÓN
 
 --PROCEDURES PARA LA COMPRA DE BONOS
