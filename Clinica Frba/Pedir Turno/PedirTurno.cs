@@ -75,7 +75,7 @@ namespace Clinica_Frba.Pedir_Turno
             fechas = AppPedirTurno.traerFechasAgenda(profesional);
             foreach (DateTime fecha in fechas)
             {
-                comboFechas.Items.Add(fecha.ToString());
+                comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
             }
             comboFechas.Enabled = true;
         }
