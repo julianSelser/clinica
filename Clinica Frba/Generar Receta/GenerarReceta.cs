@@ -145,7 +145,7 @@ namespace Clinica_Frba.Generar_Receta
             }
         }
 
-        private bool todosLosMedicamentosTienenCantidad() //valido si todos los medicamentos tienen su respectiva cantidad
+        private bool todosLosMedicamentosTienenCantidadYExisteAlMenosUno() //valido si todos los medicamentos tienen su respectiva cantidad
         {
             List<ComboBox> combos = new List<ComboBox>();
             combos.Add(comboCantidad1);
@@ -183,7 +183,11 @@ namespace Clinica_Frba.Generar_Receta
 
         private bool existeAlMenosUnMedicamentoConCantidad() //validacion que permite generar una receta solo si existe al menos un medicamento con cantidad especificada
         {
-            return (medicamentoBox1.Text != "" && comboCantidad1.SelectedIndex != -1);
+            return (comboCantidad1.SelectedIndex != -1) ||
+                (comboCantidad2.SelectedIndex != -1) ||
+                (comboCantidad3.SelectedIndex != -1) ||
+                (comboCantidad4.SelectedIndex != -1) ||
+                (comboCantidad5.SelectedIndex != -1);
         }
 
         private void comboCantidad1_SelectedIndexChanged(object sender, EventArgs e)
