@@ -578,7 +578,7 @@ INSERT INTO CUATRO_QUESOS.Afiliados
                 where subtabla.Paciente_DNI = sub1.Paciente_DNI
                         and sub1.Turno_Numero is not null
                         and sub1.Bono_Consulta_Numero is not null
-                        and sub1.Turno_Fecha < GETDATE())
+                        and sub1.Turno_Fecha < CUATRO_QUESOS.FechaMigracion())
         as Nro_Consulta --cuento la cantidad de consultas concretadas (turno pasado asociado a bono consulta = consulta concretada)
 
         from
@@ -667,8 +667,8 @@ INSERT INTO CUATRO_QUESOS.Medicos
                 Medico_Mail as Mail,
                 Medico_Fecha_Nac as Fecha_Nac,
                 0 as Nro_Matricula, --indefinido
-                NULL as Fecha_Atencion_Desde, --getdate() as Fecha_Atencion_Desde,
-                NULL as Fecha_Atencion_Hasta,--case when MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, 
+                NULL as Fecha_Atencion_Desde, --CUATRO_QUESOS.FechaMigracion() as Fecha_Atencion_Desde,
+                NULL as Fecha_Atencion_Hasta,--case when MAX(Turno_Fecha) > dateadd(month, 1, CUATRO_QUESOS.FechaMigracion()) then MAX(Turno_fecha) else dateadd(month, 1, CUATRO_QUESOS.FechaMigracion()) end as Fecha_Atencion_Hasta, 
                 1 as Habilitado --asumo que los medicos existentes están todos activos
                 
                 
@@ -716,11 +716,11 @@ INSERT INTO CUATRO_QUESOS.Bonos
                         where principal.Paciente_Dni = submaestra.Paciente_Dni --para ese afiliado
                                 and submaestra.Bono_Consulta_Numero <= principal.Bono_Consulta_Numero --cuantos bonos menores o iguales a este bono existen
                                 and submaestra.Turno_Numero is not null
-                                and submaestra.Turno_Fecha < GETDATE()) --y que hayan sido usados en una consulta PASADA (sabemos que se usaron cuando se asocian a un turno)
+                                and submaestra.Turno_Fecha < CUATRO_QUESOS.FechaMigracion()) --y que hayan sido usados en una consulta PASADA (sabemos que se usaron cuando se asocian a un turno)
                  end as Nro_Consulta,
                 
                  --lo que sigue es para determinar el usuario. Si se concretó el turno, asumo que el usuario es el mismo que lo compró, si no se concretó el usuario es NULL
-                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero and sub1.Turno_Fecha < GETDATE())
+                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero and sub1.Turno_Fecha < CUATRO_QUESOS.FechaMigracion())
                 when 0 then NULL --si no hubo consulta el nro_consulta es null
                 else
                         (select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
@@ -757,7 +757,7 @@ INSERT INTO CUATRO_QUESOS.Bonos
                 Bono_Farmacia_Fecha_Vencimiento as Fecha_Vencimiento,
                 NULL as Nro_Consulta, --no aplica para bonos farmacia
                 --lo que sigue es para determinar el usuario. Si se usó, asumo que el usuario es el mismo que lo compró, si no se usó el usuario es NULL
-                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero and sub1.Turno_Fecha < GETDATE()) --claramente un bono farmacia usado es el que tiene un medicamento escrito.... en el pasado
+                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero and sub1.Turno_Fecha < CUATRO_QUESOS.FechaMigracion()) --claramente un bono farmacia usado es el que tiene un medicamento escrito.... en el pasado
                 when 0 then NULL --si no hubo se usó el nro_consulta es null
                 else
                         (select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
@@ -913,7 +913,7 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
                                 and sub1.Bono_Consulta_Numero is not null) = 0
                 --esta condición significa que no existe un registro con este número de turno y un bono de consulta asociado
                 --esto quiere decir que el turno no se concretó ya que no se usó bono consulta
-                and Turno_Fecha < GETDATE()-- y esto otro significa que el turno debería haberse concretado antes de la migración
+                and Turno_Fecha < CUATRO_QUESOS.FechaMigracion()-- y esto otro significa que el turno debería haberse concretado antes de la migración
 
 
 INSERT INTO CUATRO_QUESOS.Cancelaciones
@@ -929,7 +929,7 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
         
         from gd_esquema.Maestra as principal
         where Turno_Numero is not null
-                and Turno_Fecha > GETDATE()
+                and Turno_Fecha > CUATRO_QUESOS.FechaMigracion()
                 and (DATENAME(dw, Turno_Fecha) = 'Domingo'
                         
                         or ((DATENAME(dw, Turno_Fecha) = 'Sábado'
@@ -967,7 +967,7 @@ INSERT INTO CUATRO_QUESOS.Consultas
 
         from gd_esquema.Maestra
 
-        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha < GETDATE()
+        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha < CUATRO_QUESOS.FechaMigracion()
 
 INSERT INTO CUATRO_QUESOS.Consultas_Exceptions
 --en esta tabla van las consultas futuras
@@ -994,7 +994,7 @@ INSERT INTO CUATRO_QUESOS.Consultas_Exceptions
 
         from gd_esquema.Maestra
 
-        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha >= GETDATE()
+        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha >= CUATRO_QUESOS.FechaMigracion()
         
         
         
@@ -1017,7 +1017,7 @@ INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
         where Turno_Numero is not null
                 and Bono_Farmacia_Numero is not null
                 and Bono_Farmacia_Medicamento is not null
-                and Turno_Fecha < GETDATE()
+                and Turno_Fecha < CUATRO_QUESOS.FechaMigracion()
 
                 
 /* *****USUARIOS Y DEMAS YERBAS***** */
@@ -1317,7 +1317,7 @@ begin
                                         'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
                         from CUATRO_QUESOS.Turnos as sub
                         where sub.ID_Medico = @ID
-                                and sub.Fecha > GETDATE()
+                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
                                 and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
                         
         fetch CurLocal into @ID, @Habilitado
@@ -1358,7 +1358,7 @@ begin
                                         'El paciente de este turno ya no se atiende en la clínica' as Motivo
                         from CUATRO_QUESOS.Turnos as sub
                         where sub.Nro_Afiliado = @Nro
-                                and sub.Fecha > GETDATE()
+                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
                                 and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
                         
         fetch CurLocal into @Nro, @Fecha_Baja
@@ -1432,7 +1432,7 @@ begin
 		  'El médico a cargo de este turno cambió sus horarios y ya no atiende este día'
 	from CUATRO_QUESOS.Turnos inner join deleted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = deleted.Id_Medico)
 	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > GETDATE())
+		and Fecha > CUATRO_QUESOS.FechaMigracion())
 
 end
 
@@ -1453,7 +1453,7 @@ begin
 		  'El médico a cargo de este turno cambió sus horarios y ya no atiende a esta hora'
 	from CUATRO_QUESOS.Turnos inner join inserted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = inserted.Id_Medico)
 	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > GETDATE()
+		and Fecha > CUATRO_QUESOS.FechaMigracion()
 		and (inserted.Hora_Desde > CAST(Turnos.Fecha as time) or inserted.Hora_Hasta < CAST((DATEADD(minute, 30, Turnos.Fecha)) as time)))
 
 end
@@ -1474,7 +1474,7 @@ begin
 		  'El médico a cargo de este turno cambió su agenda y ya no atiende este día'
 	from CUATRO_QUESOS.Turnos inner join inserted on (Turnos.Id_medico = inserted.Id_Medico)
 	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > GETDATE()
+		and Fecha > CUATRO_QUESOS.FechaMigracion()
 		and (inserted.Fecha_Atencion_Desde > Turnos.Fecha or inserted.Fecha_Atencion_Hasta < Turnos.Fecha))
 
 end
@@ -2109,7 +2109,7 @@ begin
         where Afiliados.Nro_Afiliado = @afiliado
         
         set @id_compra = (select COUNT(*) from CUATRO_QUESOS.Compra) + 1
-        set @fecha_fija = getdate()
+        set @fecha_fija = CUATRO_QUESOS.FechaMigracion()
 
         set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
         insert into CUATRO_QUESOS.Compra(Id_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
