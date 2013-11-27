@@ -19,6 +19,8 @@ namespace Clinica_Frba.Pedir_Turno
         Form padre;
         Profesional profesional;
         Afiliado afiliado;
+        List<DateTime> fechas;
+        List<DateTime> horarios;
 
         internal PedirTurno(Form padre)
         {
@@ -71,7 +73,12 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void cargarComboFecha()
         {
-            //throw new NotImplementedException();
+            fechas = AppPedirTurno.traerFechasAgenda(profesional);
+            foreach (DateTime fecha in fechas)
+            {
+                comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
+            }
+            comboFechas.Enabled = true;
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -83,11 +90,30 @@ namespace Clinica_Frba.Pedir_Turno
             }
             profesionalBox.Text = "";
             profesional = null;
+            comboFechas.Enabled = false;
+            comboFechas.Items.Clear();
+            comboTimeslots.Enabled = false;
+            comboTimeslots.Items.Clear();
         }
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
             //AppPedirTurno.generarTurno();
+        }
+
+        private void comboFechas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFechas.SelectedIndex != -1) habilitarComboTimeslots();
+        }
+
+        private void habilitarComboTimeslots()
+        {
+            List<DateTime> horarios = AppPedirTurno.traerTimeslotsFecha(profesional,Convert.ToDateTime(comboFechas.Text));
+            foreach (DateTime horario in horarios)
+            {
+                comboTimeslots.Items.Add(horario.ToString("HH:mm"));
+            }
+            comboTimeslots.Enabled = true;
         }
 
     }

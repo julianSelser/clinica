@@ -10,24 +10,48 @@ namespace Clinica_Frba.AppModel
     class AppPedirTurno : ConectorSQL
     {
 
-        internal static DataTable traerFechasAgenda(Profesional profesional)
+        internal static List<DateTime> traerFechasAgenda(Profesional profesional)
         {
             return crearListadoFechas(traerDataTable("getFechasDisponiblesAgenda", profesional.id));
         }
 
-        private static DataTable crearListadoFechas(DataTable dataTable)
+        private static List<DateTime> crearListadoFechas(DataTable table)
         {
-            throw new NotImplementedException();
+            DataRowCollection rows = table.Rows;
+            List<DateTime> fechas = new List<DateTime>();
+            foreach (DataRow row in rows)
+            {
+                DateTime fecha = crearFecha(row);
+                fechas.Add(fecha);
+            }
+            return fechas;
         }
 
-        internal static DataTable traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
+        private static DateTime crearFecha(DataRow row)
+        {
+           return Convert.ToDateTime(row["Fechas Disponibles"].ToString());
+        }
+
+        internal static List<DateTime> traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
         {
             return crearListadoTimeslots(traerDataTable("getTimeslotsFecha", profesional.id, fechaAgenda));
         }
 
-        private static DataTable crearListadoTimeslots(DataTable dataTable)
+        private static List<DateTime> crearListadoTimeslots(DataTable table)
         {
-            throw new NotImplementedException();
+            DataRowCollection rows = table.Rows;
+            List<DateTime> horarios = new List<DateTime>();
+            foreach (DataRow row in rows)
+            {
+                DateTime horario = crearHorario(row);
+                horarios.Add(horario);
+            }
+            return horarios;
+        }
+
+        private static DateTime crearHorario(DataRow row)
+        {
+            return Convert.ToDateTime(row["Horarios Disponibles"].ToString());
         }
     }
 }

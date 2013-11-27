@@ -4,6 +4,7 @@ GO
 BEGIN TRAN
 GO
 
+DROP PROCEDURE CUATRO_QUESOS.getTimeslotsFecha
 DROP PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda
 drop procedure CUATRO_QUESOS.generarAgenda;
 drop procedure CUATRO_QUESOS.getNYAMedico;
