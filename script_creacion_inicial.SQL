@@ -1502,8 +1502,8 @@ VALUES (
 @mail,
 @fechaNac,
 @nroMatricula,
-GETDATE(),
-DATEADD(DAY, 30, GETDATE())
+NULL,
+NULL
 )
 
 GO
@@ -2766,6 +2766,38 @@ AND DAY(Fecha_Hora) = DAY(@fecha)
 AND MONTH(Fecha_Hora) = MONTH(@fecha)
 AND YEAR(Fecha_Hora) = YEAR(@fecha)
 ORDER BY Fecha_Hora ASC
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.generarTurno @nroAfiliado numeric(18), @idMedico numeric(18), @codEspecialidad numeric(18) , @fecha datetime
+AS
+INSERT INTO CUATRO_QUESOS.Turnos(Numero, Nro_Afiliado, Id_Medico, Cod_Especialidad, Fecha)
+VALUES ((SELECT MAX(Numero)+1 FROM CUATRO_QUESOS.Turnos),@nroAfiliado, @idMedico, @codEspecialidad, @fecha)
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
+ON CUATRO_QUESOS.Turnos AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18), @idMedico numeric(18), @fecha datetime
+DECLARE cursorTurno CURSOR FOR
+SELECT Numero, Id_Medico, Fecha FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = @nroTurno
+	WHERE Id_Medico = @idMedico AND Fecha_Hora = @fecha
+
+	FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
 GO
 
 /**************** FIN PROCEDURES PEDIR TURNO ********************/
