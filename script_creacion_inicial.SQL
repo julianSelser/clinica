@@ -28,6 +28,14 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
 )
 ;
 
+CREATE TABLE CUATRO_QUESOS.Agendas_Medicos(
+		Id_Medico numeric(18) NOT NULL,
+		Fecha_Hora datetime NOT NULL,
+		Nro_Turno numeric(18)
+)
+;
+
+
 CREATE TABLE CUATRO_QUESOS.Bonos (
         Numero numeric(18) NOT NULL,
         Fecha_Impresion datetime NOT NULL,
@@ -231,6 +239,10 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT PK_Afiliados
         PRIMARY KEY CLUSTERED (Nro_Afiliado)
 ;
 
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos ADD CONSTRAINT PK_Agendas_Medicos
+        PRIMARY KEY CLUSTERED (Id_Medico, Fecha_Hora)
+;
+
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT PK_Bonos
         PRIMARY KEY CLUSTERED (Numero, Tipo_Bono)
 ;
@@ -365,6 +377,15 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Conyuge
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Titular
         FOREIGN KEY (Nro_Titular) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 ;
+
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos ADD CONSTRAINT FK_Agenda_Medico
+		FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
+;
+
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos ADD CONSTRAINT FK_Agenda_Turno
+		FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
+;
+
 
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados
         FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
@@ -1190,7 +1211,7 @@ go
 --CREATE VIEWS
 
 --finalmente creo la vista que contiene las agendas de los medicos!
-create view CUATRO_QUESOS.Agendas_Medicos as
+/*create view CUATRO_QUESOS.Agendas_Medicos as
 select (CAST(dia as datetime) + cast(hora as datetime)) as Horario,
                 Medicos.Id_Medico as Id_Medico,
                 case when (select COUNT(*)
@@ -1210,6 +1231,8 @@ where dia >= Medicos.fecha_atencion_desde and dia <= Medicos.Fecha_Atencion_Hast
         and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
 
 GO
+--ESTO QUEDÓ DE LA VERSIÓN ANTERIOR POR SI NOS SIRVE EL CÓDIGO, ESTA VISTA YA NO EXISTE!
+*/
 
 --CREATE TRIGGERS
 
@@ -1369,6 +1392,7 @@ GO
 
 
 --trigger para verificar que los horarios de los médicos queden dentro de los horarios de la clínica
+--en realidad estaría "por las dudas", porque la app ya valida esto en registrar agenda
 
 create trigger CUATRO_QUESOS.obedecerHorariosClinica on CUATRO_QUESOS.Dias_Atencion for insert, update
 as
@@ -1386,7 +1410,7 @@ GO
 
 
 --trigger para cancelar los turnos de un día de atención cuando se elimina ese día
-create trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado on CUATRO_QUESOS.Dias_Atencion for delete
+/*create trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado on CUATRO_QUESOS.Dias_Atencion for delete
 as
 begin
 	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
@@ -1401,9 +1425,11 @@ begin
 end
 
 GO
+--ESTE TRIGGER YA NO ES NECESARIO
+*/
 
 --trigger para cancelar los turnos en cierta hora del día, cuando el médico ya no atiende a esa hora
-create trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora on CUATRO_QUESOS.Dias_Atencion for update
+/*create trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora on CUATRO_QUESOS.Dias_Atencion for update
 as
 --sé que la aplicación sólo cambia un día de atención a la vez (por medio de un stored procedure)
 begin
@@ -1421,9 +1447,11 @@ begin
 end
 
 GO
+--ESTE TRIGGER YA NO ES NECESARIO
+*/
 
 --trigger para cancelar los turnos que caen fuera de un nuevo período de atención
-create trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda on CUATRO_QUESOS.Medicos for update
+/*create trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda on CUATRO_QUESOS.Medicos for update
 --sé que la aplicación sólo cambia un médico a la vez (por medio de un stored procedure)
 as
 begin
@@ -1440,7 +1468,8 @@ begin
 end
 
 GO
-
+--ESTE TRIGGER YA NO ES NECESARIO
+*/
 
 --CREATE PROCEDURES
 
@@ -2307,6 +2336,14 @@ end
 
 GO
 
+create procedure CUATRO_QUESOS.getNYAMedico (@ID numeric(18)) --me trae el nombre y el apellido del médico
+as
+begin
+	select Nombre, Apellido from CUATRO_QUESOS.Medicos where ID_MEdico = @ID
+end
+
+GO
+
 create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18))
 as
 begin
@@ -2363,17 +2400,7 @@ begin
 	set @desde = CONVERT(time, @str_desde);
 	set @hasta = CONVERT(time, @str_hasta);
 	
-	/*if @desde >= @hasta --hay que verificar que no sea un intervalo de longitud 0 o negativo
-	begin
-		raiserror('Error: el intervalo especificado es inválido.', 16, 0);
-		return;
-	end*/ --esto sería genial verificarlo directamente desde la aplicación, así tengo un solo tipo de error viniendo desde la base
-	
-	--acá no verifico nada más
-	--la aplicación desktop sólo va a mandar ciertos valores de una selección acotada
-	--estos valores corresponden a los horarios válidos de cada día (07:00 a 20:00 para días de semana, 10:00 a 15:00 para sábados)
-	--entonces no hace falta verificar que los horarios solicitados caigan dentro de los horarios de la clínica
-	--tampoco verifico que el día no se repita porque eso va a saltar por PK (también lo puedo chequear desde la aplicación
+	--la validez de los datos que llegan aca (que no sea un intervalo negativo, que los strings estén bien formateados, etc) se verifica en la app
 	
 	insert into CUATRO_QUESOS.Dias_Atencion(Id_Medico, Nombre_Dia, Hora_Desde, Hora_Hasta)
 	values(@Id_Medico, @nombre_dia, @desde, @hasta)

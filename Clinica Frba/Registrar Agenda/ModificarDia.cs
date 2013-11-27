@@ -79,11 +79,6 @@ namespace Clinica_Frba.Registrar_Agenda
                 return;
             }
 
-            //pido confirmación
-            if (!(MessageBox.Show("¿Está seguro? Si usted tiene turnos pendientes fuera del nuevo horario, serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes))
-            {
-                return;
-            }
 
             //la acción sobre la DB la meto en un bloque try, porque la restricción de las 48 hs semanales va a saltar en la base
             try
@@ -97,7 +92,6 @@ namespace Clinica_Frba.Registrar_Agenda
                 return;
             }
 
-            MessageBox.Show("Se actualizaron los horarios para este día.", "Éxito");
             ((RegistrarAgenda)padre).poblarDiasAtencion(this.id_medico);
             AsistenteVistas.volverAPadreYCerrar(padre, this);
 
