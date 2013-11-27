@@ -91,7 +91,6 @@ namespace Clinica_Frba.Registrar_Agenda
             }
 
 
-            MessageBox.Show("Se agregó el horario para este nuevo día.", "Éxito");
             ((RegistrarAgenda)padre).poblarDiasAtencion(this.id_medico);
             AsistenteVistas.volverAPadreYCerrar(padre, this);
 

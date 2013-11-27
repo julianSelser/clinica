@@ -4,6 +4,7 @@ GO
 BEGIN TRAN
 GO
 
+drop procedure CUATRO_QUESOS.getNYAMedico;
 DROP PROCEDURE CUATRO_QUESOS.registrarReceta 
 DROP PROCEDURE CUATRO_QUESOS.traerMedicamentos
 DROP PROCEDURE CUATRO_QUESOS.getBonosFarmacia
@@ -85,14 +86,19 @@ drop trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados
 drop trigger CUATRO_QUESOS.limitarJornadaLaboral
 drop trigger CUATRO_QUESOS.obedecerHorariosClinica
 drop trigger CUATRO_QUESOS.limitarMedicamentosPorBono
-drop trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado
-drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora
-drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda
+--drop trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado
+--drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora
+--drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda
 
 
 -- Drop Foreign Key Constraints
-ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos DROP CONSTRAINT FK_Agenda_Medico
 ;
+
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos DROP CONSTRAINT FK_Agenda_Turno
+;
+
+
 
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Afiliados_Planes
 ;
@@ -218,10 +224,19 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_U
 alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional
 ;
 
+
+ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
+;
+
+
 -- Drop Tables, Stored Procedures and Views
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Afiliados') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Afiliados
+;
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Agendas_Medicos') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE CUATRO_QUESOS.Agendas_Medicos
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)
@@ -320,7 +335,8 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Dias
 DROP TABLE CUATRO_QUESOS.Dias
 ;
 
-DROP VIEW CUATRO_QUESOS.Agendas_Medicos;
+--DROP VIEW CUATRO_QUESOS.Agendas_Medicos;
+--esta vista ya no existe
 
 DROP SCHEMA [CUATRO_QUESOS]
 GO

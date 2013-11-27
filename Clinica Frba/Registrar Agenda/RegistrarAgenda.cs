@@ -103,14 +103,16 @@ namespace Clinica_Frba.Registrar_Agenda
         public void poblarDiasAtencion(decimal id_medico)
         {
             DataTable dias_atencion;
+            DataTable datos_medico;
 
+            datos_medico = ConectorSQL.traerDataTable("getNYAMedico", id_medico);
             dias_atencion = ConectorSQL.traerDataTable("getDiasAtencion", id_medico);
 
             panelLunes.Visible = panelMartes.Visible = panelMiercoles.Visible = panelJueves.Visible = panelViernes.Visible = panelSabado.Visible = false;
             labLuNo.Visible = labMaNo.Visible = labMiNo.Visible = labJuNo.Visible = labViNo.Visible = labSaNo.Visible = true;
 
             labNombreMedico.Visible = true;
-            labNombreMedico.Text = dias_atencion.Rows[0]["Nombre"].ToString() + " " + dias_atencion.Rows[0]["Apellido"].ToString();
+            labNombreMedico.Text = datos_medico.Rows[0]["Nombre"].ToString() + " " + datos_medico.Rows[0]["Apellido"].ToString();
 
             foreach (DataRow dia in dias_atencion.Rows)
             {
@@ -171,13 +173,11 @@ namespace Clinica_Frba.Registrar_Agenda
         }
 
         private void confirmarQuitarDia(string nombre_dia)
+        //esto se llama confirmar pero no pide confirmación de nada, es para evitar un refactor
         {
-            if (MessageBox.Show("¿Está seguro? Todos sus turnos para ese día de la semana serán cancelados.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {                
-                ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
-                poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
-                MessageBox.Show("Se quitó el día de atención.", "Éxito");
-            }
+            ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
+            poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
+            
 
         }
 
