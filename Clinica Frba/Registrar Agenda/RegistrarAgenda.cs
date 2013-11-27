@@ -82,8 +82,10 @@ namespace Clinica_Frba.Registrar_Agenda
 
         }
 
-        private void cargarPantallaConLosDatos(decimal id_medico)
+        public void cargarPantallaConLosDatos(decimal id_medico)
         {
+            
+
             //visibilidad
             botonBuscarMedico.Visible = false;
             botonQuitarMedico.Visible = true;
@@ -91,29 +93,43 @@ namespace Clinica_Frba.Registrar_Agenda
 
             labNroMedico.Visible = true;
             textBox1.Visible = false;
-            groupBox2.Visible = true;
 
-            //traer datos
-            poblarDiasAtencion(id_medico);
-            
+            //traer datos. si no se puede registrar esta agenda (ya está registrada), mostrar el label de información en vez del groupbox con los controles
+
+            if (poblarDiasAtencion(id_medico) != 0)
+            {
+                labAgendaExistente.Visible = true;
+                groupBox2.Visible = false;
+            } 
+            else
+            {
+                labAgendaExistente.Visible = false;
+                groupBox2.Visible = true;            
+            }
 
         }
 
         //público porque las subventanitas que saltan también tienen que actualizar estos datos
-        public void poblarDiasAtencion(decimal id_medico)
+        public int poblarDiasAtencion(decimal id_medico)
         {
             DataTable dias_atencion;
             DataTable datos_medico;
 
             datos_medico = ConectorSQL.traerDataTable("getNYAMedico", id_medico);
+            labNombreMedico.Visible = true;
+            labNombreMedico.Text = datos_medico.Rows[0]["Nombre"].ToString() + " " + datos_medico.Rows[0]["Apellido"].ToString();
+
+            if (datos_medico.Rows[0]["Tiene_Agenda"].ToString() == "S")
+            {
+                return -1; //codigo de error
+            }
+
             dias_atencion = ConectorSQL.traerDataTable("getDiasAtencion", id_medico);
 
             panelLunes.Visible = panelMartes.Visible = panelMiercoles.Visible = panelJueves.Visible = panelViernes.Visible = panelSabado.Visible = false;
             labLuNo.Visible = labMaNo.Visible = labMiNo.Visible = labJuNo.Visible = labViNo.Visible = labSaNo.Visible = true;
 
-            labNombreMedico.Visible = true;
-            labNombreMedico.Text = datos_medico.Rows[0]["Nombre"].ToString() + " " + datos_medico.Rows[0]["Apellido"].ToString();
-
+            
             foreach (DataRow dia in dias_atencion.Rows)
             {
                 switch (dia["Nombre_Dia"].ToString())
@@ -157,6 +173,7 @@ namespace Clinica_Frba.Registrar_Agenda
                         break;
                 }
             }
+            return 0;
         }
 
 
@@ -170,6 +187,7 @@ namespace Clinica_Frba.Registrar_Agenda
             labNombreMedico.Visible = labNroMedico.Visible = false;
             textBox1.Visible = true;
             groupBox2.Visible = false;
+            labAgendaExistente.Visible = false;
         }
 
         private void confirmarQuitarDia(string nombre_dia)

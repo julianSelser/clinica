@@ -505,9 +505,6 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Us
 
 --Create other constraints
 
---constraint para verificar que la agenda profesional sea de 120 días como máximo
-alter table CUATRO_QUESOS.Medicos add constraint limitarAgendaProfesional
-                check (datediff(day, fecha_atencion_desde, fecha_atencion_hasta) <= 120)
 
 /* ****** Migrar datos existentes ******* */
 
@@ -658,8 +655,8 @@ INSERT INTO CUATRO_QUESOS.Medicos
                 Medico_Mail as Mail,
                 Medico_Fecha_Nac as Fecha_Nac,
                 0 as Nro_Matricula, --indefinido
-                getdate() as Fecha_Atencion_Desde,
-                case when MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
+                NULL as Fecha_Atencion_Desde, --getdate() as Fecha_Atencion_Desde,
+                NULL as Fecha_Atencion_Hasta,--case when MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, 
                 1 as Habilitado --asumo que los medicos existentes están todos activos
                 
                 
@@ -818,6 +815,7 @@ set ID_Compra = (select Id_Compra --ahora que generé las compras, asigno los ID
 --Días de atención
 
 INSERT INTO CUATRO_QUESOS.Dias_Atencion
+--Esta tabla la dejo pre-completada porque 1. ya tengo el código y 2. queda prolijo para el caso de uso
         (
         ID_Medico,
         Nombre_Dia,
@@ -1165,9 +1163,10 @@ values(2, 13); --medico, generar receta
                 
 
                 
-                
---esta es una tabla auxiliar, no se si hara falta agregarla en el DER:
+GO
 
+/*
+--ESTAS DOS TABLAS AUXILIARES YA NO SE USAN EN LA MIGRACIÓN, PERO EL CÓDIGO ME PUEDE SERVIR PARA LOS SP
 create table CUATRO_QUESOS.horas_del_dia
 (
         hora time primary key
@@ -1207,6 +1206,7 @@ end
 --contiene todos los días que hay de 2012 a más o menos 2017
 
 go
+*/
 
 --CREATE VIEWS
 
@@ -2336,10 +2336,15 @@ end
 
 GO
 
-create procedure CUATRO_QUESOS.getNYAMedico (@ID numeric(18)) --me trae el nombre y el apellido del médico
+create procedure CUATRO_QUESOS.getNYAMedico (@ID numeric(18)) --trae nombre y apellido, y averigua si registró agenda
 as
 begin
-	select Nombre, Apellido from CUATRO_QUESOS.Medicos where ID_MEdico = @ID
+	select Nombre, 
+		Apellido, 
+		case when (Fecha_Atencion_Desde is null or Fecha_Atencion_Hasta is null) then 'N'
+			else 'S'
+		end as Tiene_Agenda
+	from CUATRO_QUESOS.Medicos where ID_Medico = @ID
 end
 
 GO
@@ -2371,19 +2376,6 @@ begin
 	set @desde = CONVERT(time, @str_desde);
 	set @hasta = CONVERT(time, @str_hasta);
 	
-	/*if @desde >= @hasta --hay que verificar que no sea un intervalo de longitud 0 o negativo
-	begin
-		raiserror('Error: el intervalo especificado es inválido.', 16, 0);
-		return;
-	end*/ --esto sería genial verificarlo directamente desde la aplicación, así tengo un solo tipo de error viniendo desde la base
-	
-	
-	--acá no verifico nada más
-	--la aplicación desktop sólo va a mandar ciertos valores de una selección acotada
-	--estos valores corresponden a los horarios válidos de cada día (07:00 a 20:00 para días de semana, 10:00 a 15:00 para sábados)
-	--entonces no hace falta verificar que los horarios solicitados caigan dentro de los horarios de la clínica (igual hay un trigger para verificar eso)
-	--tampoco verifico que el día ya esté (que se updatee algo) porque la aplicación no ofrece modificar días que no hay
-	
 	update CUATRO_QUESOS.Dias_Atencion set Hora_Desde = @desde, Hora_Hasta = @hasta
 	where Nombre_Dia = @nombre_dia and Id_Medico = @Id_Medico
 	
@@ -2409,13 +2401,6 @@ end
 
 GO
 
-create procedure CUATRO_QUESOS.getFechasParaMedico(@id_medico numeric(18))
-as
-begin
-	select Nombre, Apellido, Fecha_Atencion_Desde, Fecha_Atencion_Hasta from cuatro_quesos.medicos where Id_Medico = @id_medico
-end
-
-GO
 
 
 create procedure CUATRO_QUESOS.updateFechasMedico(@id_medico numeric(18), @desde datetime, @hasta datetime)
@@ -2424,6 +2409,94 @@ begin
 	update CUATRO_QUESOS.Medicos set Fecha_Atencion_Desde = @desde, Fecha_Atencion_Hasta = @hasta
 	where Id_Medico = @id_medico
 end
+
+GO
+
+
+create procedure CUATRO_QUESOS.generarAgenda(@ID numeric(18), @fecha_desde datetime, @fecha_hasta datetime)
+--al ejecutarse este SP la app ya verificó que los campos que voy a usar son no-nulos
+as
+begin
+
+/* -- creo horas del día -- */
+create table #horas_del_dia
+(
+        hora time
+)
+
+declare @offset tinyint
+set @offset = 0
+
+while @offset < 24
+begin
+        insert into #Horas_del_dia(hora)
+        values(DATEADD(hour, @offset, '00:00:00'))
+        insert into #Horas_del_dia(hora)
+        values(DATEADD(hour, @offset, '00:30:00'))
+        set @offset = @offset+1
+end
+/* -- fin horas del día -- */
+--esta tabla contiene todos los intervalos de media hora que hay en un día dado
+
+/* -- creo días -- */
+create table #Dias --calendar table
+(
+        dia date
+)
+
+
+declare @acum_fecha datetime
+set @acum_fecha = @fecha_desde
+while @acum_fecha <= @fecha_hasta
+begin
+        insert into #Dias(dia)
+        values(@acum_fecha)
+        set @acum_fecha = (DATEADD(day, 1, @acum_fecha))
+end
+/* -- fin días -- */
+--esta tabla contiene todos los días incluidos en el intervalo del médico. o sea, tiene máximo 120 filas
+
+/* -- traigo turnos relevantes -- */
+create table #turnos_relevantes
+ (
+        Numero numeric(18) NOT NULL,
+        Fecha datetime NOT NULL,
+        Nro_Afiliado numeric(18) NOT NULL,
+        Id_Medico numeric(18) NOT NULL,
+        Cod_Especialidad numeric(18) NOT NULL
+)
+;
+
+insert into #turnos_relevantes
+select Numero, Fecha, Nro_Afiliado, Id_Medico, Cod_Especialidad from CUATRO_QUESOS.Turnos
+	where ID_Medico = @ID and  Fecha <= @fecha_hasta and (Fecha  > @fecha_desde or (cast(Fecha as date) = cast (@fecha_desde as date))) --me traigo TODO el día actual, aunque me esté metiendo (por horas) en el pasado - esto es porque, por cómo genero los timeslots, necesito trabajar con días enteros
+--básicamente me traigo los turnos que "sirven" de la tabla gigante de turnos, para que los selects que vienen después sean más fáciles y espero que más rápidos
+
+
+/* -- fin turnos relevantes -- */
+
+insert into CUATRO_QUESOS.Agendas_Medicos(Id_Medico, Fecha_Hora, Nro_Turno)
+
+select  Medicos.Id_Medico as Id_Medico,
+		(CAST(dia as datetime) + cast(hora as datetime)) as Fecha_Hora,
+		(case when ((select COUNT(*)
+					from #turnos_relevantes 
+					where Fecha = (CAST(dia as datetime) + cast(hora as datetime))) > 0)
+			  then  (select top 1 Numero --este top 1 no debería ser necesario ya que no se están permitiendo sobreturnos
+					from #turnos_relevantes 
+					where Fecha = (CAST(dia as datetime) + cast(hora as datetime)))
+			 else NULL
+			 end) as Nro_Turno --si hay un turno a esa hora lo asocio, si no hay lo dejo en NULL (el médico está libre en ese timeslot)
+		
+from CUATRO_QUESOS.Medicos, #dias as dia, #horas_del_dia as hora
+
+where Medicos.Id_Medico = @ID 
+		and (DATENAME(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
+        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+
+end
+
 
 GO
 /* ***** FIN PROCEDURES REGISTRAR AGENDA ***** */

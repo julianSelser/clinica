@@ -4,6 +4,7 @@ GO
 BEGIN TRAN
 GO
 
+drop procedure CUATRO_QUESOS.generarAgenda;
 drop procedure CUATRO_QUESOS.getNYAMedico;
 DROP PROCEDURE CUATRO_QUESOS.registrarReceta 
 DROP PROCEDURE CUATRO_QUESOS.traerMedicamentos
@@ -18,7 +19,6 @@ DROP PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas
 DROP PROCEDURE CUATRO_QUESOS.elegirListado
 DROP PROCEDURE CUATRO_QUESOS.getListadoEstadistico
 DROP PROCEDURE CUATRO_QUESOS.bonosPorTerceros
-drop procedure CUATRO_QUESOS.getFechasParaMedico
 drop procedure CUATRO_QUESOS.updateFechasMedico
 drop procedure CUATRO_QUESOS.modificarDiaAtencion
 drop procedure CUATRO_QUESOS.agregarDiaAtencion
@@ -221,8 +221,6 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_U
 
 -- Drop other constraints
 
-alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional
-;
 
 
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
