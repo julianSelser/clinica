@@ -6,6 +6,18 @@ GO
 CREATE SCHEMA [CUATRO_QUESOS] AUTHORIZATION [gd]
 GO
 
+-- Funcion con la fecha de migracion
+
+CREATE FUNCTION CUATRO_QUESOS.FechaMigracion()
+RETURNS datetime
+AS
+BEGIN
+
+RETURN CAST('2014-06-06T12:00:00' as datetime)
+
+END
+GO
+
 -- Create Tables
 CREATE TABLE CUATRO_QUESOS.Afiliados (
         Nro_Afiliado numeric(18) NOT NULL,
