@@ -2756,6 +2756,18 @@ MONTH(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC,
 DAY(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC
 GO
 
+CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fecha datetime
+AS
+SELECT CONVERT(VARCHAR(5),Agendas_Medicos.Fecha_Hora, 108) 'Horarios Disponibles'
+FROM CUATRO_QUESOS.Agendas_Medicos
+WHERE Id_Medico = @idMedico 
+AND Nro_Turno IS NULL
+AND DAY(Fecha_Hora) = DAY(@fecha)
+AND MONTH(Fecha_Hora) = MONTH(@fecha)
+AND YEAR(Fecha_Hora) = YEAR(@fecha)
+ORDER BY Fecha_Hora ASC
+GO
+
 /**************** FIN PROCEDURES PEDIR TURNO ********************/
 
 IF @@ERROR != 0 ROLLBACK

@@ -32,14 +32,26 @@ namespace Clinica_Frba.AppModel
            return Convert.ToDateTime(row["Fechas Disponibles"].ToString());
         }
 
-        internal static DataTable traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
+        internal static List<DateTime> traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
         {
             return crearListadoTimeslots(traerDataTable("getTimeslotsFecha", profesional.id, fechaAgenda));
         }
 
-        private static DataTable crearListadoTimeslots(DataTable dataTable)
+        private static List<DateTime> crearListadoTimeslots(DataTable table)
         {
-            throw new NotImplementedException();
+            DataRowCollection rows = table.Rows;
+            List<DateTime> horarios = new List<DateTime>();
+            foreach (DataRow row in rows)
+            {
+                DateTime horario = crearHorario(row);
+                horarios.Add(horario);
+            }
+            return horarios;
+        }
+
+        private static DateTime crearHorario(DataRow row)
+        {
+            return Convert.ToDateTime(row["Horarios Disponibles"].ToString());
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Clinica_Frba.Pedir_Turno
         Profesional profesional;
         Afiliado afiliado;
         List<DateTime> fechas;
+        List<DateTime> horarios;
 
         internal PedirTurno(Form padre)
         {
@@ -107,6 +108,11 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void habilitarComboTimeslots()
         {
+            List<DateTime> horarios = AppPedirTurno.traerTimeslotsFecha(profesional,Convert.ToDateTime(comboFechas.Text));
+            foreach (DateTime horario in horarios)
+            {
+                comboTimeslots.Items.Add(horario.ToString("HH:mm"));
+            }
             comboTimeslots.Enabled = true;
         }
 
