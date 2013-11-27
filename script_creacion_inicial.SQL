@@ -2743,6 +2743,16 @@ COMMIT
 GO
 
 /*************** FIN PROCEDURE GENERAR RECETA****************************/
+/*************** PROCEDURES PEDIR TURNO *********************/
+
+CREATE PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda @idMedico numeric(18)
+AS
+SELECT CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 'Fechas Disponibles'
+FROM CUATRO_QUESOS.Agendas_Medicos
+WHERE Id_Medico = @idMedico AND Nro_Turno IS NULL
+GO
+
+/**************** FIN PROCEDURES PEDIR TURNO ********************/
 
 IF @@ERROR != 0 ROLLBACK
 

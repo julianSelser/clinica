@@ -29,21 +29,6 @@ namespace Clinica_Frba.Pedir_Turno
                 setearAfiliado(UsuarioLogeado.Instance.Persona as Afiliado);
                 selectAfiliadoButton.Visible = false;
             }
-            cargarBotonFuncionalidad();
-        }
-
-        private void cargarBotonFuncionalidad()
-        {
-            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.Text = "Seleccionar Fecha";
-            col.Name = "Seleccionar";
-            col.UseColumnTextForButtonValue = true;
-            grillaFechas.Columns.Add(col);
-        }
-
-        private void acceptButton_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -80,13 +65,13 @@ namespace Clinica_Frba.Pedir_Turno
         {
             if(nroAfiliadoBox.Text != "" && profesionalBox.Text != "")
             {
-               cargarGrilla();
+                cargarComboFecha();
             }
         }
 
-        private void cargarGrilla()
+        private void cargarComboFecha()
         {
-            AsistenteVistas.cargarGrilla(grillaFechas, AppPedirTurno.traerFechasAgenda(profesional));
+            //throw new NotImplementedException();
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -98,22 +83,11 @@ namespace Clinica_Frba.Pedir_Turno
             }
             profesionalBox.Text = "";
             profesional = null;
-            grillaFechas.DataSource = null;
         }
 
-        private void grillaFechas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void aceptarButton_Click(object sender, EventArgs e)
         {
-            if (e.ColumnIndex == grillaFechas.Columns["Seleccionar"].Index && e.RowIndex >= 0 && e.RowIndex < (grillaFechas.Rows.Count - 1)) //Para que la accion de click sea valida solo sobre el boton
-            {
-
-                DateTime fechaAgenda = crearFecha(e.RowIndex); //instancia un afiliado y luego depende de la funcionalidad, abrirá otra ventana
-                AsistenteVistas.mostrarNuevaVentana(new SeleccionarTimeslot(this, profesional, fechaAgenda),this);
-            }
-        }
-
-        private DateTime crearFecha(int fila)
-        {
-            throw new NotImplementedException();
+            //AppPedirTurno.generarTurno();
         }
 
     }

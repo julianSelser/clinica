@@ -12,12 +12,22 @@ namespace Clinica_Frba.AppModel
 
         internal static DataTable traerFechasAgenda(Profesional profesional)
         {
-            return traerDataTable("getFechasDisponiblesAgenda", profesional.id);
+            return crearListadoFechas(traerDataTable("getFechasDisponiblesAgenda", profesional.id));
+        }
+
+        private static DataTable crearListadoFechas(DataTable dataTable)
+        {
+            throw new NotImplementedException();
         }
 
         internal static DataTable traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
         {
-            return traerDataTable("getTimeslotsFecha", profesional.id, fechaAgenda);
+            return crearListadoTimeslots(traerDataTable("getTimeslotsFecha", profesional.id, fechaAgenda));
+        }
+
+        private static DataTable crearListadoTimeslots(DataTable dataTable)
+        {
+            throw new NotImplementedException();
         }
     }
 }

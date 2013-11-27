@@ -39,14 +39,17 @@
             this.errorBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.limpiarButton = new System.Windows.Forms.Button();
-            this.grillaFechas = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboFechas = new System.Windows.Forms.ComboBox();
+            this.aceptarButton = new System.Windows.Forms.Button();
+            this.comboTimeslots = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grillaFechas)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(440, 511);
+            this.cancelButton.Location = new System.Drawing.Point(440, 229);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
@@ -154,21 +157,64 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
-            // grillaFechas
+            // label4
             // 
-            this.grillaFechas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grillaFechas.Location = new System.Drawing.Point(12, 197);
-            this.grillaFechas.Name = "grillaFechas";
-            this.grillaFechas.Size = new System.Drawing.Size(503, 296);
-            this.grillaFechas.TabIndex = 30;
-            this.grillaFechas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaFechas_CellContentClick);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 193);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(114, 13);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Seleccione una fecha:";
+            // 
+            // comboFechas
+            // 
+            this.comboFechas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFechas.Enabled = false;
+            this.comboFechas.FormattingEnabled = true;
+            this.comboFechas.Location = new System.Drawing.Point(137, 190);
+            this.comboFechas.Name = "comboFechas";
+            this.comboFechas.Size = new System.Drawing.Size(111, 21);
+            this.comboFechas.TabIndex = 30;
+            // 
+            // aceptarButton
+            // 
+            this.aceptarButton.Location = new System.Drawing.Point(348, 229);
+            this.aceptarButton.Name = "aceptarButton";
+            this.aceptarButton.Size = new System.Drawing.Size(75, 23);
+            this.aceptarButton.TabIndex = 31;
+            this.aceptarButton.Text = "Aceptar";
+            this.aceptarButton.UseVisualStyleBackColor = true;
+            this.aceptarButton.Click += new System.EventHandler(this.aceptarButton_Click);
+            // 
+            // comboTimeslots
+            // 
+            this.comboTimeslots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTimeslots.Enabled = false;
+            this.comboTimeslots.FormattingEnabled = true;
+            this.comboTimeslots.Location = new System.Drawing.Point(380, 190);
+            this.comboTimeslots.Name = "comboTimeslots";
+            this.comboTimeslots.Size = new System.Drawing.Size(115, 21);
+            this.comboTimeslots.TabIndex = 33;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(260, 193);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(113, 13);
+            this.label5.TabIndex = 32;
+            this.label5.Text = "Seleccione un horario:";
             // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 546);
-            this.Controls.Add(this.grillaFechas);
+            this.ClientSize = new System.Drawing.Size(529, 264);
+            this.Controls.Add(this.comboTimeslots);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.aceptarButton);
+            this.Controls.Add(this.comboFechas);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.errorBox);
             this.Controls.Add(this.cancelButton);
@@ -176,7 +222,6 @@
             this.Text = "Pedido de Turno";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grillaFechas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,6 +240,10 @@
         private System.Windows.Forms.TextBox errorBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button limpiarButton;
-        private System.Windows.Forms.DataGridView grillaFechas;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboFechas;
+        private System.Windows.Forms.Button aceptarButton;
+        private System.Windows.Forms.ComboBox comboTimeslots;
+        private System.Windows.Forms.Label label5;
     }
 }
