@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.AppModel.Excepciones;
 using Clinica_Frba.Domain;
+using System.Globalization;
 
 //Ventana que da alta un afiliado, 
 //dependiendo del tipo de afiliado (titular, conyuge, familiar) 
@@ -38,7 +39,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             this.modo = modoAfiliado.modo;
             this.nroTitular = 0;
             cargarCombos();
-            fechaNacimiento.Value = Globales.getFechaSistema();
+            fechaNacimiento.Value = Convert.ToDateTime(Globales.getFechaSistema().ToShortDateString());
             aceptarButton.Enabled = false;
             sexoButton1.Checked = true;
             sexoButton2.Checked = false;
@@ -205,7 +206,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             sexoButton1.Checked = true;
             sexoButton2.Checked = false;
             direccion.Clear();
-            fechaNacimiento.Value = Globales.getFechaSistema();
+            fechaNacimiento.Value = Convert.ToDateTime(Globales.getFechaSistema().ToShortDateString());
             tipoDoc.SelectedIndex = -1;
             nroDoc.Clear();
             mail.Clear();

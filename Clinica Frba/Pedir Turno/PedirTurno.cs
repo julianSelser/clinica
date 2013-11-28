@@ -19,6 +19,7 @@ namespace Clinica_Frba.Pedir_Turno
         Form padre;
         Profesional profesional;
         Afiliado afiliado;
+        EspecialidadMedica especialidadTurno;
 
         internal PedirTurno(Form padre)
         {
@@ -29,11 +30,7 @@ namespace Clinica_Frba.Pedir_Turno
                 setearAfiliado(UsuarioLogeado.Instance.Persona as Afiliado);
                 selectAfiliadoButton.Visible = false;
             }
-        }
-
-        private void acceptButton_Click(object sender, EventArgs e)
-        {
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            aceptarButton.Enabled = false;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -46,12 +43,16 @@ namespace Clinica_Frba.Pedir_Turno
         {
             this.afiliado = afiliado;
             nroAfiliadoBox.Text = afiliado.nroAfiliado.ToString();
+            validarCampos();
         }
 
-        internal void setearProfesional(Profesional profesional)
+        internal void setearProfesional(Profesional profesional, EspecialidadMedica especialidad)
         {
             this.profesional = profesional;
             profesionalBox.Text = profesional.id.ToString();
+            this.especialidadTurno = especialidad;
+            especialidadBox.Text = especialidad.descripcion;
+            validarCampos();
         }
 
         private void selectAfiliadoButton_Click(object sender, EventArgs e)
@@ -63,5 +64,91 @@ namespace Clinica_Frba.Pedir_Turno
         {
             AsistenteVistas.mostrarNuevaVentana(new ListadoProfesionales(this, "Pedir Turno"), this);
         }
+
+        private void validarCampos()
+        {
+            if (nroAfiliadoBox.Text != "" && profesionalBox.Text != "")
+            {
+                cargarComboFecha();
+            }
+            else
+            {
+                comboFechas.Enabled = false;
+                comboFechas.Items.Clear();
+                comboTimeslots.Enabled = false;
+                comboTimeslots.Items.Clear();
+                aceptarButton.Enabled = false;
+            }
+
+            if (comboTimeslots.SelectedIndex != -1)
+            {
+                aceptarButton.Enabled = true;
+            }
+            else
+            {
+                aceptarButton.Enabled = false;
+            }
+        }
+
+        private void cargarComboFecha()
+        {
+            List<DateTime> fechas = AppPedirTurno.traerFechasAgenda(profesional);
+            foreach (DateTime fecha in fechas)
+            {
+                comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
+            }
+            comboFechas.Enabled = true;
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            if (UsuarioLogeado.Instance.Rol.nombre != "Afiliado")
+            {
+                nroAfiliadoBox.Text = "";
+                afiliado = null;
+            }
+            profesionalBox.Text = "";
+            profesional = null;
+            comboFechas.Enabled = false;
+            comboFechas.Items.Clear();
+            comboTimeslots.Enabled = false;
+            comboTimeslots.Items.Clear();
+            aceptarButton.Enabled = false;
+        }
+
+        private void aceptarButton_Click(object sender, EventArgs e)
+        {
+            DateTime fecha_horario = crearFechaHorario();
+            AppPedirTurno.generarTurno(afiliado, profesional, especialidadTurno, fecha_horario);
+            MessageBox.Show("El turno se generó correctamente\n\nNro. Afiliado: "+afiliado.nroAfiliado+"\nId Medico: "+profesional.id+"\nEspecialidad: "+especialidadTurno.descripcion+"\nFecha y Horario: "+fecha_horario.ToString("dd/MM/yy HH:mm"));
+        }
+
+        private DateTime crearFechaHorario()
+        {
+            DateTime fecha = Convert.ToDateTime(comboFechas.Text);
+            DateTime horario = Convert.ToDateTime(comboTimeslots.Text);
+            return new DateTime(fecha.Year, fecha.Month, fecha.Day, horario.Hour, horario.Minute, 0);
+        }
+
+        private void comboFechas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFechas.SelectedIndex != -1) habilitarComboTimeslots();
+        }
+
+        private void habilitarComboTimeslots()
+        {
+            List<DateTime> horarios = AppPedirTurno.traerTimeslotsFecha(profesional,Convert.ToDateTime(comboFechas.Text));
+            foreach (DateTime horario in horarios)
+            {
+                comboTimeslots.Items.Add(horario.ToString("HH:mm"));
+            }
+            comboTimeslots.Enabled = true;
+        }
+
+        private void comboTimeslots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validarCampos();
+        }
+
     }
 }

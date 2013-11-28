@@ -40,19 +40,19 @@
             // 
             // botAceptar
             // 
-            this.botAceptar.Location = new System.Drawing.Point(248, 227);
+            this.botAceptar.Location = new System.Drawing.Point(215, 97);
             this.botAceptar.Name = "botAceptar";
-            this.botAceptar.Size = new System.Drawing.Size(75, 23);
+            this.botAceptar.Size = new System.Drawing.Size(107, 23);
             this.botAceptar.TabIndex = 21;
-            this.botAceptar.Text = "Aceptar";
+            this.botAceptar.Text = "Registrar agenda";
             this.botAceptar.UseVisualStyleBackColor = true;
             this.botAceptar.Click += new System.EventHandler(this.botAceptar_Click);
             // 
             // botCancelar
             // 
-            this.botCancelar.Location = new System.Drawing.Point(12, 227);
+            this.botCancelar.Location = new System.Drawing.Point(12, 97);
             this.botCancelar.Name = "botCancelar";
-            this.botCancelar.Size = new System.Drawing.Size(75, 23);
+            this.botCancelar.Size = new System.Drawing.Size(106, 23);
             this.botCancelar.TabIndex = 20;
             this.botCancelar.Text = "Cancelar";
             this.botCancelar.UseVisualStyleBackColor = true;
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 262);
+            this.ClientSize = new System.Drawing.Size(338, 140);
             this.Controls.Add(this.labMedico);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

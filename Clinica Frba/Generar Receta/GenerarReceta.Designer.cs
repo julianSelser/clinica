@@ -39,6 +39,7 @@
             this.limpiarButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.limpiarMedicamentosButton = new System.Windows.Forms.Button();
             this.selecMedicamento5 = new System.Windows.Forms.Button();
             this.selecMedicamento4 = new System.Windows.Forms.Button();
             this.selecMedicamento3 = new System.Windows.Forms.Button();
@@ -119,7 +120,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(479, 116);
+            this.groupBox1.Size = new System.Drawing.Size(490, 116);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleccione la consulta y el bono a utilizar";
@@ -146,7 +147,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(398, 71);
+            this.limpiarButton.Location = new System.Drawing.Point(394, 71);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
             this.limpiarButton.TabIndex = 27;
@@ -165,6 +166,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.limpiarMedicamentosButton);
             this.groupBox2.Controls.Add(this.selecMedicamento5);
             this.groupBox2.Controls.Add(this.selecMedicamento4);
             this.groupBox2.Controls.Add(this.selecMedicamento3);
@@ -188,6 +190,16 @@
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Receta";
+            // 
+            // limpiarMedicamentosButton
+            // 
+            this.limpiarMedicamentosButton.Location = new System.Drawing.Point(575, 24);
+            this.limpiarMedicamentosButton.Name = "limpiarMedicamentosButton";
+            this.limpiarMedicamentosButton.Size = new System.Drawing.Size(142, 23);
+            this.limpiarMedicamentosButton.TabIndex = 28;
+            this.limpiarMedicamentosButton.Text = "Limpiar medicamentos";
+            this.limpiarMedicamentosButton.UseVisualStyleBackColor = true;
+            this.limpiarMedicamentosButton.Click += new System.EventHandler(this.limpiarMedicamentosButton_Click);
             // 
             // selecMedicamento5
             // 
@@ -430,5 +442,6 @@
         private System.Windows.Forms.TextBox medicamentoBox3;
         private System.Windows.Forms.TextBox medicamentoBox2;
         private System.Windows.Forms.TextBox medicamentoBox1;
+        private System.Windows.Forms.Button limpiarMedicamentosButton;
     }
 }

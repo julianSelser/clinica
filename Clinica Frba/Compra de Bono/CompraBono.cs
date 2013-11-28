@@ -22,11 +22,14 @@ namespace Clinica_Frba.Compra_de_Bono
 
             var usuario = UsuarioLogeado.Instance;
 
+            //primero me fijo si el que está logueado es un usuario. si es así, cargo sus datos directamente y oculto los controles de admin
+
             if (usuario.Rol.nombre.Equals("Afiliado"))
             {
                 Afiliado paciente = (Afiliado) UsuarioLogeado.Instance.Persona;
                 labNroAfiliado.Text = paciente.nroAfiliado.ToString();
                 llenarCamposConDatosSocio(Convert.ToDecimal(paciente.nroAfiliado.ToString()));
+                //como este form me muestra el botón quitar (porque también lo usa el admin), lo oculto
                 botonQuitarAfiliado.Visible = false;
             }
         
@@ -39,12 +42,14 @@ namespace Clinica_Frba.Compra_de_Bono
         }
 
         private void botonComprar_Click(object sender, EventArgs e)
+            //botón de comprar
         {
             int cant_consulta;
             int cant_farmacia;
             decimal nro_afiliado;
             int monto_total;
 
+            //tengo que validar que haya un afiliado cargado porque en el caso del admin puede no haber
             if (labNroAfiliado.Visible == false)
             {
                 MessageBox.Show("Debe seleccionar un afiliado.", "Error");
@@ -53,6 +58,7 @@ namespace Clinica_Frba.Compra_de_Bono
             
             nro_afiliado = Convert.ToDecimal(labNroAfiliado.Text);
 
+            //me fijo que me estén poniendo cantidades enteras de bonos
             try
             {
                 cant_consulta = Convert.ToUInt16(textCantBonosConsulta.Text);
@@ -64,6 +70,7 @@ namespace Clinica_Frba.Compra_de_Bono
                 return;
             }
 
+            //me fijo que me estén comprando al menos un bono
             if(cant_consulta== 0 && cant_farmacia == 0)
             {
                 MessageBox.Show("Debe comprar al menos un bono", "Información");
@@ -76,6 +83,7 @@ namespace Clinica_Frba.Compra_de_Bono
         }
 
         private void botonQuitarAfiliado_Click(object sender, EventArgs e)
+            //oculto los detalles del afiliado y muestro lo necesario para cargar uno nuevo (sólo admin)
         {
             labNroPlan.Visible = false;
             labPrecioConsulta.Visible = false;
@@ -94,7 +102,7 @@ namespace Clinica_Frba.Compra_de_Bono
             
             try
             {
-                Convert.ToUInt64(textBox1.Text); //esto me asegura que no me pongan cosas raras
+                Convert.ToUInt64(textBox1.Text); //esto me asegura que me pongan un nro de afiliado numérico bien
                 num_afiliado = Convert.ToDecimal(textBox1.Text);
             }
             catch
@@ -110,7 +118,7 @@ namespace Clinica_Frba.Compra_de_Bono
 
 
         private void llenarCamposConDatosSocio(decimal num_afiliado)
-           
+        //me traigo la info relevante del socio de la BD y la agrego al form  
         {
             DataTable datos_compra;
 

@@ -6,6 +6,18 @@ GO
 CREATE SCHEMA [CUATRO_QUESOS] AUTHORIZATION [gd]
 GO
 
+-- Funcion con la fecha de migracion
+
+CREATE FUNCTION CUATRO_QUESOS.FechaMigracion()
+RETURNS datetime
+AS
+BEGIN
+
+RETURN CAST('2014-06-06T12:00:00' as datetime)
+
+END
+GO
+
 -- Create Tables
 CREATE TABLE CUATRO_QUESOS.Afiliados (
         Nro_Afiliado numeric(18) NOT NULL,
@@ -27,6 +39,14 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
         CantFamiliaresACargo tinyint NOT NULL DEFAULT 0
 )
 ;
+
+CREATE TABLE CUATRO_QUESOS.Agendas_Medicos(
+		Id_Medico numeric(18) NOT NULL,
+		Fecha_Hora datetime NOT NULL,
+		Nro_Turno numeric(18)
+)
+;
+
 
 CREATE TABLE CUATRO_QUESOS.Bonos (
         Numero numeric(18) NOT NULL,
@@ -77,19 +97,6 @@ CREATE TABLE CUATRO_QUESOS.Consultas (
         Enfermedades varchar(255) NOT NULL,
         Nro_Bono_Consulta numeric(18) NOT NULL,
         Tipo_Bono varchar(255) NOT NULL
-)
-;
-
-CREATE TABLE CUATRO_QUESOS.Consultas_Exceptions (
-        Id_Consulta numeric(18),
-        Nro_Turno numeric(18) NOT NULL,
-        Fecha_Llegada datetime,
-        Fecha_Atencion datetime,
-        Sintomas varchar(255) NOT NULL,
-        Enfermedades varchar(255) NOT NULL,
-        Nro_Bono_Consulta numeric(18) NOT NULL,
-        Nro_Bono_Farmacia numeric(18) NOT NULL,
-        Medicamento varchar(255) NOT NULL,
 )
 ;
 
@@ -231,6 +238,10 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT PK_Afiliados
         PRIMARY KEY CLUSTERED (Nro_Afiliado)
 ;
 
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos ADD CONSTRAINT PK_Agendas_Medicos
+        PRIMARY KEY CLUSTERED (Id_Medico, Fecha_Hora)
+;
+
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT PK_Bonos
         PRIMARY KEY CLUSTERED (Numero, Tipo_Bono)
 ;
@@ -366,6 +377,15 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT FK_Nro_Titular
         FOREIGN KEY (Nro_Titular) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
 ;
 
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos ADD CONSTRAINT FK_Agenda_Medico
+		FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
+;
+
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos ADD CONSTRAINT FK_Agenda_Turno
+		FOREIGN KEY (Nro_Turno) REFERENCES CUATRO_QUESOS.Turnos (Numero)
+;
+
+
 ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT FK_Bonos_Afiliados
         FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
         ON UPDATE CASCADE
@@ -484,9 +504,6 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Us
 
 --Create other constraints
 
---constraint para verificar que la agenda profesional sea de 120 días como máximo
-alter table CUATRO_QUESOS.Medicos add constraint limitarAgendaProfesional
-                check (datediff(day, fecha_atencion_desde, fecha_atencion_hasta) <= 120)
 
 /* ****** Migrar datos existentes ******* */
 
@@ -548,7 +565,7 @@ INSERT INTO CUATRO_QUESOS.Afiliados
                 where subtabla.Paciente_DNI = sub1.Paciente_DNI
                         and sub1.Turno_Numero is not null
                         and sub1.Bono_Consulta_Numero is not null
-                        and sub1.Turno_Fecha < GETDATE())
+                        and sub1.Turno_Fecha < CUATRO_QUESOS.FechaMigracion())
         as Nro_Consulta --cuento la cantidad de consultas concretadas (turno pasado asociado a bono consulta = consulta concretada)
 
         from
@@ -637,8 +654,8 @@ INSERT INTO CUATRO_QUESOS.Medicos
                 Medico_Mail as Mail,
                 Medico_Fecha_Nac as Fecha_Nac,
                 0 as Nro_Matricula, --indefinido
-                getdate() as Fecha_Atencion_Desde,
-                case when MAX(Turno_Fecha) > dateadd(month, 1, GETDATE()) then MAX(Turno_fecha) else dateadd(month, 1, GETDATE()) end as Fecha_Atencion_Hasta, --esto significa que el medico esta disponible al menos durante un mes desde la migración, pero si tiene turnos posteriores se estira hasta ese momento
+                NULL as Fecha_Atencion_Desde, --CUATRO_QUESOS.FechaMigracion() as Fecha_Atencion_Desde,
+                NULL as Fecha_Atencion_Hasta,--case when MAX(Turno_Fecha) > dateadd(month, 1, CUATRO_QUESOS.FechaMigracion()) then MAX(Turno_fecha) else dateadd(month, 1, CUATRO_QUESOS.FechaMigracion()) end as Fecha_Atencion_Hasta, 
                 1 as Habilitado --asumo que los medicos existentes están todos activos
                 
                 
@@ -686,11 +703,11 @@ INSERT INTO CUATRO_QUESOS.Bonos
                         where principal.Paciente_Dni = submaestra.Paciente_Dni --para ese afiliado
                                 and submaestra.Bono_Consulta_Numero <= principal.Bono_Consulta_Numero --cuantos bonos menores o iguales a este bono existen
                                 and submaestra.Turno_Numero is not null
-                                and submaestra.Turno_Fecha < GETDATE()) --y que hayan sido usados en una consulta PASADA (sabemos que se usaron cuando se asocian a un turno)
+                                and submaestra.Turno_Fecha < CUATRO_QUESOS.FechaMigracion()) --y que hayan sido usados en una consulta PASADA (sabemos que se usaron cuando se asocian a un turno)
                  end as Nro_Consulta,
                 
                  --lo que sigue es para determinar el usuario. Si se concretó el turno, asumo que el usuario es el mismo que lo compró, si no se concretó el usuario es NULL
-                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero and sub1.Turno_Fecha < GETDATE())
+                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Turno_Numero is not null and sub1.Bono_Consulta_Numero = principal.Bono_Consulta_Numero and sub1.Turno_Fecha < CUATRO_QUESOS.FechaMigracion())
                 when 0 then NULL --si no hubo consulta el nro_consulta es null
                 else
                         (select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
@@ -727,7 +744,7 @@ INSERT INTO CUATRO_QUESOS.Bonos
                 Bono_Farmacia_Fecha_Vencimiento as Fecha_Vencimiento,
                 NULL as Nro_Consulta, --no aplica para bonos farmacia
                 --lo que sigue es para determinar el usuario. Si se usó, asumo que el usuario es el mismo que lo compró, si no se usó el usuario es NULL
-                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero and sub1.Turno_Fecha < GETDATE()) --claramente un bono farmacia usado es el que tiene un medicamento escrito.... en el pasado
+                case (select COUNT(*) from gd_esquema.Maestra as sub1 where Bono_Farmacia_Medicamento is not null and sub1.Bono_Farmacia_Numero = principal.Bono_Farmacia_Numero and sub1.Turno_Fecha < CUATRO_QUESOS.FechaMigracion()) --claramente un bono farmacia usado es el que tiene un medicamento escrito.... en el pasado
                 when 0 then NULL --si no hubo se usó el nro_consulta es null
                 else
                         (select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI)
@@ -797,6 +814,7 @@ set ID_Compra = (select Id_Compra --ahora que generé las compras, asigno los ID
 --Días de atención
 
 INSERT INTO CUATRO_QUESOS.Dias_Atencion
+--Esta tabla la dejo pre-completada porque 1. ya tengo el código y 2. queda prolijo para el caso de uso
         (
         ID_Medico,
         Nombre_Dia,
@@ -882,7 +900,7 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
                                 and sub1.Bono_Consulta_Numero is not null) = 0
                 --esta condición significa que no existe un registro con este número de turno y un bono de consulta asociado
                 --esto quiere decir que el turno no se concretó ya que no se usó bono consulta
-                and Turno_Fecha < GETDATE()-- y esto otro significa que el turno debería haberse concretado antes de la migración
+                and Turno_Fecha < CUATRO_QUESOS.FechaMigracion()-- y esto otro significa que el turno debería haberse concretado antes de la migración
 
 
 INSERT INTO CUATRO_QUESOS.Cancelaciones
@@ -898,7 +916,7 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
         
         from gd_esquema.Maestra as principal
         where Turno_Numero is not null
-                and Turno_Fecha > GETDATE()
+                and Turno_Fecha > CUATRO_QUESOS.FechaMigracion()
                 and (DATENAME(dw, Turno_Fecha) = 'Domingo'
                         
                         or ((DATENAME(dw, Turno_Fecha) = 'Sábado'
@@ -936,36 +954,7 @@ INSERT INTO CUATRO_QUESOS.Consultas
 
         from gd_esquema.Maestra
 
-        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha < GETDATE()
-
-INSERT INTO CUATRO_QUESOS.Consultas_Exceptions
---en esta tabla van las consultas futuras
-        (
-        Nro_Turno,
-        Fecha_Llegada,
-        Fecha_Atencion,
-        Sintomas,
-        Enfermedades,
-        Nro_Bono_Consulta,
-        Nro_Bono_Farmacia,
-        Medicamento
-        )
-        
-        select
-        Turno_Numero as Nro_Turno,
-        Turno_Fecha as Fecha_Llegada,
-        Turno_Fecha as Fecha_Atencion,
-        Consulta_Sintomas as Sintomas,
-        Consulta_Enfermedades as Enfermedades,
-        Bono_Consulta_Numero as Nro_Bono_Consulta,
-        Bono_Farmacia_Numero as Nro_Bono_Farmacia,
-        Bono_Farmacia_Medicamento as Medicamento
-
-        from gd_esquema.Maestra
-
-        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha >= GETDATE()
-        
-        
+        where Bono_Consulta_Numero is not null and Turno_Numero is not null and turno_Fecha < CUATRO_QUESOS.FechaMigracion()
         
 INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
         (
@@ -986,7 +975,7 @@ INSERT INTO CUATRO_QUESOS.Medicamentos_Por_Consulta
         where Turno_Numero is not null
                 and Bono_Farmacia_Numero is not null
                 and Bono_Farmacia_Medicamento is not null
-                and Turno_Fecha < GETDATE()
+                and Turno_Fecha < CUATRO_QUESOS.FechaMigracion()
 
                 
 /* *****USUARIOS Y DEMAS YERBAS***** */
@@ -1144,9 +1133,10 @@ values(2, 13); --medico, generar receta
                 
 
                 
-                
---esta es una tabla auxiliar, no se si hara falta agregarla en el DER:
+GO
 
+/*
+--ESTAS DOS TABLAS AUXILIARES YA NO SE USAN EN LA MIGRACIÓN, PERO EL CÓDIGO ME PUEDE SERVIR PARA LOS SP
 create table CUATRO_QUESOS.horas_del_dia
 (
         hora time primary key
@@ -1186,11 +1176,12 @@ end
 --contiene todos los días que hay de 2012 a más o menos 2017
 
 go
+*/
 
 --CREATE VIEWS
 
 --finalmente creo la vista que contiene las agendas de los medicos!
-create view CUATRO_QUESOS.Agendas_Medicos as
+/*create view CUATRO_QUESOS.Agendas_Medicos as
 select (CAST(dia as datetime) + cast(hora as datetime)) as Horario,
                 Medicos.Id_Medico as Id_Medico,
                 case when (select COUNT(*)
@@ -1210,6 +1201,8 @@ where dia >= Medicos.fecha_atencion_desde and dia <= Medicos.Fecha_Atencion_Hast
         and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
 
 GO
+--ESTO QUEDÓ DE LA VERSIÓN ANTERIOR POR SI NOS SIRVE EL CÓDIGO, ESTA VISTA YA NO EXISTE!
+*/
 
 --CREATE TRIGGERS
 
@@ -1282,7 +1275,7 @@ begin
                                         'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
                         from CUATRO_QUESOS.Turnos as sub
                         where sub.ID_Medico = @ID
-                                and sub.Fecha > GETDATE()
+                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
                                 and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
                         
         fetch CurLocal into @ID, @Habilitado
@@ -1323,7 +1316,7 @@ begin
                                         'El paciente de este turno ya no se atiende en la clínica' as Motivo
                         from CUATRO_QUESOS.Turnos as sub
                         where sub.Nro_Afiliado = @Nro
-                                and sub.Fecha > GETDATE()
+                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
                                 and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
                         
         fetch CurLocal into @Nro, @Fecha_Baja
@@ -1369,6 +1362,7 @@ GO
 
 
 --trigger para verificar que los horarios de los médicos queden dentro de los horarios de la clínica
+--en realidad estaría "por las dudas", porque la app ya valida esto en registrar agenda
 
 create trigger CUATRO_QUESOS.obedecerHorariosClinica on CUATRO_QUESOS.Dias_Atencion for insert, update
 as
@@ -1386,7 +1380,7 @@ GO
 
 
 --trigger para cancelar los turnos de un día de atención cuando se elimina ese día
-create trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado on CUATRO_QUESOS.Dias_Atencion for delete
+/*create trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado on CUATRO_QUESOS.Dias_Atencion for delete
 as
 begin
 	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
@@ -1396,14 +1390,16 @@ begin
 		  'El médico a cargo de este turno cambió sus horarios y ya no atiende este día'
 	from CUATRO_QUESOS.Turnos inner join deleted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = deleted.Id_Medico)
 	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > GETDATE())
+		and Fecha > CUATRO_QUESOS.FechaMigracion())
 
 end
 
 GO
+--ESTE TRIGGER YA NO ES NECESARIO
+*/
 
 --trigger para cancelar los turnos en cierta hora del día, cuando el médico ya no atiende a esa hora
-create trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora on CUATRO_QUESOS.Dias_Atencion for update
+/*create trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora on CUATRO_QUESOS.Dias_Atencion for update
 as
 --sé que la aplicación sólo cambia un día de atención a la vez (por medio de un stored procedure)
 begin
@@ -1415,15 +1411,17 @@ begin
 		  'El médico a cargo de este turno cambió sus horarios y ya no atiende a esta hora'
 	from CUATRO_QUESOS.Turnos inner join inserted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = inserted.Id_Medico)
 	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > GETDATE()
+		and Fecha > CUATRO_QUESOS.FechaMigracion()
 		and (inserted.Hora_Desde > CAST(Turnos.Fecha as time) or inserted.Hora_Hasta < CAST((DATEADD(minute, 30, Turnos.Fecha)) as time)))
 
 end
 
 GO
+--ESTE TRIGGER YA NO ES NECESARIO
+*/
 
 --trigger para cancelar los turnos que caen fuera de un nuevo período de atención
-create trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda on CUATRO_QUESOS.Medicos for update
+/*create trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda on CUATRO_QUESOS.Medicos for update
 --sé que la aplicación sólo cambia un médico a la vez (por medio de un stored procedure)
 as
 begin
@@ -1434,13 +1432,14 @@ begin
 		  'El médico a cargo de este turno cambió su agenda y ya no atiende este día'
 	from CUATRO_QUESOS.Turnos inner join inserted on (Turnos.Id_medico = inserted.Id_Medico)
 	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > GETDATE()
+		and Fecha > CUATRO_QUESOS.FechaMigracion()
 		and (inserted.Fecha_Atencion_Desde > Turnos.Fecha or inserted.Fecha_Atencion_Hasta < Turnos.Fecha))
 
 end
 
 GO
-
+--ESTE TRIGGER YA NO ES NECESARIO
+*/
 
 --CREATE PROCEDURES
 
@@ -1473,8 +1472,8 @@ VALUES (
 @mail,
 @fechaNac,
 @nroMatricula,
-GETDATE(),
-DATEADD(DAY, 30, GETDATE())
+NULL,
+NULL
 )
 
 GO
@@ -2025,6 +2024,32 @@ AS
         FROM @Tabla t
 GO
 
+CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
+ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18)
+DECLARE cursorTurno CURSOR FOR
+SELECT Nro_Turno FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = NULL
+	WHERE Nro_Turno = @nroTurno
+
+	FETCH cursorTurno INTO @nroTurno
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
 -- FIN ABM DE CANCELACIÓN
 
 --PROCEDURES PARA LA COMPRA DE BONOS
@@ -2042,7 +2067,7 @@ begin
         where Afiliados.Nro_Afiliado = @afiliado
         
         set @id_compra = (select COUNT(*) from CUATRO_QUESOS.Compra) + 1
-        set @fecha_fija = getdate()
+        set @fecha_fija = CUATRO_QUESOS.FechaMigracion()
 
         set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
         insert into CUATRO_QUESOS.Compra(Id_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
@@ -2307,6 +2332,16 @@ end
 
 GO
 
+create procedure CUATRO_QUESOS.getNYAMedico (@ID numeric(18)) --trae nombre y apellido, y averigua si registró agenda
+as
+	select Nombre 'Nombre', 
+		Apellido 'Apellido', 
+		case when (Fecha_Atencion_Desde is null or Fecha_Atencion_Hasta is null) then 'N'
+			else 'S'
+		end 'Tiene_Agenda'
+	from CUATRO_QUESOS.Medicos where ID_Medico = @ID
+GO
+
 create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18))
 as
 begin
@@ -2334,19 +2369,6 @@ begin
 	set @desde = CONVERT(time, @str_desde);
 	set @hasta = CONVERT(time, @str_hasta);
 	
-	/*if @desde >= @hasta --hay que verificar que no sea un intervalo de longitud 0 o negativo
-	begin
-		raiserror('Error: el intervalo especificado es inválido.', 16, 0);
-		return;
-	end*/ --esto sería genial verificarlo directamente desde la aplicación, así tengo un solo tipo de error viniendo desde la base
-	
-	
-	--acá no verifico nada más
-	--la aplicación desktop sólo va a mandar ciertos valores de una selección acotada
-	--estos valores corresponden a los horarios válidos de cada día (07:00 a 20:00 para días de semana, 10:00 a 15:00 para sábados)
-	--entonces no hace falta verificar que los horarios solicitados caigan dentro de los horarios de la clínica (igual hay un trigger para verificar eso)
-	--tampoco verifico que el día ya esté (que se updatee algo) porque la aplicación no ofrece modificar días que no hay
-	
 	update CUATRO_QUESOS.Dias_Atencion set Hora_Desde = @desde, Hora_Hasta = @hasta
 	where Nombre_Dia = @nombre_dia and Id_Medico = @Id_Medico
 	
@@ -2363,17 +2385,7 @@ begin
 	set @desde = CONVERT(time, @str_desde);
 	set @hasta = CONVERT(time, @str_hasta);
 	
-	/*if @desde >= @hasta --hay que verificar que no sea un intervalo de longitud 0 o negativo
-	begin
-		raiserror('Error: el intervalo especificado es inválido.', 16, 0);
-		return;
-	end*/ --esto sería genial verificarlo directamente desde la aplicación, así tengo un solo tipo de error viniendo desde la base
-	
-	--acá no verifico nada más
-	--la aplicación desktop sólo va a mandar ciertos valores de una selección acotada
-	--estos valores corresponden a los horarios válidos de cada día (07:00 a 20:00 para días de semana, 10:00 a 15:00 para sábados)
-	--entonces no hace falta verificar que los horarios solicitados caigan dentro de los horarios de la clínica
-	--tampoco verifico que el día no se repita porque eso va a saltar por PK (también lo puedo chequear desde la aplicación
+	--la validez de los datos que llegan aca (que no sea un intervalo negativo, que los strings estén bien formateados, etc) se verifica en la app
 	
 	insert into CUATRO_QUESOS.Dias_Atencion(Id_Medico, Nombre_Dia, Hora_Desde, Hora_Hasta)
 	values(@Id_Medico, @nombre_dia, @desde, @hasta)
@@ -2382,13 +2394,6 @@ end
 
 GO
 
-create procedure CUATRO_QUESOS.getFechasParaMedico(@id_medico numeric(18))
-as
-begin
-	select Nombre, Apellido, Fecha_Atencion_Desde, Fecha_Atencion_Hasta from cuatro_quesos.medicos where Id_Medico = @id_medico
-end
-
-GO
 
 
 create procedure CUATRO_QUESOS.updateFechasMedico(@id_medico numeric(18), @desde datetime, @hasta datetime)
@@ -2399,11 +2404,114 @@ begin
 end
 
 GO
+
+
+create procedure CUATRO_QUESOS.generarAgenda(@ID numeric(18), @fecha_desde datetime, @fecha_hasta datetime)
+--al ejecutarse este SP la app ya verificó que los campos que voy a usar son no-nulos
+as
+begin
+
+/* -- creo horas del día -- */
+create table #horas_del_dia
+(
+        hora time
+)
+
+declare @offset tinyint
+set @offset = 0
+
+while @offset < 24
+begin
+        insert into #Horas_del_dia(hora)
+        values(DATEADD(hour, @offset, '00:00:00'))
+        insert into #Horas_del_dia(hora)
+        values(DATEADD(hour, @offset, '00:30:00'))
+        set @offset = @offset+1
+end
+/* -- fin horas del día -- */
+--esta tabla contiene todos los intervalos de media hora que hay en un día dado
+
+/* -- creo días -- */
+create table #Dias --calendar table
+(
+        dia date
+)
+
+
+declare @acum_fecha datetime
+set @acum_fecha = @fecha_desde
+while @acum_fecha <= @fecha_hasta
+begin
+        insert into #Dias(dia)
+        values(@acum_fecha)
+        set @acum_fecha = (DATEADD(day, 1, @acum_fecha))
+end
+/* -- fin días -- */
+--esta tabla contiene todos los días incluidos en el intervalo del médico. o sea, tiene máximo 120 filas
+
+/* -- traigo turnos relevantes -- */
+create table #turnos_relevantes
+ (
+        Numero numeric(18) NOT NULL,
+        Fecha datetime NOT NULL,
+        Nro_Afiliado numeric(18) NOT NULL,
+        Id_Medico numeric(18) NOT NULL,
+        Cod_Especialidad numeric(18) NOT NULL
+)
+;
+
+insert into #turnos_relevantes
+select Numero, Fecha, Nro_Afiliado, Id_Medico, Cod_Especialidad from CUATRO_QUESOS.Turnos
+	where ID_Medico = @ID and  Fecha <= @fecha_hasta and (Fecha  > @fecha_desde or (cast(Fecha as date) = cast (@fecha_desde as date))) --me traigo TODO el día actual, aunque me esté metiendo (por horas) en el pasado - esto es porque, por cómo genero los timeslots, necesito trabajar con días enteros
+--básicamente me traigo los turnos que "sirven" de la tabla gigante de turnos, para que los selects que vienen después sean más fáciles y espero que más rápidos
+
+
+/* -- fin turnos relevantes -- */
+
+insert into CUATRO_QUESOS.Agendas_Medicos(Id_Medico, Fecha_Hora, Nro_Turno)
+
+select  Medicos.Id_Medico as Id_Medico,
+		(CAST(dia as datetime) + cast(hora as datetime)) as Fecha_Hora,
+		(case when ((select COUNT(*)
+					from #turnos_relevantes 
+					where Fecha = (CAST(dia as datetime) + cast(hora as datetime))) > 0)
+			  then  (select top 1 Numero --este top 1 no debería ser necesario ya que no se están permitiendo sobreturnos
+					from #turnos_relevantes 
+					where Fecha = (CAST(dia as datetime) + cast(hora as datetime)))
+			 else NULL
+			 end) as Nro_Turno --si hay un turno a esa hora lo asocio, si no hay lo dejo en NULL (el médico está libre en ese timeslot)
+		
+from CUATRO_QUESOS.Medicos, #dias as dia, #horas_del_dia as hora
+
+where Medicos.Id_Medico = @ID 
+		and (DATENAME(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
+        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+
+end
+
+
+GO
 /* ***** FIN PROCEDURES REGISTRAR AGENDA ***** */
 
 -- LISTADOS ESTADISTICOS --
 
-CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME = GETDATE)
+CREATE FUNCTION CUATRO_QUESOS.getPrinicipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME
+AS
+BEGIN
+	RETURN ( CAST( CONVERT(VARCHAR(8), @ANIO*10000 + @MES*100 + 1) AS DATETIME) )
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME
+AS
+BEGIN
+	RETURN DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,@PrincipioMes)+1,0))
+END
+GO
+
+
+CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
 	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
@@ -2474,7 +2582,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE CUATRO_QUESOS.elegirListado(@ID_Listado INT , @ANIO INT, @MES INT, @MESFIN INT = NULL, @FECHASISTEMA DATETIME = GETDATE)
+CREATE PROCEDURE CUATRO_QUESOS.elegirListado(@ID_Listado INT , @ANIO INT, @MES INT, @MESFIN INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
 	IF @ID_Listado = 0
@@ -2489,7 +2597,7 @@ END
 GO
 
 
-CREATE PROCEDURE CUATRO_QUESOS.getListadoEstadistico(@Semestre VARCHAR(20), @ID_Listado INT, @ANIO INT, @FECHA DATETIME = GETDATE)
+CREATE PROCEDURE CUATRO_QUESOS.getListadoEstadistico(@Semestre VARCHAR(20), @ID_Listado INT, @ANIO INT, @FECHA DATETIME)
 AS
 BEGIN
 	DECLARE @T1 TABLE (POS INT, EST VARCHAR(50))
@@ -2631,6 +2739,64 @@ COMMIT
 GO
 
 /*************** FIN PROCEDURE GENERAR RECETA****************************/
+/*************** PROCEDURES PEDIR TURNO *********************/
+
+CREATE PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda @idMedico numeric(18)
+AS
+SELECT CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 'Fechas Disponibles'
+FROM CUATRO_QUESOS.Agendas_Medicos
+WHERE Id_Medico = @idMedico AND Nro_Turno IS NULL
+GROUP BY CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 
+ORDER BY YEAR(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC,
+MONTH(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC,
+DAY(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)) ASC
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fecha datetime
+AS
+SELECT CONVERT(VARCHAR(5),Agendas_Medicos.Fecha_Hora, 108) 'Horarios Disponibles'
+FROM CUATRO_QUESOS.Agendas_Medicos
+WHERE Id_Medico = @idMedico 
+AND Nro_Turno IS NULL
+AND DAY(Fecha_Hora) = DAY(@fecha)
+AND MONTH(Fecha_Hora) = MONTH(@fecha)
+AND YEAR(Fecha_Hora) = YEAR(@fecha)
+ORDER BY Fecha_Hora ASC
+GO
+
+CREATE PROCEDURE CUATRO_QUESOS.generarTurno @nroAfiliado numeric(18), @idMedico numeric(18), @codEspecialidad numeric(18) , @fecha datetime
+AS
+INSERT INTO CUATRO_QUESOS.Turnos(Numero, Nro_Afiliado, Id_Medico, Cod_Especialidad, Fecha)
+VALUES ((SELECT MAX(Numero)+1 FROM CUATRO_QUESOS.Turnos),@nroAfiliado, @idMedico, @codEspecialidad, @fecha)
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
+ON CUATRO_QUESOS.Turnos AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18), @idMedico numeric(18), @fecha datetime
+DECLARE cursorTurno CURSOR FOR
+SELECT Numero, Id_Medico, Fecha FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = @nroTurno
+	WHERE Id_Medico = @idMedico AND Fecha_Hora = @fecha
+
+	FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
+/**************** FIN PROCEDURES PEDIR TURNO ********************/
 
 IF @@ERROR != 0 ROLLBACK
 

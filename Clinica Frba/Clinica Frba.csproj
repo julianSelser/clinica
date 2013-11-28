@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="AppModel\AppCancelarAtencion.cs" />
     <Compile Include="AppModel\AppLogin.cs" />
+    <Compile Include="AppModel\AppPedirTurno.cs" />
     <Compile Include="AppModel\AppProfesional.cs" />
     <Compile Include="AppModel\AppReceta.cs" />
     <Compile Include="AppModel\AppRegistrarLlegada.cs" />
@@ -424,9 +425,6 @@
     <EmbeddedResource Include="Registrar Agenda\CargarPeriodo.resx">
       <DependentUpon>CargarPeriodo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Agenda\FormAgenda.resx">
-      <DependentUpon>FormAgenda.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Registrar Agenda\ModificarDia.resx">
       <DependentUpon>ModificarDia.cs</DependentUpon>
     </EmbeddedResource>
@@ -466,12 +464,6 @@
     </Compile>
     <Compile Include="Registrar Agenda\CargarPeriodo.Designer.cs">
       <DependentUpon>CargarPeriodo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registrar Agenda\FormAgenda.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registrar Agenda\FormAgenda.Designer.cs">
-      <DependentUpon>FormAgenda.cs</DependentUpon>
     </Compile>
     <Compile Include="Registrar Agenda\ModificarDia.cs">
       <SubType>Form</SubType>

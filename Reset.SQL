@@ -4,6 +4,14 @@ GO
 BEGIN TRAN
 GO
 
+DROP FUNCTION CUATRO_QUESOS.FechaMigracion
+DROP TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
+DROP PROCEDURE CUATRO_QUESOS.generarTurno
+DROP TRIGGER CUATRO_QUESOS.tr_updateAgenda
+DROP PROCEDURE CUATRO_QUESOS.getTimeslotsFecha
+DROP PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda
+drop procedure CUATRO_QUESOS.generarAgenda;
+drop procedure CUATRO_QUESOS.getNYAMedico;
 DROP PROCEDURE CUATRO_QUESOS.registrarReceta 
 DROP PROCEDURE CUATRO_QUESOS.traerMedicamentos
 DROP PROCEDURE CUATRO_QUESOS.getBonosFarmacia
@@ -17,7 +25,6 @@ DROP PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas
 DROP PROCEDURE CUATRO_QUESOS.elegirListado
 DROP PROCEDURE CUATRO_QUESOS.getListadoEstadistico
 DROP PROCEDURE CUATRO_QUESOS.bonosPorTerceros
-drop procedure CUATRO_QUESOS.getFechasParaMedico
 drop procedure CUATRO_QUESOS.updateFechasMedico
 drop procedure CUATRO_QUESOS.modificarDiaAtencion
 drop procedure CUATRO_QUESOS.agregarDiaAtencion
@@ -85,14 +92,19 @@ drop trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados
 drop trigger CUATRO_QUESOS.limitarJornadaLaboral
 drop trigger CUATRO_QUESOS.obedecerHorariosClinica
 drop trigger CUATRO_QUESOS.limitarMedicamentosPorBono
-drop trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado
-drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora
-drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda
+--drop trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado
+--drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora
+--drop trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda
 
 
 -- Drop Foreign Key Constraints
-ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos DROP CONSTRAINT FK_Agenda_Medico
 ;
+
+ALTER TABLE CUATRO_QUESOS.Agendas_Medicos DROP CONSTRAINT FK_Agenda_Turno
+;
+
+
 
 ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT FK_Afiliados_Planes
 ;
@@ -215,13 +227,20 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos DROP CONSTRAINT FK_Usuarios_Medicos_U
 
 -- Drop other constraints
 
-alter table CUATRO_QUESOS.Medicos drop constraint limitarAgendaProfesional
+
+
+ALTER TABLE CUATRO_QUESOS.Afiliados DROP CONSTRAINT CHK_Estado_Civil
 ;
+
 
 -- Drop Tables, Stored Procedures and Views
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Afiliados') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)
 DROP TABLE CUATRO_QUESOS.Afiliados
+;
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Agendas_Medicos') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)
+DROP TABLE CUATRO_QUESOS.Agendas_Medicos
 ;
 
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Bonos') AND OBJECTPROPERTY(id, 'IsUserTable') = 1)
@@ -320,7 +339,8 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('CUATRO_QUESOS.Dias
 DROP TABLE CUATRO_QUESOS.Dias
 ;
 
-DROP VIEW CUATRO_QUESOS.Agendas_Medicos;
+--DROP VIEW CUATRO_QUESOS.Agendas_Medicos;
+--esta vista ya no existe
 
 DROP SCHEMA [CUATRO_QUESOS]
 GO

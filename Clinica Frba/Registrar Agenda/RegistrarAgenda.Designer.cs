@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labNombreMedico = new System.Windows.Forms.Label();
             this.botonQuitarMedico = new System.Windows.Forms.Button();
             this.labMedico = new System.Windows.Forms.Label();
             this.labNroMedico = new System.Windows.Forms.Label();
             this.botonBuscarMedico = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.botAddDia = new System.Windows.Forms.Button();
             this.labSaNo = new System.Windows.Forms.Label();
             this.labViNo = new System.Windows.Forms.Label();
@@ -90,9 +92,8 @@
             this.labLuD = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.labNombreMedico = new System.Windows.Forms.Label();
+            this.labAgendaExistente = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelSabado.SuspendLayout();
@@ -118,6 +119,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos personales";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // labNombreMedico
+            // 
+            this.labNombreMedico.AutoSize = true;
+            this.labNombreMedico.Location = new System.Drawing.Point(220, 25);
+            this.labNombreMedico.Name = "labNombreMedico";
+            this.labNombreMedico.Size = new System.Drawing.Size(22, 13);
+            this.labNombreMedico.TabIndex = 13;
+            this.labNombreMedico.Text = "(...)";
+            this.labNombreMedico.Visible = false;
             // 
             // botonQuitarMedico
             // 
@@ -188,13 +199,23 @@
             this.groupBox2.Controls.Add(this.panelMiercoles);
             this.groupBox2.Controls.Add(this.panelMartes);
             this.groupBox2.Controls.Add(this.panelLunes);
-            this.groupBox2.Location = new System.Drawing.Point(12, 80);
+            this.groupBox2.Location = new System.Drawing.Point(12, 87);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(458, 242);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Días de atención";
             this.groupBox2.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(351, 203);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(93, 23);
+            this.button3.TabIndex = 50;
+            this.button3.Text = "Cargar período";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // botAddDia
             // 
@@ -734,19 +755,9 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Desde:";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(351, 203);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 23);
-            this.button3.TabIndex = 50;
-            this.button3.Text = "Cargar período";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(381, 349);
+            this.button2.Location = new System.Drawing.Point(381, 335);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
@@ -754,21 +765,22 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // labNombreMedico
+            // labAgendaExistente
             // 
-            this.labNombreMedico.AutoSize = true;
-            this.labNombreMedico.Location = new System.Drawing.Point(220, 25);
-            this.labNombreMedico.Name = "labNombreMedico";
-            this.labNombreMedico.Size = new System.Drawing.Size(22, 13);
-            this.labNombreMedico.TabIndex = 13;
-            this.labNombreMedico.Text = "(...)";
-            this.labNombreMedico.Visible = false;
+            this.labAgendaExistente.AutoSize = true;
+            this.labAgendaExistente.Location = new System.Drawing.Point(30, 71);
+            this.labAgendaExistente.Name = "labAgendaExistente";
+            this.labAgendaExistente.Size = new System.Drawing.Size(391, 13);
+            this.labAgendaExistente.TabIndex = 15;
+            this.labAgendaExistente.Text = "Usted ya ha registrado una agenda. La agenda profesional no puede modificarse.";
+            this.labAgendaExistente.Visible = false;
             // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 384);
+            this.ClientSize = new System.Drawing.Size(484, 367);
+            this.Controls.Add(this.labAgendaExistente);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
@@ -791,6 +803,7 @@
             this.panelLunes.ResumeLayout(false);
             this.panelLunes.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -861,5 +874,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label labNombreMedico;
+        private System.Windows.Forms.Label labAgendaExistente;
     }
 }
