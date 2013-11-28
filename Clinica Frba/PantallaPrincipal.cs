@@ -22,6 +22,9 @@ using Clinica_Frba.Registro_de_LLegada;
 using Clinica_Frba.Registro_Resultado_Atencion;
 using Clinica_Frba.Domain;
 
+//Pantalla principal de la aplicacion, primero de debe loguear con un usuario y contraseña
+//para hacer uso de las funcionalidades, mostrando solo los botones de las permitidas para ese usuario
+
 namespace Clinica_Frba
 {
     public partial class PantallaPrincipal : Form
