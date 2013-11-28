@@ -6,6 +6,12 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using Clinica_Frba.AppModel;
 
+//Clase que valida los inputs de los campos que sean del tipo esperado.
+//En caso de no ser matcheados con las expresiones regulares especificadas 
+//para el tipo de campo en particular, es decir, que no esten
+//incluidos en la variedad de caracteres que admite, arroja una excepcion
+//que luego será catcheada por otro componente, permitiendo mostrar un mensaje de error acorde.
+
 namespace Clinica_Frba
 {
     class Controlador

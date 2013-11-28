@@ -1532,6 +1532,11 @@ BEGIN
         RETURN @Id
 END
 GO
+
+CREATE PROCEDURE CUATRO_QUESOS.existeMatricula @matricula numeric(18)
+AS
+SELECT * FROM CUATRO_QUESOS.Medicos WHERE Nro_Matricula = @matricula
+GO
 /******** PROCEDURES ESPECIALIDES MEDICAS **********/
 
 CREATE PROCEDURE CUATRO_QUESOS.getEspecialidades

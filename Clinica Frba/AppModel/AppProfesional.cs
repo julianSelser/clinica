@@ -9,7 +9,8 @@ using Clinica_Frba.AppModel.Excepciones;
 
 namespace Clinica_Frba.AppModel
 {
-    //Clase que hace de interfaz con los procedures de profesional
+    //Clase que hace de interfaz de cada componente del ABM profesional con sus respectivos procedures.
+    //Tambien crea listados de especialidades medicas y valida existencias de datos duplicados.
     class AppProfesional : ConectorSQL
     {
 
@@ -73,8 +74,14 @@ namespace Clinica_Frba.AppModel
         private static int darAltaMedico(Profesional profesional)
         {
             if (buscarMedico(profesional)>0) throw new MedicoYaExisteException(profesional);
+            if (existeMatricula(profesional)) throw new MatriculaDuplicadaException(profesional);
             ejecutarProcedure("altaMedico", profesional.nombre, profesional.apellido, profesional.sexo, profesional.tipoDoc, profesional.nroDoc, profesional.direccion, profesional.telefono, profesional.mail, profesional.fechaNac, profesional.nroMatricula);
             return buscarMedico(profesional);
+        }
+
+        private static bool existeMatricula(Profesional profesional)
+        {
+            return checkIfExists("existeMatricula", profesional.nroMatricula);
         }
 
         private static int buscarMedico(Profesional profesional)
