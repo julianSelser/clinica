@@ -1140,271 +1140,6 @@ values(2, 13); --medico, generar receta
                 
 GO
 
---CREATE TRIGGERS
-
-create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for update --trigger para quitar un rol que haya quedado inhabilitado
-as
-if UPDATE(Habilitado)
-begin
-        --los roles son muy pocos, me voy a tomar la libertad de usar un cursor
-        declare @ID numeric(18)
-        declare @Habilitado bit
-        declare curLocal cursor for select ID_Rol, Habilitado from inserted
-        
-        open curLocal
-        fetch CurLocal into @ID, @Habilitado
-        while @@FETCH_STATUS = 0
-        begin
-                if @Habilitado = 0 --uno de los roles se inhabilito
-                        delete from CUATRO_QUESOS.Usuarios_Por_Rol where CUATRO_QUESOS.Usuarios_Por_Rol.ID_Rol = @ID        
-                        --se lo quito a todos los usuarios que lo tienen        
-        fetch CurLocal into @ID, @Habilitado
-        end
-        
-        close CurLocal
-        deallocate CurLocal
-
-end
-
-
-GO
-
-create trigger CUATRO_QUESOS.revocarUsuario on CUATRO_QUESOS.Usuarios for update --automaticamente despues de los intentos fallidos permitidos, inhabilita al usuario
-as
-if UPDATE(Intentos_Fallidos)
-begin
-        --esto SÍ O SÍ se actualiza un registro a la vez. SÉ que inserted tiene una fila
-        if (select Intentos_Fallidos from inserted) > 2
-                update CUATRO_QUESOS.Usuarios set Habilitado = 0 where CUATRO_QUESOS.Usuarios.Username = (select username from inserted)        
-
-end
-
-GO
-
-
-create trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados on CUATRO_QUESOS.Medicos for update --cuando se da de baja un medico, cancela todos los turnos que tenia asignados
-as
-if UPDATE(Habilitado)
-
-begin
-        --no se si los médicos se darán de baja de a uno o masivamente... meto cursor nomás
-        declare @ID numeric(18)
-        declare @Habilitado bit
-        declare curLocal cursor for select ID_Medico, Habilitado from inserted
-        
-        open curLocal
-        fetch CurLocal into @ID, @Habilitado
-        while @@FETCH_STATUS = 0
-        begin
-                if @Habilitado = 0 --uno de los médicos se dio de baja
-                        --tengo que cancelar sus turnos futuros
-                        
-                        INSERT INTO CUATRO_QUESOS.Cancelaciones
-                        (
-                        Nro_Turno,
-                        Tipo,
-                        Motivo
-                        )
-                        
-                        select Numero as Nro_Turno,
-                                        'Desvinculación del médico' as Tipo,
-                                        'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
-                        from CUATRO_QUESOS.Turnos as sub
-                        where sub.ID_Medico = @ID
-                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
-                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
-                        
-        fetch CurLocal into @ID, @Habilitado
-        end
-        
-        close CurLocal
-        deallocate CurLocal
-end
-
-GO
-
-create trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados on CUATRO_QUESOS.Afiliados for update --mismo caso que los medicos, cancela todos los turnos para el afiliado dado de baja
-as
-if UPDATE(Fecha_Baja)
-
-begin
-        --no se si los pacientes se darán de baja de a uno o masivamente... meto cursor nomás
-        declare @Nro numeric(18)
-        declare @Fecha_Baja datetime
-        declare curLocal cursor for select Nro_Afiliado, Fecha_Baja from inserted
-        
-        open curLocal
-        fetch CurLocal into @Nro, @Fecha_Baja
-        while @@FETCH_STATUS = 0
-        begin
-                if @Fecha_Baja is not null --uno de los pacientes está dado de baja
-                        --tengo que cancelar sus turnos futuros
-                        
-                        INSERT INTO CUATRO_QUESOS.Cancelaciones
-                        (
-                        Nro_Turno,
-                        Tipo,
-                        Motivo
-                        )
-                        
-                        select Numero as Nro_Turno,
-                                        'Desvinculación del paciente' as Tipo,
-                                        'El paciente de este turno ya no se atiende en la clínica' as Motivo
-                        from CUATRO_QUESOS.Turnos as sub
-                        where sub.Nro_Afiliado = @Nro
-                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
-                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
-                        
-        fetch CurLocal into @Nro, @Fecha_Baja
-        end
-        
-        close CurLocal
-        deallocate CurLocal
-end
-
-GO
-
---trigger para verificar que no se receten más de 5 medicamentos en un mismo bono farmacia        
-create trigger CUATRO_QUESOS.limitarMedicamentosPorBono on CUATRO_QUESOS.Medicamentos_Por_Consulta for update, insert
-as
-begin
-        if (select top 1 COUNT(*)
-        from CUATRO_QUESOS.Medicamentos_Por_Consulta
-        group by Nro_Bono_Farmacia
-        order by 1 desc) > 5 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
-        begin
-                rollback
-                raiserror('Error: no se pueden recetar más de 5 medicamentos usando un mismo bono.', 16, 0)
-        end
-end
-
-GO
-
---trigger para verificar que la jornada semanal sea menor a 48 horas
-create trigger CUATRO_QUESOS.limitarJornadaLaboral on CUATRO_QUESOS.Dias_Atencion for update, insert
-as
-begin
-        if (select top 1 SUM(DATEDIFF(HOUR, hora_desde, hora_hasta))
-        from CUATRO_QUESOS.Dias_Atencion
-        group by ID_Medico
-        order by 1 desc) > 48 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
-        begin
-                rollback
-                raiserror('Error: un médico no puede trabajar más de 48 horas a la semana.', 16, 0)
-        end
-end
-
-GO
-
-
---trigger para verificar que los horarios de los médicos queden dentro de los horarios de la clínica
---en realidad estaría "por las dudas", porque la app ya valida esto en registrar agenda
-
-create trigger CUATRO_QUESOS.obedecerHorariosClinica on CUATRO_QUESOS.Dias_Atencion for insert, update
-as
-begin
-        if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
-                or
-                ((select COUNT(*) from inserted where Nombre_Dia = 'Sábado' and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
-        begin
-                rollback
-                raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)
-        end
-end
-
-GO
-
-
-CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
-ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
-AS
-BEGIN
-        DECLARE @nroAfiliado numeric(18)
-        SELECT @nroAfiliado = Nro_Afiliado FROM INSERTED
-        
-        IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
-        EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
-END
-GO
-
-CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
-ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
-AS
-BEGIN
-DECLARE @nroTurno numeric(18)
-DECLARE cursorTurno CURSOR FOR
-SELECT Nro_Turno FROM INSERTED
-
-OPEN cursorTurno
-FETCH cursorTurno INTO @nroTurno
-
-WHILE @@FETCH_STATUS = 0
-	BEGIN
-	UPDATE CUATRO_QUESOS.Agendas_Medicos
-	SET Nro_Turno = NULL
-	WHERE Nro_Turno = @nroTurno
-
-	FETCH cursorTurno INTO @nroTurno
-END
-
-CLOSE cursorTurno
-DEALLOCATE cursorTurno
-END
-
-GO
-
-CREATE TRIGGER CUATRO_QUESOS.tr_up_after_consulta --disparador para actualizar los datos del afiliado
-ON CUATRO_QUESOS.Bonos AFTER UPDATE
-AS
-BEGIN
-IF(UPDATE(Nro_Consulta))
-	BEGIN
-	DECLARE @numeroAfiliado numeric(18)
-
-	DECLARE cursorBonos CURSOR FOR
-	SELECT Nro_Usuario FROM INSERTED
-
-	OPEN cursorBonos
-	FETCH cursorBonos INTO @numeroAfiliado
-
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-	UPDATE CUATRO_QUESOS.Afiliados
-	SET Afiliados.Nro_Consulta = Afiliados.Nro_Consulta + 1 --actualizo el nro de consultas hechas por el afiliado
-	WHERE Afiliados.Nro_Afiliado = @numeroAfiliado
-	FETCH cursorBonos INTO @numeroAfiliado
-	END
-	CLOSE cursorBonos
-	DEALLOCATE cursorBonos
-END
-END
-GO
-
-CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
-ON CUATRO_QUESOS.Turnos AFTER INSERT
-AS
-BEGIN
-DECLARE @nroTurno numeric(18), @idMedico numeric(18), @fecha datetime
-DECLARE cursorTurno CURSOR FOR
-SELECT Numero, Id_Medico, Fecha FROM INSERTED
-
-OPEN cursorTurno
-FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
-
-WHILE @@FETCH_STATUS = 0
-	BEGIN
-	UPDATE CUATRO_QUESOS.Agendas_Medicos
-	SET Nro_Turno = @nroTurno
-	WHERE Id_Medico = @idMedico AND Fecha_Hora = @fecha
-
-	FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
-END
-
-CLOSE cursorTurno
-DEALLOCATE cursorTurno
-END
-
-GO
 
 --CREATE FUNCTIONS
 
@@ -2680,6 +2415,274 @@ VALUES ((SELECT MAX(Numero)+1 FROM CUATRO_QUESOS.Turnos),@nroAfiliado, @idMedico
 GO
 
 /**************** FIN PROCEDURES PEDIR TURNO ********************/
+
+/********** TRIGGERS *****************/
+
+create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for update --trigger para quitar un rol que haya quedado inhabilitado
+as
+if UPDATE(Habilitado)
+begin
+        --los roles son muy pocos, me voy a tomar la libertad de usar un cursor
+        declare @ID numeric(18)
+        declare @Habilitado bit
+        declare curLocal cursor for select ID_Rol, Habilitado from inserted
+        
+        open curLocal
+        fetch CurLocal into @ID, @Habilitado
+        while @@FETCH_STATUS = 0
+        begin
+                if @Habilitado = 0 --uno de los roles se inhabilito
+                        delete from CUATRO_QUESOS.Usuarios_Por_Rol where CUATRO_QUESOS.Usuarios_Por_Rol.ID_Rol = @ID        
+                        --se lo quito a todos los usuarios que lo tienen        
+        fetch CurLocal into @ID, @Habilitado
+        end
+        
+        close CurLocal
+        deallocate CurLocal
+
+end
+
+
+GO
+
+create trigger CUATRO_QUESOS.revocarUsuario on CUATRO_QUESOS.Usuarios for update --automaticamente despues de los intentos fallidos permitidos, inhabilita al usuario
+as
+if UPDATE(Intentos_Fallidos)
+begin
+        --esto SÍ O SÍ se actualiza un registro a la vez. SÉ que inserted tiene una fila
+        if (select Intentos_Fallidos from inserted) > 2
+                update CUATRO_QUESOS.Usuarios set Habilitado = 0 where CUATRO_QUESOS.Usuarios.Username = (select username from inserted)        
+
+end
+
+GO
+
+
+create trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados on CUATRO_QUESOS.Medicos for update --cuando se da de baja un medico, cancela todos los turnos que tenia asignados
+as
+if UPDATE(Habilitado)
+
+begin
+        --no se si los médicos se darán de baja de a uno o masivamente... meto cursor nomás
+        declare @ID numeric(18)
+        declare @Habilitado bit
+        declare curLocal cursor for select ID_Medico, Habilitado from inserted
+        
+        open curLocal
+        fetch CurLocal into @ID, @Habilitado
+        while @@FETCH_STATUS = 0
+        begin
+                if @Habilitado = 0 --uno de los médicos se dio de baja
+                        --tengo que cancelar sus turnos futuros
+                        
+                        INSERT INTO CUATRO_QUESOS.Cancelaciones
+                        (
+                        Nro_Turno,
+                        Tipo,
+                        Motivo
+                        )
+                        
+                        select Numero as Nro_Turno,
+                                        'Desvinculación del médico' as Tipo,
+                                        'El médico a cargo de este turno ya no trabaja en la clínica' as Motivo
+                        from CUATRO_QUESOS.Turnos as sub
+                        where sub.ID_Medico = @ID
+                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
+                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+                        
+        fetch CurLocal into @ID, @Habilitado
+        end
+        
+        close CurLocal
+        deallocate CurLocal
+end
+
+GO
+
+create trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados on CUATRO_QUESOS.Afiliados for update --mismo caso que los medicos, cancela todos los turnos para el afiliado dado de baja
+as
+if UPDATE(Fecha_Baja)
+
+begin
+        --no se si los pacientes se darán de baja de a uno o masivamente... meto cursor nomás
+        declare @Nro numeric(18)
+        declare @Fecha_Baja datetime
+        declare curLocal cursor for select Nro_Afiliado, Fecha_Baja from inserted
+        
+        open curLocal
+        fetch CurLocal into @Nro, @Fecha_Baja
+        while @@FETCH_STATUS = 0
+        begin
+                if @Fecha_Baja is not null --uno de los pacientes está dado de baja
+                        --tengo que cancelar sus turnos futuros
+                        
+                        INSERT INTO CUATRO_QUESOS.Cancelaciones
+                        (
+                        Nro_Turno,
+                        Tipo,
+                        Motivo
+                        )
+                        
+                        select Numero as Nro_Turno,
+                                        'Desvinculación del paciente' as Tipo,
+                                        'El paciente de este turno ya no se atiende en la clínica' as Motivo
+                        from CUATRO_QUESOS.Turnos as sub
+                        where sub.Nro_Afiliado = @Nro
+                                and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
+                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+                        
+        fetch CurLocal into @Nro, @Fecha_Baja
+        end
+        
+        close CurLocal
+        deallocate CurLocal
+end
+
+GO
+
+--trigger para verificar que no se receten más de 5 medicamentos en un mismo bono farmacia        
+create trigger CUATRO_QUESOS.limitarMedicamentosPorBono on CUATRO_QUESOS.Medicamentos_Por_Consulta for update, insert
+as
+begin
+        if (select top 1 COUNT(*)
+        from CUATRO_QUESOS.Medicamentos_Por_Consulta
+        group by Nro_Bono_Farmacia
+        order by 1 desc) > 5 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+        begin
+                rollback
+                raiserror('Error: no se pueden recetar más de 5 medicamentos usando un mismo bono.', 16, 0)
+        end
+end
+
+GO
+
+--trigger para verificar que la jornada semanal sea menor a 48 horas
+create trigger CUATRO_QUESOS.limitarJornadaLaboral on CUATRO_QUESOS.Dias_Atencion for update, insert
+as
+begin
+        if (select top 1 SUM(DATEDIFF(HOUR, hora_desde, hora_hasta))
+        from CUATRO_QUESOS.Dias_Atencion
+        group by ID_Medico
+        order by 1 desc) > 48 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+        begin
+                rollback
+                raiserror('Error: un médico no puede trabajar más de 48 horas a la semana.', 16, 0)
+        end
+end
+
+GO
+
+
+--trigger para verificar que los horarios de los médicos queden dentro de los horarios de la clínica
+--en realidad estaría "por las dudas", porque la app ya valida esto en registrar agenda
+
+create trigger CUATRO_QUESOS.obedecerHorariosClinica on CUATRO_QUESOS.Dias_Atencion for insert, update
+as
+begin
+        if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
+                or
+                ((select COUNT(*) from inserted where Nombre_Dia = 'Sábado' and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
+        begin
+                rollback
+                raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)
+        end
+end
+
+GO
+
+
+CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
+ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
+AS
+BEGIN
+        DECLARE @nroAfiliado numeric(18)
+        SELECT @nroAfiliado = Nro_Afiliado FROM INSERTED
+        
+        IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
+        EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
+END
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
+ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18)
+DECLARE cursorTurno CURSOR FOR
+SELECT Nro_Turno FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = NULL
+	WHERE Nro_Turno = @nroTurno
+
+	FETCH cursorTurno INTO @nroTurno
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_up_after_consulta --disparador para actualizar los datos del afiliado
+ON CUATRO_QUESOS.Bonos AFTER UPDATE
+AS
+BEGIN
+IF(UPDATE(Nro_Consulta))
+	BEGIN
+	DECLARE @numeroAfiliado numeric(18)
+
+	DECLARE cursorBonos CURSOR FOR
+	SELECT Nro_Usuario FROM INSERTED
+
+	OPEN cursorBonos
+	FETCH cursorBonos INTO @numeroAfiliado
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Afiliados
+	SET Afiliados.Nro_Consulta = Afiliados.Nro_Consulta + 1 --actualizo el nro de consultas hechas por el afiliado
+	WHERE Afiliados.Nro_Afiliado = @numeroAfiliado
+	FETCH cursorBonos INTO @numeroAfiliado
+	END
+	CLOSE cursorBonos
+	DEALLOCATE cursorBonos
+END
+END
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
+ON CUATRO_QUESOS.Turnos AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18), @idMedico numeric(18), @fecha datetime
+DECLARE cursorTurno CURSOR FOR
+SELECT Numero, Id_Medico, Fecha FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = @nroTurno
+	WHERE Id_Medico = @idMedico AND Fecha_Hora = @fecha
+
+	FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
+/********* FIN TRIGGERS ****************/
 
 IF @@ERROR != 0 ROLLBACK
 
