@@ -9,6 +9,10 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad que permite comprar bonos por parte de un afiliado, que luego podra ser 
+//utilizados por su grupo farmiliar. 
+//Se especifica cantidades para consulta y farmacia y luego muestra el monto total a pagar
+
 namespace Clinica_Frba.Compra_de_Bono
 {
     public partial class CompraBono : Form
