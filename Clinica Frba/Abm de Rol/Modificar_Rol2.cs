@@ -16,11 +16,13 @@ namespace Clinica_Frba.Abm_de_Rol
     {
         private Form padre;
         Rol rol;
+        PantallaPrincipal pantallaPrincipal; //necesita conocerla para manipular los botones
         List<Funcionalidad> funcionalidades;
 
-        public Modificar_Rol2(Form padre, Rol rol)
+        public Modificar_Rol2(Form padre, Rol rol, PantallaPrincipal pantallaPrincipal)
         {
             InitializeComponent();
+            this.pantallaPrincipal = pantallaPrincipal;
             this.padre = padre;
             this.rol = rol;
             validarHabilitado();
@@ -73,6 +75,13 @@ namespace Clinica_Frba.Abm_de_Rol
                 actualizarNombreRol();
                 List<Funcionalidad> listaFuncionalidadesNuevas = generarListaFuncionalidades();
                 AppRol.updateRol(rol, listaFuncionalidadesNuevas);
+
+                if (rol.nombre == UsuarioLogeado.Instance.Rol.nombre)// este "if" es donde metio mano julian
+                {
+                    pantallaPrincipal.deshabilitarFuncionalidades(); //workaround: deshabilito todos los botones ya que se genera el listado solo de las funcionalidades a mostrar, no a ocultar
+                    pantallaPrincipal.habilitarFuncionalidades(listaFuncionalidadesNuevas);
+                }
+
                 MessageBox.Show("La modificación del rol se ha realizado con éxito.\n\nId Rol: " + rol.id);
                 AsistenteVistas.volverAPadreYCerrar(padre, this);
             }
