@@ -121,7 +121,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             profesional.telefono = Convert.ToInt32(telBox.Text);
         }
 
-        private List<EspecialidadMedica> generarListaEspecialidades()
+        private List<EspecialidadMedica> generarListaEspecialidades() //creo la nueva lista de especialidades del medico, iterando sobre cada item del CheckedListBox si fue selecionado
         {
             int cont = 0, cantidadEspecialidades = especialidadesCheckedListBox.CheckedItems.Count;
             if (cantidadEspecialidades == 0) throw new SinEspecilidadesCheckedException();

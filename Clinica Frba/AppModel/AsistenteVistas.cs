@@ -27,8 +27,8 @@ namespace Clinica_Frba.AppModel
 
         public static void cargarGrilla(DataGridView grid, System.Data.DataTable dataTable)
         {
-            grid.DataSource = dataTable;
-            grid.AutoResizeColumns();
+            grid.DataSource = dataTable; 
+            grid.AutoResizeColumns(); //ajusta el tamaño de las columnas y filas a su contenido
             grid.AutoResizeRows();
         }
     }

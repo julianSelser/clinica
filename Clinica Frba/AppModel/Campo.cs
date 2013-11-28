@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Clinica_Frba.AppModel;
 
+//Clase que valida los inputs del campo al que se quiere verificar, hereda de CampoAbstracto la firma del metodo validar
 namespace Clinica_Frba.AppModel
 {
     class Campo : CampoAbstracto

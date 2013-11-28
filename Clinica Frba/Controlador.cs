@@ -46,7 +46,7 @@ namespace Clinica_Frba
         {
             if (!stringVacio(campo.texto))
             {
-                switch (campo.tipoVal)
+                switch (campo.tipoVal) //dependiendo del tipo de campo, utiliza el metodo correspondiente para comparar contra la expresion regular, en caso de no cumplir muestra un mensaje de error distinto
                 {
                     case TipoValidacion.Email:
                         if (!stringEmailValido(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe contener caracteres válidos para un e-mail." + Environment.NewLine); }
@@ -74,7 +74,7 @@ namespace Clinica_Frba
             return email.IsMatch(mail);
         }
 
-        public static Boolean stringAlfa(string unString)
+        public static Boolean stringAlfa(string unString) //se fija si algun caracter no matchea con la expresion regular, en caso de no matchear, devuelve false
         {
             foreach(char unChar in unString)
             {
