@@ -36,16 +36,16 @@ namespace Clinica_Frba.Login
 
             if (rolComboBox.SelectedItem != null)
             {
-                UsuarioLogeado.Instance.Rol = (Rol)rolComboBox.SelectedItem;
+                Rol rol = UsuarioLogeado.Instance.Rol = (Rol)rolComboBox.SelectedItem;
 
-                var a = UsuarioLogeado.Instance.Rol.funcionalidades = AppLogin.traerFuncionalidades();
+                UsuarioLogeado.Instance.Rol.funcionalidades = AppLogin.traerFuncionalidades();
 
                 AppLogin.cargarUsuario();
 
-                if (UsuarioLogeado.Instance.Rol.nombre == "Administrativo")
-                    pantallaPrincipal.setearLogeo("Administrador");
-                else
+                if (rol.nombre == "Profesional" || rol.nombre == "Afiliado")
                     pantallaPrincipal.setearLogeo(UsuarioLogeado.Instance.Persona.nombre.ToUpper() + " " + UsuarioLogeado.Instance.Persona.apellido.ToUpper());
+                else
+                    pantallaPrincipal.setearLogeo(rol.nombre);
 
                 pantallaPrincipal.habilitarFuncionalidades();
             }
