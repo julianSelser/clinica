@@ -1314,6 +1314,98 @@ end
 
 GO
 
+
+CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
+ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
+AS
+BEGIN
+        DECLARE @nroAfiliado numeric(18)
+        SELECT @nroAfiliado = Nro_Afiliado FROM INSERTED
+        
+        IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
+        EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
+END
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
+ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18)
+DECLARE cursorTurno CURSOR FOR
+SELECT Nro_Turno FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = NULL
+	WHERE Nro_Turno = @nroTurno
+
+	FETCH cursorTurno INTO @nroTurno
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_up_after_consulta --disparador para actualizar los datos del afiliado
+ON CUATRO_QUESOS.Bonos AFTER UPDATE
+AS
+BEGIN
+IF(UPDATE(Nro_Consulta))
+	BEGIN
+	DECLARE @numeroAfiliado numeric(18)
+
+	DECLARE cursorBonos CURSOR FOR
+	SELECT Nro_Usuario FROM INSERTED
+
+	OPEN cursorBonos
+	FETCH cursorBonos INTO @numeroAfiliado
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Afiliados
+	SET Afiliados.Nro_Consulta = Afiliados.Nro_Consulta + 1 --actualizo el nro de consultas hechas por el afiliado
+	WHERE Afiliados.Nro_Afiliado = @numeroAfiliado
+	FETCH cursorBonos INTO @numeroAfiliado
+	END
+	CLOSE cursorBonos
+	DEALLOCATE cursorBonos
+END
+END
+GO
+
+CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
+ON CUATRO_QUESOS.Turnos AFTER INSERT
+AS
+BEGIN
+DECLARE @nroTurno numeric(18), @idMedico numeric(18), @fecha datetime
+DECLARE cursorTurno CURSOR FOR
+SELECT Numero, Id_Medico, Fecha FROM INSERTED
+
+OPEN cursorTurno
+FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+
+WHILE @@FETCH_STATUS = 0
+	BEGIN
+	UPDATE CUATRO_QUESOS.Agendas_Medicos
+	SET Nro_Turno = @nroTurno
+	WHERE Id_Medico = @idMedico AND Fecha_Hora = @fecha
+
+	FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
+END
+
+CLOSE cursorTurno
+DEALLOCATE cursorTurno
+END
+
+GO
+
 --CREATE PROCEDURES
 
 --procedures medicos
@@ -1632,17 +1724,6 @@ SET Nro_Conyuge = @nroAfiliado
 WHERE Nro_Afiliado = (@nroAfiliado - 1)
 GO
 
-CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
-ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
-AS
-BEGIN
-        DECLARE @nroAfiliado numeric(18)
-        SELECT @nroAfiliado = Nro_Afiliado FROM INSERTED
-        
-        IF(UPDATE(Nro_Conyuge)AND CUATRO_QUESOS.tipoAfiliado(@nroAfiliado)= 2)
-        EXEC CUATRO_QUESOS.updateNroConyuge @nroAfiliado
-END
-GO
 
 CREATE PROCEDURE CUATRO_QUESOS.updateAfiliado (
 @nroAfiliado numeric(18),
@@ -1902,31 +1983,6 @@ AS
         FROM @Tabla t
 GO
 
-CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
-ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
-AS
-BEGIN
-DECLARE @nroTurno numeric(18)
-DECLARE cursorTurno CURSOR FOR
-SELECT Nro_Turno FROM INSERTED
-
-OPEN cursorTurno
-FETCH cursorTurno INTO @nroTurno
-
-WHILE @@FETCH_STATUS = 0
-	BEGIN
-	UPDATE CUATRO_QUESOS.Agendas_Medicos
-	SET Nro_Turno = NULL
-	WHERE Nro_Turno = @nroTurno
-
-	FETCH cursorTurno INTO @nroTurno
-END
-
-CLOSE cursorTurno
-DEALLOCATE cursorTurno
-END
-
-GO
 
 -- FIN ABM DE CANCELACIÓN
 
@@ -2168,32 +2224,6 @@ AND Bonos.Numero = @numeroBono
 COMMIT
 GO
 
-CREATE TRIGGER CUATRO_QUESOS.tr_up_after_consulta --disparador para actualizar los datos del afiliado
-ON CUATRO_QUESOS.Bonos AFTER UPDATE
-AS
-BEGIN
-IF(UPDATE(Nro_Consulta))
-	BEGIN
-	DECLARE @numeroAfiliado numeric(18)
-
-	DECLARE cursorBonos CURSOR FOR
-	SELECT Nro_Usuario FROM INSERTED
-
-	OPEN cursorBonos
-	FETCH cursorBonos INTO @numeroAfiliado
-
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-	UPDATE CUATRO_QUESOS.Afiliados
-	SET Afiliados.Nro_Consulta = Afiliados.Nro_Consulta + 1 --actualizo el nro de consultas hechas por el afiliado
-	WHERE Afiliados.Nro_Afiliado = @numeroAfiliado
-	FETCH cursorBonos INTO @numeroAfiliado
-	END
-	CLOSE cursorBonos
-	DEALLOCATE cursorBonos
-END
-END
-GO
 /******* FIN PROCEDURES REGISTRO DE LLEGADA ********/
 
 /* ****** PROCEDURES REGISTRAR AGENDA ****** */
@@ -2646,32 +2676,6 @@ CREATE PROCEDURE CUATRO_QUESOS.generarTurno @nroAfiliado numeric(18), @idMedico 
 AS
 INSERT INTO CUATRO_QUESOS.Turnos(Numero, Nro_Afiliado, Id_Medico, Cod_Especialidad, Fecha)
 VALUES ((SELECT MAX(Numero)+1 FROM CUATRO_QUESOS.Turnos),@nroAfiliado, @idMedico, @codEspecialidad, @fecha)
-GO
-
-CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
-ON CUATRO_QUESOS.Turnos AFTER INSERT
-AS
-BEGIN
-DECLARE @nroTurno numeric(18), @idMedico numeric(18), @fecha datetime
-DECLARE cursorTurno CURSOR FOR
-SELECT Numero, Id_Medico, Fecha FROM INSERTED
-
-OPEN cursorTurno
-FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
-
-WHILE @@FETCH_STATUS = 0
-	BEGIN
-	UPDATE CUATRO_QUESOS.Agendas_Medicos
-	SET Nro_Turno = @nroTurno
-	WHERE Id_Medico = @idMedico AND Fecha_Hora = @fecha
-
-	FETCH cursorTurno INTO @nroTurno, @idMedico, @fecha
-END
-
-CLOSE cursorTurno
-DEALLOCATE cursorTurno
-END
-
 GO
 
 /**************** FIN PROCEDURES PEDIR TURNO ********************/
