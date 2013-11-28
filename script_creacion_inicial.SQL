@@ -1902,6 +1902,7 @@ BEGIN
 END
 GO
 
+--devuelve los roles de un usuario pasado por parametro
 CREATE PROCEDURE CUATRO_QUESOS.traerRolesDeUsuario(@username VARCHAR(20))
 AS
 BEGIN
@@ -1911,7 +1912,7 @@ BEGIN
 END
 GO
 
-
+--devuelve las funcionalidades que tiene un rol especificado
 CREATE PROCEDURE CUATRO_QUESOS.traerFuncionalidadesDeRol(@rol NUMERIC(18,0))
 AS
 BEGIN
@@ -1921,7 +1922,7 @@ BEGIN
 END
 GO
 
-
+--trae los datos del usuario con el rol seleccionado
 CREATE PROCEDURE CUATRO_QUESOS.traerDatosUsuario(@username VARCHAR(20), @rol VARCHAR(50))
 AS
 BEGIN
@@ -1940,6 +1941,8 @@ GO
 
 /********* PROCEDURES REGISTRO DE LLEGADA *********/
 
+
+--devuelve los turnos que tiene un afiliado para cierto profesional, estando estos no cancelados ni registrados
 CREATE PROCEDURE CUATRO_QUESOS.getTurnosAfiliadoMedicoRegistroLlegada @nroAfiliado numeric(18), @id_profesional numeric(18), @fechaSistema datetime
 AS
 SELECT Afiliados.Nombre+' '+ Afiliados.Apellido 'Afiliado', Medicos.Nombre+' '+Medicos.Apellido 'Médico', 
@@ -1956,6 +1959,7 @@ AND YEAR(Turnos.Fecha) = YEAR(@fechaSistema)
 AND Turnos.Numero NOT IN (SELECT Consultas.Nro_Turno FROM CUATRO_QUESOS.Consultas)
 GO
 
+--devuelve los bonos de consulta que tiene el grupo familiar de un afiliado, siendo congruentes con su plan medico
 CREATE PROCEDURE CUATRO_QUESOS.getBonoConsultaRegistroLlegada @nroAfiliado numeric(18)
 AS
 SELECT Bonos.Numero 'Nro. de Bono', Bonos.Cod_Plan 'Codigo de Plan', 
@@ -1978,6 +1982,7 @@ AND Bonos.Nro_Usuario IS NULL
 AND Bonos.Nro_Consulta IS NULL
 GO
 
+--registra la llegada de un afiliado, efectivizando la creacion de una consulta
 CREATE PROCEDURE CUATRO_QUESOS.registrarLlegada 
 @numeroAfiliado numeric(18), @numeroBono numeric(18), @numeroTurno numeric(18), @fechaAtencion datetime, @fechaLlegada datetime
 AS
@@ -2026,7 +2031,7 @@ as
 	from CUATRO_QUESOS.Medicos where ID_Medico = @ID
 GO
 
-create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18))
+create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18)) --devuelve los dias de atencion de un medico
 as
 begin
 	select Nombre_Dia, Hora_Desde, Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Id_Medico = @Id_Medico
@@ -2034,7 +2039,7 @@ end
 
 GO
 
-create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @nombre_dia varchar(10))
+create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @nombre_dia varchar(10)) --elimina un dia de atencion especificado para un medico
 as
 begin
 	delete from CUATRO_QUESOS.Dias_Atencion
@@ -2043,7 +2048,7 @@ end
 
 GO
 
-
+--modifica el horario de atencion para un dia
 create procedure CUATRO_QUESOS.modificarDiaAtencion(@Id_Medico numeric(18), @nombre_dia varchar(10), @str_desde char(5), @str_hasta char(5))
 as
 begin
@@ -2059,7 +2064,7 @@ begin
 end
 
 GO
-
+--crea un nuevo dia de atencion con horarios para un medico
 create procedure CUATRO_QUESOS.agregarDiaAtencion(@Id_Medico numeric(18), @nombre_dia varchar(10), @str_desde char(5), @str_hasta char(5))
 as
 begin
@@ -2078,8 +2083,7 @@ end
 
 GO
 
-
-
+--actualiza las fechas de atencion desde y hasta de un medico una vez registrada la agenda
 create procedure CUATRO_QUESOS.updateFechasMedico(@id_medico numeric(18), @desde datetime, @hasta datetime)
 as
 begin
@@ -2089,7 +2093,7 @@ end
 
 GO
 
-
+--genera la agenda para un medico, creando timeslots segun la fecha desde la que atiende hasta la que finaliza la agenda
 create procedure CUATRO_QUESOS.generarAgenda(@ID numeric(18), @fecha_desde datetime, @fecha_hasta datetime)
 --al ejecutarse este SP la app ya verificó que los campos que voy a usar son no-nulos
 as
@@ -2176,9 +2180,9 @@ end
 
 
 GO
-/* ***** FIN PROCEDURES REGISTRAR AGENDA ***** */
+/****** FIN PROCEDURES REGISTRAR AGENDA ******/
 
--- LISTADOS ESTADISTICOS --
+/****** PROCEDURES LISTADOS ESTADISTICOS ******/
 
 CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
@@ -2312,7 +2316,7 @@ BEGIN
 END
 GO
 
--- FIN LISTADOS ESTADISTICOS--
+/****** FIN PROCEDURES LISTADOS ESTADISTICOS ******/
 
 /****************** PROCEDURES RESULTADOS ATENCION MEDICA*****************/
 
@@ -2614,7 +2618,7 @@ end
 GO
 
 
-CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge
+CREATE TRIGGER CUATRO_QUESOS.tr_updateNroConyuge --actualiza el numero de conyuge, utilizando un procedure
 ON CUATRO_QUESOS.Afiliados FOR UPDATE, INSERT
 AS
 BEGIN
@@ -2626,7 +2630,7 @@ BEGIN
 END
 GO
 
-CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda
+CREATE TRIGGER CUATRO_QUESOS.tr_cancelarTurnoAgenda --cuando se cancela un turno, se libera el timeslot que ocupaba dejandolo disponible
 ON CUATRO_QUESOS.Cancelaciones AFTER INSERT
 AS
 BEGIN
@@ -2679,7 +2683,7 @@ END
 END
 GO
 
-CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda
+CREATE TRIGGER CUATRO_QUESOS.tr_updateAgenda --actualiza el turno asociado a un timeslot en la agenda de un profesional
 ON CUATRO_QUESOS.Turnos AFTER INSERT
 AS
 BEGIN
@@ -2707,7 +2711,7 @@ GO
 
 /********* FIN TRIGGERS ****************/
 
-IF @@ERROR != 0 ROLLBACK
+IF @@ERROR != 0 ROLLBACK --si hubo un error, cancela toda la operacion
 
 COMMIT
 GO
