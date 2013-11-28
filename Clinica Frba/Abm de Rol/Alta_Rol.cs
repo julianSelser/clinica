@@ -10,6 +10,8 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 using Clinica_Frba.AppModel.Excepciones;
 
+//Funcionalidad para dar de alta un rol
+
 namespace Clinica_Frba.Abm_de_Rol
 {
     public partial class Alta_Rol : Form

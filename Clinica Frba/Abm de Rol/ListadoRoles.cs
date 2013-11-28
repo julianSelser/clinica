@@ -9,9 +9,11 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad que muestra el listado de roles existentes y poder seleccionarlo para baja o modificacion
+
 namespace Clinica_Frba.Abm_de_Rol
 {
-    public partial class ListadoRoles : Form//, IListado //era una interfaz pero al final no se implementa
+    public partial class ListadoRoles : Form
     {
         public Form padre;
         PantallaPrincipal pantallaPrincipal; //necesita conocerla para manipular los botones

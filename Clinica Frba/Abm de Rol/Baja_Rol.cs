@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad de baja de roles, la baja que se realiza es logica, inhabilitando el rol
+
 namespace Clinica_Frba.Abm_de_Rol
 {
     public partial class Baja_Rol : Form

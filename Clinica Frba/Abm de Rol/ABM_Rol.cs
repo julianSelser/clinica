@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+//ABM que tiene por objetivo dar de alta, baja o modificar un rol de usuario, con sus respectivas funcionalidades
+
 namespace Clinica_Frba.Abm_de_Rol
 {
     public partial class ABM_Rol : Form
