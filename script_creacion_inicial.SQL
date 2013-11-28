@@ -2320,6 +2320,7 @@ GO
 
 /****************** PROCEDURES RESULTADOS ATENCION MEDICA*****************/
 
+--devuelve las consultas medicas que no tengan un registro de sintomas y enfermedades
 CREATE PROCEDURE CUATRO_QUESOS.getConsultasMedicas @nroAfiliado numeric(18), @idMedico numeric(18), @fechaAtencion DateTime, @sinResultado bit, @soloConResultado bit
 AS
 SELECT Afiliados.Nombre+' '+Afiliados.Apellido 'Afiliado',
@@ -2342,6 +2343,7 @@ AND ((@sinResultado = 1 AND (Consultas.Sintomas = 'no registrado aún' OR Consul
 AND ((@soloConResultado = 1 AND Consultas.Enfermedades != 'no registrado aún')OR(@soloConResultado = 0))
 GO
 
+--actualiza una consulta medica con los sintomas y enfermedades que tuvo un paciente
 CREATE PROCEDURE CUATRO_QUESOS.updateConsultaMedica @idConsulta numeric(18), @sintomas varchar(255), @enfermedades varchar(255)
 AS
 UPDATE CUATRO_QUESOS.Consultas
@@ -2353,6 +2355,7 @@ GO
 
 /*************** PROCEDURES GENERAR RECETA *****************************/
 
+--devuelve todos los bonos de farmacias comprados por el grupo familiar del afiliado y que coincidan con su plan medico
 CREATE PROCEDURE CUATRO_QUESOS.getBonosFarmacia @nroAfiliado numeric(18), @fecha datetime
 AS
 SELECT Bonos.Numero 'Nro. de Bono', Bonos.Cod_Plan 'Codigo de Plan', 
@@ -2376,6 +2379,7 @@ AND Bonos.Nro_Usuario IS NULL
 AND Bonos.Fecha_Vencimiento >= @fecha
 GO
 
+--trae todos los medicamentos existentes
 CREATE PROCEDURE CUATRO_QUESOS.traerMedicamentos @nroMedicamento numeric(18), @descripcion varchar(255)
 AS
 SELECT Medicamentos.Id_Medicamento 'Nro. Medicamento', Medicamentos.Descripcion 'Descripcion Medicamento'
@@ -2384,6 +2388,7 @@ WHERE ((Medicamentos.Id_medicamento = @nroMedicamento AND @nroMedicamento >= 0)O
 AND Medicamentos.Descripcion LIKE '%'+ @descripcion + '%'
 GO
 
+--registra una receta medica en Medicamentos_Por_Consulta, especificando cantidad de cada uno, numero de consulta y  el bono de farmacia
 CREATE PROCEDURE CUATRO_QUESOS.registrarReceta 
 @nroAfiliado numeric(18),
 @idConsulta numeric(18), 
@@ -2414,6 +2419,7 @@ GO
 /*************** FIN PROCEDURE GENERAR RECETA****************************/
 /*************** PROCEDURES PEDIR TURNO *********************/
 
+--trae todas las fechas disponibles de atencion que tiene un medico en su agenda
 CREATE PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda @idMedico numeric(18)
 AS
 SELECT CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 'Fechas Disponibles'
@@ -2423,6 +2429,7 @@ GROUP BY CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)
 ORDER BY 1 ASC
 GO
 
+--trae todos los timeslots disponibles para una fecha en la agenda del medico
 CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fecha datetime
 AS
 SELECT CONVERT(VARCHAR(5),Agendas_Medicos.Fecha_Hora, 108) 'Horarios Disponibles'
@@ -2435,6 +2442,7 @@ AND YEAR(Fecha_Hora) = YEAR(@fecha)
 ORDER BY Fecha_Hora ASC
 GO
 
+--genera un turno para un afiliado, asociando medico, especialidad del turno y la fecha del mismo
 CREATE PROCEDURE CUATRO_QUESOS.generarTurno @nroAfiliado numeric(18), @idMedico numeric(18), @codEspecialidad numeric(18) , @fecha datetime
 AS
 INSERT INTO CUATRO_QUESOS.Turnos(Numero, Nro_Afiliado, Id_Medico, Cod_Especialidad, Fecha)
