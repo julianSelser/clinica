@@ -123,6 +123,7 @@ namespace Clinica_Frba.Pedir_Turno
             DateTime fecha_horario = crearFechaHorario();
             AppPedirTurno.generarTurno(afiliado, profesional, especialidadTurno, fecha_horario);
             MessageBox.Show("El turno se generó correctamente\n\nNro. Afiliado: "+afiliado.nroAfiliado+"\nId Medico: "+profesional.id+"\nEspecialidad: "+especialidadTurno.descripcion+"\nFecha y Horario: "+fecha_horario.ToString("dd/MM/yy HH:mm"));
+            AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
         private DateTime crearFechaHorario()
