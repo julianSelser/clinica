@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Funcionalidad que registra la agenda de un medico, indicando los horarios para los dias que atiende.
+//Se puede quitar, modificar y agregar dias de atencion, validos para la politica de atencion de la clinica.
+
 namespace Clinica_Frba.Registrar_Agenda
 {
     public partial class RegistrarAgenda : Form
@@ -316,7 +319,14 @@ namespace Clinica_Frba.Registrar_Agenda
         private void button3_Click(object sender, EventArgs e)
             //me lleva a la ventana de cargar período
         {
-            AsistenteVistas.mostrarNuevaVentana(new CargarPeriodo(this, Convert.ToDecimal(labNroMedico.Text)), this);
+            if(labLuNo.Visible && labMaNo.Visible && labMiNo.Visible && labJuNo.Visible && labViNo.Visible && labSaNo.Visible)
+            {
+                MessageBox.Show("No se especificó ningún día de atención.", "Error");
+            }
+            else
+            {
+                AsistenteVistas.mostrarNuevaVentana(new CargarPeriodo(this, Convert.ToDecimal(labNroMedico.Text)), this); 
+            }
         }
 
     }
