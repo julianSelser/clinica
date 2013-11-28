@@ -8,7 +8,7 @@ GO
 
 -- Funcion con la fecha de migracion
 
-CREATE FUNCTION CUATRO_QUESOS.FechaMigracion()
+CREATE FUNCTION CUATRO_QUESOS.FechaMigracion() --esta funcion almacena la fecha que se utiliza en la migracion como referencia
 RETURNS datetime
 AS
 BEGIN
@@ -23,11 +23,11 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
         Nro_Afiliado numeric(18) NOT NULL,
         Nombre varchar(255) NOT NULL,
         Apellido varchar(255) NOT NULL,
-        Sexo char(1) NOT NULL CHECK(Sexo = 'M' OR Sexo = 'F' OR Sexo = '-'),
-        Tipo_Doc varchar(3) NOT NULL CHECK(Tipo_Doc = 'DNI' OR Tipo_Doc = 'LE' OR Tipo_Doc = 'LC'),
+        Sexo char(1) NOT NULL CHECK(Sexo = 'M' OR Sexo = 'F' OR Sexo = '-'), --puede ser M (masculino), F (femenino), o '-' (indefinido o migrado)
+        Tipo_Doc varchar(3) NOT NULL CHECK(Tipo_Doc = 'DNI' OR Tipo_Doc = 'LE' OR Tipo_Doc = 'LC'), -- DNI (Documento Nacional de Identidad), LE (Libreta de Enrolamiento), LC (Libreta Civica)
         Nro_Doc numeric(18) NOT NULL,
         Direccion varchar(255) NOT NULL,
-        Mail varchar(255),
+        Mail varchar(255), --puede o no tener mail, se decidio que no es obligatorio tenerlo
         Telefono numeric(18) NOT NULL,
         Fecha_Nac datetime NOT NULL,
         Cod_Plan numeric(18) NOT NULL,
@@ -35,8 +35,8 @@ CREATE TABLE CUATRO_QUESOS.Afiliados (
         Nro_Titular numeric(18) DEFAULT NULL,
         Nro_Conyuge numeric(18)DEFAULT NULL,
         Fecha_Baja datetime DEFAULT NULL,
-        Nro_Consulta int DEFAULT 0,
-        CantFamiliaresACargo tinyint NOT NULL DEFAULT 0
+        Nro_Consulta int DEFAULT 0, --por default no tiene consultas realizadas cuando se crea
+        CantFamiliaresACargo tinyint NOT NULL DEFAULT 0 --por default no tiene familiares a cargo cuando se crea
 )
 ;
 
@@ -48,7 +48,7 @@ CREATE TABLE CUATRO_QUESOS.Agendas_Medicos(
 ;
 
 
-CREATE TABLE CUATRO_QUESOS.Bonos (
+CREATE TABLE CUATRO_QUESOS.Bonos ( --La tabla bonos se modelo con estrategia SINGLE TABLE, discriminando el tipo de bono por el campo Tipo_Bono
         Numero numeric(18) NOT NULL,
         Fecha_Impresion datetime NOT NULL,
         Nro_Afiliado numeric(18) NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE CUATRO_QUESOS.Cancelaciones (
 ;
 
 CREATE TABLE CUATRO_QUESOS.Compra (
-        Id_Compra numeric(18) NOT NULL Identity(1,1),
+        Id_Compra numeric(18) NOT NULL Identity(1,1), --configuro el ID como autoincremental con identity
         Nro_Afiliado numeric(18) NOT NULL,
         Fecha datetime NOT NULL,
         Cantidad_Comprada_Consulta numeric(18),
@@ -146,8 +146,8 @@ CREATE TABLE CUATRO_QUESOS.Medicos (
         Id_Medico numeric(18) NOT NULL Identity(1,1),
         Nombre varchar(255) NOT NULL,
         Apellido varchar(255) NOT NULL,
-        Sexo varchar(255) NOT NULL CHECK(Sexo = 'M' OR Sexo = 'F' OR Sexo = '-'),
-        Tipo_Doc varchar(3) NOT NULL CHECK(Tipo_Doc = 'DNI' OR Tipo_Doc = 'LE' OR Tipo_Doc = 'LC'),
+        Sexo varchar(255) NOT NULL CHECK(Sexo = 'M' OR Sexo = 'F' OR Sexo = '-'), --puede ser M (masculino), F (femenino), o '-' (indefinido o migrado)
+        Tipo_Doc varchar(3) NOT NULL CHECK(Tipo_Doc = 'DNI' OR Tipo_Doc = 'LE' OR Tipo_Doc = 'LC'), -- DNI (Documento Nacional de Identidad), LE (Libreta de Enrolamiento), LC (Libreta Civica)
         Nro_Doc numeric(18) NOT NULL,
         Direccion varchar(255) NOT NULL,
         Telefono numeric(18) NOT NULL,
@@ -222,10 +222,9 @@ CREATE TABLE CUATRO_QUESOS.Usuarios_Por_Rol (
 )
 ;
 
+--CHECK Constraints
 
--- Create Primary Key Constraints
-
-ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT CHK_Estado_Civil
+ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT CHK_Estado_Civil --Solo se permite estos inputs taxativos
         CHECK(Estado_Civil = 'Soltero/a' OR
          Estado_Civil = 'Divorciado/a' OR
          Estado_Civil = 'Viudo/a' OR
@@ -233,6 +232,26 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT CHK_Estado_Civil
          Estado_Civil = 'Casado/a' OR
          Estado_Civil = '-')
 ;
+
+-- UNIQUE Constraints 
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados
+        ADD CONSTRAINT UQ_Usuarios_Afiliados_Nro_Afiliado UNIQUE (Nro_Afiliado)
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados
+        ADD CONSTRAINT UQ_Usuarios_Afiliados_Username UNIQUE (Username)
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos
+        ADD CONSTRAINT UQ_Usuarios_Medicos_Id_Medico UNIQUE (Id_Medico)
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos
+        ADD CONSTRAINT UQ_Usuarios_Medicos_Username UNIQUE (Username)
+;
+
+-- Create Primary Key Constraints
 
 ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT PK_Afiliados
         PRIMARY KEY CLUSTERED (Nro_Afiliado)
@@ -314,49 +333,15 @@ ALTER TABLE CUATRO_QUESOS.Usuarios ADD CONSTRAINT PK_Usuarios
         PRIMARY KEY CLUSTERED (Username)
 ;
 
-ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados
-        ADD CONSTRAINT UQ_Usuarios_Afiliados_Nro_Afiliado UNIQUE (Nro_Afiliado)
-;
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados
-        ADD CONSTRAINT UQ_Usuarios_Afiliados_Username UNIQUE (Username)
-;
-
 ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT PK_Usuarios_Afiliados
         PRIMARY KEY CLUSTERED (Nro_Afiliado, Username)
 ;
 
-ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Afiliados
-        FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
-        ON UPDATE CASCADE
-;
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Usuarios
-        FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
-        ON UPDATE CASCADE
-;
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos
-        ADD CONSTRAINT UQ_Usuarios_Medicos_Id_Medico UNIQUE (Id_Medico)
-;
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos
-        ADD CONSTRAINT UQ_Usuarios_Medicos_Username UNIQUE (Username)
-;
 
 ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT PK_Usuarios_Medicos
         PRIMARY KEY CLUSTERED (Username, Id_Medico)
 ;
 
-ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Medicos
-        FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
-        ON UPDATE CASCADE
-;
-
-ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Usuarios
-        FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
-        ON UPDATE CASCADE
-;
 
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT PK_Usuarios_Por_Rol
         PRIMARY KEY CLUSTERED (Username, Id_Rol)
@@ -500,6 +485,26 @@ ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Ro
 ALTER TABLE CUATRO_QUESOS.Usuarios_Por_Rol ADD CONSTRAINT FK_Usuarios_Por_Rol_Usuarios
         FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
         ON DELETE CASCADE ON UPDATE CASCADE
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Afiliados
+        FOREIGN KEY (Nro_Afiliado) REFERENCES CUATRO_QUESOS.Afiliados (Nro_Afiliado)
+        ON UPDATE CASCADE
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Afiliados ADD CONSTRAINT FK_Usuarios_Afiliados_Usuarios
+        FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
+        ON UPDATE CASCADE
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Medicos
+        FOREIGN KEY (Id_Medico) REFERENCES CUATRO_QUESOS.Medicos (Id_Medico)
+        ON UPDATE CASCADE
+;
+
+ALTER TABLE CUATRO_QUESOS.Usuarios_Medicos ADD CONSTRAINT FK_Usuarios_Medicos_Usuarios
+        FOREIGN KEY (Username) REFERENCES CUATRO_QUESOS.Usuarios (Username)
+        ON UPDATE CASCADE
 ;
 
 --Create other constraints
@@ -1137,7 +1142,7 @@ GO
 
 --CREATE TRIGGERS
 
-create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for update
+create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for update --trigger para quitar un rol que haya quedado inhabilitado
 as
 if UPDATE(Habilitado)
 begin
@@ -1164,7 +1169,7 @@ end
 
 GO
 
-create trigger CUATRO_QUESOS.revocarUsuario on CUATRO_QUESOS.Usuarios for update
+create trigger CUATRO_QUESOS.revocarUsuario on CUATRO_QUESOS.Usuarios for update --automaticamente despues de los intentos fallidos permitidos, inhabilita al usuario
 as
 if UPDATE(Intentos_Fallidos)
 begin
@@ -1177,7 +1182,7 @@ end
 GO
 
 
-create trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados on CUATRO_QUESOS.Medicos for update
+create trigger CUATRO_QUESOS.cancelarTurnosMedicosDesvinculados on CUATRO_QUESOS.Medicos for update --cuando se da de baja un medico, cancela todos los turnos que tenia asignados
 as
 if UPDATE(Habilitado)
 
@@ -1218,7 +1223,7 @@ end
 
 GO
 
-create trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados on CUATRO_QUESOS.Afiliados for update
+create trigger CUATRO_QUESOS.cancelarTurnosPacientesDesvinculados on CUATRO_QUESOS.Afiliados for update --mismo caso que los medicos, cancela todos los turnos para el afiliado dado de baja
 as
 if UPDATE(Fecha_Baja)
 
