@@ -2406,9 +2406,7 @@ SELECT CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 'Fechas Disponibles'
 FROM CUATRO_QUESOS.Agendas_Medicos
 WHERE Id_Medico = @idMedico AND Nro_Turno IS NULL
 GROUP BY CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 
-ORDER BY YEAR(CAST(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) as datetime)) ASC,
-MONTH(CAST(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)as datetime)) ASC,
-DAY(CAST(CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103)as datetime)) ASC
+ORDER BY 1 ASC
 GO
 
 CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fecha datetime
