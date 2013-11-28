@@ -654,8 +654,8 @@ INSERT INTO CUATRO_QUESOS.Medicos
                 Medico_Mail as Mail,
                 Medico_Fecha_Nac as Fecha_Nac,
                 0 as Nro_Matricula, --indefinido
-                NULL as Fecha_Atencion_Desde, --CUATRO_QUESOS.FechaMigracion() as Fecha_Atencion_Desde,
-                NULL as Fecha_Atencion_Hasta,--case when MAX(Turno_Fecha) > dateadd(month, 1, CUATRO_QUESOS.FechaMigracion()) then MAX(Turno_fecha) else dateadd(month, 1, CUATRO_QUESOS.FechaMigracion()) end as Fecha_Atencion_Hasta, 
+                NULL as Fecha_Atencion_Desde, --quedan en NULL por no tener agenda registrada
+                NULL as Fecha_Atencion_Hasta,
                 1 as Habilitado --asumo que los medicos existentes están todos activos
                 
                 
@@ -1135,75 +1135,6 @@ values(2, 13); --medico, generar receta
                 
 GO
 
-/*
---ESTAS DOS TABLAS AUXILIARES YA NO SE USAN EN LA MIGRACIÓN, PERO EL CÓDIGO ME PUEDE SERVIR PARA LOS SP
-create table CUATRO_QUESOS.horas_del_dia
-(
-        hora time primary key
-)
-
-declare @offset tinyint
-set @offset = 0
-
-while @offset < 24
-begin
-        insert into CUATRO_QUESOS.Horas_del_dia(hora)
-        values(DATEADD(hour, @offset, '00:00:00'))
-        insert into CUATRO_QUESOS.Horas_del_dia(hora)
-        values(DATEADD(hour, @offset, '00:30:00'))
-        set @offset = @offset+1
-end
---contiene todos los intervalos de media hora que hay en el día
-
-
---otra tabla auxiliar:
-
-
-create table CUATRO_QUESOS.Dias --calendar table
-(
-        dia date primary key
-)
-
-declare @offdias integer
-set @offdias = 0
-while @offdias < 2000
-begin
-        insert into CUATRO_QUESOS.Dias(dia)
-        values(DATEADD(day, @offdias, '20120101'))
-        set @offdias = @offdias + 1
-end
-
---contiene todos los días que hay de 2012 a más o menos 2017
-
-go
-*/
-
---CREATE VIEWS
-
---finalmente creo la vista que contiene las agendas de los medicos!
-/*create view CUATRO_QUESOS.Agendas_Medicos as
-select (CAST(dia as datetime) + cast(hora as datetime)) as Horario,
-                Medicos.Id_Medico as Id_Medico,
-                case when (select COUNT(*)
-                                        from CUATRO_QUESOS.Turnos
-                                        where Turnos.Fecha = (CAST(dia as datetime) + cast(hora as datetime))
-                                                and Turnos.Id_Medico = Medicos.Id_Medico
-                                                and Turnos.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones)) >0 then 'Ocupado'
-                        else 'Libre'
-                end as Estado
-
-
-from CUATRO_QUESOS.Medicos,
- CUATRO_QUESOS.Dias as dia, CUATRO_QUESOS.Horas_del_dia as hora
-where dia >= Medicos.fecha_atencion_desde and dia <= Medicos.Fecha_Atencion_Hasta
-        and (DATENAME(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
-        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
-        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
-
-GO
---ESTO QUEDÓ DE LA VERSIÓN ANTERIOR POR SI NOS SIRVE EL CÓDIGO, ESTA VISTA YA NO EXISTE!
-*/
-
 --CREATE TRIGGERS
 
 create trigger CUATRO_QUESOS.quitarRolInhabilitado on CUATRO_QUESOS.Roles for update
@@ -1377,69 +1308,6 @@ begin
 end
 
 GO
-
-
---trigger para cancelar los turnos de un día de atención cuando se elimina ese día
-/*create trigger CUATRO_QUESOS.quitarTurnosDeDiaEliminado on CUATRO_QUESOS.Dias_Atencion for delete
-as
-begin
-	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
-	
-	(select Numero as Nro_Turno,
-		  'Cambio de agenda' as Tipo,
-		  'El médico a cargo de este turno cambió sus horarios y ya no atiende este día'
-	from CUATRO_QUESOS.Turnos inner join deleted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = deleted.Id_Medico)
-	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > CUATRO_QUESOS.FechaMigracion())
-
-end
-
-GO
---ESTE TRIGGER YA NO ES NECESARIO
-*/
-
---trigger para cancelar los turnos en cierta hora del día, cuando el médico ya no atiende a esa hora
-/*create trigger CUATRO_QUESOS.cancelarTurnosFueraDeHora on CUATRO_QUESOS.Dias_Atencion for update
-as
---sé que la aplicación sólo cambia un día de atención a la vez (por medio de un stored procedure)
-begin
-
-	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
-	
-	(select Numero as Nro_Turno,
-		  'Cambio de agenda' as Tipo,
-		  'El médico a cargo de este turno cambió sus horarios y ya no atiende a esta hora'
-	from CUATRO_QUESOS.Turnos inner join inserted on (Nombre_Dia = DATENAME(DW, Fecha) and Turnos.Id_medico = inserted.Id_Medico)
-	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > CUATRO_QUESOS.FechaMigracion()
-		and (inserted.Hora_Desde > CAST(Turnos.Fecha as time) or inserted.Hora_Hasta < CAST((DATEADD(minute, 30, Turnos.Fecha)) as time)))
-
-end
-
-GO
---ESTE TRIGGER YA NO ES NECESARIO
-*/
-
---trigger para cancelar los turnos que caen fuera de un nuevo período de atención
-/*create trigger CUATRO_QUESOS.cancelarTurnosFueraDeAgenda on CUATRO_QUESOS.Medicos for update
---sé que la aplicación sólo cambia un médico a la vez (por medio de un stored procedure)
-as
-begin
-	insert into CUATRO_QUESOS.Cancelaciones(Nro_Turno, Tipo, Motivo)
-	
-	(select Numero as Nro_Turno,
-		  'Cambio de agenda' as Tipo,
-		  'El médico a cargo de este turno cambió su agenda y ya no atiende este día'
-	from CUATRO_QUESOS.Turnos inner join inserted on (Turnos.Id_medico = inserted.Id_Medico)
-	where (Numero not in (select Nro_turno from CUATRO_QUESOS.Cancelaciones))
-		and Fecha > CUATRO_QUESOS.FechaMigracion()
-		and (inserted.Fecha_Atencion_Desde > Turnos.Fecha or inserted.Fecha_Atencion_Hasta < Turnos.Fecha))
-
-end
-
-GO
---ESTE TRIGGER YA NO ES NECESARIO
-*/
 
 --CREATE PROCEDURES
 

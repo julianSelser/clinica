@@ -10,7 +10,8 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
 
-//Funcionalidad que permite dar de alta un turno por parte del afiliado con el profesional que desea atenderse
+//Funcionalidad que permite dar de alta un turno por parte del afiliado con el profesional que desea atenderse,
+//eligiendo una fecha de atencion actual o futura disponible, segun la fecha del archivo de configuracion
 
 namespace Clinica_Frba.Pedir_Turno
 {

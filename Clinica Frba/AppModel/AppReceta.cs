@@ -5,6 +5,8 @@ using System.Text;
 using Clinica_Frba.Domain;
 using System.Data;
 
+//Clase que tiene por objetivo servir de interfaz entre la base de datos y las funcionalidades de Generar Receta.
+
 namespace Clinica_Frba.AppModel
 {
     class AppReceta : ConectorSQL

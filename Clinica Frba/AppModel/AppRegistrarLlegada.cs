@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Data;
 using Clinica_Frba.Domain;
 
+//Clase que tiene por objetivo servir de interfaz entre la base de datos y las funcionalidades de Registrar Llegada.
+
 namespace Clinica_Frba.AppModel
 {
     internal class AppRegistrarLlegada : ConectorSQL
