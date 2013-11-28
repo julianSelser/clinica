@@ -1143,8 +1143,7 @@ GO
 
 --CREATE FUNCTIONS
 
-CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
-RETURNS int
+CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int) --me permite calcular el nuevo nro de afiliado para el familiar del titular
 BEGIN
         DECLARE @nroFamiliar numeric(18)
         
@@ -1168,14 +1167,14 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18))
+CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18)) --devuelve la raiz del numero de afiliado
 RETURNS int
 BEGIN
 RETURN (CAST(@nroAfiliado AS INT)/ 100)*100
 END
 GO
 
-CREATE FUNCTION [CUATRO_QUESOS].[getNroAfiliado] (@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDocumento VARCHAR(3))
+CREATE FUNCTION [CUATRO_QUESOS].[getNroAfiliado] (@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDocumento VARCHAR(3)) --devuelve el nro de un afiliado
 RETURNS NUMERIC(18,0)
 BEGIN
         DECLARE @nro numeric(18)
@@ -1186,21 +1185,21 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.estaHabilitadoUsuario(@username AS VARCHAR(20)) RETURNS BIT
+CREATE FUNCTION CUATRO_QUESOS.estaHabilitadoUsuario(@username AS VARCHAR(20)) RETURNS BIT --retorna 1 si se encuentra habilitado o 0 si esta inhabilitado
 AS
 BEGIN
 	RETURN (SELECT Habilitado FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
 END
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getPass(@username AS VARCHAR(20)) RETURNS BINARY(32)
+CREATE FUNCTION CUATRO_QUESOS.getPass(@username AS VARCHAR(20)) RETURNS BINARY(32) --obtiene la password de un usuario
 AS
 BEGIN
 	RETURN (SELECT pass FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
 END
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getPrinicipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME
+CREATE FUNCTION CUATRO_QUESOS.getPrincipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME --retorna el principio del mes y año especificado
 AS
 BEGIN
 	RETURN ( CAST( CONVERT(VARCHAR(8), @ANIO*10000 + @MES*100 + 1) AS DATETIME) )
@@ -2158,9 +2157,9 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
 	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @FINMES))
+											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 											
 	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(B.Numero) DESC) RANKING,  A.nombre + ' ' +  A.apellido + '  cant: ' + CONVERT(VARCHAR(255), COUNT(*)) ESTADISTICA
@@ -2178,9 +2177,9 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
 	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @FINMES))
+											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 	
 	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(DISTINCT( B.Numero ))DESC) RANKING, E.Descripcion + '  cant: ' + CONVERT(VARCHAR(255), COUNT(DISTINCT(B.Numero))) ESTADISTICA  
@@ -2195,9 +2194,9 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasCancelaciones (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
 	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @FINMES))
+											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 											
 	SELECT TOP 5  ROW_NUMBER() OVER (ORDER BY COUNT(E.Descripcion) DESC) RANKING, E.Descripcion + '   cant: ' + CONVERT(VARCHAR(255),COUNT(E.Descripcion)) AS ESTADISTICAS
@@ -2212,9 +2211,9 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.bonosPorTerceros (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @MES)
+	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
 	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrinicipioDeMes(@ANIO, @FINMES))
+											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 	
 	SELECT TOP 10 ROW_NUMBER() OVER (ORDER BY COUNT(B.numero) DESC) RANKING, A.nombre + ' ' +  A.apellido + '   cant: ' + CONVERT(VARCHAR(255),COUNT(B.numero)) AS ESTADISTICAS
