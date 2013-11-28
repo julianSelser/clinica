@@ -6,6 +6,12 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using Clinica_Frba.AppModel;
 
+//Clase que valida los inputs de los campos que sean del tipo esperado.
+//En caso de no ser matcheados con las expresiones regulares especificadas 
+//para el tipo de campo en particular, es decir, que no esten
+//incluidos en la variedad de caracteres que admite, arroja una excepcion
+//que luego será catcheada por otro componente, permitiendo mostrar un mensaje de error acorde.
+
 namespace Clinica_Frba
 {
     class Controlador
@@ -40,7 +46,7 @@ namespace Clinica_Frba
         {
             if (!stringVacio(campo.texto))
             {
-                switch (campo.tipoVal)
+                switch (campo.tipoVal) //dependiendo del tipo de campo, utiliza el metodo correspondiente para comparar contra la expresion regular, en caso de no cumplir muestra un mensaje de error distinto
                 {
                     case TipoValidacion.Email:
                         if (!stringEmailValido(campo.texto)) { throw new ExcepcionValidacion("-El campo " + campo.nombre + " debe contener caracteres válidos para un e-mail." + Environment.NewLine); }
@@ -68,7 +74,7 @@ namespace Clinica_Frba
             return email.IsMatch(mail);
         }
 
-        public static Boolean stringAlfa(string unString)
+        public static Boolean stringAlfa(string unString) //se fija si algun caracter no matchea con la expresion regular, en caso de no matchear, devuelve false
         {
             foreach(char unChar in unString)
             {

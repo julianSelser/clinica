@@ -10,6 +10,7 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
 //Funcionalidad que permite a un administrador dar de alta, baja, o modificar un afiliado
+//Cada funcionalidad se deriva en otra pantalla
 
 namespace Clinica_Frba.Abm_de_Afiliado
 {
@@ -25,7 +26,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void altaButton_Click(object sender, EventArgs e)
         {
-            ModoAfiliado modoTitular = new ModoAfiliado(); //se crea una abstraccion que contiene el modo en que se inicia la ventana AltaAfiliado)
+            ModoAfiliado modoTitular = new ModoAfiliado(); //se crea una abstraccion que contiene el modo en que se inicia la ventana AltaAfiliado
             modoTitular.modo = "Titular";
             AsistenteVistas.mostrarNuevaVentana(new AltaAfiliado(modoTitular, this), this);
         }

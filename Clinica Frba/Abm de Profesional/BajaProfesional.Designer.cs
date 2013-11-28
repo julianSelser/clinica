@@ -71,7 +71,6 @@
             this.idBox.ReadOnly = true;
             this.idBox.Size = new System.Drawing.Size(58, 20);
             this.idBox.TabIndex = 3;
-            this.idBox.TextChanged += new System.EventHandler(this.idBox_TextChanged);
             // 
             // label2
             // 

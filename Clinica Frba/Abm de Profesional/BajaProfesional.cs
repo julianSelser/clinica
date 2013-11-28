@@ -9,6 +9,10 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+//Mensaje de confirmacion de baja, la baja es logica y se almacena su fecha de baja.
+//De realizarse correctamente, muestra un mensaje de feedback con dicha informacion.
+//Para cancelar los turnos que tenia asignado dicho medico, se delega en un trigger de la base de datos.
+
 namespace Clinica_Frba.Abm_de_Profesional
 {
     public partial class BajaProfesional : Form
@@ -35,11 +39,6 @@ namespace Clinica_Frba.Abm_de_Profesional
         private void cancelButton_Click(object sender, EventArgs e)
         {
             AsistenteVistas.volverAPadreYCerrar(padre, this);
-        }
-
-        private void idBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
