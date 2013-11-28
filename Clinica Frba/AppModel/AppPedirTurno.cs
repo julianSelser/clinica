@@ -5,6 +5,10 @@ using System.Text;
 using System.Data;
 using Clinica_Frba.Domain;
 
+//Clase que tiene por objetivo servir de interfaz entre la base de datos y las funcionalidades de Pedir Turno.
+//Por ejemplo, traer las fechas disponibles de un profesional, los horarios de dicha fecha disponibles, 
+//crear listados de los mismos, entre otras cosas, generar un turno, entre otras cosas.
+
 namespace Clinica_Frba.AppModel
 {
     class AppPedirTurno : ConectorSQL

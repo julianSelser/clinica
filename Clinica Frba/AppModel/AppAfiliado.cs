@@ -6,6 +6,11 @@ using Clinica_Frba.Domain;
 using System.Data;
 using Clinica_Frba.AppModel.Excepciones;
 
+//Clase que tiene por objetivo servir de interfaz entre la base de datos y las funcionalidades de ABM afiliado.
+//Permite hacer consultas como cuantos familiares tiene registrado un familiar titular, 
+//buscar el nro de un afiliado, verificar la existencia de un afiliado duplicado,
+//crear listados de planes medicos, registrar cambios de planes, entre otras cosas.
+
 namespace Clinica_Frba.AppModel
 {
     class AppAfiliado : ConectorSQL

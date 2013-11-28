@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+//Dialog reutilizable que sirve para forzar el flujo de ejecucion por el mismo para continuar,
+//se completa un campo texto que luego puede ser recuperado por el componente que lo llama
+
 namespace Clinica_Frba.AppModel
 {
     public partial class DialogConLabeledTextBox : Form
