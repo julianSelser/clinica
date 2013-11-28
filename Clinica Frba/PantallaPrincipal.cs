@@ -116,46 +116,60 @@ namespace Clinica_Frba
         {
             List<Funcionalidad> funcionalidades = UsuarioLogeado.Instance.Rol.funcionalidades;
 
+            habilitarFuncionalidades(funcionalidades);
+
+            botonera.Visible = true;
+        }
+
+        // setea la visibilidad de un boton para una funcionalidad segun un booleano
+        public void setearFuncionalidad(int idFuncionalidad, bool booleano) 
+        {
+            switch (idFuncionalidad)
+            {
+                case 1: button3.Visible = booleano; break;
+
+                case 3: button1.Visible = booleano; break;
+
+                case 4: button2.Visible = booleano; break;
+
+                case 7: button12.Visible = booleano; break;
+
+                case 8: button11.Visible = booleano; break;
+
+                case 9: button5.Visible = booleano; break;
+
+                case 10: button7.Visible = booleano; break;
+
+                case 11: button8.Visible = booleano; break;
+
+                case 12: button6.Visible = booleano; break;
+
+                case 13: button10.Visible = booleano; break;
+
+                case 14: button9.Visible = booleano; break;
+
+                default: break;
+            }
+        }
+
+        public void habilitarFuncionalidad(int idFuncionalidad) { setearFuncionalidad(idFuncionalidad, true); }
+
+        public void deshabilitarFuncionalidad(int idFuncionalidad) { setearFuncionalidad(idFuncionalidad, false); }
+
+        public void habilitarFuncionalidades(List<Funcionalidad> funcionalidades) 
+        {
             foreach (Funcionalidad funcion in funcionalidades) 
             {
-                switch (funcion.id)
-                {
-                    case 1: button3.Visible = true; break;
-
-                    case 3: button1.Visible = true; break;
-
-                    case 4: button2.Visible = true; break;
-
-                    case 7: button12.Visible = true; break;
-
-                    case 8: button11.Visible = true; break;
-
-                    case 9: button5.Visible = true; break;
-
-                    case 10: button7.Visible = true; break;
-
-                    case 11: button8.Visible = true; break;
-
-                    case 12: button6.Visible = true; break;
-
-                    case 13: button10.Visible = true; break;
-
-                    case 14: button9.Visible = true; break;
-                    
-                    default: break;
-                }
+                habilitarFuncionalidad(funcion.id);
             }
-            botonera.Visible = true;
         }
 
         public void deshabilitarFuncionalidades() 
         {
-            foreach (Control control in botonera.Controls) 
+            foreach (Control control in botonera.Controls)
             {
                 control.Visible = false;
             }
-                               
-            botonera.Visible = false;
         }
 
     }

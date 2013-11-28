@@ -34,18 +34,25 @@ namespace Clinica_Frba.Login
         {
             acepto = true;
 
-            UsuarioLogeado.Instance.Rol = (Rol) rolComboBox.SelectedItem;
+            if (rolComboBox.SelectedItem != null)
+            {
+                Rol rol = UsuarioLogeado.Instance.Rol = (Rol)rolComboBox.SelectedItem;
 
-            var a = UsuarioLogeado.Instance.Rol.funcionalidades = AppLogin.traerFuncionalidades();
+                UsuarioLogeado.Instance.Rol.funcionalidades = AppLogin.traerFuncionalidades();
 
-            AppLogin.cargarUsuario();
+                AppLogin.cargarUsuario();
 
-            if (UsuarioLogeado.Instance.Rol.nombre == "Administrativo")
-                pantallaPrincipal.setearLogeo("Administrador");
+                if (rol.nombre == "Profesional" || rol.nombre == "Afiliado")
+                    pantallaPrincipal.setearLogeo(UsuarioLogeado.Instance.Persona.nombre.ToUpper() + " " + UsuarioLogeado.Instance.Persona.apellido.ToUpper());
+                else
+                    pantallaPrincipal.setearLogeo(rol.nombre);
+
+                pantallaPrincipal.habilitarFuncionalidades();
+            }
             else
-                pantallaPrincipal.setearLogeo(UsuarioLogeado.Instance.Persona.nombre.ToUpper() + " " +UsuarioLogeado.Instance.Persona.apellido.ToUpper());
-
-            pantallaPrincipal.habilitarFuncionalidades();
+            {
+                MessageBox.Show("El sistema no tiene guardado ningún rol para este usuario. Contacte a su administrador.");
+            }
 
             AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }

@@ -14,11 +14,13 @@ namespace Clinica_Frba.Abm_de_Rol
     public partial class ListadoRoles : Form//, IListado //era una interfaz pero al final no se implementa
     {
         public Form padre;
+        PantallaPrincipal pantallaPrincipal; //necesita conocerla para manipular los botones
         public string funcion; //para saber si es baja o modificacion
 
-        public ListadoRoles(Form padre, string funcion)
+        public ListadoRoles(Form padre, string funcion, PantallaPrincipal pantallaPrincipal)
         {
             InitializeComponent(); //instancia la clase
+            this.pantallaPrincipal = pantallaPrincipal; 
             this.padre = padre;
             this.funcion = funcion; //si es para baja o modificacion
             cargarGrilla();
@@ -90,7 +92,7 @@ namespace Clinica_Frba.Abm_de_Rol
                             MessageBox.Show("El Rol seleccionado ya se encuentra inhabilitado");
                         }
                     }
-                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol), this);
+                    if (funcion == "Modificar") AsistenteVistas.mostrarNuevaVentana(new Modificar_Rol2(this, rol, pantallaPrincipal), this);
                     //en modificar no muestro la ventana de error si esta dado de baja, porque se puede volver a habilitar
             }
         }

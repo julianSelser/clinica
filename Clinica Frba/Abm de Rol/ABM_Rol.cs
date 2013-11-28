@@ -32,12 +32,12 @@ namespace Clinica_Frba.Abm_de_Rol
 
         private void button2_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ListadoRoles(this, "Modificar"), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoRoles(this, "Modificar", (PantallaPrincipal)padre), this);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new ListadoRoles(this, "Baja"), this);
+            AsistenteVistas.mostrarNuevaVentana(new ListadoRoles(this, "Baja", (PantallaPrincipal)padre), this);
             //es una vista intermedia que muestra un listado de roles
         }
     }
