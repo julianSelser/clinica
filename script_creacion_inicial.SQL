@@ -1663,7 +1663,7 @@ as
         
 go
         
-create procedure CUATRO_QUESOS.getFuncionalidades --no recibe parametros
+create procedure CUATRO_QUESOS.getFuncionalidades --devuelve las funcionalidades existentes
 as
         begin
                 SELECT Id_Funcionalidad 'Id_Funcionalidad', Descripcion 'Descripcion'
@@ -1680,7 +1680,7 @@ WHERE Id_Rol = @idRol
 
 go
 
-create procedure CUATRO_QUESOS.getNombreRol(@idRol numeric(18)) --no recibe parametros
+create procedure CUATRO_QUESOS.getNombreRol(@idRol numeric(18)) --devuelve el nombre de un rol pasando su id por parametro
 as
         begin
                 SELECT Nombre 'NombreRol'
@@ -1690,7 +1690,7 @@ as
         
 GO
 
-create procedure CUATRO_QUESOS.getFuncionalidadesRol(@idRol numeric(18)) --no recibe parametros
+create procedure CUATRO_QUESOS.getFuncionalidadesRol(@idRol numeric(18)) --devuelve las funcionalidades asociadas a un rol
 as
         begin
                 SELECT rf.Id_Funcionalidad 'Id_Funcionalidad'
@@ -1699,23 +1699,26 @@ as
         end
 GO
 
--- CÓDIGO DE ABM DE CANCELACIÓN
+/********* FIN PROCEDURES ABM ROL ************/
 
-CREATE TYPE [CUATRO_QUESOS].[TURNOS_MEDICO] AS TABLE(
-        [numero] [numeric](18, 0) NOT NULL,
-        [nombre_paciente] [varchar](255) NOT NULL,
-        [paciente_apellido] [varchar](255) NOT NULL,
-        [fecha] [date] NOT NULL
+/********* PROCEDURES ABM CANCELACION ************/
+
+CREATE TYPE [CUATRO_QUESOS].[TURNOS_MEDICO] AS TABLE( --se crea un tipo turno medico
+[numero] [numeric](18, 0) NOT NULL,
+[nombre_paciente] [varchar](255) NOT NULL,
+[paciente_apellido] [varchar](255) NOT NULL,
+[fecha] [date] NOT NULL
 )
 GO
 
-
-CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255),
-                                                    @Apellido VARCHAR(255),
-                                                    @Documento NUMERIC(18,0),
-                                                    @TipoDoc VARCHAR(3),
-                                                    @DesdeFecha DATE,
-                                                    @HastaFecha DATE)
+--devuelve los turnos asociados a un medico
+CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico]
+(@Nombre VARCHAR(255), 
+@Apellido VARCHAR(255),
+@Documento NUMERIC(18,0),
+@TipoDoc VARCHAR(3),
+@DesdeFecha DATE,
+@HastaFecha DATE)
 AS
 declare @ID_Medico numeric(18)
 EXEC @ID_Medico = CUATRO_QUESOS.getIdMedico @Nombre, @Apellido, @TipoDoc, @Documento
@@ -1732,6 +1735,7 @@ WHERE t.Numero NOT IN(
         OR (@DesdeFecha = '' AND @HastaFecha = ''))
 GO
 
+--devuelve los turnos asociados a un afiliado
 CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeAfiliado](@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDoc VARCHAR(3))
 AS
 DECLARE @nro NUMERIC(18,0)
@@ -1748,16 +1752,15 @@ WHERE t.Numero NOT IN(
                 FROM CUATRO_QUESOS.Cancelaciones c)
 GO
 
-CREATE PROCEDURE [CUATRO_QUESOS].[cancelarTurno]( @Nro_Turno NUMERIC(18,0),
-                                                                                                 @TipoMotivo VARCHAR(255),
-                                                                                                 @Motivo VARCHAR(255) )
+--cancela un turno especificado, ingresando su motivo
+CREATE PROCEDURE [CUATRO_QUESOS].[cancelarTurno]( @Nro_Turno NUMERIC(18,0),@TipoMotivo VARCHAR(255), @Motivo VARCHAR(255) )
 AS
 INSERT INTO CUATRO_QUESOS.Cancelaciones (Nro_Turno, Tipo, Motivo)
 VALUES (@Nro_Turno, @TipoMotivo, @Motivo)
 GO
 
-CREATE PROCEDURE [CUATRO_QUESOS].[cancelarPeriodo](        @Tabla CUATRO_QUESOS.TURNOS_MEDICO READONLY,
-                                                                                                @Motivo VARCHAR(255)                )
+--cancela un periodo, setiando el tipo de motivo por no asistencia
+CREATE PROCEDURE [CUATRO_QUESOS].[cancelarPeriodo](@Tabla CUATRO_QUESOS.TURNOS_MEDICO READONLY,@Motivo VARCHAR(255))
 AS
         INSERT INTO CUATRO_QUESOS.Cancelaciones
         SELECT t.numero, 'No asistencia', @Motivo
@@ -1765,9 +1768,11 @@ AS
 GO
 
 
--- FIN ABM DE CANCELACIÓN
+/********* FIN PROCEDURES ABM CANCELACION ************/
 
---PROCEDURES PARA LA COMPRA DE BONOS
+/********* PROCEDURES COMPRA DE BONOS ************/
+
+--funcionalidad que compra una cantidad de bonos de consulta y de farmacia, pasando cantidades respectivas por parametro
 create procedure CUATRO_QUESOS.comprarBonos(@afiliado numeric(18), @cant_farmacia int, @cant_consulta int)
 as
 begin
@@ -1849,7 +1854,7 @@ end
 
 GO
 
-
+--devuelve los datos de la compra de un afiliado
 create procedure CUATRO_QUESOS.getDatosParaCompra (@afiliado numeric(18))
 as
 begin
@@ -1859,9 +1864,13 @@ begin
 end
 
 GO
---FIN COMPRA DE BONOS
 
--- CODIGO DE LOGIN
+/********* FIN PROCEDURES COMPRA DE BONOS ************/
+
+/********* PROCEDURES LOGIN ************/
+
+
+--intenta loguear con el usuario y password especificados, en caso de no poder incrementa un intento
 CREATE PROCEDURE CUATRO_QUESOS.intentarLogear( @username VARCHAR(20) , @pass BINARY(32) )
 AS
 BEGIN
@@ -1926,7 +1935,8 @@ BEGIN
 				WHERE ua.username = @username AND ua.nro_afiliado = a.nro_afiliado
 END
 GO
--- FIN LOGIN
+
+/********* FIN PROCEDURES LOGIN ************/
 
 /********* PROCEDURES REGISTRO DE LLEGADA *********/
 
