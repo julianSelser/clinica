@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+// encargada de manejar el ingreso de usuario y contraseña y administrar un logeo
 namespace Clinica_Frba.Login
 {
     public partial class LoginForm : Form
@@ -31,8 +32,10 @@ namespace Clinica_Frba.Login
 
         private void acceptButton_Click(object sender, EventArgs e)
         {
+            //cuando se intenta logear se devuelve un codigo que son los intentos o si no es de 1 a 3 es un codigo de error
             int n_intentos = AppLogin.intentarLogear(usrNameTextBox.Text, passTextBox.Text);
             
+            //se acciona en base al intento de logeo (y el codigo o veces intentadas en n_intentos)
             if (0 == n_intentos) 
             {
                 UsuarioLogeado.Instance.UserName = usrNameTextBox.Text;

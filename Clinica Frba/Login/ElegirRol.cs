@@ -9,25 +9,21 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+// encargada de dar a elegir el rol a un usuario que esta logeandose
 namespace Clinica_Frba.Login
 {
     public partial class ElegirRol : Form
     {
         PantallaPrincipal pantallaPrincipal;
-        bool acepto = false;
+        bool acepto = false; //variable que sabe si se presionó en aceptar, no se puede logear sin elegir un rol ni cancelar la ventana
 
         public ElegirRol(PantallaPrincipal padre)
         {
             InitializeComponent();
             this.pantallaPrincipal = padre;
 
-            rolComboBox.DataSource = AppLogin.traerRoles();
-            rolComboBox.DisplayMember = "nombre";
-        }
-
-        private void ElegirRol_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            
+            rolComboBox.DataSource = AppLogin.traerRoles(); //trae los roles del usuario
+            rolComboBox.DisplayMember = "nombre";           //los muestra por nombre
         }
 
         private void acceptButton_Click(object sender, EventArgs e)
@@ -42,6 +38,7 @@ namespace Clinica_Frba.Login
 
                 AppLogin.cargarUsuario();
 
+                //setea el nombre de la persona o del rol si no tuviera una asociada
                 if (rol.nombre == "Profesional" || rol.nombre == "Afiliado")
                     pantallaPrincipal.setearLogeo(UsuarioLogeado.Instance.Persona.nombre.ToUpper() + " " + UsuarioLogeado.Instance.Persona.apellido.ToUpper());
                 else
@@ -57,9 +54,9 @@ namespace Clinica_Frba.Login
             AsistenteVistas.volverAPadreYCerrar(pantallaPrincipal, this);
         }
 
-        private void ElegirRol_FormClosing(object sender, FormClosingEventArgs e)
+        private void ElegirRol_FormClosing(object sender, FormClosingEventArgs e) //cuando se cierra la ventana...
         {
-            e.Cancel = (acepto != true)? true : false;
+            e.Cancel = (acepto != true)? true : false; //si no acepto, no se puede salir de la ventana
         }
     }
 }

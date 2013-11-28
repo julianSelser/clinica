@@ -9,6 +9,11 @@ using Clinica_Frba.Domain;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 
+// clase que trabaja con login y accede a la base de datos para recuperar, del usuario logeado:
+// - las funcionalidades
+// - los roles
+// - la persona asociada
+// - si se pudo logear y estado de habilitacion de la cuenta
 namespace Clinica_Frba.AppModel
 {
     class AppLogin
@@ -26,6 +31,7 @@ namespace Clinica_Frba.AppModel
 
             List<Rol> roles = new List<Rol>();
 
+            //por cada rol traido de la base, se lo asigna a los roles a devolver en formato de objetos
             foreach (DataRow rowR in rolesDT.Rows) 
             {
                 Rol rol = new Rol( Convert.ToInt32((decimal)rowR["id_rol"]), (string)rowR["Nombre"], (bool)rowR["Habilitado"]);
@@ -41,7 +47,8 @@ namespace Clinica_Frba.AppModel
             DataTable funcionalidadesDT = ConectorSQL.traerDataTable("traerFuncionalidadesDeRol", UsuarioLogeado.Instance.Rol.id);
 
             List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
-          
+
+            //por cada funcion traida, se la adhiere a las funcionalidades a devolver
             foreach (DataRow rowF in funcionalidadesDT.Rows)
             {
                 var funcionalidad = new Funcionalidad(Convert.ToInt32((decimal)rowF["id_funcionalidad"]), (string)rowF["descripcion"]);
@@ -60,6 +67,7 @@ namespace Clinica_Frba.AppModel
 
             if (rol == "Profesional" || rol == "Afiliado") // si fuera cualquier otro rol, no hay usuario que traer
             {
+                // se trae los datos de la persona y se lo asigna al usuario logeado
                 DataTable datosUsuario = ConectorSQL.traerDataTable("traerDatosUsuario", UsuarioLogeado.Instance.UserName, UsuarioLogeado.Instance.Rol.nombre);
 
                 DataRow d = datosUsuario.Rows[0];

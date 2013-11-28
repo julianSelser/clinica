@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+// base para las ventanas que especifican el motivo
+// el comportamiento es casi idéntico para las dos que se necesitan (cancelar periodo o dia)
+// asi que se factoriza el comportamiento comun en esta clase
 namespace Clinica_Frba.Cancelar_Atencion
 {
     public partial class BaseSetearMotivo : Form
@@ -27,11 +30,12 @@ namespace Clinica_Frba.Cancelar_Atencion
             AsistenteVistas.volverAPadreYCerrar(padre, this);
         }
 
+        //ve si un motivo es valido y actualiza la grilla o informa un error
         protected void aceptar_Click(object sender, EventArgs e)
         {
-            if (motivoValido(motivoTextBox.Text))
+            if (motivoTextBox.Text.Length <= 254 && !Controlador.cadenaEsVaciaONull(motivoTextBox.Text))
             {
-                accionarCancelacion();
+                accionarCancelacion(); //metodo a implementar por las subclases
 
                 padre.ActualizarGrilla();
 
@@ -41,11 +45,6 @@ namespace Clinica_Frba.Cancelar_Atencion
                 MessageBox.Show(Controlador.cadenaEsVaciaONull(motivoTextBox.Text) ? "Debe ingresar un motivo" : "El número de letras es demasiado grande. Abrevie la descripcion.", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
         }
 
-        virtual protected void accionarCancelacion() { }
-
-        public bool motivoValido(string motivo)
-        {
-            return motivo.Length <= 254 && !Controlador.cadenaEsVaciaONull(motivo);
-        }
+        virtual protected void accionarCancelacion() { } //metodo que deben implementar las subclases
     }
 }

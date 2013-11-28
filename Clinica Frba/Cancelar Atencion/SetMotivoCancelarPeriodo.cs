@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+// encargada de cancelar los motivos de un periodo
 namespace Clinica_Frba.Cancelar_Atencion
 {
     public partial class SetMotivoCancelarPeriodo : BaseSetearMotivo

@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+// toma el template "BaseCancelarAtencion" y lo adapta para la cancelacion de turnos por un administrador
 namespace Clinica_Frba.Cancelar_Atencion
 {
     public partial class AdministradorCancelar : BaseCancelarAtencion

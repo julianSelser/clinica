@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+// pantalla de eleccion de listado segun los criterios especificados en el enunciado
 namespace Clinica_Frba.Listados_Estadisticos
 {
     public partial class ListadosEstadisticos : Form

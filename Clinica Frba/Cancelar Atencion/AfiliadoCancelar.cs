@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 
+// toma el template "BaseCancelarAtencion" y lo adapta para la cancelacion de turnos por un afiliado
 namespace Clinica_Frba.Cancelar_Atencion
 {
     public partial class AfiliadoCancelar : BaseCancelarAtencion

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+// trae y muestra los listados de la base en un semestre de un año desagregado mensualmente
 namespace Clinica_Frba.Listados_Estadisticos
 {
     public partial class MostrarListadoMeses : Form

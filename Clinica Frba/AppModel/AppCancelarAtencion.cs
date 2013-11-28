@@ -6,6 +6,9 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Data;
 
+// clase que trabaja con la cancelacion de atencion y trae, es responsable de:
+// - saber que turnos traer (de afiliado o medico) y traerlas
+// - informar a la base de los turnos cancelados, tanto de un dia como de periodos
 namespace Clinica_Frba.AppModel
 {
     public class AppCancelarAtencion

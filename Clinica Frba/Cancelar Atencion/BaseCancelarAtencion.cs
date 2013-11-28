@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
+// template principal de las tres ventanas que deben verse al solicitarse una cancelacion de turno
+// define el comportamiento comun que debe haber para las ventanas de cancelacion ya sea de medico, profesional o admin
 namespace Clinica_Frba.Cancelar_Atencion
 {
     public partial class BaseCancelarAtencion : Form
@@ -65,11 +67,11 @@ namespace Clinica_Frba.Cancelar_Atencion
 
         public void ActualizarGrilla()
         {
-            if (camposValidos())
+            if (camposValidos()) //cada subclase debe indicar como validar los campos ingresados
             {
                 grilla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                grilla.DataSource = llenarGrilla();
+                grilla.DataSource = llenarGrilla(); //cada subclase debe indicar como llenar su grilla
 
                 grilla.AutoResizeColumns();
             }
