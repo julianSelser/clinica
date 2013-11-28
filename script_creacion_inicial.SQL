@@ -2184,6 +2184,7 @@ GO
 
 /****** PROCEDURES LISTADOS ESTADISTICOS ******/
 
+-- genera el listado correspondiente al top 5 de bonos vencidos por afiliados
 CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
@@ -2195,15 +2196,15 @@ BEGIN
 	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(B.Numero) DESC) RANKING,  A.nombre + ' ' +  A.apellido + '  cant: ' + CONVERT(VARCHAR(255), COUNT(*)) ESTADISTICA
 	FROM CUATRO_QUESOS.Afiliados A, CUATRO_QUESOS.Bonos B
 	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Tipo_Bono = 'Farmacia'
-		  AND B.Fecha_Vencimiento BETWEEN @PrincipioMES AND @FinalMES 
-		  AND B.Fecha_Vencimiento < @FECHASISTEMA
-		  AND B.Nro_Usuario	IS NULL
+		  AND B.Fecha_Vencimiento BETWEEN @PrincipioMES AND @FinalMES --los bonos vencidos en un intervalo mensual
+		  AND B.Fecha_Vencimiento < @FECHASISTEMA --cuya fecha de ya haya pasado respecto a la del sistema
+		  AND B.Nro_Usuario	IS NULL --que no hayan sido usados
 	GROUP BY A.nombre, A.apellido
 	ORDER BY COUNT(B.Numero) DESC
 END
 GO
 
-
+-- genera el listado de top 5 de especialidades con mas recetas
 CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
@@ -2221,6 +2222,7 @@ BEGIN
 END
 GO
 
+-- genera el listado de top 5 de especialidades con mas cancelaciones
 CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasCancelaciones (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
@@ -2238,6 +2240,7 @@ BEGIN
 END
 GO
 
+-- genera el top 10 de los afiliados que usaron bonos que ellos mismos no compraron
 CREATE PROCEDURE CUATRO_QUESOS.bonosPorTerceros (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
@@ -2248,13 +2251,16 @@ BEGIN
 	
 	SELECT TOP 10 ROW_NUMBER() OVER (ORDER BY COUNT(B.numero) DESC) RANKING, A.nombre + ' ' +  A.apellido + '   cant: ' + CONVERT(VARCHAR(255),COUNT(B.numero)) AS ESTADISTICAS
 	FROM CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Afiliados A
-	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario
+	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario -- el numero de usuario y el del afiliado que los compro seran distintos 
 		AND B.Fecha_Impresion BETWEEN @PrincipioMES AND @FinalMES
 	GROUP BY A.nombre, A.apellido
 	ORDER BY COUNT(B.numero) DESC
 END
 GO
 
+--permite decidir que listado traer segun un identificador
+--el proposito es poder separar que listado traer de como se arman
+--ya que se arman todos igual, pero se traen segun lo indique el usuario desde la app 
 CREATE PROCEDURE CUATRO_QUESOS.elegirListado(@ID_Listado INT , @ANIO INT, @MES INT, @MESFIN INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
@@ -2269,7 +2275,9 @@ BEGIN
 END
 GO
 
-
+--este procedure arma un listado pedido en los meses de un semestre
+--permite reutilizar los listados si fuera necesario, tratando de atarlos lo menos posible a como se van a armar
+--por ejemplo, si bien los listados se traen a intervalos mensuales, para los totales semestrales se llaman con elegir listado a intervalos de 6 meses
 CREATE PROCEDURE CUATRO_QUESOS.getListadoEstadistico(@Semestre VARCHAR(20), @ID_Listado INT, @ANIO INT, @FECHA DATETIME)
 AS
 BEGIN
@@ -2282,6 +2290,7 @@ BEGIN
 	
 	IF (@Semestre = '1er semestre')
 		BEGIN
+			--trae en 6 variables de tablas los listados pedidos en los meses pedidos
 			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 1, @FECHASISTEMA = @FECHA
 			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 2, @FECHASISTEMA = @FECHA
 			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 3, @FECHASISTEMA = @FECHA
@@ -2289,6 +2298,7 @@ BEGIN
 			INSERT INTO @T5 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 5, @FECHASISTEMA = @FECHA
 			INSERT INTO @T6 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 6, @FECHASISTEMA = @FECHA
 			
+			--joinea los listados por ranking, armando un listado semestral desagregado en meses
 			SELECT A.EST ENERO, B.EST FEBRERO, C.EST MARZO, D.EST ABRIL, E.EST MAYO, F.EST JUNIO
 			FROM @T1 A FULL JOIN @T2 B ON A.POS = B.POS
 			FULL JOIN @T3 C ON A.POS = C.POS 
@@ -2299,6 +2309,7 @@ BEGIN
 
 	IF (@Semestre = '2do semestre')
 		BEGIN
+			--trae en 6 variables de tablas los listados pedidos en los meses pedidos
 			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 7, @FECHASISTEMA = @FECHA
 			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 8, @FECHASISTEMA = @FECHA
 			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 9, @FECHASISTEMA = @FECHA
@@ -2306,6 +2317,7 @@ BEGIN
 			INSERT INTO @T5 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 11, @FECHASISTEMA = @FECHA
 			INSERT INTO @T6 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 12, @FECHASISTEMA = @FECHA
 			
+			--joinea los listados por ranking, armando un listado semestral desagregado en meses
 			SELECT A.EST JULIO, B.EST AGOSTO, C.EST SEPTIEMBRE, D.EST OCTUBRE, E.EST NOVIEMBRE, F.EST DICIEMBRE
 			FROM @T1 A FULL JOIN @T2 B ON A.POS = B.POS
 			FULL JOIN @T3 C ON A.POS = C.POS 
