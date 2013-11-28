@@ -115,6 +115,7 @@ namespace Clinica_Frba.Pedir_Turno
             comboTimeslots.Enabled = false;
             comboTimeslots.Items.Clear();
             aceptarButton.Enabled = false;
+            especialidadBox.Clear();
         }
 
         private void aceptarButton_Click(object sender, EventArgs e)
