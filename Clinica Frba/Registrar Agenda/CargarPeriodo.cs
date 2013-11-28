@@ -51,11 +51,6 @@ namespace Clinica_Frba.Registrar_Agenda
             else return true;
         }
 
-        private void dtpDesde_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void botAceptar_Click(object sender, EventArgs e)
         {
             if (!(verificarRangoNonZero(dtpDesde.Value, dtpHasta.Value)))
