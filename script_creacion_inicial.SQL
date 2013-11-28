@@ -1406,6 +1406,79 @@ END
 
 GO
 
+--CREATE FUNCTIONS
+
+CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
+RETURNS int
+BEGIN
+        DECLARE @nroFamiliar numeric(18)
+        
+        SELECT TOP 1 @nroFamiliar = Nro_Afiliado + 1
+        FROM CUATRO_QUESOS.Afiliados
+        WHERE Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100
+        ORDER BY Nro_Afiliado DESC
+        
+        IF(@nroFamiliar % 100 = 2) SET @nroFamiliar = @nroFamiliar + 1
+        
+        RETURN @nroFamiliar
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.tipoAfiliado(@nroAfiliado numeric(18)) --1 es titular, 2 es conyuge, 3 es familiar no titular ni conyuge
+RETURNS int
+BEGIN
+        DECLARE @tipo int
+        SET @tipo = @nroAfiliado % 100
+        RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18))
+RETURNS int
+BEGIN
+RETURN (CAST(@nroAfiliado AS INT)/ 100)*100
+END
+GO
+
+CREATE FUNCTION [CUATRO_QUESOS].[getNroAfiliado] (@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDocumento VARCHAR(3))
+RETURNS NUMERIC(18,0)
+BEGIN
+        DECLARE @nro numeric(18)
+        SELECT @nro = Nro_Afiliado
+        FROM CUATRO_QUESOS.Afiliados
+        WHERE Nombre = @Nombre AND Apellido = @Apellido AND Nro_Doc = @Documento AND Tipo_Doc = @TipoDocumento
+        RETURN @nro
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.estaHabilitadoUsuario(@username AS VARCHAR(20)) RETURNS BIT
+AS
+BEGIN
+	RETURN (SELECT Habilitado FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getPass(@username AS VARCHAR(20)) RETURNS BINARY(32)
+AS
+BEGIN
+	RETURN (SELECT pass FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getPrinicipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME
+AS
+BEGIN
+	RETURN ( CAST( CONVERT(VARCHAR(8), @ANIO*10000 + @MES*100 + 1) AS DATETIME) )
+END
+GO
+
+CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME
+AS
+BEGIN
+	RETURN DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,@PrincipioMes)+1,0))
+END
+GO
+
 --CREATE PROCEDURES
 
 --procedures medicos
@@ -1529,38 +1602,6 @@ AS
 DELETE FROM CUATRO_QUESOS.Especialidades_Medicos WHERE Id_Medico = @id
 GO
 /********* PROCEDURES AFILIADOS ***************/
-
-CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
-RETURNS int
-BEGIN
-        DECLARE @nroFamiliar numeric(18)
-        
-        SELECT TOP 1 @nroFamiliar = Nro_Afiliado + 1
-        FROM CUATRO_QUESOS.Afiliados
-        WHERE Nro_Afiliado BETWEEN @nroAfiliadoRaiz AND @nroAfiliadoRaiz + 100
-        ORDER BY Nro_Afiliado DESC
-        
-        IF(@nroFamiliar % 100 = 2) SET @nroFamiliar = @nroFamiliar + 1
-        
-        RETURN @nroFamiliar
-END
-GO
-
-CREATE FUNCTION CUATRO_QUESOS.tipoAfiliado(@nroAfiliado numeric(18)) --1 es titular, 2 es conyuge, 3 es familiar no titular ni conyuge
-RETURNS int
-BEGIN
-        DECLARE @tipo int
-        SET @tipo = @nroAfiliado % 100
-        RETURN CASE WHEN @tipo = 1 THEN 1 WHEN @tipo = 2 THEN 2 ELSE 3 END
-END
-GO
-
-CREATE FUNCTION CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado numeric(18))
-RETURNS int
-BEGIN
-RETURN (CAST(@nroAfiliado AS INT)/ 100)*100
-END
-GO
 
 CREATE PROCEDURE CUATRO_QUESOS.cantFamiliaresRegistrados(@nroAfiliadoTitular numeric(18))
 AS
@@ -1918,16 +1959,6 @@ CREATE TYPE [CUATRO_QUESOS].[TURNOS_MEDICO] AS TABLE(
 )
 GO
 
-CREATE FUNCTION [CUATRO_QUESOS].[getNroAfiliado] (@Nombre VARCHAR(255), @Apellido VARCHAR(255), @Documento NUMERIC, @TipoDocumento VARCHAR(3))
-RETURNS NUMERIC(18,0)
-BEGIN
-        DECLARE @nro numeric(18)
-        SELECT @nro = Nro_Afiliado
-        FROM CUATRO_QUESOS.Afiliados
-        WHERE Nombre = @Nombre AND Apellido = @Apellido AND Nro_Doc = @Documento AND Tipo_Doc = @TipoDocumento
-        RETURN @nro
-END
-GO
 
 CREATE PROCEDURE [CUATRO_QUESOS].[getTurnosDeMedico](@Nombre VARCHAR(255),
                                                     @Apellido VARCHAR(255),
@@ -2111,21 +2142,6 @@ BEGIN
 	RETURN @resultado
 END
 GO
-
-CREATE FUNCTION CUATRO_QUESOS.estaHabilitadoUsuario(@username AS VARCHAR(20)) RETURNS BIT
-AS
-BEGIN
-	RETURN (SELECT Habilitado FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
-END
-GO
-
-CREATE FUNCTION CUATRO_QUESOS.getPass(@username AS VARCHAR(20)) RETURNS BINARY(32)
-AS
-BEGIN
-	RETURN (SELECT pass FROM CUATRO_QUESOS.Usuarios WHERE Username = @username)
-END
-GO
-
 
 CREATE PROCEDURE CUATRO_QUESOS.traerRolesDeUsuario(@username VARCHAR(20))
 AS
@@ -2403,21 +2419,6 @@ GO
 /* ***** FIN PROCEDURES REGISTRAR AGENDA ***** */
 
 -- LISTADOS ESTADISTICOS --
-
-CREATE FUNCTION CUATRO_QUESOS.getPrinicipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME
-AS
-BEGIN
-	RETURN ( CAST( CONVERT(VARCHAR(8), @ANIO*10000 + @MES*100 + 1) AS DATETIME) )
-END
-GO
-
-CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME
-AS
-BEGIN
-	RETURN DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,@PrincipioMes)+1,0))
-END
-GO
-
 
 CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
