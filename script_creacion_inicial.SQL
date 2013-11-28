@@ -1143,7 +1143,8 @@ GO
 
 --CREATE FUNCTIONS
 
-CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int) --me permite calcular el nuevo nro de afiliado para el familiar del titular
+CREATE FUNCTION CUATRO_QUESOS.siguienteNroFamiliar(@nroAfiliadoRaiz int)
+RETURNS numeric(18) --me permite calcular el nuevo nro de afiliado para el familiar del titular
 BEGIN
         DECLARE @nroFamiliar numeric(18)
         
@@ -1671,7 +1672,7 @@ as
 
 go
         
-CREATE PROCEDURE CUATRO_QUESOS.modificarRol(@idRol numeric(18),@nombre varchar(50))
+CREATE PROCEDURE CUATRO_QUESOS.modificarRol(@idRol numeric(18),@nombre varchar(50)) --modifica el nombre de un rol
 AS
 UPDATE CUATRO_QUESOS.Roles
 SET Nombre = @nombre
