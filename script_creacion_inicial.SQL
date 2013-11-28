@@ -1206,7 +1206,7 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME
+CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME --retorna el fin del mes en base al principio del mes
 AS
 BEGIN
 	RETURN DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,@PrincipioMes)+1,0))
@@ -1217,7 +1217,7 @@ GO
 
 --procedures medicos
 
-CREATE PROCEDURE CUATRO_QUESOS.altaMedico(
+CREATE PROCEDURE CUATRO_QUESOS.altaMedico( --funcionalidad de alta de medico
 @nombre varchar(255),
 @apellido varchar(255),
 @sexo varchar(255),
@@ -1251,7 +1251,7 @@ NULL
 GO
 
 
-CREATE PROCEDURE CUATRO_QUESOS.updateMedico
+CREATE PROCEDURE CUATRO_QUESOS.updateMedico --funcionalidad que actualiza los campos factibles de ser modificados de un medico
 (@id numeric(18),
 @direccion varchar(255),
 @telefono numeric(18),
@@ -1268,7 +1268,7 @@ WHERE Id_Medico = @id
 GO
 
 
-CREATE PROCEDURE CUATRO_QUESOS.bajaMedico(@id numeric(18))
+CREATE PROCEDURE CUATRO_QUESOS.bajaMedico(@id numeric(18)) --funcionalidad que da de baja de forma logica a un medico, inhabilitandolo
 AS
 BEGIN
         UPDATE CUATRO_QUESOS.Medicos
@@ -1278,6 +1278,7 @@ END
 
 GO
 
+--trae el datatable con los datos de los medicos, filtrando por nombre, apellido, numero de matricula o especialidad
 CREATE PROCEDURE CUATRO_QUESOS.getMedicos @nombre varchar(255), @apellido varchar(255), @matricula numeric(18), @codEspecialidad numeric(18)
 AS
 SELECT Id_Medico 'ID Medico',
@@ -1294,6 +1295,7 @@ AND ((Nro_Matricula = @matricula AND @matricula != 0) OR (@matricula = 0))
 AND Id_Medico IN (SELECT Especialidades_Medicos.Id_Medico FROM CUATRO_QUESOS.Especialidades_Medicos WHERE (Cod_Especialidad = @codEspecialidad AND @codEspecialidad != 0) OR (@codEspecialidad = 0))
 GO
 
+--devuelve el ID de un medico
 CREATE PROCEDURE CUATRO_QUESOS.getIdMedico(@nombre varchar(255), @apellido varchar(255),@tipoDoc varchar(3), @nroDoc numeric(18))
 AS
 BEGIN
@@ -1305,12 +1307,14 @@ BEGIN
 END
 GO
 
+--chequea si ya existe un medico, retornandolo, con una matricula dada por parametro
 CREATE PROCEDURE CUATRO_QUESOS.existeMatricula @matricula numeric(18)
 AS
 SELECT * FROM CUATRO_QUESOS.Medicos WHERE Nro_Matricula = @matricula
 GO
 /******** PROCEDURES ESPECIALIDES MEDICAS **********/
 
+--devuelve todas las especialidades existentes
 CREATE PROCEDURE CUATRO_QUESOS.getEspecialidades
 AS
 SELECT Especialidades.Codigo 'Codigo', Especialidades.Descripcion 'Descripcion', Especialidades.Tipo_Codigo 'Tipo Codigo'
@@ -1319,6 +1323,7 @@ GO
 
 /******* PROCEDURES ESPECIALIDADES_MEDICO ********/
 
+--asocia una especialidad a un medico
 CREATE PROCEDURE CUATRO_QUESOS.altaMedico_Especialidad ( @codEspecialidad numeric(18), @Id numeric(18) )
 AS
 INSERT INTO CUATRO_QUESOS.Especialidades_Medicos(Cod_Especialidad, Id_Medico)
@@ -1326,17 +1331,20 @@ VALUES (@codEspecialidad, @Id)
 
 GO
 
+--devuelve las especialidades que tiene asociadas un medico
 CREATE PROCEDURE CUATRO_QUESOS.getEspecialidadesMedico @id numeric(18)
 AS
 SELECT Cod_Especialidad FROM CUATRO_QUESOS.Especialidades_Medicos WHERE Id_Medico = @id
 GO
 
+--elimina la asociacion de especialidades de un medico pasado por parametro
 CREATE PROCEDURE CUATRO_QUESOS.deleteEspecialidades @id numeric(18)
 AS
 DELETE FROM CUATRO_QUESOS.Especialidades_Medicos WHERE Id_Medico = @id
 GO
 /********* PROCEDURES AFILIADOS ***************/
 
+--devuelve la cantidad de familiares registrados que tiene un titular
 CREATE PROCEDURE CUATRO_QUESOS.cantFamiliaresRegistrados(@nroAfiliadoTitular numeric(18))
 AS
 DECLARE @cantidadFamiliares int
@@ -1346,6 +1354,7 @@ WHERE Nro_Titular = @nroAfiliadoTitular
 RETURN @cantidadFamiliares
 GO
 
+--devuelve el conyuge de un titular
 CREATE PROCEDURE CUATRO_QUESOS.getConyuge(@nroAfiliadoTitular numeric(18))
 AS
 SELECT Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo',
@@ -1448,6 +1457,7 @@ BEGIN
 END
 GO
 
+--devuelve el datatable con los afiliados, filtrados por nombre, apellido, tipo de documento, numero de documento o numero de afiliado raiz
 CREATE PROCEDURE CUATRO_QUESOS.getAfiliados @nombre varchar(255), @apellido varchar(255), @tipoDoc varchar(3), @nroDoc numeric(18), @nroAfiliadoRaiz numeric(18)
 AS
 SELECT TOP 100 Nro_Afiliado 'Nª Afiliado',Nombre 'Nombre', Apellido 'Apellido',Sexo 'Sexo',
@@ -1481,6 +1491,7 @@ END
 
 GO
 
+--busca si ya existe un afiliado, especificando su nombre, apellido, tipo de documento y numero, devuelve su numero de afiliado
 CREATE PROCEDURE CUATRO_QUESOS.buscarNroAfiliado @nombre varchar(255), @apellido varchar(255), @tipoDoc varchar(3), @nroDoc numeric(18)
 AS
 DECLARE @nroAfiliado numeric(18)
@@ -1492,6 +1503,7 @@ WHERE Nombre = @nombre AND Apellido = @apellido AND Tipo_Doc = @tipoDoc AND Nro_
 RETURN @nroAfiliado
 GO
 
+--actualiza el numero de conyuge de un afiliado
 CREATE PROCEDURE CUATRO_QUESOS.updateNroConyuge (@nroAfiliado numeric(18))
 AS
 UPDATE CUATRO_QUESOS.Afiliados
@@ -1499,7 +1511,7 @@ SET Nro_Conyuge = @nroAfiliado
 WHERE Nro_Afiliado = (@nroAfiliado - 1)
 GO
 
-
+--funcionalidad que actualiza los datos de un afiliado en sus campos factibles de ser modificados
 CREATE PROCEDURE CUATRO_QUESOS.updateAfiliado (
 @nroAfiliado numeric(18),
 @direccion varchar(255),
@@ -1543,6 +1555,7 @@ GO
 
 /********** PROCEDURES PLANES MEDICOS ************/
 
+--devuelve los planes medicos existentes
 CREATE PROCEDURE CUATRO_QUESOS.getPlanesMedicos @codigo numeric(18), @descripcion varchar(255),@precioBonoConsulta int, @precioBonoFarmacia int
 AS
 SELECT Codigo, Descripcion, Precio_Bono_Consulta 'Precio Bono Consulta', Precio_Bono_Farmacia 'Precio Bono Farmacia'
@@ -1553,6 +1566,7 @@ AND Precio_Bono_Consulta >= @precioBonoConsulta
 AND Precio_Bono_Farmacia >= @precioBonoFarmacia
 GO
 
+--registra el momento y el motivo del cambio de un plan medico por parte de un afiliado
 CREATE PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico
 @nroAfiliado numeric(18),
 @fecha datetime,
@@ -1568,9 +1582,9 @@ END
 GO
 /********** FIN PROCEDURES PLANES MEDICOS ************/
 
---procedures abm rol
+/********* PROCEDURES ABM ROL ************/
 
-create procedure CUATRO_QUESOS.getRoles(@nombre varchar(50))
+create procedure CUATRO_QUESOS.getRoles(@nombre varchar(50)) --devuelve los roles existentes
 as
 select Id_Rol 'ID Rol',
 	   Nombre 'Nombre',
@@ -1580,7 +1594,7 @@ where Nombre like '%' + @nombre + '%'
 
 go
 
-CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18))
+CREATE PROCEDURE CUATRO_QUESOS.inhabilitarRol(@rol numeric(18)) --da de baja un rol de forma logica, inhabilitandolo
 AS
         BEGIN TRAN
 				UPDATE CUATRO_QUESOS.Roles 
@@ -1590,7 +1604,7 @@ AS
         
 go
 
-CREATE PROCEDURE CUATRO_QUESOS.habilitarRol(@rol numeric(18))
+CREATE PROCEDURE CUATRO_QUESOS.habilitarRol(@rol numeric(18)) --habilita el rol dado de baja anteriormente
 AS
         BEGIN TRAN
 				UPDATE CUATRO_QUESOS.Roles 
@@ -1600,7 +1614,7 @@ AS
 
 go
 
-CREATE PROCEDURE CUATRO_QUESOS.getIdRol(@nombre varchar(50))
+CREATE PROCEDURE CUATRO_QUESOS.getIdRol(@nombre varchar(50)) --devuelve el ID de un rol segun su nombre
 AS
 BEGIN
         DECLARE @Id numeric(18,0)
@@ -1612,6 +1626,7 @@ END
 
 go
 
+--asocia una funcionalidad a un rol
 CREATE PROCEDURE CUATRO_QUESOS.altaRol_Funcionalidad ( @codFuncionalidad numeric(18), @Id numeric(18) )
 AS
 INSERT INTO CUATRO_QUESOS.Roles_Por_Funcionalidades(Id_Funcionalidad, Id_Rol)
