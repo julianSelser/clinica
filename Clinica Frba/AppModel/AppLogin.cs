@@ -58,7 +58,7 @@ namespace Clinica_Frba.AppModel
 
             UsuarioLogeado.Instance.Persona = null;
 
-            if (rol != "Administrativo")
+            if (rol == "Profesional" || rol == "Afiliado") // si fuera cualquier otro rol, no hay usuario que traer
             {
                 DataTable datosUsuario = ConectorSQL.traerDataTable("traerDatosUsuario", UsuarioLogeado.Instance.UserName, UsuarioLogeado.Instance.Rol.nombre);
 
