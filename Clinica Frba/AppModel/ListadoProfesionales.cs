@@ -104,7 +104,7 @@ namespace Clinica_Frba.AppModel
             grillaProfesionales.Columns.Add(col);
         }
 
-        private bool estaDadoDeBaja(DataGridViewRow fila)
+        private bool estaDadoDeBaja(DataGridViewRow fila) //verifica si el profesional ya esta dado de baja
         {
             int index = grillaProfesionales.Columns["Habilitado"].Index;
             return !(bool)fila.Cells[index].Value;
@@ -127,14 +127,20 @@ namespace Clinica_Frba.AppModel
                             AsistenteVistas.mostrarNuevaVentana(new ModificarProfesional(this, profesional), this);
                             break;
                         case "Pedir Turno":
-                            if (comboEspecialidad.SelectedIndex != -1)
+                            if(noTieneAgenda(fila)) //chequea que tenga fecha de atencion desde y hasta (quiere decir que tiene una agenda registrada)
                             {
-                                EspecialidadMedica especialidad = crearEspecialidad();
-                                volverAVistaPedirTurno(profesional, especialidad);
+                                MessageBox.Show("ERROR: El profesional no tiene registrada una agenda", "Pedir Turno", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                            else
-                            {
-                                MessageBox.Show("ERROR: Debe especificar una especialidad", "Pedir Turno", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            else{
+                                if (comboEspecialidad.SelectedIndex != -1)
+                                {
+                                    EspecialidadMedica especialidad = crearEspecialidad();
+                                    volverAVistaPedirTurno(profesional, especialidad);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("ERROR: Debe especificar una especialidad", "Pedir Turno", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                             break;
                         case "Registrar Llegada":
@@ -151,6 +157,13 @@ namespace Clinica_Frba.AppModel
                 else MessageBox.Show("El profesional seleccionado se encuentra inhabilitado");
             }
             
+        }
+
+        private bool noTieneAgenda(DataGridViewRow fila)
+        {
+            int index = grillaProfesionales.Columns["Fecha Atencion Desde"].Index;
+            int index2 = grillaProfesionales.Columns["Fecha Atencion Hasta"].Index;
+            return fila.Cells[index].Value.ToString() == "" && fila.Cells[index2].Value.ToString() == "";
         }
 
         private EspecialidadMedica crearEspecialidad()
