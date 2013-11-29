@@ -1,6 +1,6 @@
 ﻿namespace Clinica_Frba.Listados_Estadisticos
 {
-    partial class MostrarListadoMeses
+    partial class MostrarListado
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,7 @@
             // 
             // volver
             // 
-            this.volver.Location = new System.Drawing.Point(1211, 182);
+            this.volver.Location = new System.Drawing.Point(673, 177);
             this.volver.Name = "volver";
             this.volver.Size = new System.Drawing.Size(75, 23);
             this.volver.TabIndex = 7;
@@ -50,7 +50,7 @@
             this.grilla.AllowUserToDeleteRows = false;
             this.grilla.AllowUserToResizeColumns = false;
             this.grilla.AllowUserToResizeRows = false;
-            this.grilla.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grilla.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.grilla.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grilla.BackgroundColor = System.Drawing.SystemColors.Control;
             this.grilla.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -59,7 +59,7 @@
             this.grilla.Name = "grilla";
             this.grilla.RowHeadersVisible = false;
             this.grilla.RowHeadersWidth = 46;
-            this.grilla.Size = new System.Drawing.Size(1274, 147);
+            this.grilla.Size = new System.Drawing.Size(736, 147);
             this.grilla.TabIndex = 8;
             // 
             // info
@@ -75,7 +75,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1298, 212);
+            this.ClientSize = new System.Drawing.Size(760, 212);
             this.Controls.Add(this.info);
             this.Controls.Add(this.grilla);
             this.Controls.Add(this.volver);

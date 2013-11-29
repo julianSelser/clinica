@@ -8,23 +8,21 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 
-// encargada de traer de la base y mostrar el total semestral de un listado elegido por el usuario
+// trae y muestra los listados de la base en un semestre de un año desagregado mensualmente
 namespace Clinica_Frba.Listados_Estadisticos
 {
-    public partial class MostrarListadoSemestre : Form
+    public partial class MostrarListado : Form
     {
         private Form padre;
 
-        public MostrarListadoSemestre(Form padre, int listadoID, string tipoListado, string semestre, string anio)
+        public MostrarListado(Form padre, int listadoID, string tipoListado, string semestre, string anio)
         {
             InitializeComponent();
             this.padre = padre;
 
             info.Text = tipoListado;
-
-            int mes = semestre == "1er semestre"? 1 /* enero */ : 7 /* julio */; //segun el semestre elegido, el numero de mes primero del semestre
-
-            grilla.DataSource = ConectorSQL.traerDataTable("elegirListado", listadoID, anio, mes, mes + 5, Globales.getFechaSistema());
+            
+            grilla.DataSource = ConectorSQL.traerDataTable("getListadoEstadistico", semestre, listadoID, anio, Globales.getFechaSistema());
         }
 
         private void volver_Click(object sender, EventArgs e)

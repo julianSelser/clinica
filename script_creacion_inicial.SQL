@@ -2185,6 +2185,7 @@ GO
 /****** PROCEDURES LISTADOS ESTADISTICOS ******/
 
 -- genera el listado correspondiente al top 5 de bonos vencidos por afiliados
+-- genera el listado correspondiente al top 5 de bonos vencidos por afiliados
 CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
@@ -2193,13 +2194,13 @@ BEGIN
 											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 											
-	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(B.Numero) DESC) RANKING,  A.nombre + ' ' +  A.apellido + '  cant: ' + CONVERT(VARCHAR(255), COUNT(*)) ESTADISTICA
+	SELECT A.Nro_afiliado,  A.nombre + ' ' + A.apellido , COUNT(*) CANTIDAD
 	FROM CUATRO_QUESOS.Afiliados A, CUATRO_QUESOS.Bonos B
 	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Tipo_Bono = 'Farmacia'
 		  AND B.Fecha_Vencimiento BETWEEN @PrincipioMES AND @FinalMES --los bonos vencidos en un intervalo mensual
 		  AND B.Fecha_Vencimiento < @FECHASISTEMA --cuya fecha de ya haya pasado respecto a la del sistema
 		  AND B.Nro_Usuario	IS NULL --que no hayan sido usados
-	GROUP BY A.nombre, A.apellido
+	GROUP BY A.Nro_afiliado, A.nombre, A.apellido
 	ORDER BY COUNT(B.Numero) DESC
 END
 GO
@@ -2213,11 +2214,11 @@ BEGIN
 											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 	
-	SELECT TOP 5 ROW_NUMBER() OVER (ORDER BY COUNT(DISTINCT( B.Numero ))DESC) RANKING, E.Descripcion + '  cant: ' + CONVERT(VARCHAR(255), COUNT(DISTINCT(B.Numero))) ESTADISTICA  
+	SELECT E.Codigo , E.Descripcion , COUNT(DISTINCT(B.Numero)) CANTIDAD  
 	FROM CUATRO_QUESOS.Medicamentos_por_consulta MC, CUATRO_QUESOS.Turnos T, CUATRO_QUESOS.Consultas C, CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Especialidades E
 	WHERE C.Nro_Turno = T.Numero AND T.Cod_Especialidad = E.Codigo AND MC.ID_Consulta = C.ID_Consulta AND MC.Nro_Bono_Farmacia = B.Numero
 		AND T.Fecha BETWEEN @PrincipioMES AND @FinalMES
-	GROUP BY E.Descripcion
+	GROUP BY E.Codigo, E.Descripcion
 	ORDER BY COUNT(DISTINCT( B.Numero )) DESC
 END
 GO
@@ -2231,11 +2232,11 @@ BEGIN
 											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 											
-	SELECT TOP 5  ROW_NUMBER() OVER (ORDER BY COUNT(E.Descripcion) DESC) RANKING, E.Descripcion + '   cant: ' + CONVERT(VARCHAR(255),COUNT(E.Descripcion)) AS ESTADISTICAS
+	SELECT E.Codigo, E.Descripcion,COUNT(E.Descripcion) AS CANTIDAD
 	FROM CUATRO_QUESOS.Especialidades E, CUATRO_QUESOS.Turnos T, CUATRO_QUESOS.Cancelaciones C
 	WHERE C.Nro_Turno = T.Numero AND T.COD_Especialidad = E.Codigo
 		AND T.fecha	BETWEEN @PrincipioMES AND @FinalMES	
-	GROUP BY E.Descripcion
+	GROUP BY E.Codigo, E.Descripcion
 	ORDER BY COUNT(E.Descripcion) DESC
 END
 GO
@@ -2249,11 +2250,11 @@ BEGIN
 											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
 											END
 	
-	SELECT TOP 10 ROW_NUMBER() OVER (ORDER BY COUNT(B.numero) DESC) RANKING, A.nombre + ' ' +  A.apellido + '   cant: ' + CONVERT(VARCHAR(255),COUNT(B.numero)) AS ESTADISTICAS
+	SELECT A.Nro_Afiliado, A.nombre + ' ' + A.apellido, COUNT(B.numero) AS CANTIDAD
 	FROM CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Afiliados A
 	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario -- el numero de usuario y el del afiliado que los compro seran distintos 
 		AND B.Fecha_Impresion BETWEEN @PrincipioMES AND @FinalMES
-	GROUP BY A.nombre, A.apellido
+	GROUP BY A.Nro_Afiliado, A.nombre, A.apellido
 	ORDER BY COUNT(B.numero) DESC
 END
 GO
@@ -2275,22 +2276,25 @@ BEGIN
 END
 GO
 
---este procedure arma un listado pedido en los meses de un semestre
---permite reutilizar los listados si fuera necesario, tratando de atarlos lo menos posible a como se van a armar
---por ejemplo, si bien los listados se traen a intervalos mensuales, para los totales semestrales se llaman con elegir listado a intervalos de 6 meses
+--este procedure arma un listado pedido en los meses de un semestre y los totales
+--la idea era separar la logica de busqueda de cada listado de como se muestran, ya que todos se muestran de la mismo forma pero se arman individualmente distinto
+--por eso justamente este codigo ensambla cualquier listado segun se pida, delegando la busqueda de cada listado en si...ojala se entienda
 CREATE PROCEDURE CUATRO_QUESOS.getListadoEstadistico(@Semestre VARCHAR(20), @ID_Listado INT, @ANIO INT, @FECHA DATETIME)
 AS
 BEGIN
-	DECLARE @T1 TABLE (POS INT, EST VARCHAR(50))
-	DECLARE @T2 TABLE (POS INT, EST VARCHAR(50))
-	DECLARE @T3 TABLE (POS INT, EST VARCHAR(50))
-	DECLARE @T4 TABLE (POS INT, EST VARCHAR(50))
-	DECLARE @T5 TABLE (POS INT, EST VARCHAR(50))
-	DECLARE @T6 TABLE (POS INT, EST VARCHAR(50))
+	DECLARE @T  TABLE (ID INT, RANKING VARCHAR(50), CANT INT) -- tabla con los totales
+	DECLARE @T1 TABLE (ID INT, RANKING VARCHAR(50), CANT INT)
+	DECLARE @T2 TABLE (ID INT, RANKING VARCHAR(50), CANT INT)
+	DECLARE @T3 TABLE (ID INT, RANKING VARCHAR(50), CANT INT)
+	DECLARE @T4 TABLE (ID INT, RANKING VARCHAR(50), CANT INT)
+	DECLARE @T5 TABLE (ID INT, RANKING VARCHAR(50), CANT INT)
+	DECLARE @T6 TABLE (ID INT, RANKING VARCHAR(50), CANT INT)
+	DECLARE @TOP INT = CASE @ID_Listado WHEN 3 THEN 10 ELSE 5 END -- para el listado de ID 3 hay que hace TOP 10, los TOP del select se hacen sobre esta variable
 	
 	IF (@Semestre = '1er semestre')
-		BEGIN
-			--trae en 6 variables de tablas los listados pedidos en los meses pedidos
+		BEGIN			
+			--trae en 7 variables de tablas los listados pedidos en los meses pedidos y en @T los totales
+			INSERT INTO @T  EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 1, 6, @FECHASISTEMA = @FECHA
 			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 1, @FECHASISTEMA = @FECHA
 			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 2, @FECHASISTEMA = @FECHA
 			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 3, @FECHASISTEMA = @FECHA
@@ -2299,31 +2303,36 @@ BEGIN
 			INSERT INTO @T6 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 6, @FECHASISTEMA = @FECHA
 			
 			--joinea los listados por ranking, armando un listado semestral desagregado en meses
-			SELECT A.EST ENERO, B.EST FEBRERO, C.EST MARZO, D.EST ABRIL, E.EST MAYO, F.EST JUNIO
-			FROM @T1 A FULL JOIN @T2 B ON A.POS = B.POS
-			FULL JOIN @T3 C ON A.POS = C.POS 
-			FULL JOIN @T4 D ON A.POS = D.POS
-			FULL JOIN @T5 E ON A.POS = E.POS 
-			FULL JOIN @T6 F	ON A.POS = F.POS
+			SELECT T.RANKING, T.CANT TOTAL, A.CANT ENERO, B.CANT FEBRERO, C.CANT MARZO, D.CANT ABRIL, E.CANT MAYO, F.CANT JUNIO
+			FROM (SELECT TOP (@TOP) * FROM @T) T
+			LEFT JOIN @T1 A ON T.ID = A.ID
+			LEFT JOIN @T2 B ON T.ID = B.ID
+			LEFT JOIN @T3 C ON T.ID = C.ID
+			LEFT JOIN @T4 D ON T.ID = D.ID
+			LEFT JOIN @T5 E ON T.ID = E.ID
+			LEFT JOIN @T6 F	ON T.ID = F.ID
 		END
 
 	IF (@Semestre = '2do semestre')
 		BEGIN
-			--trae en 6 variables de tablas los listados pedidos en los meses pedidos
-			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 7, @FECHASISTEMA = @FECHA
-			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 8, @FECHASISTEMA = @FECHA
-			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 9, @FECHASISTEMA = @FECHA
+			--trae en 7 variables de tablas los listados pedidos en los meses pedidos y en @T los totales
+			INSERT INTO @T  EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 7, 12, @FECHASISTEMA = @FECHA
+			INSERT INTO @T1 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 7,  @FECHASISTEMA = @FECHA
+			INSERT INTO @T2 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 8,  @FECHASISTEMA = @FECHA
+			INSERT INTO @T3 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 9,  @FECHASISTEMA = @FECHA
 			INSERT INTO @T4 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 10, @FECHASISTEMA = @FECHA
 			INSERT INTO @T5 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 11, @FECHASISTEMA = @FECHA
 			INSERT INTO @T6 EXEC CUATRO_QUESOS.elegirListado @ID_Listado, @ANIO, 12, @FECHASISTEMA = @FECHA
 			
 			--joinea los listados por ranking, armando un listado semestral desagregado en meses
-			SELECT A.EST JULIO, B.EST AGOSTO, C.EST SEPTIEMBRE, D.EST OCTUBRE, E.EST NOVIEMBRE, F.EST DICIEMBRE
-			FROM @T1 A FULL JOIN @T2 B ON A.POS = B.POS
-			FULL JOIN @T3 C ON A.POS = C.POS 
-			FULL JOIN @T4 D ON A.POS = D.POS
-			FULL JOIN @T5 E ON A.POS = E.POS 
-			FULL JOIN @T6 F	ON A.POS = F.POS
+			SELECT T.RANKING, T.CANT TOTAL, A.CANT JULIO, B.CANT AGOSTO, C.CANT SEPTIEMBRE, D.CANT OCTUBRE, E.CANT NOVIEMBRE, F.CANT DICIEMBRE
+			FROM (SELECT TOP (@TOP) * FROM @T) T
+			LEFT JOIN @T1 A ON T.ID = A.ID
+			LEFT JOIN @T2 B ON T.ID = B.ID
+			LEFT JOIN @T3 C ON T.ID = C.ID
+			LEFT JOIN @T4 D ON T.ID = D.ID
+			LEFT JOIN @T5 E ON T.ID = E.ID
+			LEFT JOIN @T6 F	ON T.ID = F.ID
 		END
 END
 GO
