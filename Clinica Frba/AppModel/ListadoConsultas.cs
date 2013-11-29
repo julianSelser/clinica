@@ -32,7 +32,7 @@ namespace Clinica_Frba.AppModel
             {
                 profesionalBox.Text = (UsuarioLogeado.Instance.Persona as Profesional).id.ToString();
                 selectProfesionalButton.Hide();
-                profesional = (UsuarioLogeado.Instance.Persona as Profesional);
+                profesional = (Profesional)UsuarioLogeado.Instance.Persona;
             }
             afiliado = new Afiliado();
             afiliado.nroAfiliado = 0;
@@ -66,11 +66,11 @@ namespace Clinica_Frba.AppModel
         {
             if (funcion == "Generar Receta")
             {
-                AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultasConResultados(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text)));
+                AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultasConResultados(afiliado, profesional, fechaAtencionPicker.Value));
             }
             else
             {
-                AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, Convert.ToDateTime(fechaAtencionPicker.Text), checkConsultaSinResultado.Checked));
+                AsistenteVistas.cargarGrilla(grillaTurnos, AppRegistrarResultado.traerConsultas(afiliado, profesional, fechaAtencionPicker.Value, checkConsultaSinResultado.Checked));
             }
             cargarBotonFuncionalidad();
         }
@@ -131,7 +131,10 @@ namespace Clinica_Frba.AppModel
 
         private void profesionalBox_TextChanged(object sender, EventArgs e)
         {
-            validarCampos();
+            if (UsuarioLogeado.Instance.Rol.nombre != "Profesional")
+            {
+                validarCampos();
+            }
         }
 
         private void fechaAtencionPicker_ValueChanged(object sender, EventArgs e)
