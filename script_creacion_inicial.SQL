@@ -762,66 +762,59 @@ where Bono_Farmacia_Numero is not null
 
 /* *************FIN INSERCION DE BONOS*************** */
 
-create table #aux
-(
-	ID_Compra integer,
-	Tipo_Bono varchar(10),
-	Nro_Bono numeric(18),
-)
-
---basicamente me tengo que guardar el trio ID_Compra, Tipo_Bono y Nro_Bono, porque la tabla compras no va a tener el numero de bono, entonces despues de insertar las compras no voy a tener cómo asignar las compras a cada bono en la tabla bonos. si se trata de hacer al revés, voy a tener el problema de generarle un autonumérico (ID_Compra) a la tabla bonos que tiene clave doble. esto retrasa el script como medio minuto, pero estamos bien de tiempo y funciona, así que no veo por qué no
-
-insert into #aux(ID_Compra, Tipo_Bono, Nro_Bono)
-select row_number() over (order by Bono_Consulta_Numero asc, Bono_Farmacia_Numero asc) as ID_Compra, --esto es clave
-	case when Bono_Consulta_Numero is not null then 'Consulta'
-		else 'Farmacia'
-		end as Tipo_Bono,
-	case when Bono_Consulta_Numero is not null then Bono_Consulta_Numero
-		else Bono_Farmacia_Numero
-		end as Nro_Bono
-from gd_esquema.Maestra
-where compra_bono_fecha is not null
-
-
-
 --Compras de bonos
 
 set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
 
 insert into CUATRO_QUESOS.Compra(ID_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
-select (select ID_Compra 
-		from #aux 
-		where #aux.Tipo_bono = (case when bono_consulta_numero is not null 
-									then 'Consulta' 
-									else 'Farmacia' 
-								end) 
-			and #aux.Nro_Bono = (case when bono_consulta_numero is not null 
-									then Bono_Consulta_Numero 
-									else Bono_Farmacia_Numero 
-								end)) as ID_Compra, --matcheo con lo que tengo en la tabla #aux
+select ROW_NUMBER() over (order by compra_bono_fecha asc, paciente_dni asc) as ID_Compra,
 	(select Nro_Afiliado from CUATRO_QUESOS.Afiliados where Nro_Doc = Paciente_DNI) as Nro_Afiliado,
 	Compra_Bono_Fecha as Fecha,
-	case when Bono_Consulta_Numero is not null then 1
-		else 0
-		end as Cantidad_Comprada_Consulta,
-	case when Bono_Farmacia_Numero is not null then 1
-		else 0
-		end as Cantidad_Comprada_Farmacia,
-	case when Bono_Consulta_Numero is not null then Plan_Med_Precio_Bono_Consulta
-		when Bono_Farmacia_Numero is not null then Plan_Med_Precio_Bono_Farmacia
-		end as Monto 
+	(select COUNT(*) 
+	from gd_esquema.Maestra as SUB 
+	where SUB.Compra_Bono_Fecha = Main.Compra_Bono_Fecha and MAIN.Paciente_Dni = SUB.Paciente_Dni and Bono_Consulta_Numero is not null)
+		as Cantidad_Comprada_Consulta,
+	(select COUNT(*) 
+	from gd_esquema.Maestra as SUB 
+	where SUB.Compra_Bono_Fecha = Main.Compra_Bono_Fecha and MAIN.Paciente_Dni = SUB.Paciente_Dni and Bono_Farmacia_Numero is not null)
+		as Cantidad_Comprada_Farmacia,
+	0 as Monto --esto como temporal para migrar porque no admite valores null (y tiene sentido que no los admita)
+				--el tema es que no voy a calcular el monto ahora porque necesito las cantidades que acabo de calcular
+				--y si quisiera hacerlo ahora tengo que volver a hacer esos select
+				--en la proxima instrucción voy a estar completando este campo
 	 
-from gd_esquema.Maestra as MAIN where Compra_Bono_Fecha is not null
+from gd_esquema.Maestra as MAIN where Compra_Bono_Fecha is not null group by Paciente_Dni, Compra_Bono_Fecha
 
 set IDENTITY_INSERT CUATRO_QUESOS.Compra OFF
 
 
+--ahora completo el monto
+update CUATRO_QUESOS.Compra
+set Monto = 
+
+(select Precio_Bono_Consulta 
+from CUATRO_QUESOS.Planes_Medicos, CUATRO_QUESOS.Afiliados 
+where Afiliados.Cod_Plan = Planes_Medicos.Codigo
+	and Afiliados.Nro_Afiliado = Compra.Nro_Afiliado) * Cantidad_Comprada_Consulta
+--busco el precio del bono consulta, y lo multiplico por la cantidad comprada
++ --y lo sumo a...
+
+(select Precio_Bono_Farmacia 
+from CUATRO_QUESOS.Planes_Medicos, CUATRO_QUESOS.Afiliados 
+where Afiliados.Cod_Plan = Planes_Medicos.Codigo
+	and Afiliados.Nro_Afiliado = Compra.Nro_Afiliado) * Cantidad_Comprada_Farmacia
+--busco el precio del bono farmacia, y lo multiplico por la cantidad comprada
+
+
 --asigno a cada bono su ID compra (que acabo de generar)
-
 update CUATRO_QUESOS.Bonos
-set ID_Compra = (select ID_Compra from #aux where #aux.Tipo_bono = Bonos.Tipo_bono and #aux.Nro_Bono = Bonos.Numero)
-
-drop table #aux
+set ID_Compra = (select Id_Compra --ahora que generé las compras, asigno los ID de compra a cada bono
+				from CUATRO_QUESOS.Compra
+				where Compra.Fecha = Bonos.Fecha_Impresion --pudimos verificar que para todos los registros existentes, estas dos fechas coinciden
+															--entonces suponemos que un bono se genera y se imprime al momento de comprarse
+					and Compra.Nro_Afiliado = Bonos.Nro_Afiliado) --estos dos campos del where son los que usamos para agrupar las compras
+																  --por lo tanto, aunque no son PK, al momento de la migración sirven para identificar unívocamente a una fila
+																  --justamente en base a ellos se generó la PK autonumérica
 
 --Días de atención
 
@@ -915,7 +908,7 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
                 and Turno_Fecha < CUATRO_QUESOS.FechaMigracion()-- y esto otro significa que el turno debería haberse concretado antes de la migración
 
 
-/*INSERT INTO CUATRO_QUESOS.Cancelaciones
+INSERT INTO CUATRO_QUESOS.Cancelaciones
         (
         Nro_Turno,
         Tipo,
@@ -938,8 +931,8 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
                         
                         or datepart(hour, Turno_Fecha) >= 20)
                         )
-*/
- --este insert ya no es necesario porque estamos considerando una fecha de migración posterior a todos los turnos              
+
+                
                 
                 
 --Consultas
@@ -1740,6 +1733,7 @@ WHERE t.Numero NOT IN(
         AND((fecha >= @DesdeFecha AND fecha <= @HastaFecha)
         OR (@DesdeFecha IS NULL AND @HastaFecha IS NULL)
         OR (@DesdeFecha = '' AND @HastaFecha = ''))
+        AND t.Numero NOT IN (SELECT Consultas.Nro_Turno FROM CUATRO_QUESOS.Consultas)
 GO
 
 --devuelve los turnos asociados a un afiliado
@@ -1757,6 +1751,7 @@ JOIN CUATRO_QUESOS.Especialidades e
 WHERE t.Numero NOT IN(
                 SELECT c.Nro_Turno
                 FROM CUATRO_QUESOS.Cancelaciones c)
+                AND t.Numero NOT IN (SELECT Consultas.Nro_Turno FROM CUATRO_QUESOS.Consultas)
 GO
 
 --cancela un turno especificado, ingresando su motivo
