@@ -1775,28 +1775,26 @@ GO
 /********* PROCEDURES COMPRA DE BONOS ************/
 
 --funcionalidad que compra una cantidad de bonos de consulta y de farmacia, pasando cantidades respectivas por parametro
-create procedure CUATRO_QUESOS.comprarBonos(@afiliado numeric(18), @cant_farmacia int, @cant_consulta int)
+create procedure CUATRO_QUESOS.comprarBonos(@afiliado numeric(18), @cant_farmacia int, @cant_consulta int, @fechaSistema datetime)
 as
 begin
         declare @plan numeric(18);
         declare @precio_consulta numeric(18);
         declare @precio_farmacia numeric(18);
         declare @id_compra numeric(18);
-        declare @fecha_fija datetime;
         
         select @plan = Cod_Plan, @precio_consulta = Planes_Medicos.Precio_Bono_Consulta, @precio_farmacia = Planes_Medicos.Precio_Bono_Farmacia
         from CUATRO_QUESOS.Afiliados inner join CUATRO_QUESOS.Planes_Medicos on Afiliados.Cod_Plan = Planes_Medicos.Codigo
         where Afiliados.Nro_Afiliado = @afiliado
         
         set @id_compra = (select COUNT(*) from CUATRO_QUESOS.Compra) + 1
-        set @fecha_fija = CUATRO_QUESOS.FechaMigracion()
 
         set IDENTITY_INSERT CUATRO_QUESOS.Compra ON
         insert into CUATRO_QUESOS.Compra(Id_Compra, Nro_Afiliado, Fecha, Cantidad_Comprada_Consulta, Cantidad_Comprada_Farmacia, Monto)
         values (
                         @id_compra,
                         @afiliado,
-                        @fecha_fija,
+                        @fechaSistema,
                         @cant_consulta,
                         @cant_farmacia,
                         (@precio_consulta * @cant_consulta + @precio_farmacia * @cant_farmacia)
@@ -1818,7 +1816,7 @@ begin
                 values
                         (
                         (@c_base+@c),
-                        @fecha_fija,
+                        @fechaSistema,
                         @afiliado,
                         @plan,
                         @id_compra,
@@ -1837,12 +1835,12 @@ begin
                 values
                         (
                         (@f_base+@f),
-                        @fecha_fija,
+                        @fechaSistema,
                         @afiliado,
                         @plan,
                         @id_compra,
                         'Farmacia',
-                        dateadd(day, 60, @fecha_fija),
+                        dateadd(day, 60, @fechaSistema),
                         NULL,
                         NULL
                         )

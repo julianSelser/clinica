@@ -81,7 +81,7 @@ namespace Clinica_Frba.Compra_de_Bono
                 return;
             }
 
-            monto_total = ConectorSQL.ejecutarProcedureWithReturnValue("comprarBonos", nro_afiliado, cant_farmacia, cant_consulta);
+            monto_total = ConectorSQL.ejecutarProcedureWithReturnValue("comprarBonos", nro_afiliado, cant_farmacia, cant_consulta, Globales.getFechaSistema());
 
             MessageBox.Show("Se realizó la compra solicitada. Importe total: $" + monto_total.ToString() + ".", "Éxito");
         }
