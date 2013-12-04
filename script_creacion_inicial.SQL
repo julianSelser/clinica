@@ -2603,7 +2603,7 @@ begin
         if (select top 1 COUNT(*)
         from CUATRO_QUESOS.Medicamentos_Por_Consulta
         group by Nro_Bono_Farmacia
-        order by 1 desc) > 5 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+        order by 1 desc) > 5 
         begin
                 rollback
                 raiserror('Error: no se pueden recetar más de 5 medicamentos usando un mismo bono.', 16, 0)
@@ -2616,10 +2616,13 @@ GO
 create trigger CUATRO_QUESOS.limitarJornadaLaboral on CUATRO_QUESOS.Dias_Atencion for update, insert
 as
 begin
-        if (select top 1 SUM(DATEDIFF(HOUR, hora_desde, hora_hasta))
+		declare @ID numeric(18)
+		set @ID = (select top 1 ID_Medico from inserted)
+		--hago este set así porque sé que la app nunca va a modificar a dos médicos en la misma transacción, entonces el ID es el mismo en todas las filas de inserted
+		
+        if (select SUM(DATEDIFF(HOUR, hora_desde, hora_hasta))
         from CUATRO_QUESOS.Dias_Atencion
-        group by ID_Medico
-        order by 1 desc) > 48 --esta consulta devuelve el total de horas de atención a la semana de cada médico. pregunto si la más grande se pasa de 48
+        where ID_Medico = @ID) > 48 --sumo las horas laborales del médico que estoy actualizando y me fijo que no se pasen de 48
         begin
                 rollback
                 raiserror('Error: un médico no puede trabajar más de 48 horas a la semana.', 16, 0)
