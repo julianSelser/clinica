@@ -148,7 +148,7 @@ namespace Clinica_Frba.Registrar_Agenda
             
             foreach (DataRow dia in dias_atencion.Rows)
             {
-                switch (dia["Nombre_Dia"].ToString())
+                switch (dia["Dia_Semana"].ToString())
                 {
 
                     case "1":

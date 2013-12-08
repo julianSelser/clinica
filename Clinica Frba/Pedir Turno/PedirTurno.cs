@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using System.Threading;
+using System.Globalization;
 
 
 //Funcionalidad que permite dar de alta un turno por parte del afiliado con el profesional que desea atenderse,
@@ -32,6 +34,8 @@ namespace Clinica_Frba.Pedir_Turno
                 selectAfiliadoButton.Visible = false;
             }
             aceptarButton.Enabled = false;
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-ES", true);
+            
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -80,19 +84,11 @@ namespace Clinica_Frba.Pedir_Turno
                 comboTimeslots.Items.Clear();
                 aceptarButton.Enabled = false;
             }
-
-            if (comboTimeslots.SelectedIndex != -1)
-            {
-                aceptarButton.Enabled = true;
-            }
-            else
-            {
-                aceptarButton.Enabled = false;
-            }
         }
 
         private void cargarComboFecha()
         {
+            comboFechas.Items.Clear();
             List<DateTime> fechas = AppPedirTurno.traerFechasAgenda(profesional);
             foreach (DateTime fecha in fechas)
             {
@@ -140,7 +136,8 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void habilitarComboTimeslots()
         {
-            List<DateTime> horarios = AppPedirTurno.traerTimeslotsFecha(profesional,Convert.ToDateTime(comboFechas.Text));
+            comboTimeslots.Items.Clear();
+            List<DateTime> horarios = AppPedirTurno.traerTimeslotsFecha(profesional, Convert.ToDateTime(comboFechas.Text));
             foreach (DateTime horario in horarios)
             {
                 comboTimeslots.Items.Add(horario.ToString("HH:mm"));
@@ -150,7 +147,14 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void comboTimeslots_SelectedIndexChanged(object sender, EventArgs e)
         {
-            validarCampos();
+            if (comboTimeslots.SelectedIndex != -1)
+            {
+                aceptarButton.Enabled = true;
+            }
+            else
+            {
+                aceptarButton.Enabled = false;
+            }
         }
 
     }

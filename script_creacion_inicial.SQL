@@ -6,6 +6,9 @@ GO
 CREATE SCHEMA [CUATRO_QUESOS] AUTHORIZATION [gd]
 GO
 
+SET LANGUAGE 'Español'
+GO
+
 -- Funcion con la fecha de migracion
 
 CREATE FUNCTION CUATRO_QUESOS.FechaMigracion() --esta funcion almacena la fecha que se utiliza en la migracion como referencia
@@ -13,7 +16,7 @@ RETURNS datetime
 AS
 BEGIN
 
-RETURN CAST('2014-06-06T12:00:00' as datetime)
+RETURN CAST('2014-01-01T12:00:00' as datetime)
 
 END
 GO
@@ -102,7 +105,7 @@ CREATE TABLE CUATRO_QUESOS.Consultas (
 
 CREATE TABLE CUATRO_QUESOS.Dias_Atencion (
         Id_Medico numeric(18) NOT NULL,
-        Nombre_Dia tinyint NOT NULL,
+        Dia_Semana tinyint NOT NULL, --lunes: 1, martes: 2, miercoles: 3, jueves: 4, viernes: 5, sabado: 6, domingo: 7
         Hora_Desde time(4) NOT NULL,
         Hora_Hasta time(4) NOT NULL
 )
@@ -282,7 +285,7 @@ ALTER TABLE CUATRO_QUESOS.Consultas ADD CONSTRAINT PK_Consultas
 ;
 
 ALTER TABLE CUATRO_QUESOS.Dias_Atencion ADD CONSTRAINT PK_Dias_Atencion
-        PRIMARY KEY CLUSTERED (Id_Medico, Nombre_Dia)
+        PRIMARY KEY CLUSTERED (Id_Medico, Dia_Semana)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Especialidades ADD CONSTRAINT PK_Especialidades
@@ -822,14 +825,14 @@ INSERT INTO CUATRO_QUESOS.Dias_Atencion
 --Esta tabla la dejo pre-completada porque 1. ya tengo el código y 2. queda prolijo para el caso de uso
         (
         ID_Medico,
-        Nombre_Dia,
+        Dia_Semana,
         Hora_Desde,
         Hora_Hasta
         )
 
 
         select (select ID_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = Medico_Dni) as ID_Medico,
-                DATEPART(dw, Turno_Fecha) as Nombre_Dia,
+                DATEPART(dw, Turno_Fecha) as Dia_Semana,
                 MIN(Cast(Turno_Fecha as time)) as Hora_Desde,
                 MAX(Cast(DATEADD(minute, 30, Turno_Fecha) as time)) as Hora_Hasta
 
@@ -2034,22 +2037,22 @@ GO
 create procedure CUATRO_QUESOS.getDiasAtencion(@Id_Medico numeric(18)) --devuelve los dias de atencion de un medico
 as
 begin
-	select Nombre_Dia, Hora_Desde, Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Id_Medico = @Id_Medico
+	select Dia_Semana, Hora_Desde, Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Id_Medico = @Id_Medico
 end
 
 GO
 
-create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @nombre_dia tinyint) --elimina un dia de atencion especificado para un medico
+create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @Dia_Semana tinyint) --elimina un dia de atencion especificado para un medico
 as
 begin
 	delete from CUATRO_QUESOS.Dias_Atencion
-	where Id_Medico = @id_medico and Nombre_Dia = @nombre_dia
+	where Id_Medico = @id_medico and Dia_Semana = @Dia_Semana
 end
 
 GO
 
 --modifica el horario de atencion para un dia
-create procedure CUATRO_QUESOS.modificarDiaAtencion(@Id_Medico numeric(18), @nombre_dia tinyint, @str_desde char(5), @str_hasta char(5))
+create procedure CUATRO_QUESOS.modificarDiaAtencion(@Id_Medico numeric(18), @Dia_Semana tinyint, @str_desde char(5), @str_hasta char(5))
 as
 begin
 	declare @desde time;
@@ -2059,13 +2062,13 @@ begin
 	set @hasta = CONVERT(time, @str_hasta);
 	
 	update CUATRO_QUESOS.Dias_Atencion set Hora_Desde = @desde, Hora_Hasta = @hasta
-	where Nombre_Dia = @nombre_dia and Id_Medico = @Id_Medico
+	where Dia_Semana = @Dia_Semana and Id_Medico = @Id_Medico
 	
 end
 
 GO
 --crea un nuevo dia de atencion con horarios para un medico
-create procedure CUATRO_QUESOS.agregarDiaAtencion(@Id_Medico numeric(18), @nombre_dia tinyint, @str_desde char(5), @str_hasta char(5))
+create procedure CUATRO_QUESOS.agregarDiaAtencion(@Id_Medico numeric(18), @Dia_Semana tinyint, @str_desde char(5), @str_hasta char(5))
 as
 begin
 	declare @desde time;
@@ -2076,8 +2079,8 @@ begin
 	
 	--la validez de los datos que llegan aca (que no sea un intervalo negativo, que los strings estén bien formateados, etc) se verifica en la app
 	
-	insert into CUATRO_QUESOS.Dias_Atencion(Id_Medico, Nombre_Dia, Hora_Desde, Hora_Hasta)
-	values(@Id_Medico, @nombre_dia, @desde, @hasta)
+	insert into CUATRO_QUESOS.Dias_Atencion(Id_Medico, Dia_Semana, Hora_Desde, Hora_Hasta)
+	values(@Id_Medico, @Dia_Semana, @desde, @hasta)
 
 end
 
@@ -2172,9 +2175,9 @@ select  Medicos.Id_Medico as Id_Medico,
 from CUATRO_QUESOS.Medicos, #dias as dia, #horas_del_dia as hora
 
 where Medicos.Id_Medico = @ID 
-		and (DATEPART(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
-        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATEPART(dw, dia)))
-        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATEPART(dw, dia)))
+		and (DATEPART(DW, dia) in (select Dia_Semana from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
+        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Dia_Semana = DATEPART(dw, dia)))
+        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Dia_Semana = DATEPART(dw, dia)))
 
 end
 
@@ -2443,17 +2446,17 @@ GO
 --trae todas las fechas disponibles de atencion que tiene un medico en su agenda
 CREATE PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda @idMedico numeric(18)
 AS
-SELECT CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 'Fechas Disponibles'
+SELECT CAST(Agendas_Medicos.Fecha_Hora as DATE) 'Fechas Disponibles'
 FROM CUATRO_QUESOS.Agendas_Medicos
 WHERE Id_Medico = @idMedico AND Nro_Turno IS NULL
-GROUP BY CONVERT(VARCHAR(10),Agendas_Medicos.Fecha_Hora, 103) 
+GROUP BY CAST(Agendas_Medicos.Fecha_Hora as DATE) 
 ORDER BY 1 ASC
 GO
 
 --trae todos los timeslots disponibles para una fecha en la agenda del medico
 CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fecha datetime
 AS
-SELECT CONVERT(VARCHAR(5),Agendas_Medicos.Fecha_Hora, 108) 'Horarios Disponibles'
+SELECT CAST(Agendas_Medicos.Fecha_Hora as TIME) 'Horarios Disponibles'
 FROM CUATRO_QUESOS.Agendas_Medicos
 WHERE Id_Medico = @idMedico 
 AND Nro_Turno IS NULL
@@ -2640,7 +2643,7 @@ as
 begin
         if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
                 or
-                ((select COUNT(*) from inserted where Nombre_Dia = 6 and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
+                ((select COUNT(*) from inserted where Dia_Semana = 6 and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
         begin
                 rollback
                 raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)
