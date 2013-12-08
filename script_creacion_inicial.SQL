@@ -102,7 +102,7 @@ CREATE TABLE CUATRO_QUESOS.Consultas (
 
 CREATE TABLE CUATRO_QUESOS.Dias_Atencion (
         Id_Medico numeric(18) NOT NULL,
-        Nombre_Dia varchar(9) NOT NULL,
+        Nombre_Dia tinyint NOT NULL,
         Hora_Desde time(4) NOT NULL,
         Hora_Hasta time(4) NOT NULL
 )
@@ -829,22 +829,22 @@ INSERT INTO CUATRO_QUESOS.Dias_Atencion
 
 
         select (select ID_Medico from CUATRO_QUESOS.Medicos where Nro_Doc = Medico_Dni) as ID_Medico,
-                DATENAME(dw, Turno_Fecha) as Nombre_Dia,
+                DATEPART(dw, Turno_Fecha) as Nombre_Dia,
                 MIN(Cast(Turno_Fecha as time)) as Hora_Desde,
                 MAX(Cast(DATEADD(minute, 30, Turno_Fecha) as time)) as Hora_Hasta
 
         from gd_esquema.Maestra
         where Turno_Fecha is not null
-                and DATENAME(dw, Turno_Fecha) != 'Domingo' --esto falla espectacularmente si la base de datos no está en español
-                and ( (DATENAME(dw, Turno_Fecha) != 'Sábado' --clausula para los días hábiles
+                and DATEPART(dw, Turno_Fecha) != 7 --esto falla espectacularmente si la base de datos no está en español
+                and ( (DATEPART(dw, Turno_Fecha) != 6 --clausula para los días hábiles
                                 and datepart(hour, Turno_Fecha) >= 7
                                 and datepart(hour, Turno_Fecha) < 20) --menor a 20 porque si la clínica cierra a las 20, el último turno es a las 19:30
                         or
-                                (DATENAME(dw, Turno_Fecha) = 'Sábado' --clausula para los sábados
+                                (DATEPART(dw, Turno_Fecha) = 6 --clausula para los sábados
                                 and datepart(hour, Turno_Fecha) >= 10
                                 and datepart(hour, Turno_Fecha) < 15)
                         )
-        group by Medico_Dni, DATENAME(dw, Turno_Fecha)
+        group by Medico_Dni, DATEPART(dw, Turno_Fecha)
 
         
 --Especialidades por médico
@@ -922,9 +922,9 @@ INSERT INTO CUATRO_QUESOS.Cancelaciones
         from gd_esquema.Maestra as principal
         where Turno_Numero is not null
                 and Turno_Fecha > CUATRO_QUESOS.FechaMigracion()
-                and (DATENAME(dw, Turno_Fecha) = 'Domingo'
+                and (DATEPART(dw, Turno_Fecha) = 7
                         
-                        or ((DATENAME(dw, Turno_Fecha) = 'Sábado'
+                        or ((DATEPART(dw, Turno_Fecha) = 6
                                         and (datepart(hour, Turno_Fecha) < 10
                                                 or datepart(hour, Turno_Fecha) >= 15))
                         or datepart(hour, Turno_Fecha) < 7
@@ -2039,7 +2039,7 @@ end
 
 GO
 
-create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @nombre_dia varchar(10)) --elimina un dia de atencion especificado para un medico
+create procedure CUATRO_QUESOS.quitarDiaAtencion(@id_medico numeric(18), @nombre_dia tinyint) --elimina un dia de atencion especificado para un medico
 as
 begin
 	delete from CUATRO_QUESOS.Dias_Atencion
@@ -2049,7 +2049,7 @@ end
 GO
 
 --modifica el horario de atencion para un dia
-create procedure CUATRO_QUESOS.modificarDiaAtencion(@Id_Medico numeric(18), @nombre_dia varchar(10), @str_desde char(5), @str_hasta char(5))
+create procedure CUATRO_QUESOS.modificarDiaAtencion(@Id_Medico numeric(18), @nombre_dia tinyint, @str_desde char(5), @str_hasta char(5))
 as
 begin
 	declare @desde time;
@@ -2065,7 +2065,7 @@ end
 
 GO
 --crea un nuevo dia de atencion con horarios para un medico
-create procedure CUATRO_QUESOS.agregarDiaAtencion(@Id_Medico numeric(18), @nombre_dia varchar(10), @str_desde char(5), @str_hasta char(5))
+create procedure CUATRO_QUESOS.agregarDiaAtencion(@Id_Medico numeric(18), @nombre_dia tinyint, @str_desde char(5), @str_hasta char(5))
 as
 begin
 	declare @desde time;
@@ -2172,9 +2172,9 @@ select  Medicos.Id_Medico as Id_Medico,
 from CUATRO_QUESOS.Medicos, #dias as dia, #horas_del_dia as hora
 
 where Medicos.Id_Medico = @ID 
-		and (DATENAME(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
-        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
-        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATENAME(dw, dia)))
+		and (DATEPART(DW, dia) in (select nombre_dia from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = medicos.id_medico))
+        and (hora >= (select hora_desde from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATEPART(dw, dia)))
+        and (hora < (select Hora_Hasta from CUATRO_QUESOS.Dias_Atencion where Dias_Atencion.Id_Medico = Medicos.Id_Medico and Dias_Atencion.Nombre_Dia = DATEPART(dw, dia)))
 
 end
 
@@ -2640,7 +2640,7 @@ as
 begin
         if ((select COUNT(*) from inserted where Hora_Desde < '07:00' or Hora_Hasta > '20:00') > 0)
                 or
-                ((select COUNT(*) from inserted where Nombre_Dia = 'Sábado' and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
+                ((select COUNT(*) from inserted where Nombre_Dia = 6 and (Hora_Desde < '10:00' or Hora_Hasta > '15:00')) > 0)
         begin
                 rollback
                 raiserror('Error: el horario de atención especificado está fuera de los horarios de funcionamiento de la clínica', 16, 0)

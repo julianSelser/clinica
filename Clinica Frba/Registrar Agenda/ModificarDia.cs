@@ -83,7 +83,7 @@ namespace Clinica_Frba.Registrar_Agenda
             //la acción sobre la DB la meto en un bloque try, porque la restricción de las 48 hs semanales va a saltar en la base
             try
             {
-                ConectorSQL.ejecutarProcedure("modificarDiaAtencion", this.id_medico, this.nombre_dia, arg_desde, arg_hasta);
+                ConectorSQL.ejecutarProcedure("modificarDiaAtencion", this.id_medico, ((RegistrarAgenda)padre).getDiaDesdeString(this.nombre_dia), arg_desde, arg_hasta);
             }
 
             catch

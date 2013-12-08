@@ -81,7 +81,7 @@ namespace Clinica_Frba.Registrar_Agenda
 
             try
             {
-                ConectorSQL.ejecutarProcedure("agregarDiaAtencion", this.id_medico, comboDia.SelectedItem.ToString(), arg_desde, arg_hasta);
+                ConectorSQL.ejecutarProcedure("agregarDiaAtencion", this.id_medico, ((RegistrarAgenda)padre).getDiaDesdeString(comboDia.SelectedItem.ToString()), arg_desde, arg_hasta);
             }
 
             catch
@@ -89,7 +89,7 @@ namespace Clinica_Frba.Registrar_Agenda
                 MessageBox.Show("No se pudo agregar el día de atención. Verifique que no haya un horario ya existente para este día de la semana, y tenga en cuenta que un médico sólo puede trabajar hasta 48 hs semanales.", "Error");
                 return;
             }
-
+            
 
             ((RegistrarAgenda)padre).poblarDiasAtencion(this.id_medico);
             AsistenteVistas.volverAPadreYCerrar(padre, this);

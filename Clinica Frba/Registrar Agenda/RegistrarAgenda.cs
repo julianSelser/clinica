@@ -19,6 +19,7 @@ namespace Clinica_Frba.Registrar_Agenda
         private Form padre;
 
 
+
         public RegistrarAgenda(Form padre)
         {
 
@@ -150,37 +151,37 @@ namespace Clinica_Frba.Registrar_Agenda
                 switch (dia["Nombre_Dia"].ToString())
                 {
 
-                    case "Lunes":
+                    case "1":
                         labLuNo.Visible = false;
                         panelLunes.Visible = true;
                         labLuD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
                         labLuH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         break;
-                    case "Martes":
+                    case "2":
                         labMaNo.Visible = false;
                         panelMartes.Visible = true;
                         labMaD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
                         labMaH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         break;
-                    case "Miércoles":
+                    case "3":
                         panelMiercoles.Visible = true;
                         labMiD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
                         labMiH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         labMiNo.Visible = false;
                         break;
-                    case "Jueves":
+                    case "4":
                         panelJueves.Visible = true;
                         labJuD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
                         labJuH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         labJuNo.Visible = false;
                         break;
-                    case "Viernes":
+                    case "5":
                         panelViernes.Visible = true;
                         labViD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
                         labViH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
                         labViNo.Visible = false;
                         break;
-                    case "Sábado":
+                    case "6":
                         panelSabado.Visible = true;
                         labSaD.Text = DateTime.Parse(dia["Hora_Desde"].ToString()).ToString("HH:mm");
                         labSaH.Text = DateTime.Parse(dia["Hora_Hasta"].ToString()).ToString("HH:mm");
@@ -210,7 +211,7 @@ namespace Clinica_Frba.Registrar_Agenda
         //esto se llama confirmar pero no pide confirmación de nada, es para evitar un refactor
         //quita el día de atención
         {
-            ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), nombre_dia);
+            ConectorSQL.ejecutarProcedure("quitarDiaAtencion", (Convert.ToDecimal(labNroMedico.Text)), this.getDiaDesdeString(nombre_dia));
             poblarDiasAtencion(Convert.ToDecimal(labNroMedico.Text));
 
         }
@@ -289,6 +290,22 @@ namespace Clinica_Frba.Registrar_Agenda
         private void botAddDia_Click(object sender, EventArgs e)
         {
             AsistenteVistas.mostrarNuevaVentana(new AgregarDia(this, Convert.ToDecimal(labNroMedico.Text)), this);
+        }
+
+        public int getDiaDesdeString(string nombre_dia)
+        //método que van a usar los hijos. obtiene el número del día de la semana a partir del nombre del día en español       
+        {
+            switch (nombre_dia)
+            {
+                case "Lunes": return 1;
+                case "Martes": return 2;
+                case "Miércoles": return 3;
+                case "Jueves": return 4;
+                case "Viernes": return 5;
+                case "Sábado": return 6;
+                case "Domingo": return 7;
+            }
+            return 0;
         }
 
 
