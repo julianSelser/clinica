@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;
 using System.Text;
-using System.Threading;
 using System.Globalization;
 
 //Clase con acceso a las configuraciones del App.config para traer la fecha del sistema.
