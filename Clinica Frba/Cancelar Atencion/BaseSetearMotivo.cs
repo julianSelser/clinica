@@ -39,6 +39,7 @@ namespace Clinica_Frba.Cancelar_Atencion
 
                 padre.ActualizarGrilla();
 
+                MessageBox.Show("La cancelación se realizó correctamente.");
                 AsistenteVistas.volverAPadreYCerrar(padre, this);
             }
             else

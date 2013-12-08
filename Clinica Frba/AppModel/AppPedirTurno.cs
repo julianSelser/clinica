@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using Clinica_Frba.Domain;
+using Clinica_Frba.AppModel.Excepciones;
 
 //Clase que tiene por objetivo servir de interfaz entre la base de datos y las funcionalidades de Pedir Turno.
 //Por ejemplo, traer las fechas disponibles de un profesional, los horarios de dicha fecha disponibles, 
@@ -16,6 +17,7 @@ namespace Clinica_Frba.AppModel
 
         internal static List<DateTime> traerFechasAgenda(Profesional profesional)
         {
+            if (!checkIfExists("getFechasDisponiblesAgenda", profesional.id)) throw new NoHayHorarioDisponiblesException();
             return crearListadoFechas(traerDataTable("getFechasDisponiblesAgenda", profesional.id));
         }
 

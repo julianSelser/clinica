@@ -141,6 +141,7 @@
     <Compile Include="AppModel\ErrorManager.cs" />
     <Compile Include="AppModel\Excepciones\AfiliadoYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\MatriculaDuplicadaException.cs" />
+    <Compile Include="AppModel\Excepciones\NoHayHorarioDisponiblesException.cs" />
     <Compile Include="AppModel\Excepciones\RolYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\MedicoYaExisteException.cs" />
     <Compile Include="AppModel\Excepciones\SinEspecilidadesCheckedException.cs" />

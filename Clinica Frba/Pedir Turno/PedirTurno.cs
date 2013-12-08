@@ -10,7 +10,7 @@ using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
 using System.Threading;
 using System.Globalization;
-
+using Clinica_Frba.AppModel.Excepciones;
 
 //Funcionalidad que permite dar de alta un turno por parte del afiliado con el profesional que desea atenderse,
 //eligiendo una fecha de atencion actual o futura disponible, segun la fecha del archivo de configuracion
@@ -88,13 +88,20 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void cargarComboFecha()
         {
-            comboFechas.Items.Clear();
-            List<DateTime> fechas = AppPedirTurno.traerFechasAgenda(profesional);
-            foreach (DateTime fecha in fechas)
+            try
             {
-                comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
+                comboFechas.Items.Clear();
+                List<DateTime> fechas = AppPedirTurno.traerFechasAgenda(profesional);
+                foreach (DateTime fecha in fechas)
+                {
+                    comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
+                }
+                comboFechas.Enabled = true;
             }
-            comboFechas.Enabled = true;
+            catch(NoHayHorarioDisponiblesException ex)
+            {
+                ErrorManager.messageWarningBox(ex, "Pedir Turno");
+            }       
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -139,10 +146,10 @@ namespace Clinica_Frba.Pedir_Turno
             comboTimeslots.Items.Clear();
             List<DateTime> horarios = AppPedirTurno.traerTimeslotsFecha(profesional, Convert.ToDateTime(comboFechas.Text));
             foreach (DateTime horario in horarios)
-            {
-                comboTimeslots.Items.Add(horario.ToString("HH:mm"));
-            }
-            comboTimeslots.Enabled = true;
+                {
+                     comboTimeslots.Items.Add(horario.ToString("HH:mm"));
+                }
+            comboTimeslots.Enabled = true;  
         }
 
         private void comboTimeslots_SelectedIndexChanged(object sender, EventArgs e)
