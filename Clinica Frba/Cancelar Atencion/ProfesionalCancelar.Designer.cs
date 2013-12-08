@@ -31,11 +31,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.desdeTextBox = new System.Windows.Forms.TextBox();
-            this.hastaTextBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.desdePicker = new System.Windows.Forms.DateTimePicker();
+            this.hastaPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +52,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(123, 15);
+            this.label7.Location = new System.Drawing.Point(43, 15);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(36, 13);
             this.label7.TabIndex = 14;
@@ -61,30 +61,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(302, 15);
+            this.label1.Location = new System.Drawing.Point(304, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 15;
             this.label1.Text = "hasta";
             // 
-            // desdeTextBox
-            // 
-            this.desdeTextBox.Location = new System.Drawing.Point(173, 12);
-            this.desdeTextBox.Name = "desdeTextBox";
-            this.desdeTextBox.Size = new System.Drawing.Size(106, 20);
-            this.desdeTextBox.TabIndex = 16;
-            // 
-            // hastaTextBox
-            // 
-            this.hastaTextBox.Location = new System.Drawing.Point(352, 12);
-            this.hastaTextBox.Name = "hastaTextBox";
-            this.hastaTextBox.Size = new System.Drawing.Size(106, 20);
-            this.hastaTextBox.TabIndex = 17;
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.hastaTextBox);
-            this.groupBox3.Controls.Add(this.desdeTextBox);
+            this.groupBox3.Controls.Add(this.hastaPicker);
+            this.groupBox3.Controls.Add(this.desdePicker);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Location = new System.Drawing.Point(13, 42);
@@ -112,6 +98,20 @@
             this.label2.Text = "Para ver todos sus turnos deje en blanco los campos de fechas, puede usarlos para" +
                 " buscar sus turnos en un periodo.";
             // 
+            // desdePicker
+            // 
+            this.desdePicker.Location = new System.Drawing.Point(81, 12);
+            this.desdePicker.Name = "desdePicker";
+            this.desdePicker.Size = new System.Drawing.Size(200, 20);
+            this.desdePicker.TabIndex = 16;
+            // 
+            // hastaPicker
+            // 
+            this.hastaPicker.Location = new System.Drawing.Point(339, 12);
+            this.hastaPicker.Name = "hastaPicker";
+            this.hastaPicker.Size = new System.Drawing.Size(200, 20);
+            this.hastaPicker.TabIndex = 17;
+            // 
             // ProfesionalCancelar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,11 +135,11 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox desdeTextBox;
-        private System.Windows.Forms.TextBox hastaTextBox;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker hastaPicker;
+        private System.Windows.Forms.DateTimePicker desdePicker;
 
     }
 }

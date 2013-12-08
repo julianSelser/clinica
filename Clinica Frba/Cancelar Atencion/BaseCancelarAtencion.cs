@@ -37,22 +37,20 @@ namespace Clinica_Frba.Cancelar_Atencion
 
         protected void cancelarPeriodo_Click(object sender, EventArgs e)
         {
-            if (fechasValidas())
-            {
-                AsistenteVistas.mostrarNuevaVentana(new SetMotivoCancelarPeriodo(this, (DataTable)grilla.DataSource), this);
-            }
-            else MessageBox.Show("Debe ingresar un periodo", "Error de ingreso"
-                                 , MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+            AsistenteVistas.mostrarNuevaVentana(new SetMotivoCancelarPeriodo(this, (DataTable)grilla.DataSource), this);
         }
 
         protected void cancelarAtencion_Click(object sender, EventArgs e)
         {
-            if (0 != grilla.SelectedRows.Count)
+            if (0 != grilla.SelectedRows.Count && !esFechaDeHoy())
             {
                 AsistenteVistas.mostrarNuevaVentana(new SetearMotivoCancelacion(this, grilla.SelectedRows), this);
             }
-            else MessageBox.Show("Debe Seleccionar una fila", "Error de ingreso"
-                                 , MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+            else 
+                if (esFechaDeHoy())
+                    MessageBox.Show("No se pueden cancelar turnos el mismo día que se producirá la atención.", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                else 
+                    MessageBox.Show("Debe Seleccionar una fila", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
         }
 
         private void volver_Click(object sender, EventArgs e)
@@ -84,6 +82,13 @@ namespace Clinica_Frba.Cancelar_Atencion
         *                                                VALIDACIONES                                                       *
         * ******************************************************************************************************************/
 
+        public bool esFechaDeHoy() 
+        {
+            DateTime fecha = (DateTime) grilla.SelectedRows[0].Cells["Fecha"].Value;
+
+            return fecha.Date.Equals(Globales.getFechaSistema().Date);
+        }
+
         //separar nombre y apellido, ojo, no chequea la integridad de las cadenas, eso se hace desde afuera
         public string[] separarNombreYApellido(string nombreYapellido)
         {
@@ -99,21 +104,10 @@ namespace Clinica_Frba.Cancelar_Atencion
         }
 
         //valida un intervalo de fechas ingresadas por textbox
-        public bool fechasValidas(string desde, string hasta)
+        public bool fechasValidas(DateTime desde, DateTime hasta)
         {
-            DateTime? desdeDT;
-            DateTime? hastaDT;
-
-            try // no lo hago con tryParse por que solo quiere catchear FormatException
-            {
-                desdeDT = Controlador.parsear(desde);
-                hastaDT = Controlador.parsear(hasta);
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-            return hastaDT > desdeDT || hastaDT == null && desdeDT == null ? true : false;
+            return desde.Date < hasta.Date // que sea un intervalo válido
+                   && desde.Date > Globales.getFechaSistema().Date; //que la fecha desde sea mayor a la del sistema
         }
     }
 }

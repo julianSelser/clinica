@@ -17,11 +17,13 @@ namespace Clinica_Frba.Cancelar_Atencion
         public ProfesionalCancelar(Form padre):base(padre)
         {
             InitializeComponent();
+            desdePicker.Value = Globales.getFechaSistema().AddDays(1);
+            hastaPicker.Value = Globales.getFechaSistema().AddDays(2);
         }
 
         override protected bool camposValidos()
         {
-            return fechasValidas(desdeTextBox.Text, hastaTextBox.Text);
+            return fechasValidas(desdePicker.Value, hastaPicker.Value);
         }
 
         protected override DataTable llenarGrilla()
@@ -32,8 +34,8 @@ namespace Clinica_Frba.Cancelar_Atencion
                                                             , p.apellido
                                                             , p.nroDoc
                                                             , p.tipoDoc
-                                                            , Controlador.parsear(desdeTextBox.Text)
-                                                            , Controlador.parsear(hastaTextBox.Text));
+                                                            , desdePicker.Value
+                                                            , hastaPicker.Value);
         }
         
     }

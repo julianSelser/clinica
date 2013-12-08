@@ -32,8 +32,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.hastaTextBox = new System.Windows.Forms.TextBox();
-            this.desdeTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.nroDocTextBox = new System.Windows.Forms.TextBox();
@@ -43,6 +41,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tipoDocSelector = new System.Windows.Forms.ComboBox();
             this.tipoUsrSelector = new System.Windows.Forms.ComboBox();
+            this.desdePicker = new System.Windows.Forms.DateTimePicker();
+            this.hastaPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,9 +66,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.hastaPicker);
+            this.groupBox1.Controls.Add(this.desdePicker);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.hastaTextBox);
-            this.groupBox1.Controls.Add(this.desdeTextBox);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.nroDocTextBox);
@@ -93,24 +93,10 @@
             this.label7.TabIndex = 18;
             this.label7.Text = "tipo de usuario";
             // 
-            // hastaTextBox
-            // 
-            this.hastaTextBox.Location = new System.Drawing.Point(469, 39);
-            this.hastaTextBox.Name = "hastaTextBox";
-            this.hastaTextBox.Size = new System.Drawing.Size(106, 20);
-            this.hastaTextBox.TabIndex = 17;
-            // 
-            // desdeTextBox
-            // 
-            this.desdeTextBox.Location = new System.Drawing.Point(469, 15);
-            this.desdeTextBox.Name = "desdeTextBox";
-            this.desdeTextBox.Size = new System.Drawing.Size(106, 20);
-            this.desdeTextBox.TabIndex = 16;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(427, 42);
+            this.label6.Location = new System.Drawing.Point(415, 42);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 15;
@@ -119,7 +105,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(427, 18);
+            this.label5.Location = new System.Drawing.Point(415, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 14;
@@ -178,7 +164,7 @@
             "LC"});
             this.tipoDocSelector.Location = new System.Drawing.Point(306, 39);
             this.tipoDocSelector.Name = "tipoDocSelector";
-            this.tipoDocSelector.Size = new System.Drawing.Size(115, 21);
+            this.tipoDocSelector.Size = new System.Drawing.Size(97, 21);
             this.tipoDocSelector.TabIndex = 8;
             // 
             // tipoUsrSelector
@@ -190,10 +176,24 @@
             "Profesional"});
             this.tipoUsrSelector.Location = new System.Drawing.Point(306, 13);
             this.tipoUsrSelector.Name = "tipoUsrSelector";
-            this.tipoUsrSelector.Size = new System.Drawing.Size(115, 21);
+            this.tipoUsrSelector.Size = new System.Drawing.Size(97, 21);
             this.tipoUsrSelector.TabIndex = 0;
             this.tipoUsrSelector.Tag = "";
             this.tipoUsrSelector.SelectedIndexChanged += new System.EventHandler(this.tipoUsrSelector_SelectedIndexChanged);
+            // 
+            // desdePicker
+            // 
+            this.desdePicker.Location = new System.Drawing.Point(458, 13);
+            this.desdePicker.Name = "desdePicker";
+            this.desdePicker.Size = new System.Drawing.Size(107, 20);
+            this.desdePicker.TabIndex = 19;
+            // 
+            // hastaPicker
+            // 
+            this.hastaPicker.Location = new System.Drawing.Point(458, 39);
+            this.hastaPicker.Name = "hastaPicker";
+            this.hastaPicker.Size = new System.Drawing.Size(107, 20);
+            this.hastaPicker.TabIndex = 20;
             // 
             // AdministradorCancelar
             // 
@@ -224,7 +224,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox tipoDocSelector;
         private System.Windows.Forms.ComboBox tipoUsrSelector;
-        private System.Windows.Forms.TextBox hastaTextBox;
-        private System.Windows.Forms.TextBox desdeTextBox;
+        private System.Windows.Forms.DateTimePicker hastaPicker;
+        private System.Windows.Forms.DateTimePicker desdePicker;
     }
 }

@@ -18,12 +18,14 @@ namespace Clinica_Frba.Cancelar_Atencion
         public AdministradorCancelar(Form padre) : base(padre)
         {
             InitializeComponent();
+            desdePicker.Value = Globales.getFechaSistema().AddDays(1);
+            hastaPicker.Value = Globales.getFechaSistema().AddDays(2);
         }
 
         override protected bool camposValidos()
         {
             return cadenasBusquedaValidas(nombreTextBox.Text, nroDocTextBox.Text)
-                && (tipoUsrSelector.Text == "Profesional" ? fechasValidas(desdeTextBox.Text, hastaTextBox.Text) : true);
+                && (tipoUsrSelector.Text == "Profesional" ? fechasValidas(desdePicker.Value, hastaPicker.Value) : true);
         }
 
         override protected DataTable llenarGrilla() 
@@ -32,8 +34,8 @@ namespace Clinica_Frba.Cancelar_Atencion
                                                         , tipoUsrSelector.Text
                                                         , nroDocTextBox.Text
                                                         , tipoDocSelector.Text
-                                                        , Controlador.parsear(desdeTextBox.Text)
-                                                        , Controlador.parsear(hastaTextBox.Text));
+                                                        , desdePicker.Value
+                                                        , hastaPicker.Value);
         }
 
         override protected string mensajeDeError() 
@@ -41,26 +43,31 @@ namespace Clinica_Frba.Cancelar_Atencion
             if (tipoUsrSelector.Text != "Profesional")
                 return base.mensajeDeError();
             else
-                return base.mensajeDeError() + " Las fechas tienen que que tener la forma DD/MM/AAAA además de que la fecha \"desde\" debe ser mayor a la fecha \"hasta\"";
+            {
+                if (!base.fechasValidas(desdePicker.Value, hastaPicker.Value))
+                    return "No pueden buscarse para cancelar turnos de la fecha o anteriores y el intervalo debe ser correcto. ";
+                else
+                    return base.mensajeDeError();
+            }
         }
 
         override protected bool fechasValidas() 
         {
-            return base.fechasValidas(desdeTextBox.Text, hastaTextBox.Text);
+            return base.fechasValidas(desdePicker.Value, hastaPicker.Value);
         }
 
         private void tipoUsrSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tipoUsrSelector.SelectedItem.ToString() != "Profesional")
             {
-                desdeTextBox.Enabled = false;
-                hastaTextBox.Enabled = false;
+                desdePicker.Enabled = false;
+                hastaPicker.Enabled = false;
                 cancelarPeriodo.Enabled = false;
             }
             else
             {
-                desdeTextBox.Enabled = true;
-                hastaTextBox.Enabled = true;
+                desdePicker.Enabled = true;
+                hastaPicker.Enabled = true;
                 cancelarPeriodo.Enabled = true;
             }
         }
