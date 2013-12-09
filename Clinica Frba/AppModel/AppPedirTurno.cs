@@ -49,8 +49,12 @@ namespace Clinica_Frba.AppModel
             List<DateTime> horarios = new List<DateTime>();
             foreach (DataRow row in rows)
             {
+                DateTime fechaSistema = Globales.getFechaSistema();
                 DateTime horario = crearHorario(row);
-                horarios.Add(horario);
+                if (horario.Hour >= fechaSistema.Hour && horario.Minute >= fechaSistema.Minute)
+                {
+                    horarios.Add(horario);
+                }
             }
             return horarios;
         }
