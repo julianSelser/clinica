@@ -2444,25 +2444,28 @@ GO
 /*************** PROCEDURES PEDIR TURNO *********************/
 
 --trae todas las fechas disponibles de atencion que tiene un medico en su agenda
-CREATE PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda @idMedico numeric(18)
+CREATE PROCEDURE CUATRO_QUESOS.getFechasDisponiblesAgenda @idMedico numeric(18), @fechaSistema datetime
 AS
 SELECT CAST(Agendas_Medicos.Fecha_Hora as DATE) 'Fechas Disponibles'
 FROM CUATRO_QUESOS.Agendas_Medicos
-WHERE Id_Medico = @idMedico AND Nro_Turno IS NULL
+WHERE Id_Medico = @idMedico 
+AND Nro_Turno IS NULL
+AND Agendas_Medicos.Fecha_Hora >= @fechaSistema
 GROUP BY CAST(Agendas_Medicos.Fecha_Hora as DATE) 
 ORDER BY 1 ASC
 GO
 
 --trae todos los timeslots disponibles para una fecha en la agenda del medico
-CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fecha datetime
+CREATE PROCEDURE CUATRO_QUESOS.getTimeslotsFecha @idMedico numeric(18), @fechaAgenda datetime, @fechaSistema datetime
 AS
 SELECT CAST(Agendas_Medicos.Fecha_Hora as TIME) 'Horarios Disponibles'
 FROM CUATRO_QUESOS.Agendas_Medicos
 WHERE Id_Medico = @idMedico 
 AND Nro_Turno IS NULL
-AND DAY(Fecha_Hora) = DAY(@fecha)
-AND MONTH(Fecha_Hora) = MONTH(@fecha)
-AND YEAR(Fecha_Hora) = YEAR(@fecha)
+AND DAY(Fecha_Hora) = DAY(@fechaAgenda)
+AND MONTH(Fecha_Hora) = MONTH(@fechaAgenda)
+AND YEAR(Fecha_Hora) = YEAR(@fechaAgenda)
+AND Agendas_Medicos.Fecha_Hora >= @fechaSistema
 ORDER BY Fecha_Hora ASC
 GO
 
