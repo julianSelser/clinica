@@ -17,8 +17,8 @@ namespace Clinica_Frba.AppModel
 
         internal static List<DateTime> traerFechasAgenda(Profesional profesional)
         {
-            if (!checkIfExists("getFechasDisponiblesAgenda", profesional.id)) throw new NoHayHorarioDisponiblesException();
-            return crearListadoFechas(traerDataTable("getFechasDisponiblesAgenda", profesional.id));
+            if (!checkIfExists("getFechasDisponiblesAgenda", profesional.id, Globales.getFechaSistema())) throw new NoHayHorarioDisponiblesException();
+            return crearListadoFechas(traerDataTable("getFechasDisponiblesAgenda", profesional.id, Globales.getFechaSistema()));
         }
 
         private static List<DateTime> crearListadoFechas(DataTable table)
@@ -40,7 +40,7 @@ namespace Clinica_Frba.AppModel
 
         internal static List<DateTime> traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
         {
-            return crearListadoTimeslots(traerDataTable("getTimeslotsFecha", profesional.id, fechaAgenda));
+            return crearListadoTimeslots(traerDataTable("getTimeslotsFecha", profesional.id, fechaAgenda, Globales.getFechaSistema()));
         }
 
         private static List<DateTime> crearListadoTimeslots(DataTable table)
