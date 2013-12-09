@@ -65,7 +65,7 @@
             this.grilla.AllowUserToResizeColumns = false;
             this.grilla.AllowUserToResizeRows = false;
             this.grilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grilla.Location = new System.Drawing.Point(12, 83);
+            this.grilla.Location = new System.Drawing.Point(12, 92);
             this.grilla.Name = "grilla";
             this.grilla.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grilla.Size = new System.Drawing.Size(581, 220);
@@ -77,7 +77,7 @@
             this.groupBox2.Controls.Add(this.cancelarAtencion);
             this.groupBox2.Controls.Add(this.volver);
             this.groupBox2.Controls.Add(this.cancelarPeriodo);
-            this.groupBox2.Location = new System.Drawing.Point(13, 309);
+            this.groupBox2.Location = new System.Drawing.Point(13, 311);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(580, 42);
             this.groupBox2.TabIndex = 9;
