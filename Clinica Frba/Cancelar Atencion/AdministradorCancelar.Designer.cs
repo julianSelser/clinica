@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.hastaPicker = new System.Windows.Forms.DateTimePicker();
+            this.desdePicker = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,8 +43,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tipoDocSelector = new System.Windows.Forms.ComboBox();
             this.tipoUsrSelector = new System.Windows.Forms.ComboBox();
-            this.desdePicker = new System.Windows.Forms.DateTimePicker();
-            this.hastaPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,16 +78,30 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tipoDocSelector);
             this.groupBox1.Controls.Add(this.tipoUsrSelector);
-            this.groupBox1.Location = new System.Drawing.Point(13, 12);
+            this.groupBox1.Location = new System.Drawing.Point(13, -3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(581, 65);
+            this.groupBox1.Size = new System.Drawing.Size(581, 92);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
+            // 
+            // hastaPicker
+            // 
+            this.hastaPicker.Location = new System.Drawing.Point(354, 66);
+            this.hastaPicker.Name = "hastaPicker";
+            this.hastaPicker.Size = new System.Drawing.Size(205, 20);
+            this.hastaPicker.TabIndex = 20;
+            // 
+            // desdePicker
+            // 
+            this.desdePicker.Location = new System.Drawing.Point(73, 66);
+            this.desdePicker.Name = "desdePicker";
+            this.desdePicker.Size = new System.Drawing.Size(201, 20);
+            this.desdePicker.TabIndex = 19;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(205, 18);
+            this.label7.Location = new System.Drawing.Point(23, 43);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(76, 13);
             this.label7.TabIndex = 18;
@@ -96,7 +110,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(415, 42);
+            this.label6.Location = new System.Drawing.Point(307, 67);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 15;
@@ -105,7 +119,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(415, 18);
+            this.label5.Location = new System.Drawing.Point(22, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 14;
@@ -113,24 +127,24 @@
             // 
             // nroDocTextBox
             // 
-            this.nroDocTextBox.Location = new System.Drawing.Point(93, 39);
+            this.nroDocTextBox.Location = new System.Drawing.Point(403, 13);
             this.nroDocTextBox.MaxLength = 10;
             this.nroDocTextBox.Name = "nroDocTextBox";
-            this.nroDocTextBox.Size = new System.Drawing.Size(106, 20);
+            this.nroDocTextBox.Size = new System.Drawing.Size(156, 20);
             this.nroDocTextBox.TabIndex = 13;
             // 
             // nombreTextBox
             // 
-            this.nombreTextBox.Location = new System.Drawing.Point(93, 15);
+            this.nombreTextBox.Location = new System.Drawing.Point(118, 13);
             this.nombreTextBox.MaxLength = 255;
             this.nombreTextBox.Name = "nombreTextBox";
-            this.nombreTextBox.Size = new System.Drawing.Size(106, 20);
+            this.nombreTextBox.Size = new System.Drawing.Size(156, 20);
             this.nombreTextBox.TabIndex = 12;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 42);
+            this.label4.Location = new System.Drawing.Point(307, 14);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 11;
@@ -139,7 +153,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 18);
+            this.label3.Location = new System.Drawing.Point(23, 17);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 10;
@@ -148,7 +162,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(205, 42);
+            this.label2.Location = new System.Drawing.Point(307, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 13);
             this.label2.TabIndex = 9;
@@ -162,9 +176,9 @@
             "DNI",
             "LE",
             "LC"});
-            this.tipoDocSelector.Location = new System.Drawing.Point(306, 39);
+            this.tipoDocSelector.Location = new System.Drawing.Point(403, 38);
             this.tipoDocSelector.Name = "tipoDocSelector";
-            this.tipoDocSelector.Size = new System.Drawing.Size(97, 21);
+            this.tipoDocSelector.Size = new System.Drawing.Size(156, 21);
             this.tipoDocSelector.TabIndex = 8;
             // 
             // tipoUsrSelector
@@ -174,26 +188,12 @@
             this.tipoUsrSelector.Items.AddRange(new object[] {
             "Afiliado",
             "Profesional"});
-            this.tipoUsrSelector.Location = new System.Drawing.Point(306, 13);
+            this.tipoUsrSelector.Location = new System.Drawing.Point(118, 38);
             this.tipoUsrSelector.Name = "tipoUsrSelector";
-            this.tipoUsrSelector.Size = new System.Drawing.Size(97, 21);
+            this.tipoUsrSelector.Size = new System.Drawing.Size(156, 21);
             this.tipoUsrSelector.TabIndex = 0;
             this.tipoUsrSelector.Tag = "";
             this.tipoUsrSelector.SelectedIndexChanged += new System.EventHandler(this.tipoUsrSelector_SelectedIndexChanged);
-            // 
-            // desdePicker
-            // 
-            this.desdePicker.Location = new System.Drawing.Point(458, 13);
-            this.desdePicker.Name = "desdePicker";
-            this.desdePicker.Size = new System.Drawing.Size(107, 20);
-            this.desdePicker.TabIndex = 19;
-            // 
-            // hastaPicker
-            // 
-            this.hastaPicker.Location = new System.Drawing.Point(458, 39);
-            this.hastaPicker.Name = "hastaPicker";
-            this.hastaPicker.Size = new System.Drawing.Size(107, 20);
-            this.hastaPicker.TabIndex = 20;
             // 
             // AdministradorCancelar
             // 
