@@ -350,6 +350,9 @@ namespace Clinica_Frba.Generar_Receta
             comboCantidad3.Enabled = false;
             comboCantidad4.Enabled = false;
             comboCantidad5.Enabled = false;
+            errorBox.Text = "";
+            medicamentosDeLaReceta.Clear();
+            generarMedicamentos();
         }
 
         private void bonoBox_TextChanged(object sender, EventArgs e)
