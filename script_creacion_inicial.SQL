@@ -1998,10 +1998,9 @@ VALUES('no registrado aún', @fechaAtencion, @fechaLlegada, @numeroBono, @numero
 
 UPDATE CUATRO_QUESOS.Bonos --Actualizo el bono que utilize para la consulta
 SET Bonos.Nro_Usuario = @numeroAfiliado, Bonos.Nro_Consulta = 
-( --busco el numero de la consulta recientemente insertada
-SELECT Consultas.Id_Consulta FROM CUATRO_QUESOS.Consultas 
-WHERE Consultas.Nro_Bono_Consulta = @numeroBono 
-AND Consultas.Nro_Turno = @numeroTurno
+( --busco el numero de la consulta para este afiliado
+SELECT Afiliados.Nro_Consulta + 1 FROM CUATRO_QUESOS.Afiliados
+WHERE Nro_Afiliado = @numeroAfiliado
 )
 WHERE Bonos.Tipo_Bono = 'Consulta' 
 AND Bonos.Numero = @numeroBono 
