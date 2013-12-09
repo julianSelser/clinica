@@ -1960,6 +1960,7 @@ AND DAY(Turnos.Fecha) = DAY(@fechaSistema)
 AND MONTH(Turnos.Fecha) = MONTH(@fechaSistema)
 AND YEAR(Turnos.Fecha) = YEAR(@fechaSistema)
 AND Turnos.Numero NOT IN (SELECT Consultas.Nro_Turno FROM CUATRO_QUESOS.Consultas)
+AND Turnos.Numero NOT IN (SELECT Cancelaciones.Nro_Turno FROM CUATRO_QUESOS.Cancelaciones)
 GO
 
 --devuelve los bonos de consulta que tiene el grupo familiar de un afiliado, siendo congruentes con su plan medico
