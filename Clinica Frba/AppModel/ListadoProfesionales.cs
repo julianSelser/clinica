@@ -208,7 +208,7 @@ namespace Clinica_Frba.AppModel
             index = grillaProfesionales.Columns["Direccion"].Index;
             profesional.direccion = grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString();
             index = grillaProfesionales.Columns["Telefono"].Index;
-            profesional.telefono = Convert.ToInt32(grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            profesional.telefono = Convert.ToInt64(grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString());
             index = grillaProfesionales.Columns["Mail"].Index;
             profesional.mail = grillaProfesionales.Rows.SharedRow(fila).Cells[index].Value.ToString();
             return profesional;

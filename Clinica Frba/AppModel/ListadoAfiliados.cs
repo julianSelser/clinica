@@ -168,7 +168,7 @@ namespace Clinica_Frba.AppModel
             index = grillaAfiliados.Columns["Mail"].Index;
             afiliado.mail = grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString();
             index = grillaAfiliados.Columns["Teléfono"].Index;
-            afiliado.telefono = Convert.ToInt32(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            afiliado.telefono = Convert.ToInt64(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
             index = grillaAfiliados.Columns["Plan Medico"].Index;
             afiliado.codPlan = getCodigoPlan(grillaAfiliados.Rows.SharedRow(fila).Cells[index].Value.ToString());
             index = grillaAfiliados.Columns["Estado Civil"].Index;
