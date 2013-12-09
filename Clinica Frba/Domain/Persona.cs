@@ -13,7 +13,7 @@ namespace Clinica_Frba.Domain
         public string tipoDoc { get; set; }
         public int nroDoc { get; set; }
         public string direccion { get; set; }
-        public int telefono { get; set; }
+        public long telefono { get; set; }
         public string mail { get; set; }
         public DateTime fechaNac { get; set; }
     }

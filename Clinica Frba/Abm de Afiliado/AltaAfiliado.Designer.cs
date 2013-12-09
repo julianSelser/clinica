@@ -82,7 +82,7 @@
             // mail
             // 
             this.mail.Location = new System.Drawing.Point(397, 101);
-            this.mail.MaxLength = 255;
+            this.mail.MaxLength = 254;
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(163, 20);
             this.mail.TabIndex = 125;
@@ -163,7 +163,7 @@
             // direccion
             // 
             this.direccion.Location = new System.Drawing.Point(145, 188);
-            this.direccion.MaxLength = 255;
+            this.direccion.MaxLength = 254;
             this.direccion.Name = "direccion";
             this.direccion.Size = new System.Drawing.Size(100, 20);
             this.direccion.TabIndex = 113;
@@ -181,7 +181,7 @@
             // nroDoc
             // 
             this.nroDoc.Location = new System.Drawing.Point(145, 161);
-            this.nroDoc.MaxLength = 10;
+            this.nroDoc.MaxLength = 9;
             this.nroDoc.Name = "nroDoc";
             this.nroDoc.Size = new System.Drawing.Size(100, 20);
             this.nroDoc.TabIndex = 111;
@@ -223,7 +223,7 @@
             // apellido
             // 
             this.apellido.Location = new System.Drawing.Point(145, 101);
-            this.apellido.MaxLength = 255;
+            this.apellido.MaxLength = 254;
             this.apellido.Name = "apellido";
             this.apellido.Size = new System.Drawing.Size(100, 20);
             this.apellido.TabIndex = 107;
@@ -241,7 +241,7 @@
             // nombre
             // 
             this.nombre.Location = new System.Drawing.Point(145, 75);
-            this.nombre.MaxLength = 255;
+            this.nombre.MaxLength = 254;
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(100, 20);
             this.nombre.TabIndex = 105;

@@ -105,7 +105,7 @@ namespace Clinica_Frba.Abm_de_Profesional
             profesional.direccion = direcBox.Text;
             profesional.mail = mailBox.Text;
             profesional.nroMatricula = Convert.ToInt32(matriculaBox.Text);
-            profesional.telefono = Convert.ToInt32(telBox.Text);
+            profesional.telefono = Convert.ToInt64(telBox.Text);
             profesional.sexo = sexo;
             profesional.fechaNac = Convert.ToDateTime(fechaNacBox.Text);
             return profesional;

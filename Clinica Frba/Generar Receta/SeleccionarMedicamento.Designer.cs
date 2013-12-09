@@ -118,7 +118,7 @@
             // descripcionBox
             // 
             this.descripcionBox.Location = new System.Drawing.Point(121, 62);
-            this.descripcionBox.MaxLength = 255;
+            this.descripcionBox.MaxLength = 254;
             this.descripcionBox.Name = "descripcionBox";
             this.descripcionBox.Size = new System.Drawing.Size(204, 20);
             this.descripcionBox.TabIndex = 26;
@@ -136,7 +136,7 @@
             // nroMedicamentoBox
             // 
             this.nroMedicamentoBox.Location = new System.Drawing.Point(121, 27);
-            this.nroMedicamentoBox.MaxLength = 10;
+            this.nroMedicamentoBox.MaxLength = 9;
             this.nroMedicamentoBox.Name = "nroMedicamentoBox";
             this.nroMedicamentoBox.Size = new System.Drawing.Size(204, 20);
             this.nroMedicamentoBox.TabIndex = 22;

@@ -50,12 +50,12 @@ namespace Clinica_Frba.AppModel
 
         public static DataTable getAfiliados(string nombre, string apellido, string tipoDoc,int nroDoc ,string nroRaiz)
         {
-            int nroAfiliadoRaiz = 0;
+            long nroAfiliadoRaiz = 0;
             int numeroDoc = 0;
             if (numeroDoc != 0) numeroDoc = nroDoc;
             if (nroRaiz != "")
             {
-                nroAfiliadoRaiz = Convert.ToInt32(nroRaiz);
+                nroAfiliadoRaiz = Convert.ToInt64(nroRaiz);
                 nroAfiliadoRaiz = (nroAfiliadoRaiz - (nroAfiliadoRaiz % 100));
             }
             return traerDataTable("getAfiliados", nombre, apellido, tipoDoc, numeroDoc ,nroAfiliadoRaiz);

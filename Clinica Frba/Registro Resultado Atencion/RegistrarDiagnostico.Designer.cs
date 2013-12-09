@@ -53,7 +53,7 @@
             // enfermedadesBox
             // 
             this.enfermedadesBox.Location = new System.Drawing.Point(22, 124);
-            this.enfermedadesBox.MaxLength = 255;
+            this.enfermedadesBox.MaxLength = 254;
             this.enfermedadesBox.Multiline = true;
             this.enfermedadesBox.Name = "enfermedadesBox";
             this.enfermedadesBox.Size = new System.Drawing.Size(432, 55);
@@ -63,7 +63,7 @@
             // sintomasBox
             // 
             this.sintomasBox.Location = new System.Drawing.Point(22, 42);
-            this.sintomasBox.MaxLength = 255;
+            this.sintomasBox.MaxLength = 254;
             this.sintomasBox.Multiline = true;
             this.sintomasBox.Name = "sintomasBox";
             this.sintomasBox.Size = new System.Drawing.Size(432, 56);

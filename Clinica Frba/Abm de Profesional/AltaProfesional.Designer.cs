@@ -129,7 +129,7 @@
             // nroDocBox
             // 
             this.nroDocBox.Location = new System.Drawing.Point(136, 154);
-            this.nroDocBox.MaxLength = 10;
+            this.nroDocBox.MaxLength = 9;
             this.nroDocBox.Name = "nroDocBox";
             this.nroDocBox.Size = new System.Drawing.Size(203, 20);
             this.nroDocBox.TabIndex = 7;
@@ -219,7 +219,7 @@
             // matriculaBox
             // 
             this.matriculaBox.Location = new System.Drawing.Point(139, 313);
-            this.matriculaBox.MaxLength = 10;
+            this.matriculaBox.MaxLength = 9;
             this.matriculaBox.Name = "matriculaBox";
             this.matriculaBox.Size = new System.Drawing.Size(200, 20);
             this.matriculaBox.TabIndex = 23;
