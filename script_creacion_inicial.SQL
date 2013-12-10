@@ -2551,6 +2551,7 @@ begin
                         where sub.ID_Medico = @ID
                                 and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
                                 and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Consultas) --y que no haya sido efectivizado el turno
                         
         fetch CurLocal into @ID, @Habilitado
         end
@@ -2592,6 +2593,7 @@ begin
                         where sub.Nro_Afiliado = @Nro
                                 and sub.Fecha > CUATRO_QUESOS.FechaMigracion()
                                 and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Cancelaciones) --y ojo que no este ya cancelado!
+                                and sub.Numero not in (select Nro_Turno from CUATRO_QUESOS.Consultas) --y que no haya sido efectivizado el turno
                         
         fetch CurLocal into @Nro, @Fecha_Baja
         end
