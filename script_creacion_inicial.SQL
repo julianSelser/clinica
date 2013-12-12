@@ -1203,13 +1203,6 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION CUATRO_QUESOS.getPrincipioDeMes(@ANIO INT, @MES INT) RETURNS DATETIME --retorna el principio del mes y año especificado
-AS
-BEGIN
-	RETURN ( CAST( CONVERT(VARCHAR(8), @ANIO*10000 + @MES*100 + 1) AS DATETIME) )
-END
-GO
-
 CREATE FUNCTION CUATRO_QUESOS.getFinalDeMes(@PrincipioMes DATETIME) RETURNS DATETIME --retorna el fin del mes en base al principio del mes
 AS
 BEGIN
@@ -2188,13 +2181,13 @@ GO
 /****** PROCEDURES LISTADOS ESTADISTICOS ******/
 
 -- genera el listado correspondiente al top 5 de bonos vencidos por afiliados
--- genera el listado correspondiente al top 5 de bonos vencidos por afiliados
 CREATE PROCEDURE CUATRO_QUESOS.bonosVencidosPorAfiliado (@ANIO INT, @MES INT, @FINMES INT = NULL, @FECHASISTEMA DATETIME)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
-	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
+	SET LANGUAGE 'SPANISH'
+	DECLARE @PrincipioMES DATETIME = DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@MES-1,0)
+	DECLARE @FinalMES DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
+											ELSE CUATRO_QUESOS.getFinalDeMes(DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@FINMES-1,0))
 											END
 											
 	SELECT A.Nro_afiliado,  A.nombre + ' ' + A.apellido , COUNT(*) CANTIDAD
@@ -2212,9 +2205,10 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasRecetas (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
-	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
+	SET LANGUAGE 'SPANISH'
+	DECLARE @PrincipioMES DATETIME = DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@MES-1,0)
+	DECLARE @FinalMES DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
+											ELSE CUATRO_QUESOS.getFinalDeMes(DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@FINMES-1,0))
 											END
 	
 	SELECT E.Codigo , E.Descripcion , COUNT(DISTINCT(B.Numero)) CANTIDAD  
@@ -2230,9 +2224,10 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.especialidadesConMasCancelaciones (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
-	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
+ 	SET LANGUAGE 'SPANISH'
+	DECLARE @PrincipioMES DATETIME = DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@MES-1,0)
+	DECLARE @FinalMES DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
+											ELSE CUATRO_QUESOS.getFinalDeMes(DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@FINMES-1,0))
 											END
 											
 	SELECT E.Codigo, E.Descripcion,COUNT(E.Descripcion) AS CANTIDAD
@@ -2248,9 +2243,10 @@ GO
 CREATE PROCEDURE CUATRO_QUESOS.bonosPorTerceros (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
-	DECLARE @PrincipioMES DATETIME = CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @MES)
-	DECLARE @FinalMES	  DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
-											ELSE CUATRO_QUESOS.getFinalDeMes(CUATRO_QUESOS.getPrincipioDeMes(@ANIO, @FINMES))
+	SET LANGUAGE 'SPANISH'
+	DECLARE @PrincipioMES DATETIME = DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@MES-1,0)
+	DECLARE @FinalMES DATETIME = CASE WHEN @FINMES IS NULL THEN CUATRO_QUESOS.getFinalDeMes(@PrincipioMES)
+											ELSE CUATRO_QUESOS.getFinalDeMes(DATEADD(yy,(@ANIO-1900),0) + DATEADD(mm,@FINMES-1,0))
 											END
 	
 	SELECT A.Nro_Afiliado, A.nombre + ' ' + A.apellido, COUNT(B.numero) AS CANTIDAD
