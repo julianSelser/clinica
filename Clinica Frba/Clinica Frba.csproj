@@ -140,6 +140,7 @@
     </Compile>
     <Compile Include="AppModel\ErrorManager.cs" />
     <Compile Include="AppModel\Excepciones\AfiliadoYaExisteException.cs" />
+    <Compile Include="AppModel\Excepciones\DecrementarCantHijosException.cs" />
     <Compile Include="AppModel\Excepciones\MatriculaDuplicadaException.cs" />
     <Compile Include="AppModel\Excepciones\NoHayHorarioDisponiblesException.cs" />
     <Compile Include="AppModel\Excepciones\RolYaExisteException.cs" />

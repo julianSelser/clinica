@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Clinica_Frba.AppModel;
 using Clinica_Frba.Domain;
+using Clinica_Frba.AppModel.Excepciones;
 
 //Funcionalidad que permite editar los datos del afiliado y luego de confirmarlos, los actualiza en la base de datos
 
@@ -96,11 +97,18 @@ namespace Clinica_Frba.Abm_de_Afiliado
 
         private void acceptButton_Click(object sender, EventArgs e)
         {
-            actualizarAfiliado();
-            AppAfiliado.actualizarAfiliado(afiliado);
-            MessageBox.Show("La actualización se ha realizado con éxito");
-            registrarCambioPlan();
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            try
+            {
+                actualizarAfiliado();
+                AppAfiliado.actualizarAfiliado(afiliado);
+                MessageBox.Show("La actualización se ha realizado con éxito");
+                registrarCambioPlan();
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+            catch (DecrementarCantFamiliaresException ex)
+            {
+                ErrorManager.messageErrorBox(ex, "Modificar Afiliado");
+            }
         }
 
         private void registrarCambioPlan()

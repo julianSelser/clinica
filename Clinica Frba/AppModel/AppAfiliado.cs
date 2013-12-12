@@ -40,6 +40,7 @@ namespace Clinica_Frba.AppModel
 
         public static void actualizarAfiliado(Afiliado afiliado)
         {
+            if (cantidadFamiliaresACargoRegistrados(afiliado) > afiliado.cantFamiliaresACargo) throw new DecrementarCantFamiliaresException(); 
             ejecutarProcedure("updateAfiliado", afiliado.nroAfiliado, afiliado.direccion, afiliado.telefono, afiliado.mail, afiliado.codPlan, afiliado.estadoCivil, afiliado.cantFamiliaresACargo);
         }
 
