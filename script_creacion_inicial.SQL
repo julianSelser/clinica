@@ -66,6 +66,7 @@ CREATE TABLE CUATRO_QUESOS.Bonos ( --La tabla bonos se modelo con estrategia SIN
 ;
 
 CREATE TABLE CUATRO_QUESOS.Cambios_Plan (
+		Id_Cambio numeric(18) NOT NULL Identity(1,1),
         Nro_Afiliado numeric(18) NOT NULL,
         Fecha datetime NOT NULL,
         Plan_Origen numeric(18) NOT NULL,
@@ -269,7 +270,7 @@ ALTER TABLE CUATRO_QUESOS.Bonos ADD CONSTRAINT PK_Bonos
 ;
 
 ALTER TABLE CUATRO_QUESOS.Cambios_Plan ADD CONSTRAINT PK_Cambios_Plan
-        PRIMARY KEY CLUSTERED (Nro_Afiliado, Fecha)
+        PRIMARY KEY CLUSTERED (Id_Cambio)
 ;
 
 ALTER TABLE CUATRO_QUESOS.Cancelaciones ADD CONSTRAINT PK_Cancelaciones
@@ -1573,7 +1574,7 @@ CREATE PROCEDURE CUATRO_QUESOS.registrarCambioPlanMedico
 
 AS
 BEGIN
-        INSERT INTO CUATRO_QUESOS.Cambios_Plan
+        INSERT INTO CUATRO_QUESOS.Cambios_Plan(Nro_Afiliado, Fecha, Plan_Origen, Plan_Destino, Motivo)
         VALUES (@nroAfiliado, @fecha, @planMedicoAnterior, @planMedicoNuevo, @motivo)
 END
 GO
