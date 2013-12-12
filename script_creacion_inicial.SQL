@@ -1973,9 +1973,7 @@ WHERE Bonos.Tipo_Bono = 'Consulta'
 AND EXISTS (
 SELECT * FROM CUATRO_QUESOS.Afiliados 
 WHERE Afiliados.Nro_Afiliado = @nroAfiliado 
-AND( Bonos.Nro_Afiliado = Afiliados.Nro_Afiliado 
-OR Bonos.Nro_Afiliado =  Afiliados.Nro_Conyuge
-OR Bonos.Nro_Afiliado = Afiliados.Nro_Titular) 
+AND Bonos.Nro_Afiliado BETWEEN CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado) AND CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado)+99
 )
 AND Bonos.Cod_Plan IN (
 SELECT Afiliados.Cod_Plan 
@@ -2392,9 +2390,7 @@ WHERE Bonos.Tipo_Bono = 'Farmacia'
 AND EXISTS (
 SELECT * FROM CUATRO_QUESOS.Afiliados 
 WHERE Afiliados.Nro_Afiliado = @nroAfiliado 
-AND( Bonos.Nro_Afiliado = Afiliados.Nro_Afiliado 
-OR Bonos.Nro_Afiliado =  Afiliados.Nro_Conyuge
-OR Bonos.Nro_Afiliado = Afiliados.Nro_Titular) 
+AND Bonos.Nro_Afiliado BETWEEN CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado) AND CUATRO_QUESOS.raizNroAfiliado(@nroAfiliado)+99
 )
 AND Bonos.Cod_Plan IN (
 SELECT Afiliados.Cod_Plan 
