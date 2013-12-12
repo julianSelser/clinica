@@ -2102,6 +2102,8 @@ create procedure CUATRO_QUESOS.generarAgenda(@ID numeric(18), @fecha_desde datet
 as
 begin
 
+set datefirst 1 --porque para nosotros 1 significa lunes, y si esto llega a correr en una máquina con inglés americano por default, va a romper
+
 /* -- creo horas del día -- */
 create table #horas_del_dia
 (
@@ -2123,7 +2125,7 @@ end
 --esta tabla contiene todos los intervalos de media hora que hay en un día dado
 
 /* -- creo días -- */
-create table #Dias --calendar table
+create table #Dias
 (
         dia date
 )

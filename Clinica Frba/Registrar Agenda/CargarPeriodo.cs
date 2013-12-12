@@ -40,8 +40,9 @@ namespace Clinica_Frba.Registrar_Agenda
         }
 
         private bool verificarRangoNonZero(DateTime desde, DateTime hasta)
+        //pareciera que puede ser cero el rango, pero en realidad desde=hasta va a significar un día completo según la lógica del SP
         {
-            if (desde >= hasta) return false;
+            if (desde > hasta) return false;
             else return true;
         }
 
