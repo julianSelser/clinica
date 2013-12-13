@@ -2241,7 +2241,7 @@ END
 GO
 
 -- genera el top 10 de los afiliados que usaron bonos que ellos mismos no compraron
-CREATE PROCEDURE CUATRO_QUESOS.bonosPorTerceros (@ANIO INT, @MES INT, @FINMES INT = NULL)
+ALTER PROCEDURE [CUATRO_QUESOS].[bonosPorTerceros] (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
 	SET LANGUAGE 'SPANISH'
@@ -2252,7 +2252,7 @@ BEGIN
 	
 	SELECT A.Nro_Afiliado, A.nombre + ' ' + A.apellido, COUNT(B.numero) AS CANTIDAD
 	FROM CUATRO_QUESOS.Bonos B, CUATRO_QUESOS.Afiliados A
-	WHERE B.Nro_Afiliado = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario -- el numero de usuario y el del afiliado que los compro seran distintos 
+	WHERE B.Nro_Usuario = A.Nro_Afiliado AND B.Nro_Afiliado != B.Nro_Usuario -- el numero de usuario y el del afiliado que los compro seran distintos 
 		AND B.Fecha_Impresion BETWEEN @PrincipioMES AND @FinalMES
 	GROUP BY A.Nro_Afiliado, A.nombre, A.apellido
 	ORDER BY COUNT(B.numero) DESC
