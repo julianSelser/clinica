@@ -28,6 +28,7 @@ namespace Clinica_Frba.Abm_de_Rol
             validarHabilitado();
             cargarCampos();
             validarCampos();
+            if (rol.nombre == "Administrativo" || rol.nombre == "Afiliado" || rol.nombre == "Profesional") textBox1.Enabled = false;
         }
 
         private void validarHabilitado() 
