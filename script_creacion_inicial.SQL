@@ -233,8 +233,7 @@ ALTER TABLE CUATRO_QUESOS.Afiliados ADD CONSTRAINT CHK_Estado_Civil --Solo se pe
          Estado_Civil = 'Divorciado/a' OR
          Estado_Civil = 'Viudo/a' OR
          Estado_Civil = 'Concubinato' OR
-         Estado_Civil = 'Casado/a' OR
-         Estado_Civil = '-')
+         Estado_Civil = 'Casado/a')
 ;
 
 -- UNIQUE Constraints 
@@ -1447,7 +1446,7 @@ BEGIN
                                 @Telefono,
                                 @Fecha_Nac,
                                 @Cod_Plan,
-                                '-' , -- Como no interesa el estado civil de un hijo / familiar a cargo, se pone guion por defecto
+                                'Soltero/a' , -- Como no interesa el estado civil de un hijo / familiar a cargo, se pone Soltero/a por defecto
                                 0,
                                 @nroAfiliadoTitular
                                 )
