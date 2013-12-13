@@ -2241,7 +2241,7 @@ END
 GO
 
 -- genera el top 10 de los afiliados que usaron bonos que ellos mismos no compraron
-ALTER PROCEDURE [CUATRO_QUESOS].[bonosPorTerceros] (@ANIO INT, @MES INT, @FINMES INT = NULL)
+CREATE PROCEDURE [CUATRO_QUESOS].[bonosPorTerceros] (@ANIO INT, @MES INT, @FINMES INT = NULL)
 AS
 BEGIN
 	SET LANGUAGE 'SPANISH'
