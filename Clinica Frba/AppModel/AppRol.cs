@@ -124,6 +124,7 @@ namespace Clinica_Frba.AppModel
 
         private static void updateNombreRol(Rol rol)
         {
+            if (buscarRol(rol) > 0) throw new RolYaExisteException(rol);
             ejecutarProcedure("modificarRol", rol.id, rol.nombre);
         }
     }
