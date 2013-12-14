@@ -44,19 +44,26 @@ namespace Clinica_Frba.Cancelar_Atencion
 
         protected void cancelarPeriodo_Click(object sender, EventArgs e)
         {
-            AsistenteVistas.mostrarNuevaVentana(new SetMotivoCancelarPeriodo(this, (DataTable)grilla.DataSource), this);
+            if (null != grilla.DataSource && 0 != grilla.Rows.Count)
+            {
+                AsistenteVistas.mostrarNuevaVentana(new SetMotivoCancelarPeriodo(this, (DataTable)grilla.DataSource), this);
+            }
+            else
+                MessageBox.Show("La grilla está vacia. Seleccione un intervalo de fechas con turnos.", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
         }
 
         protected void cancelarAtencion_Click(object sender, EventArgs e)
         {
-            if (0 != grilla.SelectedRows.Count && !esFechaDeHoy())
+            if (null != grilla.DataSource && 0 != grilla.Rows.Count && 0 != grilla.SelectedRows.Count && !esFechaDeHoy())
             {
                 AsistenteVistas.mostrarNuevaVentana(new SetearMotivoCancelacion(this, grilla.SelectedRows), this);
             }
-            else 
-                if (esFechaDeHoy())
+            else
+                if (null == grilla.DataSource || 0 == grilla.Rows.Count)
+                    MessageBox.Show("La grilla está vacia. Busque y seleccione un turno.", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+                else if (esFechaDeHoy())
                     MessageBox.Show("No se pueden cancelar turnos el mismo día que se producirá la atención.", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
-                else 
+                else if (0 == grilla.SelectedRows.Count)
                     MessageBox.Show("Debe Seleccionar una fila", "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
         }
 
