@@ -97,6 +97,9 @@ namespace Clinica_Frba.Pedir_Turno
                     comboFechas.Items.Add(fecha.ToString("dd/MM/yyyy"));
                 }
                 comboFechas.Enabled = true;
+                comboTimeslots.Enabled = false;
+                comboTimeslots.Items.Clear();
+                aceptarButton.Enabled = false;
             }
             catch(NoHayHorarioDisponiblesException ex)
             {
