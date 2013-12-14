@@ -176,7 +176,7 @@ namespace Clinica_Frba.Abm_de_Afiliado
             afiliado.direccion = direccion.Text;
             afiliado.mail = mail.Text;
             afiliado.telefono = Convert.ToInt64(telefono.Text);
-            afiliado.fechaNac = Convert.ToDateTime(fechaNacimiento.Value);
+            afiliado.fechaNac = fechaNacimiento.Value;
             afiliado.codPlan = getCodigoPlan(planMedico.Text);
             afiliado.estadoCivil = estadoCivil.Text;
             if(cantFamiliares.Text == "") cantFamiliares.Text = "0";

@@ -129,7 +129,7 @@ namespace Clinica_Frba.Registro_de_LLegada
             turno.nroAfiliado = afiliado.nroAfiliado;
             turno.idMedico = profesional.id;
             index = grillaTurnos.Columns["Fecha de Turno"].Index;
-            turno.fecha = Convert.ToDateTime(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value.ToString());
+            turno.fecha = Convert.ToDateTime(grillaTurnos.Rows.SharedRow(fila).Cells[index].Value);
             return turno;
         }
 

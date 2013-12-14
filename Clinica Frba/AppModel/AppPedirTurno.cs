@@ -35,7 +35,7 @@ namespace Clinica_Frba.AppModel
 
         private static DateTime crearFecha(DataRow row)
         {
-           return Convert.ToDateTime(row["Fechas Disponibles"].ToString());
+           return Convert.ToDateTime(row["Fechas Disponibles"]);
         }
 
         internal static List<DateTime> traerTimeslotsFecha(Profesional profesional, DateTime fechaAgenda)
@@ -57,7 +57,7 @@ namespace Clinica_Frba.AppModel
 
         private static DateTime crearHorario(DataRow row)
         {
-            return Convert.ToDateTime(row["Horarios Disponibles"].ToString());
+            return Convert.ToDateTime(row["Horarios Disponibles"]);
         }
 
         internal static void generarTurno(Afiliado afiliado, Profesional profesional, EspecialidadMedica especialidadTurno, DateTime timeslot)

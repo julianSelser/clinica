@@ -14,8 +14,8 @@ namespace Clinica_Frba.AppModel
     {
         public static DateTime getFechaSistema()
         {
-            DateTimeFormatInfo español = new CultureInfo("es-ES", true).DateTimeFormat;
-            return Convert.ToDateTime(ConfigurationSettings.AppSettings["fechaSistema"], español);
+            DateTimeFormatInfo esp = new CultureInfo("es-ES", true).DateTimeFormat;
+            return Convert.ToDateTime(ConfigurationSettings.AppSettings["fechaSistema"], esp);
         }
     }
 }
