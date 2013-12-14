@@ -32,7 +32,14 @@ namespace Clinica_Frba.Cancelar_Atencion
 
         protected void buscar_Click(object sender, EventArgs e)
         {
-            this.ActualizarGrilla();
+            if (camposValidos()) //cada subclase debe indicar como validar los campos ingresados
+            {
+                this.ActualizarGrilla();
+            }
+            else
+            {
+                MessageBox.Show(mensajeDeError(), "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+            }
         }
 
         protected void cancelarPeriodo_Click(object sender, EventArgs e)
@@ -73,8 +80,8 @@ namespace Clinica_Frba.Cancelar_Atencion
 
                 grilla.AutoResizeColumns();
             }
-            else
-                MessageBox.Show(mensajeDeError(), "Error de ingreso", MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
+            else 
+                grilla.DataSource = null;
         }
 
 

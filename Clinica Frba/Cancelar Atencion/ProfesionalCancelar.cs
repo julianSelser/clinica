@@ -21,6 +21,11 @@ namespace Clinica_Frba.Cancelar_Atencion
             hastaPicker.Value = Globales.getFechaSistema().AddDays(2);
         }
 
+        protected override string mensajeDeError()
+        {
+            return "intervalo inválido.";
+        }
+
         override protected bool camposValidos()
         {
             return fechasValidas(desdePicker.Value, hastaPicker.Value);

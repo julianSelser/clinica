@@ -32,10 +32,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.hastaPicker = new System.Windows.Forms.DateTimePicker();
+            this.desdePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.desdePicker = new System.Windows.Forms.DateTimePicker();
-            this.hastaPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -79,6 +79,20 @@
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             // 
+            // hastaPicker
+            // 
+            this.hastaPicker.Location = new System.Drawing.Point(339, 12);
+            this.hastaPicker.Name = "hastaPicker";
+            this.hastaPicker.Size = new System.Drawing.Size(200, 20);
+            this.hastaPicker.TabIndex = 17;
+            // 
+            // desdePicker
+            // 
+            this.desdePicker.Location = new System.Drawing.Point(81, 12);
+            this.desdePicker.Name = "desdePicker";
+            this.desdePicker.Size = new System.Drawing.Size(200, 20);
+            this.desdePicker.TabIndex = 16;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label2);
@@ -93,24 +107,10 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(559, 13);
+            this.label2.Size = new System.Drawing.Size(551, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Para ver todos sus turnos deje en blanco los campos de fechas, puede usarlos para" +
-                " buscar sus turnos en un periodo.";
-            // 
-            // desdePicker
-            // 
-            this.desdePicker.Location = new System.Drawing.Point(81, 12);
-            this.desdePicker.Name = "desdePicker";
-            this.desdePicker.Size = new System.Drawing.Size(200, 20);
-            this.desdePicker.TabIndex = 16;
-            // 
-            // hastaPicker
-            // 
-            this.hastaPicker.Location = new System.Drawing.Point(339, 12);
-            this.hastaPicker.Name = "hastaPicker";
-            this.hastaPicker.Size = new System.Drawing.Size(200, 20);
-            this.hastaPicker.TabIndex = 17;
+            this.label2.Text = "Seleccione un rango de fechas válidas para ver los turnos que puede cancelar. No " +
+                "puede elegirse la fecha del día.";
             // 
             // ProfesionalCancelar
             // 
@@ -136,10 +136,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker hastaPicker;
         private System.Windows.Forms.DateTimePicker desdePicker;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
 
     }
 }
