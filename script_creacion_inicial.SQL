@@ -1727,7 +1727,7 @@ AND t.id_medico = @ID_Medico
 WHERE t.Numero NOT IN(
                 SELECT c.Nro_Turno
                 FROM CUATRO_QUESOS.Cancelaciones c)
-        AND((fecha >= @DesdeFecha AND fecha <= @HastaFecha)
+        AND((CAST(fecha AS DATE) BETWEEN CAST(@DesdeFecha AS DATE) AND CAST(@HastaFecha AS DATE))
         OR (@DesdeFecha IS NULL AND @HastaFecha IS NULL)
         OR (@DesdeFecha = '' AND @HastaFecha = ''))
         AND t.Numero NOT IN (SELECT Consultas.Nro_Turno FROM CUATRO_QUESOS.Consultas)
