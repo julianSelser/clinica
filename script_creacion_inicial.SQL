@@ -7,6 +7,7 @@ CREATE SCHEMA [CUATRO_QUESOS] AUTHORIZATION [gd]
 GO
 
 SET LANGUAGE 'Español'
+SET DATEFIRST 1
 GO
 
 -- Funcion con la fecha de migracion
@@ -2093,6 +2094,7 @@ create procedure CUATRO_QUESOS.generarAgenda(@ID numeric(18), @fecha_desde datet
 as
 begin
 
+set language 'spanish'
 set datefirst 1 --porque para nosotros 1 significa lunes, y si esto llega a correr en una máquina con inglés americano por default, va a romper
 
 /* -- creo horas del día -- */
