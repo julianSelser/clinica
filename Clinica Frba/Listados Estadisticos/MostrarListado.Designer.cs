@@ -57,6 +57,7 @@
             this.grilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grilla.Location = new System.Drawing.Point(12, 12);
             this.grilla.Name = "grilla";
+            this.grilla.ReadOnly = true;
             this.grilla.RowHeadersVisible = false;
             this.grilla.RowHeadersWidth = 46;
             this.grilla.Size = new System.Drawing.Size(736, 147);
@@ -71,7 +72,7 @@
             this.info.TabIndex = 9;
             this.info.Text = "info de listado";
             // 
-            // MostrarListadoMeses
+            // MostrarListado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,7 +80,7 @@
             this.Controls.Add(this.info);
             this.Controls.Add(this.grilla);
             this.Controls.Add(this.volver);
-            this.Name = "MostrarListadoMeses";
+            this.Name = "MostrarListado";
             this.Text = "Mostrar Listado";
             ((System.ComponentModel.ISupportInitialize)(this.grilla)).EndInit();
             this.ResumeLayout(false);
