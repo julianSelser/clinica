@@ -2472,6 +2472,15 @@ INSERT INTO CUATRO_QUESOS.Turnos(Numero, Nro_Afiliado, Id_Medico, Cod_Especialid
 VALUES ((SELECT MAX(Numero)+1 FROM CUATRO_QUESOS.Turnos),@nroAfiliado, @idMedico, @codEspecialidad, @fecha)
 GO
 
+--devuelve el numero de turno del afiliado pasado por parametro que coincida con la fecha
+CREATE PROCEDURE CUATRO_QUESOS.getTurnoAfiliado @nroAfiliado numeric(18), @fecha datetime
+AS
+SELECT Turnos.Numero
+FROM CUATRO_QUESOS.Turnos 
+WHERE Turnos.Nro_Afiliado = @nroAfiliado AND Turnos.Fecha = @fecha 
+AND Turnos.Numero NOT IN (SELECT Cancelaciones.Nro_Turno FROM CUATRO_QUESOS.Cancelaciones)
+GO
+
 /**************** FIN PROCEDURES PEDIR TURNO ********************/
 
 /********** TRIGGERS *****************/

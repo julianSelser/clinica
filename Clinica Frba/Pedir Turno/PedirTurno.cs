@@ -126,10 +126,17 @@ namespace Clinica_Frba.Pedir_Turno
 
         private void aceptarButton_Click(object sender, EventArgs e)
         {
-            DateTime fecha_horario = crearFechaHorario();
-            AppPedirTurno.generarTurno(afiliado, profesional, especialidadTurno, fecha_horario);
-            MessageBox.Show("El turno se generó correctamente\n\nNro. Afiliado: "+afiliado.nroAfiliado+"\nId Medico: "+profesional.id+"\nEspecialidad: "+especialidadTurno.descripcion+"\nFecha y Horario: "+fecha_horario.ToString("dd/MM/yy HH:mm"));
-            AsistenteVistas.volverAPadreYCerrar(padre, this);
+            try
+            {
+                DateTime fecha_horario = crearFechaHorario();
+                AppPedirTurno.generarTurno(afiliado, profesional, especialidadTurno, fecha_horario);
+                MessageBox.Show("El turno se generó correctamente\n\nNro. Afiliado: " + afiliado.nroAfiliado + "\nId Medico: " + profesional.id + "\nEspecialidad: " + especialidadTurno.descripcion + "\nFecha y Horario: " + fecha_horario.ToString("dd/MM/yy HH:mm"));
+                AsistenteVistas.volverAPadreYCerrar(padre, this);
+            }
+            catch (AfiliadoYaTieneTurnoException ex)
+            {
+                ErrorManager.messageErrorBox(ex, "Pedir Turno");
+            }
         }
 
         private DateTime crearFechaHorario()

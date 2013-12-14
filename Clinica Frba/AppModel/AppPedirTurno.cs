@@ -62,6 +62,7 @@ namespace Clinica_Frba.AppModel
 
         internal static void generarTurno(Afiliado afiliado, Profesional profesional, EspecialidadMedica especialidadTurno, DateTime timeslot)
         {
+            if(checkIfExists("getTurnoAfiliado", afiliado.nroAfiliado, timeslot)) throw new AfiliadoYaTieneTurnoException();
             ejecutarProcedure("generarTurno", afiliado.nroAfiliado, profesional.id, especialidadTurno.codigo, timeslot);
         }
     }
